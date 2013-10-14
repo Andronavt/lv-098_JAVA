@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 13, 2013 3:32:36 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="Test.First.domain.ipv4_addresses" table="ipv4_addresses">
+		<id name="id" type="int">
+			<column name="id" not-null="true" />
+			<generator class="native" />
+		</id>
+		<property name="address" type="java.lang.String">
+			<column name="address" not-null="true" />
+		</property>
+		<property name="date_added" type="java.util.Date">
+			<column name="date_added" />
+		</property>
+		
+		 <set name="ipSourceSet" table="source_to_addresses" 
+        	inverse="false" lazy="true" fetch="select" cascade="all" >
+            <key>
+                <column name="v4_id" not-null="false" />
+            </key>
+            <many-to-many entity-name="Test.First.domain.IpSource">
+                <column name="source_id" not-null="true" />
+            </many-to-many>
+        </set>
+		
+		
+    </class>
+</hibernate-mapping>
