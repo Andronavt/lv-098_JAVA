@@ -3,18 +3,17 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-		<property name="hibernate.connection.password">19933991</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://127.0.0.1:1433; Instance=SQL2008;databaseName=ip_addresses</property>
-		<property name="hibernate.connection.username">olkooo</property>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
+		<property name="hibernate.connection.password">1992</property>
+		<property name="hibernate.connection.url">jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=Ip_addresses</property>
+		<property name="hibernate.connection.username">andrew</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
-        
-        <!-- Enable Hibernate's automatic session context management -->
 
 		<property name="current_session_context_class">thread</property>
+
 		<mapping resource="Test/First/domain/ipv4_addresses.hbm.xml" />
 		<mapping resource="Test/First/domain/ipv6_addresses.hbm.xml" />
 		<mapping resource="Test/First/domain/IpSource.hbm.xml" />
-    </session-factory>
+	</session-factory>
 </hibernate-configuration>

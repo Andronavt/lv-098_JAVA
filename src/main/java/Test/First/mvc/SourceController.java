@@ -26,8 +26,8 @@ public class SourceController {
 				.getCurrentSession();
 		System.out.println("==========================================");
 		session.beginTransaction();
-		openBSDParse(session);
-		// querySources(session);
+		// openBSDParse(session);
+		querySources(session);
 		// manyToManyTest(session);
 	}
 
