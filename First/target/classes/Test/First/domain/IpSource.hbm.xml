@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 13, 2013 10:57:36 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="Test.First.domain.IpSource" table="sources">
+		<id name="id" type="int">
+			<column name="id" />
+			<generator class="native" />
+		</id>
+		<property name="source_name" type="java.lang.String">
+			<column name="source_name" />
+		</property>
+		<property name="url" type="java.lang.String">
+			<column name="url" />
+		</property>
+		<property name="source_date_added" type="java.util.Date">
+			<column name="source_date_added" />
+		</property>
+		<property name="updated" type="java.util.Date">
+			<column name="updated" />
+		</property>
+		<property name="rank" type="double">
+			<column name="rank" />
+		</property>
+		<property name="dirname" type="java.lang.String">
+			<column name="dirname" />
+		</property>
+		<property name="list_type" type="java.lang.String">
+			<column name="list_type" />
+		</property>
+		<property name="adaptor" type="java.lang.String">
+			<column name="adaptor" />
+		</property>
+		<property name="downloader" type="java.lang.String">
+			<column name="downloader" />
+		</property>
+		<property name="md5" type="java.lang.String">
+			<column name="md5" />
+		</property>
+		<set name="ipv4Set" table="source_to_addresses" inverse="false"
+			lazy="true" fetch="select" cascade="all">
+			<key>
+				<column name="source_id" not-null="true" />
+			</key>
+			<many-to-many entity-name="Test.First.domain.ipv4_addresses">
+				<column name="v4_id" not-null="false" />
+			</many-to-many>
+		</set>
+
+		<set name="ipv6Set" table="source_to_addresses" inverse="false"
+			lazy="true" fetch="select" cascade="all">
+			<key>
+				<column name="source_id" not-null="true" />
+			</key>
+			<many-to-many entity-name="Test.First.domain.ipv6_addresses">
+				<column name="v6_id" not-null="false" />
+			</many-to-many>
+		</set>
+
+
+	</class>
+</hibernate-mapping>
