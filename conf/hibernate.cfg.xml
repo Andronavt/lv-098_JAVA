@@ -5,9 +5,9 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
-		<property name="hibernate.connection.password">1992</property>
-		<property name="hibernate.connection.url">jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=Ip_addresses</property>
-		<property name="hibernate.connection.username">andrew</property>
+		<property name="hibernate.connection.password">19933991</property>
+		<property name="hibernate.connection.url">jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=ip_addresses</property>
+		<property name="hibernate.connection.username">olkooo</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
 
 		<property name="current_session_context_class">thread</property>
