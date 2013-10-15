@@ -14,7 +14,7 @@ public class IpV6Address extends IpAddress {
 	public IpV6Address() {
 
 	}
-
+	
 	public IpV6Address(String address, Date dateAdded) {
 		this.address = address;
 		this.dateAdded = dateAdded;
