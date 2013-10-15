@@ -9,6 +9,7 @@ import javax.persistence.Table;
 @Entity
 @SequenceGenerator(initialValue = 1, name = "idGenerator")
 @Table(name = "ipv4_addresses")
+//test comment
 public class IpV4Address extends IpAddress {
 
 	public IpV4Address() {
