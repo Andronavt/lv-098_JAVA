@@ -1,4 +1,4 @@
-package Test.First.domain;
+package tc.lv.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,25 +14,17 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class IpAddress implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "idGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "generateIp")
 	@Column(name = "id")
 	private int id;
 	@Column(name = "address")
 	protected String address;
 	@Column(name = "date_added")
 	protected Date dateAdded;
-	protected Set<IpSource> ipSourceSet = new HashSet<IpSource>(0);
 
 	public IpAddress() {
 	}
 
-	public Set<IpSource> getIpSourceSet() {
-		return ipSourceSet;
-	}
-
-	public void setIpSourceSet(Set<IpSource> ipSourceSet) {
-		this.ipSourceSet = ipSourceSet;
-	}
 
 	public int getId() {
 		return id;
@@ -60,5 +52,8 @@ public abstract class IpAddress implements Serializable {
 
 	public String getIp() {
 		return address;
+	}
+	public static void main(String[] args) {
+		System.out.println("adads");
 	}
 }

@@ -1,4 +1,4 @@
-package Test.First.domain;
+package tc.lv.domain;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@SequenceGenerator(initialValue = 1, name = "idGenerator")
+@SequenceGenerator(initialValue = 1, name = "generatev4")
 @Table(name = "ipv4_addresses")
 //test comment
 public class IpV4Address extends IpAddress {
