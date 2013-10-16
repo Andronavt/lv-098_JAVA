@@ -1,4 +1,4 @@
-package tc.lv.domain;
+package tc.lv.domain.ipclasses;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,7 +14,6 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class IpAddress implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "generate")
 	@Column(name = "id")
 	private int id;
 	@Column(name = "address")
