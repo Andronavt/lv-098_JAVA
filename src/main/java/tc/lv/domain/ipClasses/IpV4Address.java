@@ -1,4 +1,4 @@
-package tc.lv.domain.ipclasses;
+package tc.lv.domain.ipClasses;
 
 import java.util.Date;
 
@@ -15,6 +15,10 @@ public class IpV4Address extends IpAddress {
 
 	}
 
+	public IpV4Address(String address) {
+		this.address = address;
+	}
+	
 	public IpV4Address(String address, Date dateAdded) {
 		this.address = address;
 		this.dateAdded = dateAdded;
