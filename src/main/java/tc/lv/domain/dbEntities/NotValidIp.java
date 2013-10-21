@@ -1,4 +1,4 @@
-package tc.lv.domain.ipClasses;
+package tc.lv.domain.dbEntities;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,23 +10,22 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name = "ipv6_addresses")
-public class IpV6Address extends IpAddress {
-
-	@ManyToMany(cascade = CascadeType.MERGE, mappedBy = "ipv6Set")
+@Table(name = "not_valid_ip")
+public class NotValidIp extends IpAddress {
+	
+	@ManyToMany(cascade = CascadeType.MERGE, mappedBy = "notValidSet")
 	private Set<Source> sourceSet = new HashSet<Source>();
-
-	public IpV6Address() {
+	
+	public NotValidIp() {
 
 	}
-
-	public IpV6Address(String address) {
+	
+	public NotValidIp(String address) {
 		this.address = address;
 	}
-
-	public IpV6Address(String address, Date dateAdded) {
+	
+	public NotValidIp(String address, Date dateAdded) {
 		this.address = address;
 		this.dateAdded = dateAdded;
 	}
@@ -42,5 +41,5 @@ public class IpV6Address extends IpAddress {
 	public void addElementToSourceSet(Source source) {
 		sourceSet.add(source);
 	}
-
+	
 }

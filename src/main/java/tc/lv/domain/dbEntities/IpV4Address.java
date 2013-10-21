@@ -1,4 +1,4 @@
-package tc.lv.domain.ipClasses;
+package tc.lv.domain.dbEntities;
 
 import java.io.Serializable;
 import java.util.Collection;

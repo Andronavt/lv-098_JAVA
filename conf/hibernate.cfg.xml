@@ -18,16 +18,16 @@
 		</property>
 
 		<!-- Echo all executed SQL to stdout -->
-		<property name="show_sql">true</property>
+		<property name="show_sql">false</property>
 
 		<!-- Drop and re-create the database schema at startup -->
-		<property name="hbm2ddl.auto">create</property>
+		<property name="hbm2ddl.auto">update</property>
 
 		<!-- Names the annotated entity class -->
-		<mapping class="tc.lv.domain.ipClasses.IpAddress" />
-		<mapping class="tc.lv.domain.ipClasses.IpV4Address" />
-		<mapping class="tc.lv.domain.ipClasses.IpV6Address" />
-		<mapping class="tc.lv.domain.ipClasses.NotValidIp" />
-		<mapping class="tc.lv.domain.ipClasses.Source" />
+		<mapping class="tc.lv.domain.dbEntities.IpAddress" />
+		<mapping class="tc.lv.domain.dbEntities.IpV4Address" />
+		<mapping class="tc.lv.domain.dbEntities.IpV6Address" />
+		<mapping class="tc.lv.domain.dbEntities.NotValidIp" />
+		<mapping class="tc.lv.domain.dbEntities.Source" />
 	</session-factory>
 </hibernate-configuration>

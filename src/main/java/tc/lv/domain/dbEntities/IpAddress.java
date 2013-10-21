@@ -1,4 +1,4 @@
-package tc.lv.domain.ipClasses;
+package tc.lv.domain.dbEntities;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -25,7 +25,7 @@ public abstract class IpAddress implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id",unique=true)
 	protected int id;
-	@Column(name = "address",updatable=true,unique=true)
+	@Column(name = "address",updatable=true,nullable=false)
 	protected String address;
 	@Column(name = "date_added")
 	protected Date dateAdded;

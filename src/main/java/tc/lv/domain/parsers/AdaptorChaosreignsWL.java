@@ -1,0 +1,62 @@
+package tc.lv.domain.parsers;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import tc.lv.domain.dbEntities.IpAddress;
+import tc.lv.domain.dbEntities.IpV4Address;
+import tc.lv.domain.dbEntities.IpV6Address;
+import tc.lv.domain.dbEntities.NotValidIp;
+
+public class AdaptorChaosreignsWL {
+	private static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
+	private static List<IpV4Address> ip4list = new ArrayList<IpV4Address>();
+	private static List<IpV6Address> ip6list = new ArrayList<IpV6Address>();
+	private static List<NotValidIp> notValidList = new ArrayList<NotValidIp>();
+
+	public static void parse(String way) {
+		List<IpAddress> iplist = new ArrayList<IpAddress>();
+		Pattern pattern = Pattern.compile(IP_ALL);
+		Matcher matcher;
+		Scanner line;
+		try {
+			line = new Scanner(new BufferedReader(new FileReader(way)));
+			while (line.hasNext()) {
+				String ipStr = "";
+				matcher = pattern.matcher(line.nextLine());
+				if (matcher.find()) {
+					ipStr = matcher.group();
+					if (IpValidator.isIpV4(ipStr)) {
+						ip4list.add(new IpV4Address(ipStr, new Date()));
+					} else if (IpValidator.isIpV6(ipStr)) {
+						ip6list.add(new IpV6Address(ipStr, new Date()));
+					} else {
+						notValidList.add(new NotValidIp(ipStr, new Date()));
+					}
+				}
+			}
+			line.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static List<IpV4Address> getIpv4List() {
+		return ip4list;
+	}
+	public static List<IpV6Address> getIpv6List() {
+		return ip6list;
+	}
+	public static List<NotValidIp> getNotValidList() {
+		return notValidList;
+	}
+
+}

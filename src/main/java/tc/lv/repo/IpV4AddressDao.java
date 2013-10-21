@@ -2,21 +2,24 @@ package tc.lv.repo;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import tc.lv.domain.ipClasses.IpAddress;
+import tc.lv.domain.dbEntities.IpAddress;
 
 public class IpV4AddressDao implements IpDaoInterface {
 
 	@Autowired
-	private SessionFactory sessionFactory = null;
+	private EntityManager entityManager;
 	private static IpV4AddressDao ipV4AddressDao = null;
 
 	private IpV4AddressDao() {
-		sessionFactory = new Configuration().configure().buildSessionFactory();
 	}
 
 	public static IpV4AddressDao getInstance() {
@@ -31,8 +34,6 @@ public class IpV4AddressDao implements IpDaoInterface {
 	}
 
 	public boolean add(IpAddress ipAddress) {
-		
-		Session session = sessionFactory.openSession();
 		return false;
 	
 	}
@@ -40,6 +41,11 @@ public class IpV4AddressDao implements IpDaoInterface {
 	public List<IpAddress> getAllIp() {
 
 		return null;
+	}
+	
+	public boolean addAllIpAddresses(List<IpAddress> inputArray) {
+		
+		return false;
 	}
 
 }

@@ -1,4 +1,4 @@
-package tc.lv.domain.ipClasses;
+package tc.lv.domain.dbEntities;
 
 import java.util.Collection;
 import java.util.Date;
@@ -27,34 +27,34 @@ import org.hibernate.annotations.FetchMode;
 public class Source {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "source_id")
+	@Column(name = "source_id",nullable=false)
 	private int sourceId;
 
-	@Column(name = "source_name")
+	@Column(name = "source_name",nullable=false)
 	private String sourceName;
 
-	@Column(name = "url",unique=true)
+	@Column(name = "url",unique=true,nullable=false)
 	private String url;
 
-	@Column(name = "source_date_added")
+	@Column(name = "source_date_added",nullable=false)
 	private Date source_date_added;
 
-	@Column(name = "updated")
+	@Column(name = "updated",nullable=false)
 	private Date updated;
 
-	@Column(name = "rank")
+	@Column(name = "rank",nullable=false)
 	private Double rank;
 
-	@Column(name = "dirname")
+	@Column(name = "dirname",nullable=false)
 	private String dirname;
 
-	@Column(name = "list_type")
+	@Column(name = "list_type",nullable=false)
 	private String list_type;
 
-	@Column(name = "adaptor")
+	@Column(name = "adaptor",nullable=false)
 	private String adaptor;
 
-	@Column(name = "downloader")
+	@Column(name = "downloader",nullable=false)
 	private String downloader;
 
 	@Column(name = "md5")

@@ -9,17 +9,17 @@
 		<!-- The datasource is deployed as WEB-INF/spring-quickstart-ds.xml, you 
 			can find it in the source at src/main/webapp/WEB-INF/spring-quickstart-ds.xml -->
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>tc.lv.domain.ipClasses.IpAddress</class>
-		<class>tc.lv.domain.ipClasses.IpV4Address</class>
-		<class>tc.lv.domain.ipClasses.IpV6Address</class>
-		<class>tc.lv.domain.ipClasses.NotValidIp</class>
-		<class>tc.lv.domain.ipClasses.Source</class>
+		<class>tc.lv.domain.dbEntities.IpAddress</class>
+		<class>tc.lv.domain.dbEntities.IpV4Address</class>
+		<class>tc.lv.domain.dbEntities.IpV6Address</class>
+		<class>tc.lv.domain.dbEntities.NotValidIp</class>
+		<class>tc.lv.domain.dbEntities.Source</class>
 		<properties>
 			<property name="jboss.entity.manager.factory.jndi.name"
 				value="java:jboss/spring-quickstart/persistence" />
 			<!-- Properties for Hibernate -->
-			<property name="hibernate.hbm2ddl.auto" value="create" />
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 
 			<property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver" />
