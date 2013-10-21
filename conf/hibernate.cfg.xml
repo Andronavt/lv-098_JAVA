@@ -7,10 +7,27 @@
 		<property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
 		<property name="hibernate.connection.password">19933991</property>
 		<property name="hibernate.connection.url">jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=ip_addresses</property>
-		<property name="hibernate.connection.username">olkooo</property>
+		<property name="hibernate.connection.username">oleg</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
-		<mapping class="tc.lv.domain.ipclasses.IpV4Address" />
-		<mapping class="tc.lv.domain.ipclasses.NotValidIp" />
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
 
+		<!-- SQL dialect -->
+		<property name="dialect">
+			org.hibernate.dialect.SQLServerDialect
+		</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+
+		<!-- Drop and re-create the database schema at startup -->
+		<property name="hbm2ddl.auto">create</property>
+
+		<!-- Names the annotated entity class -->
+		<mapping class="tc.lv.domain.ipClasses.IpAddress" />
+		<mapping class="tc.lv.domain.ipClasses.IpV4Address" />
+		<mapping class="tc.lv.domain.ipClasses.IpV6Address" />
+		<mapping class="tc.lv.domain.ipClasses.NotValidIp" />
+		<mapping class="tc.lv.domain.ipClasses.Source" />
 	</session-factory>
 </hibernate-configuration>

@@ -18,18 +18,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name = "sources")
 public class Source {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "source_id")
 	private int sourceId;
 
 	@Column(name = "source_name")
 	private String sourceName;
 
-	@Column(name = "url")
+	@Column(name = "url",unique=true)
 	private String url;
 
 	@Column(name = "source_date_added")
@@ -39,7 +43,7 @@ public class Source {
 	private Date updated;
 
 	@Column(name = "rank")
-	private double rank;
+	private Double rank;
 
 	@Column(name = "dirname")
 	private String dirname;
@@ -56,29 +60,29 @@ public class Source {
 	@Column(name = "md5")
 	private String md5;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "source_to_addresses", joinColumns = {@JoinColumn(name = "source_id")}, 
-	                                         inverseJoinColumns = {@JoinColumn(name = "v4_id")})
+	@ManyToMany(cascade =CascadeType.ALL)
+	@JoinTable(name = "source_to_addresses", 
+	joinColumns = {@JoinColumn(name = "source_id")}, 
+	inverseJoinColumns = {@JoinColumn(name = "v4_id",updatable=true,nullable=true)})
+	@Fetch(FetchMode.JOIN)
 	private Collection<IpV4Address> ipv4Set = new HashSet<IpV4Address>();
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "source_to_addresses", joinColumns = {@JoinColumn(name = "source_id")}, 
-	                                         inverseJoinColumns = {@JoinColumn(name = "v6_id")})
+	@ManyToMany(cascade =CascadeType.ALL)
+	@JoinTable(name = "source_to_addresses", 
+	joinColumns = {@JoinColumn(name = "source_id")}, 
+	inverseJoinColumns = {@JoinColumn(name = "v6_id",updatable=true,nullable=true)})
+	@Fetch(FetchMode.JOIN)
 	private Collection<IpV6Address> ipv6Set = new HashSet<IpV6Address>();
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "source_to_addresses", joinColumns = {@JoinColumn(name = "source_id")}, 
-	                                         inverseJoinColumns = {@JoinColumn(name = "not_valid")})
+	@ManyToMany(cascade =CascadeType.ALL)
+	@JoinTable(name = "source_to_addresses", 
+	joinColumns = {@JoinColumn(name = "source_id")}, 
+	inverseJoinColumns = {@JoinColumn(name = "not_valid_id",updatable=true,nullable=true)})
+	@Fetch(FetchMode.JOIN)
 	private Collection<NotValidIp> notValidSet = new HashSet<NotValidIp>();
 
-	public Collection<NotValidIp> getNotValidSet() {
-		return notValidSet;
-	}
-	public void setNotValidSet(Collection<NotValidIp> notValidSet) {
-		this.notValidSet = notValidSet;
-	}
-	public Source(){
-		
+	public Source() {
+
 	}
 	public Source(String sourceName, String url, Date source_date_added,
 			Date updated, double rank, String dirname, String list_type,
@@ -173,12 +177,6 @@ public class Source {
 	public void setMd5(String md5) {
 		this.md5 = md5;
 	}
-	public Collection<IpV4Address> getIpv4Set() {
-		return ipv4Set;
-	}
-	public void setIpv4Set(Collection<IpV4Address> ipv4Set) {
-		this.ipv4Set = ipv4Set;
-	}
 
 	public int getSourceId() {
 		return sourceId;
@@ -195,12 +193,43 @@ public class Source {
 	public void setIpv6Set(Collection<IpV6Address> ipv6Set) {
 		this.ipv6Set = ipv6Set;
 	}
-	
-	// public Set<NotValidIp> getNotValidIpSet() {
-	// return notValidIpSet;
-	// }
-	// public void setNotValidIpSet(Set<NotValidIp> notValidIpSet) {
-	// this.notValidIpSet = notValidIpSet;
-	// }
+
+	public Collection<NotValidIp> getNotValidSet() {
+		return notValidSet;
+	}
+	public void setNotValidSet(Collection<NotValidIp> notValidSet) {
+		this.notValidSet = notValidSet;
+	}
+
+	public Collection<IpV4Address> getIpv4Set() {
+		return ipv4Set;
+	}
+	public void setIpv4Set(Collection<IpV4Address> ipv4Set) {
+		this.ipv4Set = ipv4Set;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((sourceName == null) ? 0 : sourceName.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Source other = (Source) obj;
+		if (sourceName == null) {
+			if (other.sourceName != null)
+				return false;
+		} else if (!sourceName.equals(other.sourceName))
+			return false;
+		return true;
+	}
 
 }
