@@ -1,4 +1,4 @@
-package tc.lv.repo;
+package tc.lv.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import tc.lv.domain.dbEntities.IpV4Address;
-import tc.lv.domain.dbEntities.IpV6Address;
-import tc.lv.domain.dbEntities.NotValidIp;
-import tc.lv.domain.dbEntities.Source;
+import org.springframework.stereotype.Repository;
 
+import tc.lv.domain.IpV4Address;
+import tc.lv.domain.IpV6Address;
+import tc.lv.domain.NotValidIp;
+import tc.lv.domain.Source;
+
+@Repository
 public class SourceDaoImpl implements SourceDao {
-
+	
 	private EntityManager entityManager;
 
 	public SourceDaoImpl() {

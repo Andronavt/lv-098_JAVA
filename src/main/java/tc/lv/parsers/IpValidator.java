@@ -1,4 +1,4 @@
-package tc.lv.domain.parsers;
+package tc.lv.parsers;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

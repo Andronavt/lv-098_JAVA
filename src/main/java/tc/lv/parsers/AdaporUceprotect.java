@@ -1,4 +1,4 @@
-package tc.lv.domain.parsers;
+package tc.lv.parsers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -8,9 +8,9 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import tc.lv.domain.dbEntities.IpV4Address;
-import tc.lv.domain.dbEntities.IpV6Address;
-import tc.lv.domain.dbEntities.NotValidIp;
+import tc.lv.domain.IpV4Address;
+import tc.lv.domain.IpV6Address;
+import tc.lv.domain.NotValidIp;
 
 public class AdaporUceprotect {
 	 private static final String ALL_IP = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";

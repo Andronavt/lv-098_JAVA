@@ -1,4 +1,4 @@
-package tc.lv.domain.dbEntities;
+package tc.lv.domain;
 
 import java.io.Serializable;
 import java.util.Collection;

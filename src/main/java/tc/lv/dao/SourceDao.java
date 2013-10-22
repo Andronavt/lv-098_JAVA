@@ -1,10 +1,10 @@
-package tc.lv.repo;
+package tc.lv.dao;
 
 import java.util.List;
 
-import tc.lv.domain.dbEntities.IpV4Address;
-import tc.lv.domain.dbEntities.IpV6Address;
-import tc.lv.domain.dbEntities.NotValidIp;
+import tc.lv.domain.IpV4Address;
+import tc.lv.domain.IpV6Address;
+import tc.lv.domain.NotValidIp;
 
 public interface SourceDao {
 
