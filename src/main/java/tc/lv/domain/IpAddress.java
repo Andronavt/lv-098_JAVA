@@ -22,20 +22,14 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class IpAddress implements Serializable {
 	@Id
-<<<<<<< HEAD
-	@Column(name = "id")
-	private int id;
-	@Column(name = "address")
-=======
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id",unique=true)
+	@Column(name = "id", unique = true)
 	protected int id;
-	@Column(name = "address",updatable=true,nullable=false)
->>>>>>> andrewoliynyk
+	@Column(name = "address", updatable = true, nullable = false)
 	protected String address;
 	@Column(name = "date_added")
 	protected Date dateAdded;
-	
+
 	public IpAddress() {
 	}
 
@@ -67,21 +61,14 @@ public abstract class IpAddress implements Serializable {
 		return address;
 	}
 
-<<<<<<< HEAD
-	public static void main(String[] args) {
-		System.out.println("adads");
-=======
-
 	@Override
 	public int hashCode() {
 		return address.hashCode();
->>>>>>> andrewoliynyk
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.getAddress().equals(((IpAddress)obj).getAddress());
+		return this.getAddress().equals(((IpAddress) obj).getAddress());
 	}
 
 }

@@ -12,14 +12,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ipv4_addresses")
-<<<<<<< HEAD
-public class IpV4Address extends IpAddress {
-=======
 public class IpV4Address extends IpAddress implements Serializable {
 
 	@ManyToMany(cascade = CascadeType.MERGE, mappedBy = "ipv4Set")
 	private Set<Source> sourceSet = new HashSet<Source>();
->>>>>>> andrewoliynyk
 
 	public IpV4Address() {
 
@@ -45,6 +41,5 @@ public class IpV4Address extends IpAddress implements Serializable {
 	public void addElementToSourceSet(Source source) {
 		sourceSet.add(source);
 	}
-	
 
 }
