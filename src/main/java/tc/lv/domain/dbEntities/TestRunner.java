@@ -20,12 +20,12 @@ import org.hibernate.cfg.Configuration;
 
 import tc.lv.domain.parsers.AdaporUceprotect;
 import tc.lv.domain.parsers.AdaptorChaosreignsWL;
-import tc.lv.repo.SourceDao;
+import tc.lv.repo.SourceDaoImpl;
 
 public class TestRunner {
 
 	public static void main(String[] args) throws FileNotFoundException {
-		SourceDao sourceDao = new SourceDao();
+		SourceDaoImpl sourceDao = new SourceDaoImpl();
 		AdaptorChaosreignsWL adaptorChaosreignsWL = new AdaptorChaosreignsWL();
 		adaptorChaosreignsWL.parse("C:\\Users\\Oleg\\Desktop\\resource2.txt");
 		AdaporUceprotect adaporUceprotect = new AdaporUceprotect();
