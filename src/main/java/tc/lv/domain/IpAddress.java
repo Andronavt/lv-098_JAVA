@@ -14,7 +14,6 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class IpAddress implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "generateIp")
 	@Column(name = "id")
 	private int id;
 	@Column(name = "address")
@@ -24,7 +23,6 @@ public abstract class IpAddress implements Serializable {
 
 	public IpAddress() {
 	}
-
 
 	public int getId() {
 		return id;
@@ -53,6 +51,7 @@ public abstract class IpAddress implements Serializable {
 	public String getIp() {
 		return address;
 	}
+
 	public static void main(String[] args) {
 		System.out.println("adads");
 	}
