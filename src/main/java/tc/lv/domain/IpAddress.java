@@ -1,26 +1,41 @@
 package tc.lv.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class IpAddress implements Serializable {
 	@Id
+<<<<<<< HEAD
 	@Column(name = "id")
 	private int id;
 	@Column(name = "address")
+=======
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id",unique=true)
+	protected int id;
+	@Column(name = "address",updatable=true,nullable=false)
+>>>>>>> andrewoliynyk
 	protected String address;
 	@Column(name = "date_added")
 	protected Date dateAdded;
-
+	
 	public IpAddress() {
 	}
 
@@ -52,7 +67,21 @@ public abstract class IpAddress implements Serializable {
 		return address;
 	}
 
+<<<<<<< HEAD
 	public static void main(String[] args) {
 		System.out.println("adads");
+=======
+
+	@Override
+	public int hashCode() {
+		return address.hashCode();
+>>>>>>> andrewoliynyk
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		return this.getAddress().equals(((IpAddress)obj).getAddress());
+	}
+
 }
