@@ -3,13 +3,14 @@ package tc.lv.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
-
+@Service
 public class SourceServiceImpl implements SourceService {
     @Autowired
     private SourceDao dao;
