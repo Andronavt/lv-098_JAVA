@@ -21,6 +21,7 @@ http://www.springframework.org/schema/util
 http://www.springframework.org/schema/util/spring-util.xsd">
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:annotation-config />
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 
 	<bean id="entityManagerFactory"
@@ -30,6 +31,9 @@ http://www.springframework.org/schema/util/spring-util.xsd">
 		</property>
 		<property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml" />
 		<property name="persistenceUnitName" value="primary" />
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 	<!-- @Component, @Service -->
