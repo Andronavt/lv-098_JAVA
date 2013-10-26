@@ -1,0 +1,31 @@
+<!doctype HTML>
+<html>
+<head>
+	<title>IP</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+	<link rel="shortcut icon" type="image/x-icon" href="500px-IP.ico">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="header">
+			<a class="logo" href="index.html">
+				<img title="IP logo" src="img/500px-IP.png" />
+			</a>
+			<a class="login-lnk" href="login.html">Login</a>
+		</div>
+		<div class="inner">
+			<div class="content">
+				<form class="signin-block" action="#">
+					<input type="text" name="user" placeholder="Username" />
+					<input type="password" name="password" placeholder="Password" />
+					<input type="submit" value="Sign In" />
+				</form>
+			</div>
+		</div>
+		<div class="footer">
+			Lv-098 JAVA 2013
+		</div>
+	</div>
+</body>
+</html>
