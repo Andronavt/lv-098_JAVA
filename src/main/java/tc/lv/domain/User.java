@@ -9,11 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
+@NamedQuery(name = "User.findByName", query = "SELECT c FROM User c WHERE c.name = :name")
 public class User {
 
 	@Id
@@ -32,6 +34,13 @@ public class User {
 
 	public User() {
 
+	}
+
+	public User(String name, String password) {
+		super();
+		this.name = name;
+		this.password = password;
+		this.date = new Date();
 	}
 
 	public int getUserId() {
