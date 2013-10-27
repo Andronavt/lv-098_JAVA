@@ -1,11 +1,8 @@
 package tc.lv.dao;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import tc.lv.domain.User;
@@ -27,21 +24,13 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean addAdminUser(String name, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public void addAdminUser(String name, String password) {
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
-	public boolean addCustomerUser(String name, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	public static void main(String[] args) {
-		UserDaoImpl dao = new UserDaoImpl();
-		User a= dao.getUserByName("admin");
-		System.out.println(a.getName());
+	public void addCustomerUser(String name, String password) {
+		// TODO Auto-generated method stub		
 	}
 
 }
