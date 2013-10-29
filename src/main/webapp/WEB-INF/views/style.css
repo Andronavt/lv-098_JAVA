@@ -1,0 +1,157 @@
+html,body {
+margin:0;
+padding:0;
+}
+body {
+font: 73% helvetica, arial, sans-serif;
+line-height:1.8em;
+background: #fff url(images/02.gif) repeat;
+color: #666;
+}
+			/*BANNER PROPERTIES*/
+#banner {
+width:100%;
+height:150px;
+background:#bbd9ee url(images/banner.jpg) top center no-repeat;
+}
+#banner h1 {
+margin: 0 0 0 250px;
+line-height:1.8em;
+letter-spacing: 3px;
+font-size: 2em;
+color: #fff;
+}
+#banner p {
+float:right;
+margin: 10px 10px 0 0;
+padding-top: 10px;
+color : #ff9933;
+}
+			/*TOP NAVIGATION*/	
+div#menu {
+float:left;
+width: 100%;
+padding-top:0;
+background: #bbd9ee;
+}
+ul#nav,ul#nav li {
+list-style-type:none;
+margin:0;
+padding:0
+}
+ul#nav {
+margin-left: 250px;
+width: 500px;
+}
+ul#nav li {
+float: left;
+margin-right: 3px;
+text-align: center;
+}
+ul#nav a {
+float: left;
+width: 7em;
+padding: 5px 0;
+background: #ff9933;
+text-decoration: none;
+color: #fff;
+}
+ul#nav a:hover {
+background: #e7f1f8;
+color: #666;
+}
+ul#nav li.activelink a,ul#nav li.activelink a:hover {
+background: #fff;
+color: #003;
+}
+			/*MAIN CONTAINER*/
+#container {
+width: 770px;
+margin: 0 auto;
+padding: 0;
+}
+#box {
+padding: 10px;
+border: 1px solid #ff9933;
+background: #e7f1f8;
+}
+#box h2 {
+font-size: 2em;
+color: #06a;
+}
+			/*CONTENT_LEFT*/
+#content {
+width: 490px;
+float: left;
+margin: 50px 0 0 0;
+padding: 0 0 30px 10px;
+}
+#content h1 {
+font-size: 1.5em;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: #06a; 
+}
+			/*CONTENT_RIGHT*/
+#content_right {
+width: 200px;
+float: right;
+margin: 50px 10px 0 0;
+padding-bottom: 30px;
+}
+			/*FOOTER*/
+#footer {
+clear: both;
+height: 50px;
+padding: 5px;
+border-top: 3px solid #ff9933;
+background: #bbd9ee;
+}
+			/*TYPOGRAPHY*/
+blockquote {
+font-weight : bold;
+font-style : italic;
+color : #b29b35;
+}
+.small {
+color: #ff9933;
+font-size: 0.8em;
+}
+.big {
+font-weight: bold;
+font-size: 1.2em;
+color: #ff9933;
+}
+			/*IMAGES*/
+.imgright {
+float: left;
+margin: 10px;
+padding: 10px;
+}
+			/*CURVED CORNERS*/
+dl.curved {background:#bbd9ee url(images/c_tl.gif) top left no-repeat; margin:15px 0; padding:0; width:100%;}
+dl.curved dt {background:transparent url(images/c_tr.gif) top right no-repeat; padding:10px; text-align:center; font-weight: bold; color:#fff;}
+dl.curved dd {background:#eee url(images/c_bl.gif) bottom left no-repeat; padding:0; margin:0;}
+dl.curved dd p {margin:0; padding:10px; line-height:1.53em;}
+dl.curved dd p.last {background:transparent url(images/c_br.gif) bottom right no-repeat; }
+			/*LINK PROPERTIES*/
+a img {
+border: none;
+}
+a:link, a:visited {
+color : #286e87;
+background : inherit;
+text-decoration : none;
+}
+a:hover {
+text-decoration : none;
+color : #999;
+background : inherit;
+}
+#navlist li {
+list-style-image : url(images/right.gif);
+background : inherit;
+color : #ff9933;
+margin : 5px 0 0 0;
+padding-left : 10px;
+}
