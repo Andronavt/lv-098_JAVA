@@ -15,8 +15,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "User.findByName", query = "SELECT c FROM User c WHERE c.name = :name")
-public class User {
+@NamedQuery(name = "UserDB.findByName", query = "SELECT c FROM UserDB c WHERE c.name = :name")
+public class UserDB {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,11 +32,11 @@ public class User {
 	@JoinColumn(name = "role_id")
 	private Roles role;
 
-	public User() {
+	public UserDB() {
 
 	}
 
-	public User(String name, String password) {
+	public UserDB(String name, String password) {
 		super();
 		this.name = name;
 		this.password = password;

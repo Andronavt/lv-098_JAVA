@@ -9,17 +9,17 @@
 		<class>tc.lv.domain.IpV4Address</class>
 		<class>tc.lv.domain.NotValidIp</class>
 		<class>tc.lv.domain.Source</class>
-		<class>tc.lv.domain.User</class>
+		<class>tc.lv.domain.UserDB</class>
 		<class>tc.lv.domain.Roles</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
 			<property name="hibernate.connection.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="never" />
 			<property name="hibernate.connection.driver_class" value="net.sourceforge.jtds.jdbc.Driver" />
-			<property name="hibernate.connection.username" value="oleg" />
-			<property name="hibernate.connection.password" value="19933991" />
+			<property name="hibernate.connection.username" value="Bohdan" />
+			<property name="hibernate.connection.password" value="12024060" />
 			<property name="hibernate.connection.url"
-				value="jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=ip_addresses" />
+				value="jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=new_ip_addresses" />
 		</properties>
 	</persistence-unit>
 </persistence> 
