@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p align="left">
+	<p align="right">
 		<sec:authorize access="isAnonymous()">
 			<a href="#" id="getContentLogin">Login</a>
 			<!--  a href="signin">login</a-->
