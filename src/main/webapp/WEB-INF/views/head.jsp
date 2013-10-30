@@ -14,15 +14,11 @@
 <body>
 	<p align="right">
 		<sec:authorize access="isAnonymous()">
-			<a href="#" id="getContentLogin">Login</a>
+			<a href="#" id="getContentLogin">Login/Registration</a>
 			<!--  a href="signin">login</a-->
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
 			<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
-		</sec:authorize>
-		<br>
-		<sec:authorize access="isAnonymous()">
-			<a href="registrationPage">registration</a>
 		</sec:authorize>
 		<br>
 		<sec:authorize access="isAuthenticated()">

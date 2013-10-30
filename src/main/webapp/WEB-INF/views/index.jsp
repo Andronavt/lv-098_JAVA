@@ -32,18 +32,19 @@ h2 {
 }
 
 #header {
-	font-size: 2.0em; /* Размер текста */
-	text-align: right; /* Выравнивание по центру */
+	font-size: 1.5em; /* Размер текста */
+	text-align: center; /* Выравнивание по центру */
 	padding: 5px; /* Отступы вокруг текста */
 	background: #8fa09b; /* Цвет фона шапки */
 	color: #ffe; /* Цвет текста */
 }
 
 #sidebar {
-	margin-top: 10px;
+	margin-top: 0px;
 	width: 110px; /* Ширина слоя */
 	padding: 0 10px; /* Отступы вокруг текста */
 	float: left; /* Обтекание по правому краю */
+	background: #CDC9C9;
 }
 
 #content {
@@ -97,7 +98,7 @@ h2 {
 	</div>
 	<div id="content">
 		<center>
-			<h1>Index jsp</h1>
+			<h1>Welcome to IP-Info resource</h1>
 		</center>
 		<div id="divContent"></div>
 		<script>
