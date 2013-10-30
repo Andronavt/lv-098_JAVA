@@ -68,6 +68,10 @@ public class User implements UserDetails {
     }
 
     public boolean isEnabled() {
+	int a=1;
+	int d;
+	d= a==0 ?(a==1?0:1):5;
+	
 	return true;
     }
 }

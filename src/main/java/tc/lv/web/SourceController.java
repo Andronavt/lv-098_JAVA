@@ -48,8 +48,7 @@ public class SourceController {
     }
 
     @RequestMapping(value = "/admin/TestAddIpv4", method = RequestMethod.POST)
-    public @ResponseBody
-    String addUser(@ModelAttribute(value = "ip") String ip,
+    public @ResponseBody  String addUser(@ModelAttribute(value = "ip") String ip,
 	    @ModelAttribute(value = "source") int source, BindingResult result) {
 	String returnText;
 	if (!result.hasErrors()) {

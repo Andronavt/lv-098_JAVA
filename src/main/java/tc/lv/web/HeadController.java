@@ -12,8 +12,13 @@ public class HeadController {
 	public User populateCurrentUser(){
 		return (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
+   
     @RequestMapping(value = "/head")
     public String index() {
 	return "head";
     }
+     
+    
+    
+    
 }

@@ -65,8 +65,15 @@ h2 {
 <body>
 	<div id="container" style="FONT-SIZE: x-small;">
 		<div id="header">
-			<%@include file="head.jsp"%><br>
-
+			<%@include file="head.jsp"%>
+			<p align="right">
+			<sec:authorize access="isAnonymous()">
+				Welcome! Guest
+			</sec:authorize>
+			<sec:authorize access="isAuthenticated()">
+			Welcome! <sec:authentication property="principal.username" />
+			</sec:authorize>
+			</p>
 		</div>
 	</div>
 
@@ -98,6 +105,7 @@ h2 {
 	</div>
 	<div id="content">
 		<center>
+
 			<h1>Welcome to IP-Info resource</h1>
 		</center>
 		<div id="divContent"></div>
@@ -116,6 +124,7 @@ h2 {
 					});
 					return false;
 				});
+
 				$('#getContentAddIp4').click(function() {
 					$.ajax({
 						url : "admin/TestAddIpv4",
@@ -131,6 +140,7 @@ h2 {
 				});
 			});
 		</script>
+
 
 	</div>
 	<div id="footer">

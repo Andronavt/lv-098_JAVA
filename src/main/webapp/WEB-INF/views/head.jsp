@@ -20,11 +20,6 @@
 		<sec:authorize access="isAuthenticated()">
 			<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 		</sec:authorize>
-		<br>
-		<sec:authorize access="isAuthenticated()">
-				User: ${user.username}
-		</sec:authorize>
-	</p>
-
+</p>
 </body>
 </html>
