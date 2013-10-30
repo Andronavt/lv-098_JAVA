@@ -17,7 +17,7 @@ public class Roles {
 	@Column(name = "role", nullable = false)
 	private String role;
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "role")
-	private User user;
+	private UserDB userDB;
 
 	public int getId() {
 		return id;
@@ -35,12 +35,12 @@ public class Roles {
 		this.role = role;
 	}
 
-	public User getUser() {
-		return user;
+	public UserDB getUser() {
+		return userDB;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(UserDB userDB) {
+		this.userDB = userDB;
 	}
 
 	Roles() {

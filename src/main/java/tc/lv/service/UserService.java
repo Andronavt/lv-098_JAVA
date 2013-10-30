@@ -1,7 +1,7 @@
 package tc.lv.service;
 
-import tc.lv.domain.User;
+import tc.lv.domain.UserDB;
 
 public interface UserService {
-	public User getUserByName(String name);
+	public UserDB getUserByName(String name);
 }

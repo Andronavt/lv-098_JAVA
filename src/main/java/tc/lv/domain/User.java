@@ -1,86 +1,73 @@
 package tc.lv.domain;
 
-import java.util.Date;
+import java.util.Collection;
+import java.util.HashSet;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity
-@Table(name = "users")
-@NamedQuery(name = "User.findByName", query = "SELECT c FROM User c WHERE c.name = :name")
-public class User {
+public class User implements UserDetails {
+    private static final long serialVersionUID = 8266525488057072269L;
+    private String username;
+    private String password;
+    private Collection<GrantedAuthority> authorities;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private int userId;
-	@Column(name = "name", nullable = false)
-	private String name;
-	@Column(name = "password", nullable = false)
-	private String password;
-	@Column(name = "date", nullable = true)
-	private Date date;
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "role_id")
-	private Roles role;
+    public User(String username, String password, String roles) {
+	super();
+	this.username = username;
+	this.password = password;
+	this.setRoles(roles);
+    }
 
-	public User() {
+    public void setRoles(String roles) {
+	this.authorities = new HashSet<GrantedAuthority>();
+	for (final String role : roles.split(",")) {
+	    if (role != null && !"".equals(role.trim())) {
+		GrantedAuthority grandAuthority = new GrantedAuthority() {
+		    private static final long serialVersionUID = 3958183417696804555L;
 
+		    public String getAuthority() {
+			return role.trim();
+		    }
+		};
+		this.authorities.add(grandAuthority);
+	    }
 	}
+    }
 
-	public User(String name, String password) {
-		super();
-		this.name = name;
-		this.password = password;
-		this.date = new Date();
-	}
+    public void setUsername(String username) {
+	this.username = username;
+    }
 
-	public int getUserId() {
-		return userId;
-	}
+    public void setPassword(String password) {
+	this.password = password;
+    }
 
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+	return this.authorities;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getPassword() {
+	return password;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getUsername() {
+	return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public boolean isAccountNonExpired() {
+	return true;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public boolean isAccountNonLocked() {
+	return true;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public boolean isCredentialsNonExpired() {
+	return true;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Roles getRole() {
-		return role;
-	}
-
-	public void setRole(Roles role) {
-		this.role = role;
-	}
-
+    public boolean isEnabled() {
+	return true;
+    }
 }
