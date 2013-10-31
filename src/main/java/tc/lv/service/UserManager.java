@@ -5,20 +5,20 @@ import java.util.HashMap;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import tc.lv.domain.User;
+import tc.lv.domain.UserSecurity;
 
 
 @Service
 public class UserManager {
-	private HashMap<String, User> users;
+	private HashMap<String, UserSecurity> users;
 
 	public UserManager() {
-		users = new HashMap<String, User>();
-		users.put("john", new User("john", "1", "ROLE_USER"));
-		users.put("bob", new User("bob", "2", "ROLE_USER, ROLE_ADMIN"));
+		users = new HashMap<String, UserSecurity>();
+		users.put("john", new UserSecurity("john", "1", "ROLE_USER"));
+		users.put("bob", new UserSecurity("bob", "2", "ROLE_USER, ROLE_ADMIN"));
 	}
 	
-	public User getUser(String username) throws UsernameNotFoundException{
+	public UserSecurity getUser(String username) throws UsernameNotFoundException{
 		if( !users.containsKey( username ) ){
 			throw new UsernameNotFoundException( username + " not found" );
 		}

@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -37,7 +39,7 @@ public class Source {
 	private String url;
 
 	@Column(name = "source_date_added", nullable = false)
-	private Date source_date_added;
+	private Date sourceDateAdded;
 
 	@Column(name = "updated", nullable = false)
 	private Date updated;
@@ -49,7 +51,7 @@ public class Source {
 	private String dirname;
 
 	@Column(name = "list_type", nullable = false)
-	private String list_type;
+	private String listType;
 
 	@Column(name = "adaptor", nullable = false)
 	private String adaptor;
@@ -60,57 +62,63 @@ public class Source {
 	@Column(name = "md5")
 	private String md5;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "source_to_addresses", joinColumns = { @JoinColumn(name = "source_id") }, inverseJoinColumns = { @JoinColumn(name = "v4_id", updatable = true, nullable = true) })
-	@Fetch(FetchMode.JOIN)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet",fetch=FetchType.EAGER)
+	//@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	private Collection<IpV4Address> ipv4Set = new HashSet<IpV4Address>();
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "source_to_addresses", joinColumns = { @JoinColumn(name = "source_id") }, inverseJoinColumns = { @JoinColumn(name = "v6_id", updatable = true, nullable = true) })
-	@Fetch(FetchMode.JOIN)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet",fetch=FetchType.EAGER)
 	private Collection<IpV6Address> ipv6Set = new HashSet<IpV6Address>();
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "source_to_addresses", joinColumns = { @JoinColumn(name = "source_id") }, inverseJoinColumns = { @JoinColumn(name = "not_valid_id", updatable = true, nullable = true) })
-	@Fetch(FetchMode.JOIN)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet",fetch=FetchType.EAGER)
 	private Collection<NotValidIp> notValidSet = new HashSet<NotValidIp>();
 
 	public Source() {
 
 	}
 
-	public Source(String sourceName, String url, Date source_date_added,
-			Date updated, double rank, String dirname, String list_type,
+	public Source(String sourceName, String url, Date sourceDateAdded,
+			Date updated, double rank, String dirname, String listType,
 			String adaptor, String downloader, String md5,
 			Collection<IpV4Address> ipv4Set) {
 		super();
 		this.sourceName = sourceName;
 		this.url = url;
-		this.source_date_added = source_date_added;
+		this.sourceDateAdded = sourceDateAdded;
 		this.updated = updated;
 		this.rank = rank;
 		this.dirname = dirname;
-		this.list_type = list_type;
+		this.listType = listType;
 		this.adaptor = adaptor;
 		this.downloader = downloader;
 		this.md5 = md5;
 		this.ipv4Set = ipv4Set;
 	}
 
-	public Source(String sourceName, String url, Date source_date_added,
-			Date updated, double rank, String dirname, String list_type,
+	public Source(String sourceName, String url, Date sourceDateAdded,
+			Date updated, double rank, String dirname, String listType,
 			String adaptor, String downloader, String md5) {
 		super();
 		this.sourceName = sourceName;
 		this.url = url;
-		this.source_date_added = source_date_added;
+		this.sourceDateAdded = sourceDateAdded;
 		this.updated = updated;
 		this.rank = rank;
 		this.dirname = dirname;
-		this.list_type = list_type;
+		this.listType = listType;
 		this.adaptor = adaptor;
 		this.downloader = downloader;
 		this.md5 = md5;
+	}
+
+	
+
+
+	public int getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(int sourceId) {
+		this.sourceId = sourceId;
 	}
 
 	public String getSourceName() {
@@ -129,12 +137,12 @@ public class Source {
 		this.url = url;
 	}
 
-	public Date getSource_date_added() {
-		return source_date_added;
+	public Date getSourceDateAdded() {
+		return sourceDateAdded;
 	}
 
-	public void setSource_date_added(Date source_date_added) {
-		this.source_date_added = source_date_added;
+	public void setSourceDateAdded(Date sourceDateAdded) {
+		this.sourceDateAdded = sourceDateAdded;
 	}
 
 	public Date getUpdated() {
@@ -145,11 +153,11 @@ public class Source {
 		this.updated = updated;
 	}
 
-	public double getRank() {
+	public Double getRank() {
 		return rank;
 	}
 
-	public void setRank(double rank) {
+	public void setRank(Double rank) {
 		this.rank = rank;
 	}
 
@@ -161,12 +169,12 @@ public class Source {
 		this.dirname = dirname;
 	}
 
-	public String getList_type() {
-		return list_type;
+	public String getListType() {
+		return listType;
 	}
 
-	public void setList_type(String list_type) {
-		this.list_type = list_type;
+	public void setListType(String listType) {
+		this.listType = listType;
 	}
 
 	public String getAdaptor() {
@@ -193,12 +201,12 @@ public class Source {
 		this.md5 = md5;
 	}
 
-	public int getSourceId() {
-		return sourceId;
+	public Collection<IpV4Address> getIpv4Set() {
+		return ipv4Set;
 	}
 
-	public void setSourceId(int sourceId) {
-		this.sourceId = sourceId;
+	public void setIpv4Set(Collection<IpV4Address> ipv4Set) {
+		this.ipv4Set = ipv4Set;
 	}
 
 	public Collection<IpV6Address> getIpv6Set() {
@@ -215,14 +223,6 @@ public class Source {
 
 	public void setNotValidSet(Collection<NotValidIp> notValidSet) {
 		this.notValidSet = notValidSet;
-	}
-
-	public Collection<IpV4Address> getIpv4Set() {
-		return ipv4Set;
-	}
-
-	public void setIpv4Set(Collection<IpV4Address> ipv4Set) {
-		this.ipv4Set = ipv4Set;
 	}
 
 	@Override
