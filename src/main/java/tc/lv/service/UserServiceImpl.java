@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.UserDao;
-import tc.lv.domain.UserDB;
+import tc.lv.domain.User;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Transactional
-	public UserDB getUserByName(String name) {
+	public User getUserByName(String name) {
 		return userDao.getUserByName(name);
 	}
 

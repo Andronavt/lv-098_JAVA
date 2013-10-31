@@ -16,6 +16,10 @@
 			name="j_password" size="20" maxlength="50" type="password" /><br>
 		<input type="submit" value="Login" />
 	</form>
-	<center><a href="RegistrationPage">Registration</a></center>
+	<center><a href="RegistrationPage" style="color: gray">Forgot password </a></center>
+	<br>
+	<center><a href="RegistrationPage" >Registration</a></center>
+	
 </body>
+
 </html>

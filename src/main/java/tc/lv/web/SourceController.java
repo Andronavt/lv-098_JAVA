@@ -35,11 +35,11 @@ public class SourceController {
     }
 
     @RequestMapping(value = "/secure/getList")
-    public String addContact(Map<String, Object> map, @RequestParam String sour) {
+    public  String addContact(Map<String, Object> map, @ModelAttribute(value = "sour")  String sour, BindingResult result) {
 	map.put("ip", new Source());
 	map.put("ipList",
 		souService.getIpV4ListFromSource(Integer.valueOf(sour)));
-	return "secure/TestGetIp4List";
+	return "secure/listIpv4";
     }
 
     @RequestMapping(value = "/admin/TestAddIpv4", method = RequestMethod.GET)
@@ -48,8 +48,7 @@ public class SourceController {
     }
 
     @RequestMapping(value = "/admin/TestAddIpv4", method = RequestMethod.POST)
-    public @ResponseBody
-    String addUser(@ModelAttribute(value = "ip") String ip,
+    public @ResponseBody  String addUser(@ModelAttribute(value = "ip") String ip,
 	    @ModelAttribute(value = "source") int source, BindingResult result) {
 	String returnText;
 	if (!result.hasErrors()) {
