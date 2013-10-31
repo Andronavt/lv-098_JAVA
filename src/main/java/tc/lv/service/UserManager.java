@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import tc.lv.domain.UserSecurity;
 
 
-@Service
+//@Service
 public class UserManager {
 	private HashMap<String, UserSecurity> users;
 
 	public UserManager() {
 		users = new HashMap<String, UserSecurity>();
-		users.put("john", new UserSecurity("john", "1", "ROLE_USER"));
-		users.put("bob", new UserSecurity("bob", "2", "ROLE_USER, ROLE_ADMIN"));
+//		users.put("john", new UserSecurity("john", "1", "ROLE_USER"));
+//		users.put("bob", new UserSecurity("bob", "2", "ROLE_USER, ROLE_ADMIN"));
 	}
 	
 	public UserSecurity getUser(String username) throws UsernameNotFoundException{
