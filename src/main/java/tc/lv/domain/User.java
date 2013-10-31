@@ -22,7 +22,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "UserDB.findByName", query = "SELECT c FROM User c WHERE c.username = :username")
+@NamedQuery(name = "User.findByName", query = "SELECT c FROM User c WHERE c.username = :username")
 public class User {
 
 	@Id

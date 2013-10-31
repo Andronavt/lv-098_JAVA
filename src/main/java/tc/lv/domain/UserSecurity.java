@@ -1,36 +1,41 @@
 package tc.lv.domain;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserSecurity implements UserDetails {
 	private static final long serialVersionUID = 8266525488057072269L;
+	private User user;
 	private String username;
 	private String password;
+	static Role grandAuthRole;
 	private Collection<GrantedAuthority> authorities;
 
-	public UserSecurity(String username, String password, String roles) {
+	public UserSecurity(User inputUser) {
 		super();
-		this.username = username;
-		this.password = password;
-		this.setRoles(roles);
+		user = inputUser;
+		this.username = inputUser.getUsername();
+		this.password = inputUser.getPassword();
+		this.setRoles(inputUser.getRoleSet());
 	}
 
-	public void setRoles(String roles) {
+	public void setRoles(Set<Role> set) {
 		this.authorities = new HashSet<GrantedAuthority>();
-		for (final String role : roles.split(",")) {
-			if (role != null && !"".equals(role.trim())) {
-				GrantedAuthority grandAuthority = new GrantedAuthority() {
-					private static final long serialVersionUID = 3958183417696804555L;
+		for ( Role tempRole : set) {
+			grandAuthRole = tempRole;
 
-					public String getAuthority() {
-						return role.trim();
-					}
-				};
-				this.authorities.add(grandAuthority);
-			}
+			GrantedAuthority grandAuthority = new GrantedAuthority() {
+				private static final long serialVersionUID = 3958183417696804555L;
+
+				public String getAuthority() {
+					return grandAuthRole.getRole();
+				}
+			};
+			this.authorities.add(grandAuthority);
+
 		}
 	}
 
