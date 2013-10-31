@@ -35,11 +35,11 @@ public class SourceController {
     }
 
     @RequestMapping(value = "/secure/getList")
-    public String addContact(Map<String, Object> map, @RequestParam String sour) {
+    public  String addContact(Map<String, Object> map, @ModelAttribute(value = "sour")  String sour, BindingResult result) {
 	map.put("ip", new Source());
 	map.put("ipList",
 		souService.getIpV4ListFromSource(Integer.valueOf(sour)));
-	return "secure/TestGetIp4List";
+	return "secure/listIpv4";
     }
 
     @RequestMapping(value = "/admin/TestAddIpv4", method = RequestMethod.GET)
