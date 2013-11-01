@@ -46,7 +46,7 @@
 	</div>
 	<div id="footer">
 		<center>Copyright © 2013 SoftServe, Inc. All rights reserved.
-			IT Academy(lv-098JAVA-Team)</center>
+			IT Academy(lv-098 JAVA-Team)</center>
 	</div>
 
 </body>

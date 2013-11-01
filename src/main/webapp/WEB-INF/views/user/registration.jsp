@@ -3,7 +3,7 @@
 <body>
 <h3 style="color: green" align="center">Registration</h3>
 <form action="registration" method="post" name="Registration" style="text-align:center" >
-		<table>
+		<table align="center">
 			
 			<tr>
 				<th>User name:</th>

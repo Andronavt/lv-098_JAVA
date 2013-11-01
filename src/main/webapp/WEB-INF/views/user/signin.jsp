@@ -16,16 +16,15 @@
 			name="j_password" size="20" maxlength="50" type="password" /><br>
 		<input type="submit" value="Login" />
 	</form>
-<<<<<<< HEAD
 	<!--<center><a href="#" id="registration" style="color: gray">Forgot password </a></center>-->
-=======
-<%-- 	<center><a href="#" id="registration" style="color: gray">Forgot password </a></center> --%>
->>>>>>> master
+	<!-- 	<center><a href="#" id="registration" style="color: gray">Forgot password </a></center> -->
 	<br>
-	<center><a href="#" id="registration" >Registration</a></center>
+	<center>
+		<a href="#" id="registration">Registration</a>
+	</center>
 	<script type="text/javascript">
-	$(document).ready(function() {
-	$('#registration').click(function() {
+		$(document).ready(function() {
+			$('#registration').click(function() {
 				$.ajax({
 					url : "user/registration",
 					cache : false,
@@ -38,9 +37,9 @@
 				});
 				return false;
 			});
-	});
-	</script>		
-	
+		});
+	</script>
+
 </body>
 
 </html>
