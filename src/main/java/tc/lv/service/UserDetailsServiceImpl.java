@@ -29,8 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		if (userEntity == null) {
 			throw new UsernameNotFoundException("user not found");
 		}
-		userDetails = assembler.buildUserFromUserEntity(userEntity);
-		System.out.println(userDetails.toString()+ " USERRRRRRRRRRRRRRRRRRRRRRRRR FROM ");
+		userDetails = assembler.buildUserFromUserEntity(userEntity);	
 		return userDetails;
 	}
 }
