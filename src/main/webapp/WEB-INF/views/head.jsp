@@ -13,6 +13,7 @@
 </head>
 <body>
 	<p align="right">
+		<img src="resources/img/IP-banner.jpg"/>
 		<sec:authorize access="isAnonymous()">
 			<a href="#" id="getContentLogin">Login/Registration</a>
 			<!--  a href="signin">login</a-->
@@ -20,6 +21,6 @@
 		<sec:authorize access="isAuthenticated()">
 			<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 		</sec:authorize>
-</p>
+	</p>
 </body>
 </html>

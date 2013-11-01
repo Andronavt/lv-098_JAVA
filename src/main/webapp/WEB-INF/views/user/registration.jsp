@@ -4,11 +4,6 @@
 <h3 style="color: green" align="center">Registration</h3>
 <form action="registration" method="post" name="Registration" style="text-align:center" >
 		<table>
-			<tr>
-				<th><p>
-						<b>Registration:</b>
-					</p></th>
-			</tr>
 			
 			<tr>
 				<th>User name:</th>
