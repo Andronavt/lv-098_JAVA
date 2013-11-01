@@ -13,7 +13,7 @@
 <body>
 	<h2>Delete IP from WhiteList</h2>
 
-	<form class="Delete-IP">
+	<form class="Delete-IP" >
 		<label for="IpRemove" id="IpRemoveLabel">Enter the IP that you
 			want to remove: </label> <input id="IpRemoveStr" size="20" maxlength="50"
 			type="text"> <input id="btn1" type="button" value="DELETE"

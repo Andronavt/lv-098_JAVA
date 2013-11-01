@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +23,13 @@ public class SourceDaoImpl implements SourceDao {
 
 	public SourceDaoImpl() {
 
+	}
+
+	@Override
+	public void addNewFeed(String adaptor, String typeofList, String rank,
+			String sourceName, String url) {
+		entityManager.persist(new Source(adaptor, typeofList, rank, sourceName,
+				url));
 	}
 
 	@Override
@@ -81,6 +89,21 @@ public class SourceDaoImpl implements SourceDao {
 		tempSource.addIpToV6Set(tempIp);
 		entityManager.persist(tempSource);
 
+	}
+
+	@Override
+	public List<Source> getListOfSources() {
+		return entityManager.createQuery("from Source").getResultList();
+	}
+
+	@Override
+	public void deleteFeed(String sourceName) {
+		sourceName = sourceName.trim();
+		Query query = entityManager.createNamedQuery("Source.findByName",
+				Source.class).setParameter("sourceName", sourceName);
+		Source tempSource = (Source) query.getSingleResult();
+		System.out.println(tempSource.getSourceName());
+		entityManager.remove(tempSource);
 	}
 
 }

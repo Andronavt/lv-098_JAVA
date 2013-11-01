@@ -5,6 +5,7 @@ import java.util.List;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
+import tc.lv.domain.Source;
 
 public interface SourceDao {
 
@@ -23,7 +24,14 @@ public interface SourceDao {
 	public List<NotValidIp> getFirstNotValidIpListFromSource(int sourceId,
 			int count);
 
+	public void addNewFeed(String adaptor, String typeofList, String rank,
+			String sourceName, String url);
+
 	public void setIpV4Address(String ip, int sourceId);
 
 	public void setIpV6Address(String ip, int sourceId);
+
+	public void deleteFeed(String sourceName);
+
+	public List<Source> getListOfSources();
 }
