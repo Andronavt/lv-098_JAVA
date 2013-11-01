@@ -70,8 +70,8 @@ public class SourceDaoImpl implements SourceDao {
 	public void setIpV4Address(String ip, int sourceId) {
 		Source tempSource = entityManager.find(Source.class, sourceId);
 		IpV4Address tempIp = new IpV4Address(ip, new Date());
-		tempSource.addIpToV4Set(tempIp);
-		entityManager.persist(tempSource);
+		tempIp.addElementToSourceSet(tempSource);
+		entityManager.persist(tempIp);
 	}
 
 	@Override
