@@ -9,16 +9,34 @@
 	<http pattern="/css/**" security="none" />
 
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/secure/**" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/secure/**" access="ROLE_USER" />
+		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<form-login login-page="/signin"
 			authentication-failure-url="/signin-failure" default-target-url="/" />
 	</http>
 
+	<beans:bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="userDetailsService" />
+	</beans:bean>
+
+	<beans:bean id="authenticationManager"
+		class="org.springframework.security.authentication.ProviderManager">
+		<beans:property name="providers">
+			<beans:list>
+				<beans:ref local="daoAuthenticationProvider" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
 	<authentication-manager>
-		<authentication-provider user-service-ref="customUserDetailsService">
+		<authentication-provider user-service-ref="userDetailsService">
+			<password-encoder hash="md5" />
 		</authentication-provider>
 	</authentication-manager>
+
+
+	<global-method-security secured-annotations="enabled" />
 
 </beans:beans>   

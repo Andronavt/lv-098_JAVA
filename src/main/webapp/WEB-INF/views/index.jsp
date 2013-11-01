@@ -65,8 +65,15 @@ h2 {
 <body>
 	<div id="container" style="FONT-SIZE: x-small;">
 		<div id="header">
-			<%@include file="head.jsp"%><br>
-
+			<%@include file="head.jsp"%>
+			<p align="right">
+			<sec:authorize access="isAnonymous()">
+				Welcome! Guest
+			</sec:authorize>
+			<sec:authorize access="isAuthenticated()">
+			Welcome! <sec:authentication property="principal.username" />
+			</sec:authorize>
+			</p>
 		</div>
 	</div>
 
@@ -79,7 +86,7 @@ h2 {
 			<br>
 			<sec:authorize access="hasRole('ROLE_USER')">
 				<spring:url value="/secure/TestGetIp4List" var="secureUrl" />
-				<a href="${secureUrl}" title="TestGetIp4List">Get IPv4 List</a>
+				<a href="#" id="getContentGetIp4List">Get IPv4 List</a>
 			</sec:authorize>
 			<br>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -98,6 +105,7 @@ h2 {
 	</div>
 	<div id="content">
 		<center>
+
 			<h1>Welcome to IP-Info resource</h1>
 		</center>
 		<div id="divContent"></div>
@@ -116,6 +124,7 @@ h2 {
 					});
 					return false;
 				});
+
 				$('#getContentAddIp4').click(function() {
 					$.ajax({
 						url : "admin/TestAddIpv4",
@@ -129,8 +138,22 @@ h2 {
 					});
 					return false;
 				});
+				$('#getContentGetIp4List').click(function() {
+					$.ajax({
+						url : "secure/TestGetIp4List",
+						cache : false,
+						beforeSend : function() {
+							$('#divContent').html('add IP v4');
+						},
+						success : function(html) {
+							$("#divContent").html(html);
+						}
+					});
+					return false;
+				});
 			});
 		</script>
+
 
 	</div>
 	<div id="footer">

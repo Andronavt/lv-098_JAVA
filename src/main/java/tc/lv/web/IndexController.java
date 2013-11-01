@@ -9,9 +9,4 @@ public class IndexController {
     public String index() {
 	return "index";
     }
-    @RequestMapping(value = "/testCSS")
-    public String test() {
-	return "testCSS";
-    }
-
 }

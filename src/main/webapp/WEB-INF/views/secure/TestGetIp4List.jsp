@@ -6,32 +6,43 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
 	<h2>Get all Ipv4 from resource</h2>
-	<form action="secure/getList" method="post" name="drop_down_box">
+	<form name="getContentGetIp4List" id="getContentGetIp4List"
+		action="secure/getList" method="post" name="drop_down_box">
 		<select name="sour" size="1">
-			<option value="1">Source #1</option>
+			<option selected="selected"value="1">Source #1</option>
 			<option value="2">Source #2</option>
 			<option value="3">Source #3</option>
 			<option value="4">Source #4</option>
-			<option selected="selected" value="5">Source #5</option>
-		</select> <input type="submit" value="Get IP list" />
+			<option  value="5">Source #5</option>
+		</select> 
 	</form>
-	<table class="data">
-		<tr>
-			<th>id</th>
-			<th>address</th>
-			<th>date</th>
-		</tr>
-		<c:forEach items="${ipList}" var="ip">
-			<tr>
-				<td>${ip.id}</td>
-				<td>${ip.address}</td>
-				<td>${ip.dateAdded}</td>
-			</tr>
-		</c:forEach>
-	</table>
+	
+	<div id=divGetIp4List></div>
+	<script>
+		$('#getContentGetIp4List').submit(function() {
+			var postData = $(this).serializeArray();
+			var formURL = $(this).attr("action");
+			$.ajax({
+				url : formURL,
+				type : "POST",
+				data : postData,
+				success : function(response) {
+					alert("seccess");
+					$('#divGetIp4List').html(response);
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					alert("error");      
+				}
+			});
+			e.preventDefault(); //STOP default action
+		});
+		$("#getContentGetIp4List").submit();
+	</script>
+	
 </body>
 </html>
