@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.UserDao;
-import tc.lv.domain.User;
+import tc.lv.domain.UserE;
 
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -23,8 +23,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username)
 	    throws UsernameNotFoundException, DataAccessException {
 
-	//UserDetails userDetails = null;
-	User userEntity = dao.getUserByName(username);
+	UserDetails userDetails = null;
+	//System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + userDetails);
+	UserE userEntity = dao.getUserByName(username);
 	
 	if (userEntity == null)
 	    throw new UsernameNotFoundException("user not found");

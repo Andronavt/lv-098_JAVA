@@ -22,8 +22,8 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "UserDB.findByName", query = "SELECT c FROM User c WHERE c.username = :username")
-public class User {
+@NamedQuery(name = "UserDB.findByName", query = "SELECT c FROM UserE c WHERE c.username = :username")
+public class UserE {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,17 +43,19 @@ public class User {
     private Date ctime;
     @Column(name = "ltime", nullable = true)
     private Date ltime;
+    
+    
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = "user_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "role_id", updatable = true, nullable = true) })
     @Fetch(FetchMode.JOIN)
     private Set<Role> roleSet = new HashSet<Role>();
 
-    public User() {
+    public UserE() {
 
     }
 
-    public User(String username, String email, String password,
+    public UserE(String username, String email, String password,
 	    Set<Role> roleSet) {
 	super();
 	this.username = username;
@@ -151,7 +153,7 @@ public class User {
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;
-	User other = (User) obj;
+	UserE other = (UserE) obj;
 	if (password == null) {
 	    if (other.password != null)
 		return false;

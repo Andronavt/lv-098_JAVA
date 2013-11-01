@@ -22,7 +22,7 @@ public class Role {
 	private String role;
 	
 	@ManyToMany(cascade = CascadeType.ALL ,mappedBy="roleSet",fetch=FetchType.EAGER)
-	private Set<User> userSet = new HashSet<User>();
+	private Set<UserE> userSet = new HashSet<UserE>();
 
 	Role() {
 

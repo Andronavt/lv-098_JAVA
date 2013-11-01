@@ -9,7 +9,7 @@
 		<class>tc.lv.domain.IpV4Address</class>
 		<class>tc.lv.domain.NotValidIp</class>
 		<class>tc.lv.domain.Source</class>
-		<class>tc.lv.domain.User</class>
+		<class>tc.lv.domain.UserE</class>
 		<class>tc.lv.domain.Role</class>
 		<class>tc.lv.domain.WhiteList</class>
 		<class>tc.lv.domain.BlackList</class>
