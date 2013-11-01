@@ -22,8 +22,8 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "User.findByName", query = "SELECT c FROM UserE c WHERE c.username = :username")
-public class UserE {
+@NamedQuery(name = "UserEntity.findByName", query = "SELECT c FROM UserEntity c WHERE c.username = :username")
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,11 +51,11 @@ public class UserE {
     @Fetch(FetchMode.JOIN)
     private Set<Role> roleSet = new HashSet<Role>();
 
-    public UserE() {
+    public UserEntity() {
 
     }
 
-    public UserE(String username, String email, String password,
+    public UserEntity(String username, String email, String password,
 	    Set<Role> roleSet) {
 	super();
 	this.username = username;
@@ -153,7 +153,7 @@ public class UserE {
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;
-	UserE other = (UserE) obj;
+	UserEntity other = (UserEntity) obj;
 	if (password == null) {
 	    if (other.password != null)
 		return false;

@@ -16,9 +16,26 @@
 			name="j_password" size="20" maxlength="50" type="password" /><br>
 		<input type="submit" value="Login" />
 	</form>
-	<center><a href="RegistrationPage" style="color: gray">Forgot password </a></center>
+	<center><a href="#" id="registration" style="color: gray">Forgot password </a></center>
 	<br>
-	<center><a href="RegistrationPage" >Registration</a></center>
+	<center><a href="#" id="registration" >Registration</a></center>
+	<script type="text/javascript">
+	$(document).ready(function() {
+	$('#registration').click(function() {
+				$.ajax({
+					url : "user/registration",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('registration not loaded');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
+	});
+	</script>		
 	
 </body>
 

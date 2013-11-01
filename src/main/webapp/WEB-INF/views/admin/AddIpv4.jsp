@@ -1,20 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF8"
+	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<!--  form id="getContentAddIp4Req" action = "admin/addIpv4" method="post">
-	IP adress v4: <input name="ip" type="text" size="25" maxlength="30"/> <br> 
-	Source number: <input name="source" type="text" size="25" maxlength="30"/> <br> 
-	<input  type="submit" value="OK" />
-	</form>
-	<P>Added ip ${added_ip}!</P>
-	<P>in Source # ${added_source}!</P-->
-
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF8">
 <title>Add Users using ajax</title>
 <script type="text/javascript">
 	function doAjaxPost() {
@@ -23,7 +15,7 @@
 		var source = $('#source').val();
 		$.ajax({
 			type : "POST",
-			url : "admin/TestAddIpv4",
+			url : "admin/AddIpv4",
 			data : "ip=" + ip + "&source=" + source,
 			success : function(response) {
 				// we have the response

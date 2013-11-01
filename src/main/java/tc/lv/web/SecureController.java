@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import tc.lv.domain.UserE;
+import tc.lv.domain.UserEntity;
 
 @Controller
 public class SecureController {
 	
 	@ModelAttribute
-	public UserE populateCurrentUser(){
-		return (UserE)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	public UserEntity populateCurrentUser(){
+		return (UserEntity)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 	
 	@RequestMapping(value = "/secure/", method = RequestMethod.GET)

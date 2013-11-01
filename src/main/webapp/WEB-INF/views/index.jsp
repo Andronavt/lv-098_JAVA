@@ -10,151 +10,39 @@
 
 <html>
 <head>
+<%@include file="/WEB-INF/views/styles/ind.css"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <title>index JSP</title>
-<style type="text/css">
-body {
-	font: 10pt Arial, Helvetica, sans-serif; /* Шрифт на веб-странице */
-	background: #e1dfb9; /* Цвет фона */
-}
 
-h2 {
-	font-size: 1.1em; /* Размер шрифта */
-	color: #800040; /* Цвет текста */
-	margin-top: 0; /* Отступ сверху */
-}
-
-#container {
-	width: 500px; /* Ширина слоя */
-	margin: 0 auto; /* Выравнивание по центру */
-	background: #f0f0f0; /* Цвет фона левой колонки */
-}
-
-#header {
-	font-size: 1.5em; /* Размер текста */
-	text-align: center; /* Выравнивание по центру */
-	padding: 5px; /* Отступы вокруг текста */
-	background: #8fa09b; /* Цвет фона шапки */
-	color: #ffe; /* Цвет текста */
-}
-
-#sidebar {
-	margin-top: 0px;
-	width: 110px; /* Ширина слоя */
-	padding: 0 10px; /* Отступы вокруг текста */
-	float: left; /* Обтекание по правому краю */
-	background: #CDC9C9;
-}
-
-#content {
-	margin-left: 130px; /* Отступ слева */
-	padding: 10px; /* Поля вокруг текста */
-	background: #fff; /* Цвет фона правой колонки */
-}
-
-#footer {
-	background: #8fa09b; /* Цвет фона подвала */
-	color: #fff; /* Цвет текста */
-	padding: 5px; /* Отступы вокруг текста */
-	clear: left; /* Отменяем действие float */
-}
-</style>
 
 </head>
 <body>
 	<div id="container" style="FONT-SIZE: x-small;">
 		<div id="header">
 			<%@include file="head.jsp"%>
+			<%@include file="/WEB-INF/views/scripts/indexS.jsp"%>
 			<p align="right">
-			<sec:authorize access="isAnonymous()">
-				Welcome! Guest
-			</sec:authorize>
-			<sec:authorize access="isAuthenticated()">
-			Welcome! <sec:authentication property="principal.username" />
-			</sec:authorize>
-			</p>
+				<sec:authorize access="isAnonymous()">
+    Welcome! Guest
+   </sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+   Welcome! <sec:authentication property="principal.username" />
+				</sec:authorize>
 		</div>
 	</div>
 
 	<div id="sidebar">
-		<h4>
-			<sec:authorize access="hasRole('ROLE_USER')">
-				<spring:url value="/secure/" var="secureUrl" />
-				<a href="${secureUrl}" title="Secure">Secure</a>
-			</sec:authorize>
-			<br>
-			<sec:authorize access="hasRole('ROLE_USER')">
-				<spring:url value="/secure/TestGetIp4List" var="secureUrl" />
-				<a href="#" id="getContentGetIp4List">Get IPv4 List</a>
-			</sec:authorize>
-			<br>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<spring:url value="/admin/" var="adminUrl" />
-				<a href="${adminUrl}" title="Admin">Admin</a>
-			</sec:authorize>
-			<br>
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<spring:url value="/admin/TestAddIpv4" var="adminUrl" />
-				<a href="#" id="getContentAddIp4">Add IPv4 adress</a>
-				<!-- a href="${adminUrl}" title="TestAddIpv4">Add IPv4 adress</a-->
-			</sec:authorize>
-			<br>
-
-		</h4>
+		<jsp:include page="menu.jsp"></jsp:include>
 	</div>
 	<div id="content">
 		<center>
-
-			<h1>Welcome to IP-Info resource</h1>
+			<h1>Index jsp</h1>
 		</center>
 		<div id="divContent"></div>
-		<script>
-			$(document).ready(function() {
-				$('#getContentLogin').click(function() {
-					$.ajax({
-						url : "signin",
-						cache : false,
-						beforeSend : function() {
-							$('#divContent').html('get login page');
-						},
-						success : function(html) {
-							$("#divContent").html(html);
-						}
-					});
-					return false;
-				});
-
-				$('#getContentAddIp4').click(function() {
-					$.ajax({
-						url : "admin/TestAddIpv4",
-						cache : false,
-						beforeSend : function() {
-							$('#divContent').html('add IP v4');
-						},
-						success : function(html) {
-							$("#divContent").html(html);
-						}
-					});
-					return false;
-				});
-				$('#getContentGetIp4List').click(function() {
-					$.ajax({
-						url : "secure/TestGetIp4List",
-						cache : false,
-						beforeSend : function() {
-							$('#divContent').html('add IP v4');
-						},
-						success : function(html) {
-							$("#divContent").html(html);
-						}
-					});
-					return false;
-				});
-			});
-		</script>
-
-
 	</div>
 	<div id="footer">
 		<center>Copyright © 2013 SoftServe, Inc. All rights reserved.
