@@ -32,7 +32,7 @@
 
 	<authentication-manager>
 		<authentication-provider user-service-ref="userDetailsService">
-			<password-encoder hash="md5" />
+			
 		</authentication-provider>
 	</authentication-manager>
 
