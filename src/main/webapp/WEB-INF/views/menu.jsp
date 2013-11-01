@@ -36,6 +36,7 @@
 			<div>
 <!-- 					<a class="button" href="secure/black_ip_by_city" title="Black IP by city">Black IP by city</a> -->
 <!-- 					<a class="button" href="secure/top_black_ip_by_country" title="Black IP by country">Black IP by country</a> -->
+						<a class="button" href="#" id="getContentAddIp4List" title="Add IP to Source">List of IPv4 from source</a>
 					</div>
 					</div>
 				</spring:url>
@@ -58,7 +59,7 @@
 <!-- 				<a class="button" href="admin/admin" title="Admin">Admin</a> -->
 				</spring:url>
 			</sec:authorize>
-			
+		
 <script>
 $( "#accordion" ).accordion({collapsible:true,collapsible:true});
 $( "#accordion1" ).accordion({collapsible:true,collapsible:true});

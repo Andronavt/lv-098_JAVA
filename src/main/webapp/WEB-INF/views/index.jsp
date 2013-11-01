@@ -40,7 +40,7 @@
 	</div>
 	<div id="content">
 		<center>
-			<h1>Index jsp</h1>
+			<h1>Welcome to IP-info resource</h1>
 		</center>
 		<div id="divContent"></div>
 	</div>

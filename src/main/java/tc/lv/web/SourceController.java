@@ -28,26 +28,28 @@ public class SourceController {
 		map.put("ipList", souService.getIpV4ListFromSource(SOURCE_TEST));
 		return "ip";
 	}
-
+	//Get IPv4 List from Source -- get jsp
 	@RequestMapping("/secure/TestGetIp4List")
-	public String getlistIpV4() {
+	public String getlistIpV4(Map<String, Object> map) {
+		map.put("listSource", souService.getListOfSourcess());
 		return "secure/TestGetIp4List";
 	}
-
-	@RequestMapping(value = "/secure/getList")
+	//Get IPv4 List from Source -- get data from form
+	@RequestMapping(value = "/secure/getList", method = RequestMethod.POST)
 	public String addContact(Map<String, Object> map,
-			@ModelAttribute(value = "sour") String sour, BindingResult result) {
-		map.put("ip", new Source());
+			@ModelAttribute(value = "source") String source, BindingResult result) {
+		map.put("source", source);
 		map.put("ipList",
-				souService.getIpV4ListFromSource(Integer.valueOf(sour)));
+				souService.getIpV4ListFromSource(Integer.valueOf(source)));
 		return "secure/listIpv4";
 	}
-
+	//Add IPv4 to Source -- get jsp
 	@RequestMapping(value = "/admin/AddIpv4", method = RequestMethod.GET)
-	public String addIplistPage() {
+	public String addIplistPage(Map<String, Object> map) {
+	    map.put("listSource", souService.getListOfSourcess());
 		return "admin/AddIpv4";
 	}
-
+	//Add IPv4 to Source -- get data from form
 	@RequestMapping(value = "/admin/AddIpv4", method = RequestMethod.POST)
 	public @ResponseBody
 	String addUser(@ModelAttribute(value = "ip") String ip,
