@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,20 +10,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table class="data">
+	<center>
+	<h2>List of IP-adresses from current source</h2>
+	<table class="data" border="1">
+		<col width="100px">
+		<col width="100px">
+		<col width="150px">
 		<tr>
-			<th>id</th>
+			<th >id</th>
 			<th>address</th>
 			<th>date</th>
 		</tr>
 		<c:forEach items="${ipList}" var="ip">
 			<tr>
-				<td>${ip.id}</td>
-				<td>${ip.address}</td>
-				<td>${ip.dateAdded}</td>
+				<td align="center">${ip.id}</td>
+				<td align="center">${ip.address}</td>
+				<td align="center">${ip.dateAdded}</td>
 			</tr>
 		</c:forEach>
 	</table>
-
+</center>
 </body>
 </html>

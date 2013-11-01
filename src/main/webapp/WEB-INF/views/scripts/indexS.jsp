@@ -38,7 +38,63 @@
 				});
 				return false;
 			});
+
+			$('#getContentDeleteWlIp').click(function() {
+				$.ajax({
+					type : 'GET',
+					url : "admin/WL",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('Delete from WhiteList');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
+
+			$('#getContentAddNewFeed').click(function() {
+				$.ajax({
+					url : "admin/AddNewFeed",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('Add New Feed');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
 			
+			$('#getContentDeleteFeed').click(function() {
+				$.ajax({
+					url : "admin/listOfSource",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('Delete source');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
+			$('#getContentAddIp4List').click(function() {
+				$.ajax({
+					url : "secure/TestGetIp4List",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('Get list form');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
+
 		});
 	</script>
 

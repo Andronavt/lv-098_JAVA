@@ -23,19 +23,20 @@
             <sec:authorize access="hasRole('ROLE_USER')">
 				<spring:url value="/secure/" var="User">
 					<a class="button" href="secure/index" title="Home">Home</a>
-					<a class="button" href="secure/check-ip-status" title="Ip status">Ip status</a>
+<!-- 					<a class="button" href="secure/check-ip-status" title="Ip status">Ip status</a> -->
 					<div id="accordion">
 			<h6>Statistics:</h6>
 			<div>
-					<a class="button" href="secure/ip-charts" title="Charts">Charts</a>
-					<a class="button" href="secure/blacklist-map" title="Blacklist map">Blacklist map</a>
-					<a class="button" href="secure/whitelist-map" title="Whitelist map">Whitelist map</a>
-					<a class="button" href="secure/top_old_ip" title="Top oldest IP">Top oldest IP</a>
+<!-- 					<a class="button" href="secure/ip-charts" title="Charts">Charts</a> -->
+<!-- 					<a class="button" href="secure/blacklist-map" title="Blacklist map">Blacklist map</a> -->
+<!-- 					<a class="button" href="secure/whitelist-map" title="Whitelist map">Whitelist map</a> -->
+<!-- 					<a class="button" href="secure/top_old_ip" title="Top oldest IP">Top oldest IP</a> -->
 					</div>
 			<h6>Ip data:</h6>
 			<div>
-					<a class="button" href="secure/black_ip_by_city" title="Black IP by city">Black IP by city</a>
-					<a class="button" href="secure/top_black_ip_by_country" title="Black IP by country">Black IP by country</a>
+<!-- 					<a class="button" href="secure/black_ip_by_city" title="Black IP by city">Black IP by city</a> -->
+<!-- 					<a class="button" href="secure/top_black_ip_by_country" title="Black IP by country">Black IP by country</a> -->
+						<a class="button" href="#" id="getContentAddIp4List" title="Add IP to Source">List of IPv4 from source</a>
 					</div>
 					</div>
 				</spring:url>
@@ -46,19 +47,19 @@
 				<div id="accordion1">
 				<h6>Feeds:</h6>
 				<div>
-				<a class="button" href="admin/delete_feed" title="Delete">Delete</a>
-				<a class="button" href="admin/update_feed" title="Update">Update</a>
+				<a class="button" href="#" id="getContentDeleteFeed" title="Delete Feed">Delete Feed</a>
+				<a class="button" href="#" id="getContentAddNewFeed"  title="Add new Feed">Add new Feed</a>
 				<a class="button" href="#" id="getContentAddIp4" title="Add IP to Source">Add IP to Source</a>
-				<a class="button" href="admin/add_ip_to_wlist" title="Add to WList">Add to WList</a>
-				<a class="button" href="admin/delete-ipwl" title="Delete IP from WList">Delete IP from WList</a>
-				<a class="button" href="admin/list-downloads" title="List downloads">List downloads</a>
+<!-- 				<a class="button" href="admin/add_ip_to_wlist" title="Add to WList">Add to WList</a> -->
+				<a class="button" href="#" id="getContentDeleteWlIp" title="Delete IP from WList">Delete IP from WList</a>
+<!-- 		TODO		<a class="button" href="admin/list-downloads" title="List downloads">List downloads</a> -->
 				</div>
 				</div>
-				<a class="button" href="admin/daemon-control" title="Daemon controls">Daemon controls</a>
-				<a class="button" href="admin/admin" title="Admin">Admin</a>
+<!-- 				<a class="button" href="admin/daemon-control" title="Daemon controls">Daemon controls</a> -->
+<!-- 				<a class="button" href="admin/admin" title="Admin">Admin</a> -->
 				</spring:url>
 			</sec:authorize>
-			
+		
 <script>
 $( "#accordion" ).accordion({collapsible:true,collapsible:true});
 $( "#accordion1" ).accordion({collapsible:true,collapsible:true});

@@ -10,39 +10,39 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>Get all Ipv4 from resource</h2>
-	<form name="getContentGetIp4List" id="getContentGetIp4List"
-		action="secure/getList" method="post" name="drop_down_box">
-		<select name="sour" size="1">
-			<option selected="selected"value="1">Source #1</option>
-			<option value="2">Source #2</option>
-			<option value="3">Source #3</option>
-			<option value="4">Source #4</option>
-			<option  value="5">Source #5</option>
-		</select> 
-	</form>
-	
+	<center>
+		<h2>Get all Ipv4 from resource</h2>
+		<h4>Please select source</h4>
+				<select name="sources" size="1">
+					<c:forEach  var="Source" items="${listSource}">
+						<option value="${Source.getSourceId()}">${Source.getSourceName()} #${Source.getSourceId()}</option>
+					</c:forEach>
+				</select>
+				<br>
+				<br>
+				<input type="button" value="Get IP-address List"
+					onclick="getIP4List()">
+	</center>
+	<br>
+	<br>
 	<div id=divGetIp4List></div>
-	<script>
-		$('#getContentGetIp4List').submit(function() {
-			var postData = $(this).serializeArray();
-			var formURL = $(this).attr("action");
+	<script type="text/javascript">
+		function getIP4List() {
+			var source = $('select[name=sources]').val();
 			$.ajax({
-				url : formURL,
 				type : "POST",
-				data : postData,
+				url : "secure/getList",
+				data : "source=" + source,
 				success : function(response) {
-					alert("seccess");
+					// we have the response
 					$('#divGetIp4List').html(response);
 				},
-				error : function(jqXHR, textStatus, errorThrown) {
-					alert("error");      
+				error : function(e) {
+					alert('Error: ' + e);
 				}
 			});
-			e.preventDefault(); //STOP default action
-		});
-		$("#getContentGetIp4List").submit();
+		}
 	</script>
-	
+
 </body>
 </html>
