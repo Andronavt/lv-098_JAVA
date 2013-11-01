@@ -9,27 +9,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.UserDao;
+import tc.lv.dao.UserDaoImpl;
 import tc.lv.domain.UserE;
 
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
+	@Autowired
+	private UserDao dao = new UserDaoImpl();
+	@Autowired
+	private Assembler assembler;
 
-    @Autowired
-    private UserDao dao;
-    @Autowired
-    private Assembler assembler;
+	@Override
+	@Transactional
+	public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException, DataAccessException {
 
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username)
-	    throws UsernameNotFoundException, DataAccessException {
-
-	UserDetails userDetails = null;
-	//System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + userDetails);
-	UserE userEntity = dao.getUserByName(username);
-	
-	if (userEntity == null)
-	    throw new UsernameNotFoundException("user not found");
-
-	return assembler.buildUserFromUserEntity(userEntity);
-    }
+		UserDetails userDetails = null;
+		UserE userEntity = dao.getUserByName(username);
+		if (userEntity == null) {
+			throw new UsernameNotFoundException("user not found");
+		}
+		userDetails = assembler.buildUserFromUserEntity(userEntity);
+		System.out.println(userDetails.toString()+ " USERRRRRRRRRRRRRRRRRRRRRRRRR FROM ");
+		return userDetails;
+	}
 }

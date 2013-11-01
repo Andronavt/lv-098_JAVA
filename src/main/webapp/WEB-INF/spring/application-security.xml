@@ -15,12 +15,6 @@
 		<form-login login-page="/signin"
 			authentication-failure-url="/signin-failure" default-target-url="/" />
 	</http>
-	
-	<authentication-manager>
-		<authentication-provider user-service-ref="userDetailsService">
-			<password-encoder hash="md5" />
-		</authentication-provider>
-	</authentication-manager>
 
 	<beans:bean id="daoAuthenticationProvider"
 		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
@@ -36,6 +30,13 @@
 		</beans:property>
 	</beans:bean>
 
-	
+	<authentication-manager>
+		<authentication-provider user-service-ref="userDetailsService">
+			<password-encoder hash="md5" />
+		</authentication-provider>
+	</authentication-manager>
+
+
+	<global-method-security secured-annotations="enabled" />
 
 </beans:beans>   
