@@ -42,12 +42,12 @@ public class SourceController {
 	return "secure/listIpv4";
     }
 
-    @RequestMapping(value = "/admin/TestAddIpv4", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/AddIpv4", method = RequestMethod.GET)
     public String addIplistPage() {
-	return "admin/TestAddIpv4";
+	return "admin/AddIpv4";
     }
 
-    @RequestMapping(value = "/admin/TestAddIpv4", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/AddIpv4", method = RequestMethod.POST)
     public @ResponseBody  String addUser(@ModelAttribute(value = "ip") String ip,
 	    @ModelAttribute(value = "source") int source, BindingResult result) {
 	String returnText;

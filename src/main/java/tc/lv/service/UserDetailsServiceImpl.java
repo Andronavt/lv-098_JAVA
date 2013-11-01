@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.UserDao;
 import tc.lv.dao.UserDaoImpl;
-import tc.lv.domain.UserE;
+import tc.lv.domain.UserEntity;
 
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throws UsernameNotFoundException, DataAccessException {
 
 		UserDetails userDetails = null;
-		UserE userEntity = dao.getUserByName(username);
+		UserEntity userEntity = dao.getUserByName(username);
 		if (userEntity == null) {
 			throw new UsernameNotFoundException("user not found");
 		}

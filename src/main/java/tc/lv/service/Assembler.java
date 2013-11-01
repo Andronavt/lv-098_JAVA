@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.domain.Role;
-import tc.lv.domain.UserE;
+import tc.lv.domain.UserEntity;
 
 
 @Service("assembler")
@@ -18,7 +18,7 @@ public class Assembler {
 
 	@SuppressWarnings("deprecation")
 	@Transactional(readOnly = true)
-	User buildUserFromUserEntity(UserE userEntity) {
+	User buildUserFromUserEntity(UserEntity userEntity) {
 		String username = userEntity.getUsername();
 		String password = userEntity.getPassword();
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

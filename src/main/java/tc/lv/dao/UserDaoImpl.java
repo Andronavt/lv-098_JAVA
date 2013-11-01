@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 
-import tc.lv.domain.UserE;
+import tc.lv.domain.UserEntity;
 
 
 @Repository
@@ -25,8 +25,8 @@ public class UserDaoImpl implements UserDao {
 
 
 	@Override
-	public UserE getUserByName(String name) {
-		UserE foundUser = entityManager.createNamedQuery("User.findByName", UserE.class).setParameter("username", name).getSingleResult();
+	public UserEntity getUserByName(String name) {
+		UserEntity foundUser = entityManager.createNamedQuery("UserEntity.findByName", UserEntity.class).setParameter("username", name).getSingleResult();
 
 		return foundUser;
 	}
