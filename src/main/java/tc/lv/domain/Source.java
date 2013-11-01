@@ -3,7 +3,6 @@ package tc.lv.domain;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,20 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "sources")
+@NamedQuery(name="Source.findByName", query="SELECT c FROM Source c WHERE c.sourceName  = :sourceName")
 public class Source {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,6 +68,15 @@ public class Source {
 
 	}
 
+	public Source(String adaptor, String listOfType, String rank, String sourceName, String url) {
+	     this.adaptor = adaptor;
+	     this.listType = listOfType;
+	     this.rank = Double.parseDouble(rank);
+	     this.sourceName = sourceName;
+	     this.sourceDateAdded = new Date();
+	     this.url = url;
+	 }
+	
 	public Source(String sourceName, String url, Date sourceDateAdded,
 			Date updated, double rank, String dirname, String listType,
 			String adaptor, String downloader, String md5,
