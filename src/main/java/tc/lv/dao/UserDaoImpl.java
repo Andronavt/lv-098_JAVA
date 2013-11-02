@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void addCustomerUser(String username, String firstname,
-			String lastname, String email, String password) {		
+			String lastname, String email, String password) {
 		UserEntity user = new UserEntity();
 		user.setUsername(username);
 		user.setFirstname(firstname);
@@ -46,8 +46,7 @@ public class UserDaoImpl implements UserDao {
 		user.setPassword(password);
 		Set<Role> roleSet = new HashSet<Role>();
 		Role role = new Role();
-		// role.setRole("ROLE_USER");
-		role.getRole();
+		role = entityManager.find(Role.class, 2);
 		roleSet.add(role);
 		user.setRoleSet(roleSet);
 		entityManager.persist(user);

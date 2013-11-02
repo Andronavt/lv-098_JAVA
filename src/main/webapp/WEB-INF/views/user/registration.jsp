@@ -1,5 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF8"
+	pageEncoding="UTF8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+</head>
 <body>
 	<h3 style="color: green" align="center">Registration</h3>
 
@@ -35,27 +42,27 @@
 
 		<tr>
 			<th>User name:</th>
-			<th><input type="text" name="user_name" /></th>
+			<th><input type="text" id="user_name" /></th>
 		</tr>
 
 		<tr>
 			<th>First name:</th>
-			<th><input type="text" name="first_name" /></th>
+			<th><input type="text" id="first_name" /></th>
 		</tr>
 
 		<tr>
 			<th>Last name:</th>
-			<th><input type="text" name="last_name" /></th>
+			<th><input type="text" id="last_name" /></th>
 		</tr>
 
 		<tr>
 			<th>E-mail:</th>
-			<th><input type="text" name="email" /></th>
+			<th><input type="text" id="email" /></th>
 		</tr>
 
 		<tr>
 			<th>Password:</th>
-			<th><input type="password" name="pass" /></th>
+			<th><input type="password" id="pass" /></th>
 		</tr>
 
 		<tr>

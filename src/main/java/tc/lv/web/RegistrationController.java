@@ -27,11 +27,12 @@ public class RegistrationController {
 			@ModelAttribute(value = "first_name") String first_name,
 			@ModelAttribute(value = "last_name") String last_name,
 			@ModelAttribute(value = "email") String email,
-			@ModelAttribute(value = "pass") String pass,
-			BindingResult result) {
+			@ModelAttribute(value = "pass") String pass, BindingResult result) {
 		String returnText;
 		if (!result.hasErrors()) {
 			// souService.setIpV4Address(ip, source);
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!" + user_name
+					+ first_name + last_name + email + pass);
 			userEntityService.addCustomerUser(user_name, first_name, last_name,
 					email, pass);
 			return "WHAT!!";
