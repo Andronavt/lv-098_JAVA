@@ -12,8 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p align="right">
-		<img src="resources/img/IP-banner.jpg"/>
+	<p align="right">		
 		<sec:authorize access="isAnonymous()">
 			<a href="#" id="getContentLogin">Login/Registration</a>
 			<!--  a href="signin">login</a-->
