@@ -5,6 +5,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page session="false"%>
+<%@ page import="org.apache.log4j.Logger" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -16,11 +17,12 @@
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<title>index JSP</title>
-
+<title>Welcome IP-Info</title>
 
 </head>
 <body>
+	<% Logger logger=Logger.getLogger("infoLog"); %>
+	<%logger.info("create index page");%>
 	<div id="container" style="FONT-SIZE: x-small;">
 		<div id="header">
 			<%@include file="head.jsp"%>

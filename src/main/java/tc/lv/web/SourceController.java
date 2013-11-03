@@ -2,6 +2,7 @@ package tc.lv.web;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,7 +19,8 @@ import tc.lv.service.SourceService;
 public class SourceController {
 
 	private static int SOURCE_TEST = 1;
-
+	private static final Logger logger = Logger.getLogger("infoLog");
+	
 	@Autowired
 	private SourceService souService;
 
@@ -31,13 +33,15 @@ public class SourceController {
 	//Get IPv4 List from Source -- get jsp
 	@RequestMapping("/secure/TestGetIp4List")
 	public String getlistIpV4(Map<String, Object> map) {
-		map.put("listSource", souService.getListOfSourcess());
-		return "secure/TestGetIp4List";
+	    logger.info("getting secure/TestGetIp4List.jsp");
+	    map.put("listSource", souService.getListOfSourcess());
+	    return "secure/TestGetIp4List";
 	}
 	//Get IPv4 List from Source -- get data from form
 	@RequestMapping(value = "/secure/getList", method = RequestMethod.POST)
 	public String addContact(Map<String, Object> map,
 			@ModelAttribute(value = "source") String source, BindingResult result) {
+	    	logger.info("getting List of IPv4 and sending to secure/listIpv4");
 		map.put("source", source);
 		map.put("ipList",
 				souService.getIpV4ListFromSource(Integer.valueOf(source)));
@@ -46,6 +50,7 @@ public class SourceController {
 	//Add IPv4 to Source -- get jsp
 	@RequestMapping(value = "/admin/AddIpv4", method = RequestMethod.GET)
 	public String addIplistPage(Map<String, Object> map) {
+	    logger.info("getting admin/AddIpv4.jsp");
 	    map.put("listSource", souService.getListOfSourcess());
 		return "admin/AddIpv4";
 	}
@@ -55,12 +60,15 @@ public class SourceController {
 	String addUser(@ModelAttribute(value = "ip") String ip,
 			@ModelAttribute(value = "source") int source, BindingResult result) {
 		String returnText;
+		logger.info("getting IP-adress from form");
 		if (!result.hasErrors()) {
+		    logger.info("sending data to DataBase");
 			souService.setIpV4Address(ip, source);
 			returnText = "IP-address was added " + ip + " in source # "
 					+ source;
 		} else {
 			returnText = "Sorry, an error has occur. IP-address has not been added to source.";
+			logger.info("Error. IP address not added to DataBase");
 		}
 		return returnText;
 	}
