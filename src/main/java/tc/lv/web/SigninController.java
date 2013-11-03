@@ -17,10 +17,4 @@ public class SigninController {
 		return "user/signin_failure";
 	}
 	
-	@RequestMapping(value = "/user/registration", method = RequestMethod.GET
-			)
-	public String registration(){
-		return "user/registration";
-	}
-	
 }
