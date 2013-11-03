@@ -11,16 +11,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tc.lv.service.WhiteListService;
 
 @Controller
+@RequestMapping("/admin")
 public class WhiteListController {
 	@Autowired
 	private WhiteListService wlService;
 
-	@RequestMapping(value = "/admin/WL", method = RequestMethod.GET)
+	@RequestMapping(value = "/WL", method = RequestMethod.GET)
 	public String getJSP() {
 		return "admin/WL";
 	}
 
-	@RequestMapping(value = "/admin/WL", method = RequestMethod.POST)
+	@RequestMapping(value = "/WL", method = RequestMethod.POST)
 	public @ResponseBody
 	String addUser(@ModelAttribute("address") String ipAddress,
 			BindingResult result) {

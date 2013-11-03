@@ -25,7 +25,7 @@
 				var ipAddress = $('#IpRemoveStr').val();
 				$.ajax({
 					type : "POST",
-					url : "WL",
+					url : "admin/WL",
 					data : "address=" + ipAddress,
 					success : function(response) {
 						$('#IpRemoveLabelInfo').html(response);
