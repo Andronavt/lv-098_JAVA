@@ -22,12 +22,22 @@ import javax.persistence.Table;
 
 	 @OneToOne(fetch = FetchType.EAGER)
 	 @JoinColumn(name = "ipV6_id", referencedColumnName = "id", updatable = true, nullable = true, unique = false)
-	 protected IpV4Address ipV6;
+	 protected IpV6Address ipV6;
 
 	public WhiteList() {
 		super();
 	}
 
+	public WhiteList(IpV4Address ipV4) {
+		super();
+		this.ipV4 = ipV4;
+	}
+	
+	public WhiteList(IpV6Address ipV6) {
+		super();
+		this.ipV6 = ipV6;
+	}
+	
 	public IpV4Address getIpV4() {
 		return ipV4;
 	}

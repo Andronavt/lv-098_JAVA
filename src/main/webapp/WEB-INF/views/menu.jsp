@@ -50,7 +50,7 @@
 				<a class="button" href="#" id="getContentDeleteFeed" title="Delete Feed">Delete Feed</a>
 				<a class="button" href="#" id="getContentAddNewFeed"  title="Add new Feed">Add new Feed</a>
 				<a class="button" href="#" id="getContentAddIp4" title="Add IP to Source">Add IP to Source</a>
-<!-- 				<a class="button" href="admin/add_ip_to_wlist" title="Add to WList">Add to WList</a> -->
+ 				<a class="button" href="#" id="getContentAddIpToWl" title="Add to WList">Add to WList</a>
 				<a class="button" href="#" id="getContentDeleteWlIp" title="Delete IP from WList">Delete IP from WList</a>
 <!-- 		TODO		<a class="button" href="admin/list-downloads" title="List downloads">List downloads</a> -->
 				</div>

@@ -17,16 +17,16 @@ public class WhiteListController {
 	private WhiteListService wlService;
 
 	@RequestMapping(value = "/WL", method = RequestMethod.GET)
-	public String getJSP() {
+	public String deleteFromWL() {
 		return "admin/WL";
 	}
 
 	@RequestMapping(value = "/WL", method = RequestMethod.POST)
 	public @ResponseBody
-	String addUser(@ModelAttribute("address") String ipAddress,
+	String deleteFromWL(@ModelAttribute("address") String ipAddress,
 			BindingResult result) {
 		try {
-			// System.err.println(ipAddress);
+			//TODO: Add here validation
 			if (ipAddress.contains(".")) {
 				wlService.deleteIpV4FromWL(ipAddress);
 				return "IpV4: " + ipAddress + " has been successfully deleted.";
@@ -34,15 +34,45 @@ public class WhiteListController {
 				wlService.deleteIpV4FromWL(ipAddress);
 				return "IpV6: " + ipAddress + " has been successfully deleted.";
 			} else {
-				String response = "Some problems occurred with IpAddress "
+				String response = "Some problems occurred with deleting IpAddress "
 						+ ipAddress + " !!!";
 				return response;
 			}
 		} catch (RuntimeException e) {
 			// TODO: handle exception
-			return "Where was error whit deleting " + ipAddress + "!!!\n"
+			return "Where was error with deleting " + ipAddress + "!!!\n"
 					+ e.toString();
 		}
 	}
 
+	@RequestMapping(value = "/AddIpToWL", method = RequestMethod.GET)
+	public String addToWl() {
+		return "admin/AddIpToWL";
+	}
+
+	@RequestMapping(value = "/AddIpToWL", method = RequestMethod.POST)
+	public @ResponseBody
+	String addToWl(@ModelAttribute("address") String ipAddress,
+			BindingResult result) {
+		try {
+			//TODO: Add here validation
+			if (ipAddress.contains(".")) {
+				wlService.addIpV4toWL(ipAddress);
+				return "IpV4: " + ipAddress
+						+ " has been successfully added to WhiteList.";
+			} else if (ipAddress.contains(":")) {
+				wlService.addIpV6toWL(ipAddress);
+				return "IpV6: " + ipAddress
+						+ " has been successfully added to WhiteList.";
+			} else {
+				String response = "Some problems occurred adding IpAddress "
+						+ ipAddress + " !!!";
+				return response;
+			}
+		} catch (RuntimeException e) {
+			// TODO: handle exception
+			return "Where was error with adding " + ipAddress + "!!!\n"
+					+ e.toString();
+		}
+	}
 }

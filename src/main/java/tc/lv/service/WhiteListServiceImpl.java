@@ -22,4 +22,14 @@ public class WhiteListServiceImpl implements WhiteListService {
 		whiteListDao.deleteIpV6FromWL(address);
 	}
 
+	@Transactional
+	public void addIpV4toWL(String address) {
+		whiteListDao.addIpV4toWL(address);
+	}
+
+	@Transactional
+	public void addIpV6toWL(String address) {
+		whiteListDao.addIpV6toWL(address);
+	}
+
 }

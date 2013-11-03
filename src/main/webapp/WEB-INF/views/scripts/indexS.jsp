@@ -45,7 +45,7 @@
 					url : "admin/WL",
 					cache : false,
 					beforeSend : function() {
-						$('#content').html('Delete from WhiteList');
+						$('#content').html('Delete Ip from WhiteList');
 					},
 					success : function(html) {
 						$("#content").html(html);
@@ -54,6 +54,21 @@
 				return false;
 			});
 
+			$('#getContentAddIpToWl').click(function() {
+				$.ajax({
+					type : 'GET',
+					url : "admin/AddIpToWL",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('Add Ip to WhiteList');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
+			
 			$('#getContentAddNewFeed').click(function() {
 				$.ajax({
 					url : "admin/AddNewFeed",
