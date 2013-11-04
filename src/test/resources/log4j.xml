@@ -3,39 +3,76 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
+	<!-- Loggin into console -->
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-	
+	<!-- Loging into file -->
+	<appender name="fileInfo" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="c:/Users/Oleg/workspace/lv-098_JAVA/logs/info.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="4" />
+		<param name="Encoding" value="Cp1251" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
+<!-- 			 <param name="ConversionPattern" value="%-5p %c{1} - %m%n"/> -->
+		</layout>
+	</appender>
+	<appender name="fileWarn" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="c:/Users/Oleg/workspace/lv-098_JAVA/logs/warn.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="4" />
+		<param name="Encoding" value="Cp1251" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
+		</layout>
+	</appender>
+
 	<!-- Application Loggers -->
 	<logger name="tc.lv.main">
 		<level value="info" />
 	</logger>
-	
+
 	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
-		<level value="info" />
-	</logger>	
-	
-	<logger name="org.springframework.beans">
-		<level value="info" />
-	</logger>
-	
-	<logger name="org.springframework.context">
+	<logger name="tc.lv.dao">
 		<level value="info" />
 	</logger>
 
-	<logger name="org.springframework.web">
+	<logger name="tc.lv.domain">
 		<level value="info" />
+	</logger>
+
+	<logger name="tc.lv.service">
+		<level value="info" />
+	</logger>
+
+	<logger name="tc.lv.web">
+		<level value="info" />
+	</logger>
+	
+	<logger name="webapp">
+		<level value="info" />
+	</logger>
+	
+	<logger name="infoLog" additivity="false">
+		<level value="info" />
+		<appender-ref ref="fileInfo" />		
+	</logger>
+	
+	<logger name="warnLog">
+		<level value="warn" />
+		<appender-ref ref="fileWarn" />		
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
-	
+
 </log4j:configuration>

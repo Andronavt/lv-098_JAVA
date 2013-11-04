@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,6 +21,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "ipv6_addresses")
+@NamedQueries({ @NamedQuery(name = "findIpV6ByName", query = "SELECT c from IpV6Address c WHERE c.address= :address"), })
 public class IpV6Address extends IpAddress {
 
 	
