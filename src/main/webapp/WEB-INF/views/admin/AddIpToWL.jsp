@@ -11,12 +11,12 @@
 	</head>
 	<body>
 		<center>
-			<h2>Delete IP from WhiteList</h2>
-		
-			<form class="Delete-IP" >
-				<label id="Label">Enter the IP that you want to remove: </label> 
-					<input id="IpRemoveStr" size="20" maxlength="50" type="text"> 
-					<input id="btn1" type="button" value="DELETE" onclick="actionMeth()"> 
+			<h2>Adding IP to WhiteList</h2>
+	
+			<form class="Add-IP" >
+				<label id="AddToWL">Enter the IP that you want add to WhiteList: </label>
+					<input id="IP" size="20" maxlength="50" type="text"> 
+					<input id="btn1" type="button" value="ADD" onclick="actionMeth()"> 
 					<br>
 				<div id="Info" style="color: green;"></div>
 			</form>
@@ -25,10 +25,10 @@
 	<script type="text/javascript">
 		function actionMeth() {
 			// get the form values
-			var ipAddress = $('#IpRemoveStr').val();
+			var ipAddress = $('#IP').val();
 			$.ajax({
 				type : "POST",
-				url : "admin/WL",
+				url : "admin/AddIpToWL",
 				data : "address=" + ipAddress,
 				success : function(response) {
 					$('#Info').html(response);
@@ -40,5 +40,4 @@
 			return false;
 		};
 	</script>
-
 </html>

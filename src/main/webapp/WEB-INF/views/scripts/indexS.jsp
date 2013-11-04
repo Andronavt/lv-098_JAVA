@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -87,6 +88,51 @@
 					cache : false,
 					beforeSend : function() {
 						$('#content').html('Get list form');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
+			
+			$('#getContentDeleteWlIp').click(function() {
+				$.ajax({
+					type : 'GET',
+					url : "admin/WL",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('Delete Ip from WhiteList');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
+
+			$('#getContentAddIpToWl').click(function() {
+				$.ajax({
+					type : 'GET',
+					url : "admin/AddIpToWL",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('Add Ip to WhiteList');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
+
+			$('#getContentShowIpListFromWl').click(function() {
+				$.ajax({
+					type : 'GET',
+					url : "secure/ShowIpListFromWL",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('Show Ip list from WhiteList');
 					},
 					success : function(html) {
 						$("#content").html(html);

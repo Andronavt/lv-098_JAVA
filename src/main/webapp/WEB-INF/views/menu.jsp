@@ -1,3 +1,4 @@
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <%@ taglib prefix="sec"
  uri="http://www.springframework.org/security/tags"%> 
@@ -42,7 +43,7 @@ background-color: #CEECF5;
    <h6 style="width: 150px;">Statistics:</h6>
    <div style="width: 125px;">
 <!--      <a class="button" href="secure/ip-charts" title="Charts">Charts</a> -->
-     <a class="button" href="#" id="" title="Blacklist map" >Whitelist info</a>
+<a class="button" href="#" id="getContentShowIpListFromWl" title="Show Ip list from WList">Show Ip list from WList</a>
 <!--      <a class="button" href="secure/blacklist-map" title="Blacklist map">Blacklist map</a> -->
 <!--      <a class="button" href="secure/whitelist-map" title="Whitelist map">Whitelist map</a> -->
 <!--      <a class="button" href="secure/top_old_ip" title="Top oldest IP">Top oldest IP</a> -->
@@ -61,8 +62,8 @@ background-color: #CEECF5;
     <a class="button" href="#" id="getContentDeleteFeed" title="Delete Feed">Delete Feed</a>
     <a class="button" href="#" id="getContentAddNewFeed"  title="Add new Feed">Add new Feed</a>
     <a class="button" href="#" id="getContentAddIp4" title="Add IP to Source">Add IP to Source</a>
-<!--     <a class="button" href="admin/add_ip_to_wlist" title="Add to WList">Add to WList</a> -->
-    <a class="button" href="#" id="getContentDeleteWlIp" title="Delete IP from WList">Delete IP from WList</a>
+    <a class="button" href="#" id="getContentAddIpToWl" title="Add to WList">Add to WList</a>
+				<a class="button" href="#" id="getContentDeleteWlIp" title="Delete IP from WList">Delete IP from WList</a>
 <!--   TODO  <a class="button" href="admin/list-downloads" title="List downloads">List downloads</a> -->
     </div>
 <!--     <a class="button" href="admin/daemon-control" title="Daemon controls">Daemon controls</a> -->
@@ -73,3 +74,4 @@ background-color: #CEECF5;
 <script>
 $("#accordion").accordion({collapsible:true});
 </script>
+
