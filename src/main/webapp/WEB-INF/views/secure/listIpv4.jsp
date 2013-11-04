@@ -11,24 +11,24 @@
 </head>
 <body>
 	<center>
-	<h2>List of IP-adresses from current source</h2>
-	<table class="data" border="1">
-		<col width="100px">
-		<col width="100px">
-		<col width="150px">
-		<tr>
-			<th >id</th>
-			<th>address</th>
-			<th>date</th>
-		</tr>
-		<c:forEach items="${ipList}" var="ip">
+		<h2>List of IP-adresses</h2>
+		<table class="data" border="1">
+			<col width="100px">
+			<col width="100px">
+			<col width="150px">
 			<tr>
-				<td align="center">${ip.id}</td>
-				<td align="center">${ip.address}</td>
-				<td align="center">${ip.dateAdded}</td>
+				<th>id</th>
+				<th>address</th>
+				<th>date</th>
 			</tr>
-		</c:forEach>
-	</table>
-</center>
+			<c:forEach items="${ipList}" var="ip">
+				<tr>
+					<td align="center">${ip.id}</td>
+					<td align="center">${ip.address}</td>
+					<td align="center">${ip.dateAdded}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</center>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package tc.lv.web;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -11,22 +13,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tc.lv.service.WhiteListService;
 
 @Controller
-@RequestMapping("/admin")
 public class WhiteListController {
 	@Autowired
 	private WhiteListService wlService;
 
-	@RequestMapping(value = "/WL", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/WL", method = RequestMethod.GET)
 	public String deleteFromWL() {
 		return "admin/WL";
 	}
 
-	@RequestMapping(value = "/WL", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/WL", method = RequestMethod.POST)
 	public @ResponseBody
 	String deleteFromWL(@ModelAttribute("address") String ipAddress,
 			BindingResult result) {
 		try {
-			//TODO: Add here validation
+			// TODO: Add here validation
 			if (ipAddress.contains(".")) {
 				wlService.deleteIpV4FromWL(ipAddress);
 				return "IpV4: " + ipAddress + " has been successfully deleted.";
@@ -45,23 +46,23 @@ public class WhiteListController {
 		}
 	}
 
-	@RequestMapping(value = "/AddIpToWL", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/AddIpToWL", method = RequestMethod.GET)
 	public String addToWl() {
 		return "admin/AddIpToWL";
 	}
 
-	@RequestMapping(value = "/AddIpToWL", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/AddIpToWL", method = RequestMethod.POST)
 	public @ResponseBody
 	String addToWl(@ModelAttribute("address") String ipAddress,
 			BindingResult result) {
 		try {
-			//TODO: Add here validation
+			// TODO: Add here validation
 			if (ipAddress.contains(".")) {
-				wlService.addIpV4toWL(ipAddress);
+				wlService.addIpV4ToWL(ipAddress);
 				return "IpV4: " + ipAddress
 						+ " has been successfully added to WhiteList.";
 			} else if (ipAddress.contains(":")) {
-				wlService.addIpV6toWL(ipAddress);
+				wlService.addIpV6ToWL(ipAddress);
 				return "IpV6: " + ipAddress
 						+ " has been successfully added to WhiteList.";
 			} else {
@@ -74,5 +75,16 @@ public class WhiteListController {
 			return "Where was error with adding " + ipAddress + "!!!\n"
 					+ e.toString();
 		}
+	}
+
+	@RequestMapping(value = "/secure/ShowIpListFromWL", method = RequestMethod.GET)
+	public String showIpListFromWl() {
+		return "secure/ShowIpListFromWL";
+	}
+
+	@RequestMapping(value = "/secure/ShowIpListFromWL", method = RequestMethod.POST)
+	public String showIpListFromWl(Map<String, Object> map) {
+		map.put("ipList", wlService.getIpV4ListFromWL());
+		return "secure/listIpv4";
 	}
 }

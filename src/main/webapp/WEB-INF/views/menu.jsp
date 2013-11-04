@@ -37,6 +37,7 @@
 <!-- 					<a class="button" href="secure/black_ip_by_city" title="Black IP by city">Black IP by city</a> -->
 <!-- 					<a class="button" href="secure/top_black_ip_by_country" title="Black IP by country">Black IP by country</a> -->
 						<a class="button" href="#" id="getContentAddIp4List" title="Add IP to Source">List of IPv4 from source</a>
+						<a class="button" href="#" id="getContentShowIpListFromWl" title="Show Ip list from WList">Show Ip list from WList</a>
 					</div>
 					</div>
 				</spring:url>

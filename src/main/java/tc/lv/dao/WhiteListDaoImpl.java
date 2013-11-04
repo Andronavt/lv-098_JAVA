@@ -3,6 +3,8 @@ package tc.lv.dao;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -27,7 +29,7 @@ public class WhiteListDaoImpl implements WhiteListDao {
 	}
 
 	public void deleteIpV4FromWL(String address) {
-		
+
 		Query q = entityManager.createNamedQuery("findIpV4ByNameInWL");
 		try {
 			WhiteList obj = (WhiteList) q.setParameter("address", address)
@@ -94,6 +96,24 @@ public class WhiteListDaoImpl implements WhiteListDao {
 		} catch (NonUniqueResultException e) {
 			// TODO: handle exception
 		}
+	}
+
+	public Collection<IpV4Address> getIpV4ListFromWL() {
+		Query q = entityManager.createNamedQuery("getIpV4WL");
+		Set<IpV4Address> set = new HashSet<IpV4Address>();
+		try {
+			set.addAll(q.getResultList());
+		} catch (NoResultException e) {
+			// TODO: handle exception
+		} catch (NonUniqueResultException e) {
+			// TODO: handle exception
+		}
+		return set;
+	}
+
+	public Collection<IpV6Address> getIpV6ListFromWL() {
+		// TODO: handle exception
+		return null;
 	}
 
 }

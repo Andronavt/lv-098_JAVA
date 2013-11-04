@@ -68,6 +68,21 @@
 				});
 				return false;
 			});
+
+			$('#getContentShowIpListFromWl').click(function() {
+				$.ajax({
+					type : 'GET',
+					url : "secure/ShowIpListFromWL",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('Show Ip list from WhiteList');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
 			
 			$('#getContentAddNewFeed').click(function() {
 				$.ajax({
