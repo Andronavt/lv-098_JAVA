@@ -79,3 +79,76 @@ INFO  infoLog - create head page
 2013-11-03 11:49:20,162 [http-localhost/127.0.0.1:8080-2] INFO  (listIpv4_jsp.java:76:_jspService)  infoLog  - creating secure/listIpv4.jsp
 2013-11-03 11:49:23,312 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:44:addContact)  infoLog  - getting List of IPv4 and sending to secure/listIpv4
 2013-11-03 11:49:23,434 [http-localhost/127.0.0.1:8080-2] INFO  (listIpv4_jsp.java:76:_jspService)  infoLog  - creating secure/listIpv4.jsp
+2013-11-03 12:26:40,560 [http-localhost/127.0.0.1:8080-1] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 12:26:40,563 [http-localhost/127.0.0.1:8080-1] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 12:26:54,183 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 12:26:54,185 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 12:26:55,976 [http-localhost/127.0.0.1:8080-2] INFO  (signin_jsp.java:70:_jspService)  infoLog  - create signin page
+2013-11-03 12:27:00,361 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 12:27:00,361 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 17:42:17,766 [http-localhost/127.0.0.1:8080-1] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 17:42:17,770 [http-localhost/127.0.0.1:8080-1] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 17:42:25,301 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 17:42:25,306 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 17:42:27,922 [http-localhost/127.0.0.1:8080-2] INFO  (signin_jsp.java:70:_jspService)  infoLog  - create signin page
+2013-11-03 17:42:33,877 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 17:42:33,877 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 17:42:35,557 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:36:getlistIpV4)  infoLog  - getting secure/TestGetIp4List.jsp
+2013-11-03 17:42:35,669 [http-localhost/127.0.0.1:8080-2] INFO  (TestGetIp4List_jsp.java:76:_jspService)  infoLog  - creating secure/TestGetIp4List.jsp
+2013-11-03 17:42:38,779 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:53:addIplistPage)  infoLog  - getting admin/AddIpv4.jsp
+2013-11-03 17:42:39,585 [http-localhost/127.0.0.1:8080-2] INFO  (AddIpv4_jsp.java:74:_jspService)  infoLog  - creating admin/AddIpv4.jsp
+2013-11-03 17:44:12,867 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 17:44:12,870 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 17:44:13,822 [http-localhost/127.0.0.1:8080-2] INFO  (signin_jsp.java:70:_jspService)  infoLog  - create signin page
+2013-11-03 17:44:18,399 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 17:44:18,400 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 17:44:20,741 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:53:addIplistPage)  infoLog  - getting admin/AddIpv4.jsp
+2013-11-03 17:44:21,094 [http-localhost/127.0.0.1:8080-2] INFO  (AddIpv4_jsp.java:74:_jspService)  infoLog  - creating admin/AddIpv4.jsp
+2013-11-03 17:44:25,888 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:63:addUser)  infoLog  - getting IP-adress from form
+2013-11-03 17:44:25,889 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:65:addUser)  infoLog  - sending data to DataBase
+2013-11-03 17:44:32,839 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:36:getlistIpV4)  infoLog  - getting secure/TestGetIp4List.jsp
+2013-11-03 17:44:32,922 [http-localhost/127.0.0.1:8080-2] INFO  (TestGetIp4List_jsp.java:76:_jspService)  infoLog  - creating secure/TestGetIp4List.jsp
+2013-11-03 17:44:36,230 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:44:addContact)  infoLog  - getting List of IPv4 and sending to secure/listIpv4
+2013-11-03 17:44:36,310 [http-localhost/127.0.0.1:8080-2] INFO  (listIpv4_jsp.java:76:_jspService)  infoLog  - creating secure/listIpv4.jsp
+2013-11-03 17:52:40,202 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 17:52:40,205 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 17:52:41,342 [http-localhost/127.0.0.1:8080-2] INFO  (signin_jsp.java:70:_jspService)  infoLog  - create signin page
+2013-11-03 17:52:48,539 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 17:52:48,540 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 17:52:52,409 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:53:addIplistPage)  infoLog  - getting admin/AddIpv4.jsp
+2013-11-03 17:52:52,675 [http-localhost/127.0.0.1:8080-2] INFO  (AddIpv4_jsp.java:74:_jspService)  infoLog  - creating admin/AddIpv4.jsp
+2013-11-03 18:05:05,289 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 18:05:05,290 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 18:05:07,419 [http-localhost/127.0.0.1:8080-2] INFO  (signin_jsp.java:70:_jspService)  infoLog  - create signin page
+2013-11-03 18:05:13,212 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-03 18:05:13,213 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-03 18:05:15,192 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:53:addIplistPage)  infoLog  - getting admin/AddIpv4.jsp
+2013-11-03 18:05:15,492 [http-localhost/127.0.0.1:8080-2] INFO  (AddIpv4_jsp.java:74:_jspService)  infoLog  - creating admin/AddIpv4.jsp
+2013-11-03 18:05:45,830 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:36:getlistIpV4)  infoLog  - getting secure/TestGetIp4List.jsp
+2013-11-03 18:05:46,072 [http-localhost/127.0.0.1:8080-2] INFO  (TestGetIp4List_jsp.java:76:_jspService)  infoLog  - creating secure/TestGetIp4List.jsp
+2013-11-03 18:05:46,076 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:36:getlistIpV4)  infoLog  - getting secure/TestGetIp4List.jsp
+2013-11-03 18:05:46,112 [http-localhost/127.0.0.1:8080-2] INFO  (TestGetIp4List_jsp.java:76:_jspService)  infoLog  - creating secure/TestGetIp4List.jsp
+2013-11-03 18:05:47,583 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:44:addContact)  infoLog  - getting List of IPv4 and sending to secure/listIpv4
+2013-11-03 18:05:47,664 [http-localhost/127.0.0.1:8080-2] INFO  (listIpv4_jsp.java:76:_jspService)  infoLog  - creating secure/listIpv4.jsp
+2013-11-03 19:23:12,572 [http-localhost/127.0.0.1:8080-2] INFO  (signin_jsp.java:70:_jspService)  infoLog  - create signin page
+2013-11-03 19:23:20,581 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:53:addIplistPage)  infoLog  - getting admin/AddIpv4.jsp
+2013-11-03 19:23:20,641 [http-localhost/127.0.0.1:8080-2] INFO  (AddIpv4_jsp.java:74:_jspService)  infoLog  - creating admin/AddIpv4.jsp
+2013-11-03 19:23:30,131 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:53:addIplistPage)  infoLog  - getting admin/AddIpv4.jsp
+2013-11-03 19:23:30,172 [http-localhost/127.0.0.1:8080-2] INFO  (AddIpv4_jsp.java:74:_jspService)  infoLog  - creating admin/AddIpv4.jsp
+2013-11-04 10:03:23,592 [http-localhost/127.0.0.1:8080-1] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-04 10:03:23,595 [http-localhost/127.0.0.1:8080-1] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-04 10:03:30,422 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-04 10:03:30,423 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-04 10:03:32,253 [http-localhost/127.0.0.1:8080-2] INFO  (signin_jsp.java:70:_jspService)  infoLog  - create signin page
+2013-11-04 10:03:37,484 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:148:_jspService)  infoLog  - create index page
+2013-11-04 10:03:37,485 [http-localhost/127.0.0.1:8080-2] INFO  (index_jsp.java:171:_jspService)  infoLog  - create head page
+2013-11-04 10:03:39,039 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:36:getlistIpV4)  infoLog  - getting secure/TestGetIp4List.jsp
+2013-11-04 10:03:39,273 [http-localhost/127.0.0.1:8080-2] INFO  (TestGetIp4List_jsp.java:76:_jspService)  infoLog  - creating secure/TestGetIp4List.jsp
+2013-11-04 10:03:40,763 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:44:addContact)  infoLog  - getting List of IPv4 and sending to secure/listIpv4
+2013-11-04 10:03:40,831 [http-localhost/127.0.0.1:8080-2] INFO  (listIpv4_jsp.java:76:_jspService)  infoLog  - creating secure/listIpv4.jsp
+2013-11-04 10:03:48,856 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:53:addIplistPage)  infoLog  - getting admin/AddIpv4.jsp
+2013-11-04 10:03:49,550 [http-localhost/127.0.0.1:8080-2] INFO  (AddIpv4_jsp.java:74:_jspService)  infoLog  - creating admin/AddIpv4.jsp
+2013-11-04 10:06:14,377 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:36:getlistIpV4)  infoLog  - getting secure/TestGetIp4List.jsp
+2013-11-04 10:06:14,427 [http-localhost/127.0.0.1:8080-2] INFO  (TestGetIp4List_jsp.java:76:_jspService)  infoLog  - creating secure/TestGetIp4List.jsp
+2013-11-04 10:06:15,999 [http-localhost/127.0.0.1:8080-2] INFO  (SourceController.java:44:addContact)  infoLog  - getting List of IPv4 and sending to secure/listIpv4
+2013-11-04 10:06:16,042 [http-localhost/127.0.0.1:8080-2] INFO  (listIpv4_jsp.java:76:_jspService)  infoLog  - creating secure/listIpv4.jsp

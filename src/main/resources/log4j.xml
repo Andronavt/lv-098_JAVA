@@ -29,7 +29,7 @@
 		<param name="MaxBackupIndex" value="4" />
 		<param name="Encoding" value="Cp1251" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L) - %m%n" />
+			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
 		</layout>
 	</appender>
 
@@ -54,13 +54,16 @@
 	<logger name="tc.lv.web">
 		<level value="info" />
 	</logger>
+	
 	<logger name="webapp">
 		<level value="info" />
 	</logger>
+	
 	<logger name="infoLog" additivity="false">
 		<level value="info" />
 		<appender-ref ref="fileInfo" />		
 	</logger>
+	
 	<logger name="warnLog">
 		<level value="warn" />
 		<appender-ref ref="fileWarn" />		

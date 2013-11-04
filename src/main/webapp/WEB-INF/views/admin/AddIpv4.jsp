@@ -11,6 +11,7 @@
 <title>Add IPv4 to Source</title>
 	<% Logger logger=Logger.getLogger("infoLog"); %>
 	<%logger.info("creating admin/AddIpv4.jsp");%>
+
 <script type="text/javascript">
 	function doAjaxPost() {
 		// get the form values
@@ -30,6 +31,9 @@
 			}
 		});
 	}
+	</script>
+<script type="text/javascript">	
+
 </script>
 </head>
 <body>
