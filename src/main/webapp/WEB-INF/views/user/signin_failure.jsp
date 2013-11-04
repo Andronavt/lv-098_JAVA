@@ -7,9 +7,7 @@
 <head>
 <title>Sign In</title>
 </head>
-<body>
-	<% Logger logger=Logger.getLogger("infoLog"); %>
-	<%logger.info("create sign_failure page");%>
+<body>	
 	<h1>Spring Security - Sign In Failure</h1>
 </body>
 </html>

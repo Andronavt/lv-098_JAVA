@@ -12,10 +12,6 @@ import tc.lv.service.UserEntityService;
 
 @Controller
 public class RegistrationController {
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 	@Autowired
 	private UserEntityService userEntityService;
 
@@ -32,47 +28,13 @@ public class RegistrationController {
 			@ModelAttribute(value = "email") String email,
 			@ModelAttribute(value = "pass") String pass, BindingResult result) {
 		String returnText;
-<<<<<<< HEAD
 		if (!result.hasErrors()) {
-			// souService.setIpV4Address(ip, source);
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!" + user_name
-					+ first_name + last_name + email + pass);
 			userEntityService.addCustomerUser(user_name, first_name, last_name,
 					email, pass);
-			return "WHAT!!";
-			// returnText = "IP-address was added " + ip + " in source # "
-			// + source;
-		} else {
-			returnText = "Sorry, an error has occur. IP-address has not been added to source.";
-		}
-		return returnText;
-	}
-
-	// @RequestMapping(value = "/admin/AddIpv4", method = RequestMethod.POST)
-	// public @ResponseBody
-	// String addUser(@ModelAttribute(value = "ip") String ip,
-	// @ModelAttribute(value = "source") int source, BindingResult result) {
-	// String returnText;
-	// if (!result.hasErrors()) {
-	// souService.setIpV4Address(ip, source);
-	// returnText = "IP-address was added " + ip + " in source # "
-	// + source;
-	// } else {
-	// returnText =
-	// "Sorry, an error has occur. IP-address has not been added to source.";
-	// }
-	// return returnText;
-	// }
-
-=======
-		if (!result.hasErrors()) {				
-			userEntityService.addCustomerUser(user_name, first_name, last_name,
-					email, pass);
-			return "Success";			
+			return "Success";
 		} else {
 			returnText = "Sorry, an error has occur.";
 		}
 		return returnText;
 	}
->>>>>>> master
 }

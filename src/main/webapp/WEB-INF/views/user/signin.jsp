@@ -8,8 +8,6 @@
 <title>Sign In</title>
 </head>
 <body>
-	<% Logger logger=Logger.getLogger("infoLog"); %>
-	<%logger.info("create signin page");%>
 	<h3 style="color: green" align="center">Login</h3>
 	<form class="login-form" action="j_spring_security_check" method="post"
 		style="text-align: center">
