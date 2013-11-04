@@ -25,16 +25,16 @@ import tc.lv.domain.NotValidIp;
 public class AdaptorChaosreignsWL {
     private static final Logger log = Logger.getLogger(AdaptorChaosreignsWL.class);
     private static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
-    private static ArrayList<IpV4Address> ip4list = new ArrayList<IpV4Address>();
-    private static ArrayList<IpV6Address> ip6list = new ArrayList<IpV6Address>();
-    private static ArrayList<NotValidIp> notValidList = new ArrayList<NotValidIp>();
-    private static int sourceId;
+    private ArrayList<IpV4Address> ip4list = new ArrayList<IpV4Address>();
+    private ArrayList<IpV6Address> ip6list = new ArrayList<IpV6Address>();
+    private ArrayList<NotValidIp> notValidList = new ArrayList<NotValidIp>();
+    private int sourceId;
     
-    public static void parser(String way, int sourId) {
+    AdaptorChaosreignsWL(String way, int sourceId) {
 	Pattern pattern = Pattern.compile(IP_ALL);
 	Matcher matcher;
 	Scanner line;
-	sourceId = sourId;
+	this.sourceId = sourceId;
 	try {
 	    line = new Scanner(new BufferedReader(new FileReader(way)));
 	    while (line.hasNext()) {
@@ -57,17 +57,17 @@ public class AdaptorChaosreignsWL {
 	}
     }
     
-    public static int getSourceId() {
+    public int getSourceId() {
         return sourceId;
     }
 
-    public static ArrayList<IpV4Address> getIpv4List(){
+    public ArrayList<IpV4Address> getIpv4List(){
 	return ip4list;
     }
-    public static ArrayList<IpV6Address> getIpv6List(){
+    public ArrayList<IpV6Address> getIpv6List(){
 	return ip6list;
     }
-    public static ArrayList<NotValidIp> getNotValidList(){
+    public ArrayList<NotValidIp> getNotValidList(){
 	return notValidList;
     }
     
