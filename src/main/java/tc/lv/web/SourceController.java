@@ -31,11 +31,11 @@ public class SourceController {
 		return "ip";
 	}
 	//Get IPv4 List from Source -- get jsp
-	@RequestMapping("/secure/TestGetIp4List")
+	@RequestMapping("/secure/GetIp4List")
 	public String getlistIpV4(Map<String, Object> map) {
-	    logger.info("getting secure/TestGetIp4List.jsp");
+	    logger.info("getting secure/GetIp4List.jsp");
 	    map.put("listSource", souService.getListOfSourcess());
-	    return "secure/TestGetIp4List";
+	    return "secure/GetIp4List";
 	}
 	//Get IPv4 List from Source -- get data from form
 	@RequestMapping(value = "/secure/getList", method = RequestMethod.POST)

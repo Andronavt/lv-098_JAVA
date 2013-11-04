@@ -12,7 +12,7 @@
 </head>
 <body>
 	<% Logger logger=Logger.getLogger("infoLog"); %>
-	<%logger.info("creating secure/TestGetIp4List.jsp");%>
+	<%logger.info("creating secure/GetIp4List.jsp");%>
 	<center>
 		<h2>Get all Ipv4 from resource</h2>
 		<h4>Please select source</h4>

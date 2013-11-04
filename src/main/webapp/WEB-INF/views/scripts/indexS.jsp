@@ -83,7 +83,7 @@
 			});
 			$('#getContentAddIp4List').click(function() {
 				$.ajax({
-					url : "secure/TestGetIp4List",
+					url : "secure/GetIp4List",
 					cache : false,
 					beforeSend : function() {
 						$('#content').html('Get list form');
