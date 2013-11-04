@@ -6,8 +6,8 @@
 .button {
 font-size: 10px;
   display: block;
-  width: 200px;
-  height: 20px;
+  width: 145px;
+  height: 27px;
   padding: 4px;
   text-align: left;
   font-size:10pt;
