@@ -2,27 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
 <%@ taglib prefix="sec"
  uri="http://www.springframework.org/security/tags"%> 
- <style type="text/css">
-.button {
-font-size: 10px;
-  display: block;
-  width: 145px;
-  height: 27px;
-  padding: 4px;
-  text-align: left;
-  font-size:10pt;
-  font-color: black;
-  background-color:white;
-} 
 
-.button:hover {
-background-color: #CEECF5;
-   background: -moz-radial-gradient(#fff, #827e55); */
-/*   background: -ms-radial-gradient(#fff, #827e55); */
-/*   background: -o-radial-gradient(#fff, #827e55); */
-/*   background: -webkit-radial-gradient(#fff, #827e55); */
-}
-</style>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">

@@ -12,7 +12,9 @@
 
 <html>
 <head>
-<%@include file="/WEB-INF/views/styles/ind.css"%>
+
+<link href="<c:url value="/resources/css/index.css" />" rel="stylesheet"  type="text/css" />  
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link rel="stylesheet"
