@@ -12,7 +12,7 @@
 	</appender>
 	<!-- Loging into file -->
 	<appender name="fileInfo" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="C:/Users/Oleg/workspace/lv-098_JAVA/logs/info.log" />
+		<param name="File" value="c:/Users/Oleg/workspace/lv-098_JAVA/logs/info.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="10MB" />
 		<param name="MaxBackupIndex" value="4" />
@@ -23,7 +23,7 @@
 		</layout>
 	</appender>
 	<appender name="fileWarn" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="C:/Users/Oleg/workspace/lv-098_JAVA/logs/warn.log" />
+		<param name="File" value="c:/Users/Oleg/workspace/lv-098_JAVA/logs/warn.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="10MB" />
 		<param name="MaxBackupIndex" value="4" />
