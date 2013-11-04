@@ -7,6 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//app/inf/name.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -29,7 +31,6 @@
                     url : "admin/listOfSurce",
                     data : "source=" + source,
                     success : function(response) {
-                            // we have the response
                             $('#1').html(response);
                     },
                     error : function(e) {
