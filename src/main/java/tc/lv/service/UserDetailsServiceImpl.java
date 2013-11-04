@@ -15,7 +15,7 @@ import tc.lv.domain.UserEntity;
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
-	private UserDao dao = new UserDaoImpl();
+	private UserDao dao;
 	@Autowired
 	private Assembler assembler;
 

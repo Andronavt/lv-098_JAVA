@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>tc.lv</groupId>
-	<artifactId>main</artifactId>
+	<artifactId>lv-098_JAVA</artifactId>
 	<name>lv-098_JAVA</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
