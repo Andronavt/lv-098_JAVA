@@ -99,6 +99,7 @@ public class SourceDaoImpl implements SourceDao {
 	@Override
 	public void deleteFeed(String sourceName) {
 		sourceName = sourceName.trim();
+		System.err.println(sourceName);
 		Query query = entityManager.createNamedQuery("Source.findByName",
 				Source.class).setParameter("sourceName", sourceName);
 		Source tempSource = (Source) query.getSingleResult();
