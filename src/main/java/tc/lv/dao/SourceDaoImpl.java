@@ -1,3 +1,4 @@
+
 package tc.lv.dao;
 
 import java.util.ArrayList;
@@ -5,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -16,7 +15,6 @@ import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 import tc.lv.domain.Source;
-import tc.lv.domain.WhiteList;
 
 @Repository
 public class SourceDaoImpl implements SourceDao {
@@ -102,6 +100,7 @@ public class SourceDaoImpl implements SourceDao {
 	@Override
 	public void deleteFeed(String sourceName) {
 		sourceName = sourceName.trim();
+		System.err.println(sourceName);
 		Query query = entityManager.createNamedQuery("Source.findByName",
 				Source.class).setParameter("sourceName", sourceName);
 		Source tempSource = (Source) query.getSingleResult();
@@ -110,3 +109,4 @@ public class SourceDaoImpl implements SourceDao {
 	}
 
 }
+

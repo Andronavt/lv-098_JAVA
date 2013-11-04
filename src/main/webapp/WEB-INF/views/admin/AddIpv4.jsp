@@ -2,15 +2,14 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
-<%@ page import="org.apache.log4j.Logger" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
 <title>Add IPv4 to Source</title>
-	<% Logger logger=Logger.getLogger("infoLog"); %>
-	<%logger.info("creating admin/AddIpv4.jsp");%>
+
 
 <script type="text/javascript">
 	function doAjaxPost() {

@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,6 @@ public class SourceController {
 
 	private static int SOURCE_TEST = 1;
 	private static final Logger logger = Logger.getLogger("infoLog");
-	
 	@Autowired
 	private SourceService souService;
 
@@ -30,6 +30,7 @@ public class SourceController {
 		map.put("ipList", souService.getIpV4ListFromSource(SOURCE_TEST));
 		return "ip";
 	}
+
 	//Get IPv4 List from Source -- get jsp
 	@RequestMapping("/secure/GetIp4List")
 	public String getlistIpV4(Map<String, Object> map) {
@@ -47,6 +48,7 @@ public class SourceController {
 				souService.getIpV4ListFromSource(Integer.valueOf(source)));
 		return "secure/listIpv4";
 	}
+
 	//Add IPv4 to Source -- get jsp
 	@RequestMapping(value = "/admin/AddIpv4", method = RequestMethod.GET)
 	public String addIplistPage(Map<String, Object> map) {
@@ -87,23 +89,17 @@ public class SourceController {
 				url);
 		return "admin/AddNewFeed";
 	}
-
-	// deleting source
-	@RequestMapping(value = "/deleteSource", method = RequestMethod.POST)
-	public String deleteSource(
-			@ModelAttribute("deleteSource") String sourceForDeleting) {
-		souService.deleteFeed(sourceForDeleting);
-		return "admin/listOfSurce";
-	}
-
-	@RequestMapping("/formListOfSources")
-	public String listOfSources(Map<String, Object> map) {
-		map.put("listSource", souService.getListOfSourcess());
+	
+	
+	@RequestMapping(value = "/admin/listOfSurce", method = RequestMethod.POST)
+	public String deleteSource(@ModelAttribute(value = "source") String source) {
+		souService.deleteFeed(source);
 		return "admin/listOfSource";
 	}
 
-	@RequestMapping(value = "admin/listOfSource", method = RequestMethod.GET)
-	public String getListOfSource() {
+	@RequestMapping(value = "/admin/listOfSource", method = RequestMethod.GET)
+	public String listOfSources(Map<String, Object> map) {
+		map.put("listSource", souService.getListOfSourcess());
 		return "admin/listOfSource";
 	}
 

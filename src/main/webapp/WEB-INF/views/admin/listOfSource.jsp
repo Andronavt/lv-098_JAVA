@@ -6,43 +6,38 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
-<table>
-	<tr>
-	<th>List of sources:</th>
-	<th><form action="formListOfSources" method="post" name="list">
-	
-	<input type="submit" value="Get list of sources">
-	<select name="sources" size="1">
-		<c:forEach  var="Source" items="${listSource}">
-			<option>${Source.getSourceName()}</option>
-		</c:forEach>
-	</select>	
-	</form></th>
-	
-	<th><script type="text/javascript">
-		function selectsource(){
-			var deleteString = $('select[name=sources]').val();
-		 $.ajax({
-		     type : "POST",
-		     url : "deleteSource",
-		     data : "deleteSource=" + deleteString,
-		     success : function(response) {
-		      // we have the response
-			      alert("succesful");
-		     },
-		     error : function (e) {
-		      alert(deleteString);
-		     }
-		    });
-		    return false;
-		   };
-		   </script>
-		<input type="button" value="Delete source" onclick="selectsource()"></th>
-		</tr>
-		</table>
+<div id="1">
+	<center>
+		<h2>List of sources</h2>
+		<select name="sources" size="1">
+			<c:forEach var="Source" items="${listSource}">
+				<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
+			</c:forEach>
+		</select> <br> <br> <input type="button" value="Delete source" onclick="selectsource()">
+	</center>
+	<br>
+	<br>
+		<script type="text/javascript">
+		function selectsource() {
+            var source = $('select[name=sources]').val();
+            $.ajax({
+                    type : "POST",
+                    url : "admin/listOfSurce",
+                    data : "source=" + source,
+                    success : function(response) {
+                            // we have the response
+                            $('#1').html(response);
+                    },
+                    error : function(e) {
+                            alert('Error: ' + e);
+                    }
+            });
+    }
+	</script>
+	</div>
 </body>
 </html>
