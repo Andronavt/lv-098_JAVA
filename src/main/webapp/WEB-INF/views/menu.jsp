@@ -31,12 +31,13 @@ font-size: 10px;
 </head>
 <body>
 <div id="accordion">
-            <sec:authorize access="hasRole('ROLE_USER')">
-            <h6>Home</h6>
+
+  <h6>Home</h6>
             <div>
-     <a class="button" href="/" title="Home">Home</a>
-<!--      <a class="button" href="secure/check-ip-status" title="Ip status">Ip status</a> -->
+     <a class="button" href="" title="Home">Home</a>
     </div> 
+    <sec:authorize access="hasRole('ROLE_USER')">
+    
    <h6>Statistics:</h6>
    <div>
 <!--      <a class="button" href="secure/ip-charts" title="Charts">Charts</a> -->
@@ -67,7 +68,7 @@ font-size: 10px;
 <!--     <a class="button" href="admin/admin" title="Admin">Admin</a> -->
    </sec:authorize>
    </div>
-  
+
 <script>
 $("#accordion").accordion({collapsible:true});
 </script>

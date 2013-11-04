@@ -19,7 +19,7 @@ h2 {
 }
 
 #header {
-	font-size: 2em; /* Размер текста */
+	font-size: 1.4em; /* Размер текста */
 	text-align: right; /* Выравнивание по центру */
 	padding: 5px;
 	background-color: Silver;

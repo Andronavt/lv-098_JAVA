@@ -81,6 +81,19 @@
 				});
 				return false;
 			});
+			$('#getContentAddIp4List').click(function() {
+				$.ajax({
+					url : "secure/TestGetIp4List",
+					cache : false,
+					beforeSend : function() {
+						$('#content').html('Get list form');
+					},
+					success : function(html) {
+						$("#content").html(html);
+					}
+				});
+				return false;
+			});
 
 		});
 	</script>
