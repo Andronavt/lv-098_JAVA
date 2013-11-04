@@ -1,7 +1,6 @@
-</script>
-<title>index JSP</title>
-
-<style type="text/css">
+</script> 
+<title>index JSP </title> 
+<style type ="text/css">
 body {
 	font: 10pt Arial, Helvetica, sans-serif; /* Шрифт на веб-странице */
 	background: #e1dfb9; /* Цвет фона */
@@ -24,20 +23,17 @@ h2 {
 	text-align: right; /* Выравнивание по центру */
 	padding: 5px;
 	background-color: Silver;
-	
-	
 }
 
 #sidebar {
-	height:auto
-	margin-top: 0px;
+	height: auto margin-top: 0px;
 	width: auto; /* Ширина слоя */
 	padding: 0x; /* Отступы вокруг текста */
 	float: left; /* Обтекание по правому краю */
 }
 
 #content {
-	margin-left: 145px; /* Отступ слева */
+	margin-left: 220px; /* Отступ слева */
 	padding: 10px; /* Поля вокруг текста */
 	background: #fff; /* Цвет фона правой колонки */
 }
@@ -47,5 +43,6 @@ h2 {
 	color: #fff; /* Цвет текста */
 	padding: 5px; /* Отступы вокруг текста */
 	clear: left; /* Отменяем действие float */
+	position: bottom;
 }
 </style>
