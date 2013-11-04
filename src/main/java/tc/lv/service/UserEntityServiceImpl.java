@@ -13,6 +13,16 @@ public class UserEntityServiceImpl implements UserEntityService {
 	private UserDao userDao;
 
 	@Transactional
+<<<<<<< HEAD
+=======
+	public void addAdminUser(String username, String firstname,
+			String lastname, String email, String password) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Transactional
+>>>>>>> master
 	public void addCustomerUser(String username, String firstname,
 			String lastname, String email, String password) {
 		userDao.addCustomerUser(username, firstname, lastname, email, password);

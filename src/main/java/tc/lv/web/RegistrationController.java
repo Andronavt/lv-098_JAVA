@@ -12,7 +12,10 @@ import tc.lv.service.UserEntityService;
 
 @Controller
 public class RegistrationController {
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 	@Autowired
 	private UserEntityService userEntityService;
 
@@ -29,6 +32,7 @@ public class RegistrationController {
 			@ModelAttribute(value = "email") String email,
 			@ModelAttribute(value = "pass") String pass, BindingResult result) {
 		String returnText;
+<<<<<<< HEAD
 		if (!result.hasErrors()) {
 			// souService.setIpV4Address(ip, source);
 			System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!" + user_name
@@ -60,4 +64,15 @@ public class RegistrationController {
 	// return returnText;
 	// }
 
+=======
+		if (!result.hasErrors()) {				
+			userEntityService.addCustomerUser(user_name, first_name, last_name,
+					email, pass);
+			return "Success";			
+		} else {
+			returnText = "Sorry, an error has occur.";
+		}
+		return returnText;
+	}
+>>>>>>> master
 }

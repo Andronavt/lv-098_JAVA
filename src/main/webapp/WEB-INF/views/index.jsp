@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF8"
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -5,6 +6,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page session="false"%>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -16,11 +18,11 @@
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<title>index JSP</title>
-
+<title>Welcome IP-Info</title>
 
 </head>
 <body>
+
 	<div id="container" style="FONT-SIZE: x-small;">
 		<div id="header">
 			<%@include file="head.jsp"%>

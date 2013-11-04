@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name = "blacklist")
 @NamedQueries({
 		@NamedQuery(name = "IpV4Address.findByNameInBlackList", query = "SELECT c from BlackList c, IpV4Address d WHERE d.id=c.ipV4.id AND d.address= :address"),
-		@NamedQuery(name = "IpV6Address.findByNameInBlackList", query = "SELECT c from BlackList c, IpV6Address d WHERE d.id=c.ipV4.id AND d.address= :address")})
+		@NamedQuery(name = "IpV6Address.findByNameInBlackList", query = "SELECT c from BlackList c, IpV6Address d WHERE d.id=c.ipV4.id AND d.address= :address") })
 public class BlackList extends GeneralList {
 	private static final long serialVersionUID = 2844104889899109411L;
 
@@ -22,10 +22,20 @@ public class BlackList extends GeneralList {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ipV6_id", referencedColumnName = "id", updatable = true, nullable = true, unique = false)
-	protected IpV4Address ipV6;
+	protected IpV6Address ipV6;
 
 	public BlackList() {
 		super();
+	}
+
+	public BlackList(IpV4Address ipV4) {
+		super();
+		this.ipV4 = ipV4;
+	}
+
+	public BlackList(IpV6Address ipV6) {
+		super();
+		this.ipV6 = ipV6;
 	}
 
 	public IpV4Address getIpV4() {

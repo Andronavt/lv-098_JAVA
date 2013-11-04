@@ -15,5 +15,9 @@ public class SigninController {
 	public String signinFailure() {
 		return "user/signin_failure";
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> master
 }
