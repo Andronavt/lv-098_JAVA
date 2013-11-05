@@ -54,5 +54,4 @@ public class UserDaoImpl implements UserDao {
 		user.setRoleSet(roleSet);
 		entityManager.persist(user);
 	}
-
 }

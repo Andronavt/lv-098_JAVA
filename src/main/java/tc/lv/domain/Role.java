@@ -20,8 +20,8 @@ public class Role {
 	private int id;
 	@Column(name = "role", nullable = false)
 	private String role;
-	
-	@ManyToMany(cascade = CascadeType.ALL ,mappedBy="roleSet",fetch=FetchType.EAGER)
+
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "roleSet", fetch = FetchType.EAGER)
 	private Set<UserEntity> userSet = new HashSet<UserEntity>();
 
 	public Role() {

@@ -28,10 +28,10 @@ public class RegistrationController {
 			@ModelAttribute(value = "email") String email,
 			@ModelAttribute(value = "pass") String pass, BindingResult result) {
 		String returnText;
-		if (!result.hasErrors()) {				
+		if (!result.hasErrors()) {
 			userEntityService.addCustomerUser(user_name, first_name, last_name,
 					email, pass);
-			return "Success";			
+			return "Success";
 		} else {
 			returnText = "Sorry, an error has occur.";
 		}
