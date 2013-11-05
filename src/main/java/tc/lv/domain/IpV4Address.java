@@ -22,11 +22,16 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "ipv4_addresses")
-@NamedQueries({ @NamedQuery(name = "findIpV4ByName", query = "SELECT c from IpV4Address c WHERE c.address= :address"), })
+@NamedQueries({
+		@NamedQuery(name = "loadIpV4ByName", query = "SELECT c from IpV4Address c WHERE c.address= :address"),
+		@NamedQuery(name = "loadWhiteIpV4List", query = "SELECT s from IpV4Address s where s.whiteList = :whitelist"),
+		@NamedQuery(name = "loadUndefinedIpV4List", query = "SELECT s from IpV4Address s where s.whiteList is null"),
+		@NamedQuery(name = "loadWhiteIpV4byName", query = "SELECT s from IpV4Address s where s.whiteList = TRUE and s.address =:address"),
+		@NamedQuery(name = "loadBlackIpV4byName", query = "SELECT s from IpV4Address s where s.whiteList = FALSE and s.address =:address")})
 public class IpV4Address extends IpAddress implements Serializable {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "source_to_addresses", joinColumns = { @JoinColumn(name = "v4_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "source_id", updatable = true, nullable = true) })
+	@JoinTable(name = "source_to_addresses", joinColumns = {@JoinColumn(name = "v4_id", updatable = true, nullable = true)}, inverseJoinColumns = {@JoinColumn(name = "source_id", updatable = true, nullable = true)})
 	@Fetch(FetchMode.JOIN)
 	// @OnDelete(action = OnDeleteAction.CASCADE)
 	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)

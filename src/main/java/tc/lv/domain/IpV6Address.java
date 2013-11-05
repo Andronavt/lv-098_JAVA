@@ -20,11 +20,16 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "ipv6_addresses")
-@NamedQueries({ @NamedQuery(name = "findIpV6ByName", query = "SELECT c from IpV6Address c WHERE c.address= :address"), })
+@NamedQueries({
+		@NamedQuery(name = "loadIpV6ByName", query = "SELECT c from IpV6Address c WHERE c.address= :address"),
+		@NamedQuery(name = "loadWhiteIpV6List", query = "SELECT s from IpV6Address s where s.whiteList = :whitelist"),
+		@NamedQuery(name = "loadUndefinedIpV6List", query = "SELECT s from IpV6Address s where s.whiteList is null"),
+		@NamedQuery(name = "loadWhiteIpV6byName", query = "SELECT s from IpV6Address s where s.whiteList = TRUE and s.address =:address"),
+		@NamedQuery(name = "loadBlackIpV6byName", query = "SELECT s from IpV6Address s where s.whiteList = FALSE and s.address =:address")})
 public class IpV6Address extends IpAddress {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "source_to_addresses", joinColumns = { @JoinColumn(name = "v6_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "source_id", updatable = true, nullable = true) })
+	@JoinTable(name = "source_to_addresses", joinColumns = {@JoinColumn(name = "v6_id", updatable = true, nullable = true)}, inverseJoinColumns = {@JoinColumn(name = "source_id", updatable = true, nullable = true)})
 	@Fetch(FetchMode.JOIN)
 	private Set<Source> sourceSet = new HashSet<Source>();
 
