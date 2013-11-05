@@ -9,6 +9,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet" type="text/css" />
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/content.js" />"></script>
@@ -44,13 +45,12 @@
 			<h6 style="width: 150px;">Feeds:</h6>
 			<div style="width: 125px;">
 				<a class="button" href="#" id="getContentDeleteFeed"
-					title="Delete Feed">Delete Feed</a> <a class="button" href="#"
-					id="getContentAddNewFeed" title="Add new Feed">Add new Feed</a> <a
-					class="button" href="#" id="getContentAddIp4"
-					title="Add IP to Source">Add IP to Source</a> <a class="button"
-					href="#" id="getContentAddIpToWl" title="Add to WList">Add to
-					WList</a> <a class="button" href="#" id="getContentDeleteWlIp"
-					title="Delete IP from WList">Delete IP from WList</a>
+					title="Delete Feed">Delete Feed</a>
+					
+					<a class="button" href="#" id="getContentAddNewFeed" title="Add new Feed">Add new Feed</a>
+					<a class="button" href="#" id="getContentAddIp4" title="Add IP to Source">Add IP to Source</a>
+					<a class="button" href="#" id="getContentAddIpToWl" title="Add to WList">Add to WList</a>
+					<a class="button" href="#" id="getContentDeleteWlIp" title="Delete IP from WList">Delete IP from WList</a>
 				<!--   TODO  <a class="button" href="admin/list-downloads" title="List downloads">List downloads</a> -->
 			</div>
 			<!--     <a class="button" href="admin/daemon-control" title="Daemon controls">Daemon controls</a> -->
