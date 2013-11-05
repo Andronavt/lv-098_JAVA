@@ -26,7 +26,7 @@ public class AdaptorChaosreignsWL extends Parser {
 	private static final Logger log = Logger
 			.getLogger(AdaptorChaosreignsWL.class);
 
-	AdaptorChaosreignsWL(String way, int sourceId) {
+	public AdaptorChaosreignsWL(String way, int sourceId) {
 		Pattern pattern = Pattern.compile(IP_ALL);
 		Matcher matcher;
 		Scanner line;
@@ -47,6 +47,7 @@ public class AdaptorChaosreignsWL extends Parser {
 					}
 				}
 			}
+			System.out.println("SIZE " + ip4list.size());
 			line.close();
 		} catch (FileNotFoundException e) {
 			log.error("File not found!", e);

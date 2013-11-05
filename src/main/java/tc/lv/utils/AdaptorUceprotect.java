@@ -26,7 +26,7 @@ public class AdaptorUceprotect extends Parser {
 
 	private static final Logger log = Logger.getLogger(AdaptorUceprotect.class);
 
-	AdaptorUceprotect(String way, int sourceId) {
+	public AdaptorUceprotect(String way, int sourceId) {
 		Pattern pattern = Pattern.compile(IP_ALL);
 		Matcher matcher;
 		Scanner line;

@@ -44,4 +44,6 @@ public interface SourceDao {
 	
 	public void updateSourceIpList(Parser parser);
 	
+	public Source loadSourceByName(String sourceName);
+	
 }

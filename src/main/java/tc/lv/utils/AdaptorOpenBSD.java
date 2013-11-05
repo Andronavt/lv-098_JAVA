@@ -25,7 +25,8 @@ import tc.lv.domain.NotValidIp;
 public class AdaptorOpenBSD extends Parser {
 	private static final Logger log = Logger.getLogger(AdaptorOpenBSD.class);
 
-	AdaptorOpenBSD(String way, int sourceId) {
+	public AdaptorOpenBSD(String way, int sourceId) {
+		System.out.println("BEGIN");
 		Pattern pattern = Pattern.compile(IP_ALL);
 		Matcher matcher;
 		Scanner line;
@@ -46,6 +47,8 @@ public class AdaptorOpenBSD extends Parser {
 					}
 				}
 			}
+			//System.out.println("END");
+			System.out.println(" LIST SIZE " +ip4list.size());
 			line.close();
 		} catch (FileNotFoundException e) {
 			log.error("File not found!", e);

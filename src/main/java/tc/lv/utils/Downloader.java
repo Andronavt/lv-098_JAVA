@@ -31,6 +31,7 @@ public class Downloader {
 			try {
 
 				file = new File(dir + fileName);
+				System.out.println(dir + fileName + " : DIRNAME + FILENAME");
 				System.out.println(file.toString());
 
 				inputStream = new BufferedInputStream(
@@ -68,17 +69,19 @@ public class Downloader {
 				}
 			}
 			unZip(file);
+			System.out.println(file.toString());
+			System.out.println("COMPLETED");
 		} else {
 			try {
 				inputStream = new BufferedInputStream(
 						new URL(urlString).openStream());
 				outputFile = new FileOutputStream(dir + fileName);
+				System.out.println("OUR FILE IS " + dir + fileName);
 
 				byte data[] = new byte[1024];
 				int count;
 
 				while ((count = inputStream.read(data, 0, 1024)) != -1) {
-					// System.out.println(data.toString());
 					outputFile.write(data, 0, count);
 				}
 

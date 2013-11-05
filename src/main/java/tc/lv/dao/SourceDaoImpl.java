@@ -28,10 +28,9 @@ public class SourceDaoImpl implements SourceDao {
 
 	}
 
-	public void addNewFeed(String typeofList, String rank,
-			String sourceName, String url) {
-		entityManager.persist(new Source( typeofList, rank, sourceName,
-				url));
+	public void addNewFeed(String typeofList, String rank, String sourceName,
+			String url) {
+		entityManager.persist(new Source(typeofList, rank, sourceName, url));
 	}
 
 	@Override
@@ -111,7 +110,6 @@ public class SourceDaoImpl implements SourceDao {
 
 	@Override
 	public void updateSourceIpV4List(List<IpV4Address> list, int sourceId) {
-		entityManager.getTransaction().begin();
 
 		Source source = entityManager.find(Source.class, sourceId);
 		if (source == null) {
@@ -136,12 +134,10 @@ public class SourceDaoImpl implements SourceDao {
 				}
 			}
 		}
-		entityManager.getTransaction().commit();
 	}
 
 	@Override
 	public void updateSourceIpV6List(List<IpV6Address> list, int sourceId) {
-		entityManager.getTransaction().begin();
 
 		Source source = entityManager.find(Source.class, sourceId);
 		if (source == null) {
@@ -166,12 +162,10 @@ public class SourceDaoImpl implements SourceDao {
 				}
 			}
 		}
-		entityManager.getTransaction().commit();
 	}
 
 	@Override
 	public void updateSourceNotValIpList(List<NotValidIp> list, int sourceId) {
-		entityManager.getTransaction().begin();
 
 		Source source = entityManager.find(Source.class, sourceId);
 		if (source == null) {
@@ -196,14 +190,25 @@ public class SourceDaoImpl implements SourceDao {
 				}
 			}
 		}
-		entityManager.getTransaction().commit();
 	}
 
 	@Override
 	public void updateSourceIpList(Parser parser) {
+		System.out.println("IPV4 PUSH");
 		updateSourceIpV4List(parser.getIpv4List(), parser.getSourceId());
+		System.out.println("IPV6 PUSH");
 		updateSourceIpV6List(parser.getIpv6List(), parser.getSourceId());
+		System.out.println("NOT VALOD PUSH PUSH");
 		updateSourceNotValIpList(parser.getNotValidList(), parser.getSourceId());
+	}
+
+	@Override
+	public Source loadSourceByName(String sourceName) {
+		Query query = entityManager.createNamedQuery("Source.findByName",
+				Source.class);
+		query.setParameter("sourceName", sourceName);
+
+		return (Source) query.getSingleResult();
 	}
 
 }
