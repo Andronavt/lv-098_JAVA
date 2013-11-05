@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sources")
-@NamedQuery(name="Source.findByName", query="SELECT c FROM Source c WHERE c.sourceName  = :sourceName")
+@NamedQuery(name = "Source.findByName", query = "SELECT c FROM Source c WHERE c.sourceName  = :sourceName")
 public class Source {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,57 +30,49 @@ public class Source {
 	@Column(name = "url", unique = true, nullable = false)
 	private String url;
 
-	@Column(name = "source_date_added", nullable = false)
+	@Column(name = "source_date_added", nullable = true)
 	private Date sourceDateAdded;
 
-	@Column(name = "updated", nullable = false)
+	@Column(name = "updated", nullable = true)
 	private Date updated;
 
 	@Column(name = "rank", nullable = false)
 	private Double rank;
 
-	@Column(name = "dirname", nullable = false)
+	@Column(name = "dirname", nullable = true)
 	private String dirname;
 
 	@Column(name = "list_type", nullable = false)
 	private String listType;
 
-	@Column(name = "adaptor", nullable = false)
-	private String adaptor;
-
-	@Column(name = "downloader", nullable = false)
-	private String downloader;
-
 	@Column(name = "md5")
 	private String md5;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet",fetch=FetchType.EAGER)
-	//@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.EAGER)
+	// @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	private Collection<IpV4Address> ipv4Set = new HashSet<IpV4Address>();
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet",fetch=FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.EAGER)
 	private Collection<IpV6Address> ipv6Set = new HashSet<IpV6Address>();
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet",fetch=FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.EAGER)
 	private Collection<NotValidIp> notValidSet = new HashSet<NotValidIp>();
 
 	public Source() {
 
 	}
 
-	public Source(String adaptor, String listOfType, String rank, String sourceName, String url) {
-	     this.adaptor = adaptor;
-	     this.listType = listOfType;
-	     this.rank = Double.parseDouble(rank);
-	     this.sourceName = sourceName;
-	     this.sourceDateAdded = new Date();
-	     this.url = url;
-	 }
-	
+	public Source(String listOfType, String rank, String sourceName, String url) {
+		this.listType = listOfType;
+		this.rank = Double.parseDouble(rank);
+		this.sourceName = sourceName;
+		this.sourceDateAdded = new Date();
+		this.url = url;
+	}
+
 	public Source(String sourceName, String url, Date sourceDateAdded,
 			Date updated, double rank, String dirname, String listType,
-			String adaptor, String downloader, String md5,
-			Collection<IpV4Address> ipv4Set) {
+			String md5, Collection<IpV4Address> ipv4Set) {
 		super();
 		this.sourceName = sourceName;
 		this.url = url;
@@ -89,15 +81,14 @@ public class Source {
 		this.rank = rank;
 		this.dirname = dirname;
 		this.listType = listType;
-		this.adaptor = adaptor;
-		this.downloader = downloader;
+
 		this.md5 = md5;
 		this.ipv4Set = ipv4Set;
 	}
 
 	public Source(String sourceName, String url, Date sourceDateAdded,
 			Date updated, double rank, String dirname, String listType,
-			String adaptor, String downloader, String md5) {
+			String md5) {
 		super();
 		this.sourceName = sourceName;
 		this.url = url;
@@ -106,13 +97,9 @@ public class Source {
 		this.rank = rank;
 		this.dirname = dirname;
 		this.listType = listType;
-		this.adaptor = adaptor;
-		this.downloader = downloader;
+
 		this.md5 = md5;
 	}
-
-	
-
 
 	public int getSourceId() {
 		return sourceId;
@@ -176,22 +163,6 @@ public class Source {
 
 	public void setListType(String listType) {
 		this.listType = listType;
-	}
-
-	public String getAdaptor() {
-		return adaptor;
-	}
-
-	public void setAdaptor(String adaptor) {
-		this.adaptor = adaptor;
-	}
-
-	public String getDownloader() {
-		return downloader;
-	}
-
-	public void setDownloader(String downloader) {
-		this.downloader = downloader;
 	}
 
 	public String getMd5() {
