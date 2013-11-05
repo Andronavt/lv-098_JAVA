@@ -1,0 +1,22 @@
+@CHARSET "ISO-8859-1";
+
+.button {
+	font-size: 10px;
+	display: block;
+	width: 145px;
+	height: 27px;
+	padding: 4px;
+	text-align: left;
+	font-size: 10pt;
+	font-color: black;
+	background-color: white;
+}
+
+.button:hover {
+	background-color: #CEECF5;
+	background: -moz-radial-gradient(#fff, #827e55);
+	*/
+	/*   background: -ms-radial-gradient(#fff, #827e55); */
+	/*   background: -o-radial-gradient(#fff, #827e55); */
+	/*   background: -webkit-radial-gradient(#fff, #827e55); */
+}

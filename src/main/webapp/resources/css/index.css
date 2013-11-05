@@ -1,0 +1,45 @@
+
+body {
+	font: 10pt Arial, Helvetica, sans-serif; 
+	background: #e1dfb9; 
+}
+
+h2 {
+	font-size: 1.1em; 
+	color: #800040; 
+	margin-top: 0; 
+}
+
+#container {
+	width: auto; 
+	margin: 0 auto;
+	background: #f0f0f0; 
+}
+
+#header {
+	font-size: 1.4em;
+	text-align: right; 
+	padding: 5px;
+	background-color: Silver;
+}
+
+#sidebar {
+	height: auto margin-top: 0px;
+	width: auto; 
+	padding: 0x;
+	float: left; 
+}
+
+#content {
+	margin-left: 220px; 
+	padding: 10px; 
+	background: #fff; 
+}
+
+#footer {
+	background: #8fa09b; 
+	color: #fff; 
+	padding: 5px; 
+	clear: left; 
+	position: bottom;
+}

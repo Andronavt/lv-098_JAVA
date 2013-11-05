@@ -7,38 +7,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="//app/inf/name.js"></script>
-
+<script type="text/javascript"
+	src="<c:url value="/resources/js/ajax.js" />"></script>
 <title>Insert title here</title>
 </head>
 <body>
-<div id="1">
-	<center>
-		<h2>List of sources</h2>
-		<select name="sources" size="1">
-			<c:forEach var="Source" items="${listSource}">
-				<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
-			</c:forEach>
-		</select> <br> <br> <input type="button" value="Delete source" onclick="selectsource()">
-	</center>
-	<br>
-	<br>
-		<script type="text/javascript">
-		function selectsource() {
-            var source = $('select[name=sources]').val();
-            $.ajax({
-                    type : "POST",
-                    url : "admin/listOfSurce",
-                    data : "source=" + source,
-                    success : function(response) {
-                            $('#1').html(response);
-                    },
-                    error : function(e) {
-                            alert('Error: ' + e);
-                    }
-            });
-    }
-	</script>
+	<div id="1">
+		<center>
+			<h2>List of sources</h2>
+			<select name="sources" size="1">
+				<c:forEach var="Source" items="${listSource}">
+					<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
+				</c:forEach>
+			</select> <br> <br> <input type="button" value="Delete source"
+				onclick="selectSource()">
+		</center>
+		<br> <br>
 	</div>
 </body>
 </html>
