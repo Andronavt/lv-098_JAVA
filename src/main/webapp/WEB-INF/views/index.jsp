@@ -41,7 +41,6 @@
 				</sec:authorize>
 		</div>
 	</div>
-
 	<div id="sidebar">
 		<jsp:include page="menu.jsp"></jsp:include>
 	</div>
