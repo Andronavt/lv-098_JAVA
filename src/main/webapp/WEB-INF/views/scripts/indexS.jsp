@@ -6,11 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
 <title>Insert title here</title>
+<script type="text/javascript" src="/resources/js/index.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 </head>
 <body>
 
 	<script>
+
 		$(document).ready(function() {
 			$('#getContentLogin').click(function() {
 				$.ajax({
@@ -68,7 +71,7 @@
 				});
 				return false;
 			});
-			
+
 			$('#getContentDeleteFeed').click(function() {
 				$.ajax({
 					url : "admin/listOfSource",
@@ -95,7 +98,7 @@
 				});
 				return false;
 			});
-			
+
 			$('#getContentDeleteWlIp').click(function() {
 				$.ajax({
 					type : 'GET',

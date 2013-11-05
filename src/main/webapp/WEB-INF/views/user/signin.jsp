@@ -2,9 +2,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page session="true"%>
-<%@ page import="org.apache.log4j.Logger" %>
+<%@ page import="org.apache.log4j.Logger"%>
 <html>
 <head>
+<script type="text/javascript"
+	src="<c:url value="/resources/js/ajax.js" />"></script>
 <title>Sign In</title>
 </head>
 <body>
@@ -26,17 +28,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#registration').click(function() {
-				$.ajax({
-					url : "user/registration",
-					cache : false,
-					beforeSend : function() {
-						$('#content').html('registration not loaded');
-					},
-					success : function(html) {
-						$("#content").html(html);
-					}
-				});
-				return false;
+				registration();
 			});
 		});
 	</script>

@@ -21,6 +21,8 @@
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+
 <title>Welcome IP-Info</title>
 
 </head>
@@ -29,7 +31,7 @@
 	<div id="container" style="FONT-SIZE: x-small;">
 		<div id="header">
 			<%@include file="head.jsp"%>
-			<%@include file="/WEB-INF/views/scripts/indexS.jsp"%>
+			 <%@include file="/WEB-INF/views/scripts/indexS.jsp"%>
 			<p align="right">
 				<sec:authorize access="isAnonymous()">
     Welcome! Guest
