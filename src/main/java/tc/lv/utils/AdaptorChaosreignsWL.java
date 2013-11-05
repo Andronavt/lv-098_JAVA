@@ -22,14 +22,9 @@ import tc.lv.domain.NotValidIp;
  * @author Bohdan
  * 
  */
-public class AdaptorChaosreignsWL {
+public class AdaptorChaosreignsWL extends Parser {
     private static final Logger log = Logger.getLogger(AdaptorChaosreignsWL.class);
-    private static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
-    private ArrayList<IpV4Address> ip4list = new ArrayList<IpV4Address>();
-    private ArrayList<IpV6Address> ip6list = new ArrayList<IpV6Address>();
-    private ArrayList<NotValidIp> notValidList = new ArrayList<NotValidIp>();
-    private int sourceId;
-    
+   
     AdaptorChaosreignsWL(String way, int sourceId) {
 	Pattern pattern = Pattern.compile(IP_ALL);
 	Matcher matcher;

@@ -11,6 +11,10 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class IpAddress implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8772938813496814011L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true)
