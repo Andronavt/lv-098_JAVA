@@ -90,16 +90,18 @@ function doAjaxPostDeleteIp() {
 	return false;
 }
 
-function registration() {
+function getIP4List() {
+	var source = $('select[name=sources]').val();
 	$.ajax({
-		url : "user/registration",
-		cache : false,
-		beforeSend : function() {
-			$('#content').html('registration not loaded');
+		type : "POST",
+		url : "secure/getList",
+		data : "source=" + source,
+		success : function(response) {
+			// we have the response
+			$('#divGetIp4List').html(response);
 		},
-		success : function(html) {
-			$("#content").html(html);
+		error : function(e) {
+			alert('Error: ' + e);
 		}
 	});
-	return false;
 }

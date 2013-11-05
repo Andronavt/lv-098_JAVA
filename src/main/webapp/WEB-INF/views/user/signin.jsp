@@ -6,7 +6,7 @@
 <html>
 <head>
 <script type="text/javascript"
-	src="<c:url value="/resources/js/ajax.js" />"></script>
+	src="<c:url value="/resources/js/content.js" />"></script>
 <title>Sign In</title>
 </head>
 <body>

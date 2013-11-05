@@ -8,11 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/ajax.js" />"></script>
 <title>Insert title here</title>
 </head>
 <body>
-	<% Logger logger=Logger.getLogger("infoLog"); %>
-	<%logger.info("creating secure/GetIp4List.jsp");%>
 	<center>
 		<h2>Get all Ipv4 from resource</h2>
 		<h4>Please select source</h4>
@@ -29,23 +28,6 @@
 	<br>
 	<br>
 	<div id=divGetIp4List></div>
-	<script type="text/javascript">
-		function getIP4List() {
-			var source = $('select[name=sources]').val();
-			$.ajax({
-				type : "POST",
-				url : "secure/getList",
-				data : "source=" + source,
-				success : function(response) {
-					// we have the response
-					$('#divGetIp4List').html(response);
-				},
-				error : function(e) {
-					alert('Error: ' + e);
-				}
-			});
-		}
-	</script>
 
 </body>
 </html>

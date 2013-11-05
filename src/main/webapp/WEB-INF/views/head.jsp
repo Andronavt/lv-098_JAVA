@@ -10,17 +10,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+<script type="text/javascript"
+	src="<c:url value="/resources/js/content.js" />"></script>
 <title>Insert title here</title>
 </head>
 <body>
 	<p align="right">
 		<sec:authorize access="isAnonymous()">
 			<a href="#" id="getContentLogin">Login/Registration</a>
-			<!--  a href="signin">login</a-->
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
 			<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 		</sec:authorize>
 	</p>
+	<script>
+		$(document).ready(function() {
+			$('#getContentLogin').click(function() {
+				getContentLogin();
+			});
+		});
+	</script>
 </body>
 </html>

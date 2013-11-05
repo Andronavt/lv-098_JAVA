@@ -31,7 +31,7 @@
 	<div id="container" style="FONT-SIZE: x-small;">
 		<div id="header">
 			<%@include file="head.jsp"%>
-			 <%@include file="/WEB-INF/views/scripts/indexS.jsp"%>
+<%-- 			 <%@include file="/WEB-INF/views/scripts/indexS.jsp"%> --%>
 			<p align="right">
 				<sec:authorize access="isAnonymous()">
     Welcome! Guest
