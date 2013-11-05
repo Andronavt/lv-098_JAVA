@@ -32,11 +32,11 @@ public class SourceDownloadController {
     private SourceService souService;
 
     // Getting updateSourcesPag.jsp
-    @RequestMapping("/admin/updateSourcesPage")
+    @RequestMapping("/admin/SourcesUpdatePage")
     public String getlistIpV4(Map<String, Object> map) {
 	loggerInfo.info("getting secure/TestGetIp4List.jsp");
 	map.put("listSource", souService.getListOfSourcess());
-	return "admin/updateSourcesPage";
+	return "admin/SourcesUpdatePage";
     }
 
     // Updating Sources
