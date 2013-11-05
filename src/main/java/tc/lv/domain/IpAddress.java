@@ -11,16 +11,15 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class IpAddress implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8772938813496814011L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true)
 	protected int id;
+
 	@Column(name = "address", updatable = true, nullable = false)
 	protected String address;
+
 	@Column(name = "date_added")
 	protected Date dateAdded;
 
@@ -65,4 +64,11 @@ public abstract class IpAddress implements Serializable {
 		return this.getAddress().equals(((IpAddress) obj).getAddress());
 	}
 
+	public Date getDateAdded() {
+		return dateAdded;
+	}
+
+	public void setDateAdded(Date dateAdded) {
+		this.dateAdded = dateAdded;
+	}
 }

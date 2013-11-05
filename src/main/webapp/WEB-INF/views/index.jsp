@@ -43,6 +43,7 @@
 	<div id="content">
 		<center>
 			<h1>Welcome to IP-info resource</h1>
+			<input action="/updateSources" type="button" name="run" value="Run">
 		</center>
 		<div id="divContent"></div>
 	</div>
