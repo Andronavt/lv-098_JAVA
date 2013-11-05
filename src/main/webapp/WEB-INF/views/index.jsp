@@ -7,7 +7,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page session="false"%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
@@ -15,6 +14,7 @@
 <%@include file="/WEB-INF/views/styles/ind.css"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/index.js"/>"></script>
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
