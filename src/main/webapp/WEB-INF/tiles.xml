@@ -7,16 +7,16 @@
 	<definition name="base.definition" template="/views/tiles/layout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/views/tiles/header.jsp" />
-		<put-attribute name="login" value="/views/tiles/login.jsp" />
+		<!-- <put-attribute name="login" value="/views/tiles/login.jsp" /> -->
 		<put-attribute name="menu" value="/views/tiles/menu.jsp" />
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/views/tiles/footer.jsp" />
 	</definition>
 
-	<definition name="contact" extends="base.definition">
+	<definition name="welcome" extends="base.definition">
 		<put-attribute name="title"
 			value="Sample Spring MVC With Tiles Appliacation" />
-		<put-attribute name="body" value="/views/tiles/contact.jsp" />
+		<put-attribute name="body" value="/views/tiles/welcome.jsp" />
 	</definition>
 
 </tiles-definitions>

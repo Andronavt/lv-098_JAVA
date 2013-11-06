@@ -6,7 +6,7 @@
 <body>
 	<h2>Sample Spring MVC With Tiles Appliacation</h2>
 	<%
-		System.out.println("Contact jsp");
+		System.out.println("Welcome jsp");
 	%>
 	<h3>HELLO NIGER</h3>
 
