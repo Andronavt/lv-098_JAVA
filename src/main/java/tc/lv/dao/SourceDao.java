@@ -2,11 +2,14 @@ package tc.lv.dao;
 
 import java.util.List;
 
+import javax.swing.text.html.parser.ParserDelegator;
+
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 import tc.lv.domain.Source;
 import tc.lv.utils.Parser;
+import tc.lv.utils.ParserResults;
 
 public interface SourceDao {
 
@@ -42,7 +45,7 @@ public interface SourceDao {
 
 	public void updateSourceNotValIpList(List<NotValidIp> list, int sourceId);
 	
-	public void updateSourceIpList(Parser parser);
+	public void updateSourceIpList(ParserResults parser);
 	
 	public Source loadSourceByName(String sourceName);
 	

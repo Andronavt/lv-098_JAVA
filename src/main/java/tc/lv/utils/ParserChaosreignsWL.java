@@ -1,6 +1,3 @@
-/**
- * 
- */
 package tc.lv.utils;
 
 import java.io.BufferedReader;
@@ -19,10 +16,6 @@ import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 
-/**
- * @author Bohdan
- * 
- */
 public class ParserChaosreignsWL implements ParserInterface {
 	private static final Logger log = Logger
 			.getLogger(ParserChaosreignsWL.class);
