@@ -32,9 +32,9 @@ public class SourceServiceImpl implements SourceService {
 	}
 
 	@Transactional
-	public void addNewFeed(String adaptor, String typeofList, String rank,
+	public void addNewFeed( String typeofList, String rank,
 			String sourceName, String url) {
-		sourceDao.addNewFeed(adaptor, typeofList, rank, sourceName, url);
+		sourceDao.addNewFeed(typeofList, rank, sourceName, url);
 	}
 
 	@Transactional
