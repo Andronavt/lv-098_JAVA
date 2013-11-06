@@ -22,11 +22,11 @@ import tc.lv.domain.NotValidIp;
  * @author Bohdan
  * 
  */
-public class AdaptorOpenBSD extends Parser {
-	private static final Logger log = Logger.getLogger(AdaptorOpenBSD.class);
+public class ParserChaosreignsWL extends Parser {
+	private static final Logger log = Logger
+			.getLogger(ParserChaosreignsWL.class);
 
-	public AdaptorOpenBSD(String way, int sourceId) {
-		System.out.println("BEGIN");
+	public ParserChaosreignsWL(String way, int sourceId) {
 		Pattern pattern = Pattern.compile(IP_ALL);
 		Matcher matcher;
 		Scanner line;
@@ -47,8 +47,7 @@ public class AdaptorOpenBSD extends Parser {
 					}
 				}
 			}
-			//System.out.println("END");
-			System.out.println(" LIST SIZE " +ip4list.size());
+			System.out.println("SIZE " + ip4list.size());
 			line.close();
 		} catch (FileNotFoundException e) {
 			log.error("File not found!", e);
