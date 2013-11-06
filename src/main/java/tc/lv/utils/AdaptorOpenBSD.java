@@ -4,6 +4,7 @@
 package tc.lv.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -22,8 +23,9 @@ import tc.lv.domain.NotValidIp;
  * @author Bohdan
  * 
  */
-public class AdaptorOpenBSD extends Parser {
+public class AdaptorOpenBSD implements ParserInterface {
 	private static final Logger log = Logger.getLogger(AdaptorOpenBSD.class);
+	protected static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";	
 
 	public AdaptorOpenBSD(String way, int sourceId) {
 		System.out.println("BEGIN");
@@ -47,11 +49,17 @@ public class AdaptorOpenBSD extends Parser {
 					}
 				}
 			}
-			//System.out.println("END");
-			System.out.println(" LIST SIZE " +ip4list.size());
+			// System.out.println("END");
+			System.out.println(" LIST SIZE " + ip4list.size());
 			line.close();
 		} catch (FileNotFoundException e) {
 			log.error("File not found!", e);
 		}
+	}
+
+	@Override
+	public ParserResults parse(File f) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
