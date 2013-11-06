@@ -29,7 +29,17 @@
 <script>
 	$(document).ready(function() {
 		$('#getContentLogin').click(function() {
-			getContentLogin();
+			$.ajax({
+				url : "signin",
+				cache : false,
+				beforeSend : function() {
+					$('#body').html('get login page');
+				},
+				success : function(html) {
+					$("#body").html(html);
+				}
+			});
+			return false;
 		});
 	});
 </script>

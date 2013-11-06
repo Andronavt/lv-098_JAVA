@@ -4,11 +4,10 @@
 <title>Sample Spring MVC With Tiles Appliacation</title>
 </head>
 <body>
-	<h2>Sample Spring MVC With Tiles Appliacation</h2>
-	<%
-		System.out.println("Welcome jsp");
-	%>
-	<h3>HELLO NIGER</h3>
+	<center>
+		<h2>Welcome to HELL</h2>
+	</center>
+	<div id="body"></div>
 
 </body>
 </html>

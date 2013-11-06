@@ -19,4 +19,10 @@
 		<put-attribute name="body" value="/views/tiles/welcome.jsp" />
 	</definition>
 
+	<definition name="signin" extends="base.definition">
+		<put-attribute name="body" value="/views/user/signin.jsp" />
+	</definition>
+
+
+
 </tiles-definitions>
