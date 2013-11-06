@@ -4,18 +4,19 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
-	<definition name="base.definition" template="WEB-INF/views/tiles/layout.jsp">
+	<definition name="base.definition" template="/views/tiles/layout.jsp">
 		<put-attribute name="title" value="" />
-		<put-attribute name="header" value="WEB-INF/views/tiles/header.jsp" />
-		<put-attribute name="menu" value="WEB-INF/views/tiles/menu.jsp" />
+		<put-attribute name="header" value="/views/tiles/header.jsp" />
+		<put-attribute name="login" value="/views/tiles/login.jsp" />
+		<put-attribute name="menu" value="/views/tiles/menu.jsp" />
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer" value="WEB-INF/views/tiles/footer.jsp" />
+		<put-attribute name="footer" value="/views/tiles/footer.jsp" />
 	</definition>
 
-	<definition name="contact" extends="base.definition">
+	<definition name="index" extends="base.definition">
 		<put-attribute name="title"
 			value="Sample Spring MVC With Tiles Appliacation" />
-		<put-attribute name="body" value="WEB-INF/views/tiles/contact.jsp" />
+		<put-attribute name="body" value="/views/index.jsp" />
 	</definition>
 
 </tiles-definitions>

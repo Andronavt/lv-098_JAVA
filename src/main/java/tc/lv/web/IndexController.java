@@ -20,6 +20,6 @@ public class IndexController {
 		String message = "Hi, You are in Controller !!!";
 		System.out.println(message);
 
-		return "redirect:contacts.html";
+		return "index";
 	}
 }
