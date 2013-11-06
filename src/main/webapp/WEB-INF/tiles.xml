@@ -19,7 +19,7 @@
 		<put-attribute name="body" value="/views/tiles/welcome.jsp" />
 	</definition>
 
-	<definition name="signin" extends="base.definition">
+	<definition name="signin" extends="welcome">
 		<put-attribute name="body" value="/views/user/signin.jsp" />
 	</definition>
 
