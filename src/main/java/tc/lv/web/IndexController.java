@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class IndexController {
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/contacts", method = RequestMethod.GET)
 	public String contollContacts() {
 
 		String message = "Hi, You are in Controller !!!";
 		System.out.println(message);
 
-		return "index";
+		return "contact";
 	}
 }
