@@ -53,15 +53,15 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 		}
 		return resultList;
 	}
-
+	
+	@Transactional
 	@Override
 	public Map<Source, ParserInterface> createParserMap(List<Source> sourceList) {
 		Map<Source, ParserInterface> parserMap = new HashMap<Source, ParserInterface>();
 		for (Source source : sourceList) {
-			//Class parserClass = Class.forName(source.getParserName());
-			//ParserInterface parser = (ParserInterface) parserClass
-				//	.newInstance();
-			//parserMap.put(source, parser);
+			Class parserClass = Class.forName(source.getParserName());
+			ParserInterface parser = (ParserInterface) parserClass.newInstance();
+			parserMap.put(source, parser);
 		}
 		return parserMap;
 	}
