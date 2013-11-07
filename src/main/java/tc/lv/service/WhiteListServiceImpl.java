@@ -17,33 +17,33 @@ public class WhiteListServiceImpl implements WhiteListService {
 	private WhiteListDao whiteListDao;
 
 	@Transactional
-	public void deleteIpV4FromWL(String address) {
-		whiteListDao.deleteIpV4FromWL(address);
+	public void deleteIpV4(String address) {
+		whiteListDao.deleteIpV4(address);
 	}
 
 	@Transactional
-	public void deleteIpV6FromWL(String address) {
-		whiteListDao.deleteIpV6FromWL(address);
+	public void deleteIpV6(String address) {
+		whiteListDao.deleteIpV6(address);
 	}
 
 	@Transactional
-	public void addIpV4ToWL(String address) {
-		whiteListDao.addIpV4ToWL(address);
+	public void saveIpV4(String address) {
+		whiteListDao.saveIpV4(address);
 	}
 
 	@Transactional
-	public void addIpV6ToWL(String address) {
-		whiteListDao.addIpV6ToWL(address);
+	public void saveIpV6(String address) {
+		whiteListDao.saveIpV6(address);
 	}
 
 	@Transactional
-	public Collection<IpV4Address> getIpV4ListFromWL() {
-		return whiteListDao.getWhiteIpV4List();
+	public Collection<IpV4Address> loadIpV4List() {
+		return whiteListDao.loadIpV4List();
 	}
 
 	@Transactional
-	public Collection<IpV6Address> getIpV6ListFromWL() {
-		return whiteListDao.getWhiteIpV6List();
+	public Collection<IpV6Address> loadIpV6List() {
+		return whiteListDao.loadIpV6List();
 	}
 
 }

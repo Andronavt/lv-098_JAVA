@@ -28,10 +28,10 @@ public class WhiteListController {
 			BindingResult result) {
 		try {
 			if (ipAddress.contains(".")) {
-				wlService.deleteIpV4FromWL(ipAddress);
+				wlService.deleteIpV4(ipAddress);
 				return "IpV4: " + ipAddress + " has been successfully deleted.";
 			} else if (ipAddress.contains(":")) {
-				wlService.deleteIpV4FromWL(ipAddress);
+				wlService.deleteIpV6(ipAddress);
 				return "IpV6: " + ipAddress + " has been successfully deleted.";
 			} else {
 				String response = "Some problems occurred with deleting IpAddress "
@@ -56,11 +56,11 @@ public class WhiteListController {
 		try {
 			// TODO: Add here validation
 			if (ipAddress.contains(".")) {
-				wlService.addIpV4ToWL(ipAddress);
+				wlService.saveIpV4(ipAddress);
 				return "IpV4: " + ipAddress
 						+ " has been successfully added to WhiteList.";
 			} else if (ipAddress.contains(":")) {
-				wlService.addIpV6ToWL(ipAddress);
+				wlService.saveIpV6(ipAddress);
 				return "IpV6: " + ipAddress
 						+ " has been successfully added to WhiteList.";
 			} else {
@@ -82,7 +82,7 @@ public class WhiteListController {
 
 	@RequestMapping(value = "/secure/ShowIpListFromWL", method = RequestMethod.POST)
 	public String showIpListFromWl(Map<String, Object> map) {
-		map.put("ipList", wlService.getIpV4ListFromWL());
+		map.put("ipList", wlService.loadIpV4List());
 		return "secure/listIpv4";
 	}
 }

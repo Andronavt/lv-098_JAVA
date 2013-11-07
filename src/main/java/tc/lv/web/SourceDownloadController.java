@@ -1,4 +1,4 @@
- package tc.lv.web;
+package tc.lv.web;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tc.lv.domain.Source;
+import tc.lv.exceptions.DownloadClassNotFoundException;
+import tc.lv.exceptions.DownloadIllegalAccessException;
+import tc.lv.exceptions.DownloadInstantiationException;
 import tc.lv.service.ParserResultService;
 import tc.lv.service.SourceDownloaderService;
 import tc.lv.utils.ParserInterface;
@@ -43,8 +46,8 @@ public class SourceDownloadController {
     String sourceDownloader(
 	    @ModelAttribute(value = "select") String[] sourceNameArray,
 	    Map<String, Object> map) {
-	
-	//----!!!Test block!!!------
+
+	// ----!!!Test block!!!------
 	String name1 = "OpenBSD traplist";
 	String name2 = "Nixspam list";
 	String name3 = "Chaosreigns Whitelist";
@@ -52,13 +55,23 @@ public class SourceDownloadController {
 	sourceNameList.add(name1);
 	sourceNameList.add(name2);
 	sourceNameList.add(name3);
-		
-	//List<String> sourceNameList = new ArrayList<String>(Arrays.asList(sourceNameArray));
+
+	// List<String> sourceNameList = new
+	// ArrayList<String>(Arrays.asList(sourceNameArray));
 	List<Source> sourceList = sourceDownloaderService.loadSourceList();
-	Map<Source, ParserInterface> parserMap = sourceDownloaderService.createParserMap(sourceList);
-	List<ParserResults> parserResultList = sourceDownloaderService.downloadParseData(sourceNameList, parserMap);
+	Map<Source, ParserInterface> parserMap = null;
+	try {
+	    parserMap = sourceDownloaderService.createParserMap(sourceList);
+	} catch (DownloadClassNotFoundException e) {
+	    loggerErr.error(e);
+	} catch (DownloadInstantiationException e) {
+	    loggerErr.error(e);
+	} catch (DownloadIllegalAccessException e) {
+	    loggerErr.error(e);
+	}
+	List<ParserResults> parserResultList = sourceDownloaderService
+		.downloadParseData(sourceNameList, parserMap);
 	parserResultService.saveAllSources(parserResultList);
-	
 
 	// for (String name : sourceNameList) {
 	// if (!name.equals("")) {
