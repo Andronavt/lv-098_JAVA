@@ -4,8 +4,6 @@
 <%@ page session="true"%>
 <html>
 <head>
-<script type="text/javascript"
-	src="<c:url value="/resources/js/content.js" />"></script>
 <title>Sign In</title>
 </head>
 <body>
@@ -18,19 +16,10 @@
 			name="j_password" size="20" maxlength="50" type="password" /><br>
 		<input type="submit" value="Login" />
 	</form>
-	<!--<center><a href="#" id="registration" style="color: gray">Forgot password </a></center>-->
-	<!-- 	<center><a href="#" id="registration" style="color: gray">Forgot password </a></center> -->
 	<br>
 	<center>
 		<a href="registration" id="registration">Registration</a>
 	</center>
-	<!-- 	<script type="text/javascript"> -->
-	<!-- // 		$(document).ready(function() { -->
-	<!-- // 			$('#registration').click(function() { -->
-	<!-- // 				registration(); -->
-	<!-- // 			}); -->
-	<!-- // 		}); -->
-	<!-- 	</script> -->
 
 </body>
 
