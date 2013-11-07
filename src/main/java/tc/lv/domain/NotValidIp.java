@@ -19,7 +19,8 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "not_valid_ip")
-@NamedQueries({ @NamedQuery(name = "findNotValName", query = "SELECT c from NotValidIp c WHERE c.address= :address"), })
+@NamedQueries({ @NamedQuery(name = "findNotValName", query = "SELECT c from NotValidIp c WHERE c.address= :address"),
+    @NamedQuery(name = "loadNotValidIpBySource", query = "SELECT ip FROM NotValidIp ip, Source s JOIN ip.sourceSet ipS JOIN s.ipSet sIp WHERE ipS.sourceId = :id AND sIp.id = ip.id")})
 public class NotValidIp extends IpAddress {
 
 	private static final long serialVersionUID = 7981579039217484865L;
@@ -40,18 +41,6 @@ public class NotValidIp extends IpAddress {
 	public NotValidIp(String address, Date dateAdded) {
 		this.address = address;
 		this.dateAdded = dateAdded;
-	}
-
-	public Set<Source> getSourceSet() {
-		return sourceSet;
-	}
-
-	public void setSourceSet(Set<Source> sourceSet) {
-		this.sourceSet = sourceSet;
-	}
-
-	public void addElementToSourceSet(Source source) {
-		sourceSet.add(source);
 	}
 
 }

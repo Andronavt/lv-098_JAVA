@@ -27,78 +27,58 @@ public class Source {
 	@Column(name = "source_name", nullable = false)
 	private String sourceName;
 
-	@Column(name = "url", unique = true, nullable = false)
+	@Column(name = "url", unique = true, nullable = true)
 	private String url;
 
-	@Column(name = "source_date_added", nullable = true)
+	@Column(name = "source_date_added", nullable = false)
 	private Date sourceDateAdded;
-
-	@Column(name = "updated", nullable = true)
-	private Date updated;
 
 	@Column(name = "rank", nullable = false)
 	private Double rank;
 
-	@Column(name = "dirname", nullable = true)
+	@Column(name = "dirname", nullable = false)
 	private String dirname;
 
 	@Column(name = "list_type", nullable = false)
 	private String listType;
 
-	@Column(name = "md5")
-	private String md5;
+	@Column(name = "updated", nullable = true)
+	private Date updated;
+
+	@Column(name = "parser", nullable = true)
+	private String parser;
 
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.EAGER)
-	// @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-	private Collection<IpV4Address> ipv4Set = new HashSet<IpV4Address>();
+	private Collection<IpAddress> ipSet = new HashSet<IpAddress>();
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.EAGER)
-	private Collection<IpV6Address> ipv6Set = new HashSet<IpV6Address>();
+	public Source(String sourceName, String url, Date sourceDateAdded,
+			Double rank, String dirname, String listType, Date updated,
+			String parser, Collection<IpAddress> ipSet) {
+		super();
+		this.sourceName = sourceName;
+		this.url = url;
+		this.sourceDateAdded = sourceDateAdded;
+		this.rank = rank;
+		this.dirname = dirname;
+		this.listType = listType;
+		this.updated = updated;
+		this.parser = parser;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.EAGER)
-	private Collection<NotValidIp> notValidSet = new HashSet<NotValidIp>();
+		this.ipSet = ipSet;
+	}
+
+	public Source(String sourceName, Date sourceDateAdded, Double rank,
+			String dirname, String listType) {
+		super();
+		this.sourceName = sourceName;
+		this.sourceDateAdded = sourceDateAdded;
+		this.rank = rank;
+		this.dirname = dirname;
+		this.listType = listType;
+	}
 
 	public Source() {
 
-	}
-
-	public Source(String listOfType, String rank, String sourceName, String url) {
-		this.listType = listOfType;
-		this.rank = Double.parseDouble(rank);
-		this.sourceName = sourceName;
-		this.sourceDateAdded = new Date();
-		this.url = url;
-	}
-
-	public Source(String sourceName, String url, Date sourceDateAdded,
-			Date updated, double rank, String dirname, String listType,
-			String md5, Collection<IpV4Address> ipv4Set) {
-		super();
-		this.sourceName = sourceName;
-		this.url = url;
-		this.sourceDateAdded = sourceDateAdded;
-		this.updated = updated;
-		this.rank = rank;
-		this.dirname = dirname;
-		this.listType = listType;
-
-		this.md5 = md5;
-		this.ipv4Set = ipv4Set;
-	}
-
-	public Source(String sourceName, String url, Date sourceDateAdded,
-			Date updated, double rank, String dirname, String listType,
-			String md5) {
-		super();
-		this.sourceName = sourceName;
-		this.url = url;
-		this.sourceDateAdded = sourceDateAdded;
-		this.updated = updated;
-		this.rank = rank;
-		this.dirname = dirname;
-		this.listType = listType;
-
-		this.md5 = md5;
 	}
 
 	public int getSourceId() {
@@ -133,14 +113,6 @@ public class Source {
 		this.sourceDateAdded = sourceDateAdded;
 	}
 
-	public Date getUpdated() {
-		return updated;
-	}
-
-	public void setUpdated(Date updated) {
-		this.updated = updated;
-	}
-
 	public Double getRank() {
 		return rank;
 	}
@@ -165,36 +137,28 @@ public class Source {
 		this.listType = listType;
 	}
 
-	public String getMd5() {
-		return md5;
+	public Date getUpdated() {
+		return updated;
 	}
 
-	public void setMd5(String md5) {
-		this.md5 = md5;
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 
-	public Collection<IpV4Address> getIpv4Set() {
-		return ipv4Set;
+	public String getParser() {
+		return parser;
 	}
 
-	public void setIpv4Set(Collection<IpV4Address> ipv4Set) {
-		this.ipv4Set = ipv4Set;
+	public void setParser(String parser) {
+		this.parser = parser;
 	}
 
-	public Collection<IpV6Address> getIpv6Set() {
-		return ipv6Set;
+	public Collection<IpAddress> getIpSet() {
+		return ipSet;
 	}
 
-	public void setIpv6Set(Collection<IpV6Address> ipv6Set) {
-		this.ipv6Set = ipv6Set;
-	}
-
-	public Collection<NotValidIp> getNotValidSet() {
-		return notValidSet;
-	}
-
-	public void setNotValidSet(Collection<NotValidIp> notValidSet) {
-		this.notValidSet = notValidSet;
+	public void setIpSet(Collection<IpAddress> ipSet) {
+		this.ipSet = ipSet;
 	}
 
 	@Override
@@ -221,18 +185,6 @@ public class Source {
 		} else if (!sourceName.equals(other.sourceName))
 			return false;
 		return true;
-	}
-
-	public void addIpToV4Set(IpV4Address ip) {
-		ipv4Set.add(ip);
-	}
-
-	public void addIpToV6Set(IpV6Address ip) {
-		ipv6Set.add(ip);
-	}
-
-	public void addIpToNoValidSet(NotValidIp ip) {
-		notValidSet.add(ip);
 	}
 
 }

@@ -1,18 +1,27 @@
 package tc.lv.dao;
 
 import java.util.Collection;
+import java.util.List;
+
+import tc.lv.domain.IpV4Address;
+import tc.lv.domain.IpV6Address;
 
 public interface BlackListDao {
-    
-    public void deleteIpV4FromBL(String address);
 
-    public void addIpV4ToBL(String address);
+	List<IpV4Address> loadIpV4List();
 
-    public void addIpV4ListToBL(Collection<String> list);
+	List<IpV6Address> loadIpV6List();
 
-    public void deleteIpV6FromBL(String address);
+	void saveIpV4(String address);
 
-    public void addIpV6ToBL(String address);
+	void saveIpV6(String address);
 
-    public void addIpV6ListToBL(Collection<String> list);
+	void saveIpV4List(Collection<String> list);
+
+	void saveIpV6List(Collection<String> list);
+
+	void deleteIpV4(String address);
+
+	void deleteIpV6(String address);
+
 }

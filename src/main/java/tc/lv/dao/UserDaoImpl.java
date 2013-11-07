@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -17,28 +18,23 @@ public class UserDaoImpl implements UserDao {
 	@PersistenceContext(name = "primary")
 	private EntityManager entityManager;
 
-	public UserDaoImpl() {
-
-	}
-
 	@Override
-	public UserEntity getUserByName(String name) {
-		UserEntity foundUser = entityManager
-				.createNamedQuery("UserEntity.findByName", UserEntity.class)
-				.setParameter("username", name).getSingleResult();
-
+	public UserEntity loadByName(String name) {
+		Query query = entityManager.createNamedQuery("UserEntity.findByName",
+				UserEntity.class).setParameter("username", name);
+		UserEntity foundUser = (UserEntity) query.getSingleResult();
 		return foundUser;
 	}
 
 	@Override
-	public void addAdminUser(String username, String firstname,
+	public void createAdminUser(String username, String firstname,
 			String lastname, String email, String password) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void addCustomerUser(String username, String firstname,
+	public void createCustomerUser(String username, String firstname,
 			String lastname, String email, String password) {
 		int idCustomerUser = 2;
 		UserEntity user = new UserEntity();
@@ -54,5 +50,4 @@ public class UserDaoImpl implements UserDao {
 		user.setRoleSet(roleSet);
 		entityManager.persist(user);
 	}
-
 }
