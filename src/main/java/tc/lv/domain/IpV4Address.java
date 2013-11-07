@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -13,14 +14,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "ipv4_addresses")
@@ -34,11 +32,8 @@ public class IpV4Address extends IpAddress implements Serializable {
 	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	private Set<Source> sourceSet = new HashSet<Source>();
 
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "ipV4")
-	private WhiteList whiteList;
-
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "ipV4")
-	private BlackList blackList;
+	@Column(name = "white_list")
+	private Boolean whiteList;
 
 	public IpV4Address() {
 
@@ -63,6 +58,14 @@ public class IpV4Address extends IpAddress implements Serializable {
 
 	public void addElementToSourceSet(Source source) {
 		sourceSet.add(source);
+	}
+
+	public Boolean getWhiteList() {
+		return whiteList;
+	}
+
+	public void setWhiteList(Boolean whiteList) {
+		this.whiteList = whiteList;
 	}
 
 }

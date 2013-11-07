@@ -1,9 +1,10 @@
-
 package tc.lv.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +16,7 @@ import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 import tc.lv.domain.Source;
+import tc.lv.utils.Parser;
 
 @Repository
 public class SourceDaoImpl implements SourceDao {
@@ -26,11 +28,9 @@ public class SourceDaoImpl implements SourceDao {
 
 	}
 
-	@Override
-	public void addNewFeed(String adaptor, String typeofList, String rank,
-			String sourceName, String url) {
-		entityManager.persist(new Source(adaptor, typeofList, rank, sourceName,
-				url));
+	public void addNewFeed(String typeofList, String rank, String sourceName,
+			String url) {
+		entityManager.persist(new Source(typeofList, rank, sourceName, url));
 	}
 
 	@Override
@@ -108,5 +108,107 @@ public class SourceDaoImpl implements SourceDao {
 		entityManager.remove(tempSource);
 	}
 
-}
+	@Override
+	public void updateSourceIpV4List(List<IpV4Address> list, int sourceId) {
 
+		Source source = entityManager.find(Source.class, sourceId);
+		if (source == null) {
+			// We can't find source for this Id
+			System.out.println("NULL");
+		} else {
+			Query query = entityManager.createQuery("from IpV4Address");
+			Set<IpV4Address> set = new HashSet<IpV4Address>();
+			set.addAll(query.getResultList());
+
+			for (IpV4Address ip : list) {
+				if (set.add(ip)) {
+					ip.getSourceSet().add(source);
+					entityManager.persist(ip);
+				} else {
+					Query query2 = entityManager.createNamedQuery(
+							"findIpV4ByName").setParameter("address",
+							ip.getAddress());
+					IpV4Address temp = (IpV4Address) query2.getSingleResult();
+					temp.addElementToSourceSet(source);
+					entityManager.persist(temp);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void updateSourceIpV6List(List<IpV6Address> list, int sourceId) {
+
+		Source source = entityManager.find(Source.class, sourceId);
+		if (source == null) {
+			// We can't find source for this Id
+			System.out.println("NULL");
+		} else {
+			Query query = entityManager.createQuery("from IpV6Address");
+			Set<IpV6Address> set = new HashSet<IpV6Address>();
+			set.addAll(query.getResultList());
+
+			for (IpV6Address ip : list) {
+				if (set.add(ip)) {
+					ip.getSourceSet().add(source);
+					entityManager.persist(ip);
+				} else {
+					Query query2 = entityManager.createNamedQuery(
+							"findIpV6ByName").setParameter("address",
+							ip.getAddress());
+					IpV6Address temp = (IpV6Address) query2.getSingleResult();
+					temp.addElementToSourceSet(source);
+					entityManager.persist(temp);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void updateSourceNotValIpList(List<NotValidIp> list, int sourceId) {
+
+		Source source = entityManager.find(Source.class, sourceId);
+		if (source == null) {
+			// We can't find source for this Id
+			System.out.println("NULL");
+		} else {
+			Query query = entityManager.createQuery("from NotValidIp");
+			Set<NotValidIp> set = new HashSet<NotValidIp>();
+			set.addAll(query.getResultList());
+
+			for (NotValidIp ip : list) {
+				if (set.add(ip)) {
+					ip.getSourceSet().add(source);
+					entityManager.persist(ip);
+				} else {
+					Query query2 = entityManager.createNamedQuery(
+							"findNotValName").setParameter("address",
+							ip.getAddress());
+					NotValidIp temp = (NotValidIp) query2.getSingleResult();
+					temp.addElementToSourceSet(source);
+					entityManager.persist(temp);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void updateSourceIpList(Parser parser) {
+		System.out.println("IPV4 PUSH");
+		updateSourceIpV4List(parser.getIpv4List(), parser.getSourceId());
+		System.out.println("IPV6 PUSH");
+		updateSourceIpV6List(parser.getIpv6List(), parser.getSourceId());
+		System.out.println("NOT VALOD PUSH PUSH");
+		updateSourceNotValIpList(parser.getNotValidList(), parser.getSourceId());
+	}
+
+	@Override
+	public Source loadSourceByName(String sourceName) {
+		Query query = entityManager.createNamedQuery("Source.findByName",
+				Source.class);
+		query.setParameter("sourceName", sourceName);
+
+		return (Source) query.getSingleResult();
+	}
+
+}

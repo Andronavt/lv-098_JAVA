@@ -30,32 +30,33 @@ public class SourceController {
 		return "ip";
 	}
 
-	//Get IPv4 List from Source -- get jsp
+	// Get IPv4 List from Source -- get jsp
 	@RequestMapping("/secure/GetIp4List")
 	public String getlistIpV4(Map<String, Object> map) {
-	    logger.info("getting secure/GetIp4List.jsp");
-	    map.put("listSource", souService.getListOfSourcess());
-	    return "secure/GetIp4List";
+		logger.info("getting secure/GetIp4List.jsp");
+		map.put("listSource", souService.getListOfSourcess());
+		return "secure/GetIp4List";
 	}
-	//Get IPv4 List from Source -- get data from form
+	// Get IPv4 List from Source -- get data from form
 	@RequestMapping(value = "/secure/getList", method = RequestMethod.POST)
 	public String addContact(Map<String, Object> map,
-			@ModelAttribute(value = "source") String source, BindingResult result) {
-	    	logger.info("getting List of IPv4 and sending to secure/listIpv4");
+			@ModelAttribute(value = "source") String source,
+			BindingResult result) {
+		logger.info("getting List of IPv4 and sending to secure/listIpv4");
 		map.put("source", source);
 		map.put("ipList",
 				souService.getIpV4ListFromSource(Integer.valueOf(source)));
 		return "secure/listIpv4";
 	}
 
-	//Add IPv4 to Source -- get jsp
+	// Add IPv4 to Source -- get jsp
 	@RequestMapping(value = "/admin/AddIpv4", method = RequestMethod.GET)
 	public String addIplistPage(Map<String, Object> map) {
-	    logger.info("getting admin/AddIpv4.jsp");
-	    map.put("listSource", souService.getListOfSourcess());
+		logger.info("getting admin/AddIpv4.jsp");
+		map.put("listSource", souService.getListOfSourcess());
 		return "admin/AddIpv4";
 	}
-	//Add IPv4 to Source -- get data from form
+	// Add IPv4 to Source -- get data from form
 	@RequestMapping(value = "/admin/AddIpv4", method = RequestMethod.POST)
 	public @ResponseBody
 	String addUser(@ModelAttribute(value = "ip") String ip,
@@ -63,7 +64,7 @@ public class SourceController {
 		String returnText;
 		logger.info("getting IP-adress from form");
 		if (!result.hasErrors()) {
-		    logger.info("sending data to DataBase");
+			logger.info("sending data to DataBase");
 			souService.setIpV4Address(ip, source);
 			returnText = "IP-address was added " + ip + " in source # "
 					+ source;
@@ -81,15 +82,13 @@ public class SourceController {
 	}
 
 	@RequestMapping(value = "/newFeed", method = RequestMethod.POST)
-	public String addNew(@RequestParam String adaptor,
-			@RequestParam String typeOfList, @RequestParam String rankOfSource,
-			@RequestParam String sourceName, @RequestParam String url) {
-		souService.addNewFeed(adaptor, typeOfList, rankOfSource, sourceName,
-				url);
+	public String addNew(@RequestParam String typeOfList,
+			@RequestParam String rankOfSource, @RequestParam String sourceName,
+			@RequestParam String url) {
+		souService.addNewFeed(typeOfList, rankOfSource, sourceName, url);
 		return "admin/AddNewFeed";
 	}
-	
-	
+
 	@RequestMapping(value = "/admin/listOfSurce", method = RequestMethod.POST)
 	public String deleteSource(@ModelAttribute(value = "source") String source) {
 		souService.deleteFeed(source);

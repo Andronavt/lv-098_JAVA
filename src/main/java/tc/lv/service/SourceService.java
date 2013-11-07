@@ -13,7 +13,7 @@ public interface SourceService {
 
 	public void setIpV6Address(String ip, int sourceId);
 
-	public void addNewFeed(String adaptor, String typeofList, String rank,
+	public void addNewFeed(String typeofList, String rank,
 			String sourceName, String url);
 
 	public void deleteFeed(String sourceName);
