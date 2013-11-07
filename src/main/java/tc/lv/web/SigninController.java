@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class SigninController {
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public String signin() {
-		return "user/signin";
+		return "signin";
 	}
 
 	@RequestMapping(value = "/signin-failure", method = RequestMethod.GET)

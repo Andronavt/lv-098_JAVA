@@ -7,7 +7,7 @@ function doAjaxPostRegistration() {
 	var pass = $('#pass').val();
 	$.ajax({
 		type : "POST",
-		url : "user/registration",
+		url : "registration",
 		data : "user_name=" + user_name + "&first_name=" + first_name
 				+ "&last_name=" + last_name + "&email=" + email + "&pass="
 				+ pass,
