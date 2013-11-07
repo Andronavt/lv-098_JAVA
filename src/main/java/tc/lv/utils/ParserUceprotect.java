@@ -1,6 +1,3 @@
-/**
- * 
- */
 package tc.lv.utils;
 
 import java.io.BufferedReader;
@@ -19,36 +16,14 @@ import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 
-public class AdaptorUceprotect implements ParserInterface {
+public class ParserUceprotect implements ParserInterface {
 
-	private static final Logger log = Logger.getLogger(AdaptorUceprotect.class);
+	private static final Logger log = Logger.getLogger(ParserUceprotect.class);
+	private ParserResults parserResults;
 	protected static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
 
+	public ParserUceprotect() {
 
-	public ParserUceprotect(String way, int sourceId) {
-		Pattern pattern = Pattern.compile(IP_ALL);
-		Matcher matcher;
-		Scanner line;
-		try {
-			line = new Scanner(new BufferedReader(new FileReader(way)));
-			while (line.hasNext()) {
-				String ipStr = "";
-				matcher = pattern.matcher(line.nextLine());
-				if (matcher.find()) {
-					ipStr = matcher.group();
-					if (IpValidator.isIpV4(ipStr)) {
-						ip4list.add(new IpV4Address(ipStr, new Date()));
-					} else if (IpValidator.isIpV6(ipStr)) {
-						ip6list.add(new IpV6Address(ipStr, new Date()));
-					} else {
-						notValidList.add(new NotValidIp(ipStr, new Date()));
-					}
-				}
-			}
-			line.close();
-		} catch (FileNotFoundException e) {
-			log.error("File not found!", e);
-		}
 	}
 
 	@Override
@@ -64,11 +39,14 @@ public class AdaptorUceprotect implements ParserInterface {
 				if (matcher.find()) {
 					ipStr = matcher.group();
 					if (IpValidator.isIpV4(ipStr)) {
-						ip4list.add(new IpV4Address(ipStr, new Date()));
+						parserResults.ip4List.add(new IpV4Address(ipStr,
+								new Date()));
 					} else if (IpValidator.isIpV6(ipStr)) {
-						ip6list.add(new IpV6Address(ipStr, new Date()));
+						parserResults.ip6List.add(new IpV6Address(ipStr,
+								new Date()));
 					} else {
-						notValidList.add(new NotValidIp(ipStr, new Date()));
+						parserResults.notValidList.add(new NotValidIp(ipStr,
+								new Date()));
 					}
 				}
 			}
@@ -76,6 +54,8 @@ public class AdaptorUceprotect implements ParserInterface {
 		} catch (FileNotFoundException e) {
 			log.error("File not found!", e);
 		}
+		System.out.println(parserResults.ip4List.size() + " ipv4 size");
+		return parserResults;
 	}
 
 }

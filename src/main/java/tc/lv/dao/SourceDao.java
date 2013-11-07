@@ -8,7 +8,6 @@ import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 import tc.lv.domain.Source;
-import tc.lv.utils.Parser;
 import tc.lv.utils.ParserResults;
 
 public interface SourceDao {

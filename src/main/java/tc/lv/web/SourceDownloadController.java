@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import tc.lv.domain.Source;
 import tc.lv.service.ParserResultService;
 import tc.lv.service.SourceDownloaderService;
-import tc.lv.utils.Parser;
-import tc.lv.utils.ParserResult;
+import tc.lv.utils.ParserInterface;
+import tc.lv.utils.ParserResults;
 
 @Controller
 public class SourceDownloadController {
@@ -56,8 +56,8 @@ public class SourceDownloadController {
 		
 	//List<String> sourceNameList = new ArrayList<String>(Arrays.asList(sourceNameArray));
 	List<Source> sourceList = sourceDownloaderService.loadSourceList();
-	Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
-	List<ParserResult> parserResultList = sourceDownloaderService.downloadParseData(sourceNameList, parserMap);
+	Map<Source, ParserInterface> parserMap = sourceDownloaderService.createParserMap(sourceList);
+	List<ParserResults> parserResultList = sourceDownloaderService.downloadParseData(sourceNameList, parserMap);
 	parserResultService.saveAllSources(parserResultList);
 	
 

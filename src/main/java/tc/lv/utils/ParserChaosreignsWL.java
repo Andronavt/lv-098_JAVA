@@ -31,19 +31,18 @@ public class ParserChaosreignsWL implements ParserInterface {
 		Pattern pattern = Pattern.compile(IP_ALL);
 		Matcher matcher;
 		Scanner line;
-		parserResults.sourceId = sourceId;
 		try {
-			line = new Scanner(new BufferedReader(new FileReader(way)));
+			line = new Scanner(new BufferedReader(new FileReader(f)));
 			while (line.hasNext()) {
 				String ipStr = "";
 				matcher = pattern.matcher(line.nextLine());
 				if (matcher.find()) {
 					ipStr = matcher.group();
 					if (IpValidator.isIpV4(ipStr)) {
-						parserResults.ip4list.add(new IpV4Address(ipStr,
+						parserResults.ip4List.add(new IpV4Address(ipStr,
 								new Date()));
 					} else if (IpValidator.isIpV6(ipStr)) {
-						parserResults.ip6list.add(new IpV6Address(ipStr,
+						parserResults.ip6List.add(new IpV6Address(ipStr,
 								new Date()));
 					} else {
 						parserResults.notValidList.add(new NotValidIp(ipStr,
@@ -55,6 +54,8 @@ public class ParserChaosreignsWL implements ParserInterface {
 		} catch (FileNotFoundException e) {
 			log.error("File not found!", e);
 		}
+		System.out.println("IPV4SIZE "+parserResults.ip4List.size());
+		return parserResults;
 	}
 
 }
