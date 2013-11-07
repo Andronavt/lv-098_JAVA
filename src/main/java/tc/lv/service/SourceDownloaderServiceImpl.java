@@ -15,8 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.DownloadClassNotFoundException;
+import tc.lv.exceptions.DownloadFileNotFoundException;
+import tc.lv.exceptions.DownloadIOException;
 import tc.lv.exceptions.DownloadIllegalAccessException;
 import tc.lv.exceptions.DownloadInstantiationException;
+import tc.lv.exceptions.DownloadMalformedURLException;
 import tc.lv.utils.Downloader;
 import tc.lv.utils.ParserInterface;
 import tc.lv.utils.ParserResults;
@@ -36,7 +39,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     @Transactional
     @Override
     public List<ParserResults> downloadParseData(List<String> sourceNameList,
-	    Map<Source, ParserInterface> parserMap) {
+	    Map<Source, ParserInterface> parserMap) throws DownloadFileNotFoundException, DownloadIOException, DownloadMalformedURLException {
 	Downloader downloader = new Downloader();
 	List<ParserResults> resultList = new ArrayList<ParserResults>();
 	File file;

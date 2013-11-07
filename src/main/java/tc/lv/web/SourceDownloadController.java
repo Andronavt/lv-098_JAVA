@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import tc.lv.domain.Source;
 import tc.lv.exceptions.DownloadClassNotFoundException;
+import tc.lv.exceptions.DownloadFileNotFoundException;
+import tc.lv.exceptions.DownloadIOException;
 import tc.lv.exceptions.DownloadIllegalAccessException;
 import tc.lv.exceptions.DownloadInstantiationException;
+import tc.lv.exceptions.DownloadMalformedURLException;
 import tc.lv.service.ParserResultService;
 import tc.lv.service.SourceDownloaderService;
 import tc.lv.utils.ParserInterface;
@@ -69,8 +72,17 @@ public class SourceDownloadController {
 	} catch (DownloadIllegalAccessException e) {
 	    loggerErr.error(e);
 	}
-	List<ParserResults> parserResultList = sourceDownloaderService
-		.downloadParseData(sourceNameList, parserMap);
+	List<ParserResults> parserResultList = null;
+	try {
+	    parserResultList = sourceDownloaderService
+	    	.downloadParseData(sourceNameList, parserMap);
+	} catch (DownloadFileNotFoundException e) {
+	    loggerErr.error(e);
+	} catch (DownloadIOException e) {
+	    loggerErr.error(e);
+	} catch (DownloadMalformedURLException e) {
+	    loggerErr.error(e);
+	}
 	parserResultService.saveAllSources(parserResultList);
 
 	// for (String name : sourceNameList) {
