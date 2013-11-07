@@ -37,7 +37,7 @@ $(document).ready(function(){
         
     	   userName:{
                 required: "Please insert username.",
-                minlength: "Minimum login lenght can be - 4 characters ",
+                minlength: "Minimum login lenght can be - 4 characters",
                 maxlength: "Maximum login lenght can be - 16 characters",
             },
             
@@ -49,20 +49,21 @@ $(document).ready(function(){
             
             lastName:{
             	required: "Please insert last name.",
-            	minlength: "minimum last name length can be 2 characters",
+            	minlength: "Minimum last name length can be 2 characters",
             	maxlength: "Maximum last name lenght can be 25 characters",
             },
             
             email: {
-            	required: "Please insert e-mial.",
+            	required: "Please insert e-mail.",
             	email: "Please insert correct form of e-mail",
             },
             
             password: {
             	required: "Please insert password",
             	minlength: "Minimum length of password must be 6 characters",
-            }
-       }
-        
-    });
-}); //end of ready
+            },
+       },
+       
+	});
+		
+}); 
