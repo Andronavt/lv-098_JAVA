@@ -13,13 +13,13 @@ import java.util.zip.GZIPOutputStream;
 public class Downloader {
 
 	long timeStamp = new Date().getTime();
-	String fileName = Long.toString(timeStamp) + ".txt";
+	String fileName = Long.toString(timeStamp);
 
 	public Downloader() {
 
 	}
 
-	public String downloadFile(String urlString, String dir) {
+	public File downloadFile(String urlString, String dir) {
 
 		BufferedInputStream inputStream = null;
 		GZIPInputStream gInputStream = null;
@@ -30,9 +30,8 @@ public class Downloader {
 		if (urlString.contains(".gz")) {
 			try {
 
-				file = new File(dir + fileName);
-				System.out.println(dir + fileName + " : DIRNAME + FILENAME");
-				System.out.println(file.toString());
+				file = new File(dir + fileName + ".gz");
+				System.out.println(dir + fileName);
 
 				inputStream = new BufferedInputStream(
 						new URL(urlString).openStream());
@@ -45,7 +44,6 @@ public class Downloader {
 				int count;
 
 				while ((count = gInputStream.read(data, 0, 1024)) != -1) {
-					System.out.println(data.toString());
 					gZipFile.write(data, 0, count);
 				}
 
@@ -68,15 +66,16 @@ public class Downloader {
 					}
 				}
 			}
+			System.out.println("UNZIPPING");
 			unZip(file);
-			System.out.println(file.toString());
-			System.out.println("COMPLETED");
+			System.out.println("DOWNLOADING AND UNZIPPING COMPLETED");
 		} else {
 			try {
+				file = new File(dir + fileName + ".txt");
 				inputStream = new BufferedInputStream(
 						new URL(urlString).openStream());
-				outputFile = new FileOutputStream(dir + fileName);
-				System.out.println("OUR FILE IS " + dir + fileName);
+				outputFile = new FileOutputStream(file);
+				System.out.println("OUR FILE IS: " + dir + fileName);
 
 				byte data[] = new byte[1024];
 				int count;
@@ -104,7 +103,7 @@ public class Downloader {
 				}
 			}
 		}
-		return dir + fileName;
+		return file;
 	}
 
 	public void unZip(File file) {
@@ -114,7 +113,8 @@ public class Downloader {
 		FileOutputStream fileOutput = null;
 
 		try {
-			String outputFileName = file.getAbsolutePath();
+			String outputFileName = file.getAbsolutePath() + ".txt";
+			// String outputFileName = "D:\\textfiles\\";
 
 			System.err.println("File for extracting " + outputFileName);
 

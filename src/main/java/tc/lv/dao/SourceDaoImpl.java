@@ -16,7 +16,7 @@ import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 import tc.lv.domain.Source;
-import tc.lv.utils.Parser;
+import tc.lv.utils.ParserResults;
 
 @Repository
 public class SourceDaoImpl implements SourceDao {
@@ -193,11 +193,11 @@ public class SourceDaoImpl implements SourceDao {
 	}
 
 	@Override
-	public void updateSourceIpList(Parser parser) {
+	public void updateSourceIpList(ParserResults parser) {
 		System.out.println("IPV4 PUSH");
-		updateSourceIpV4List(parser.getIpv4List(), parser.getSourceId());
+		updateSourceIpV4List(parser.getIp4list(), parser.getSourceId());
 		System.out.println("IPV6 PUSH");
-		updateSourceIpV6List(parser.getIpv6List(), parser.getSourceId());
+		updateSourceIpV6List(parser.getIp6list(), parser.getSourceId());
 		System.out.println("NOT VALOD PUSH PUSH");
 		updateSourceNotValIpList(parser.getNotValidList(), parser.getSourceId());
 	}

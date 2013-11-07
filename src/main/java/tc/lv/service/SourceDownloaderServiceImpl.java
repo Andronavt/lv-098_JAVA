@@ -14,54 +14,55 @@ import org.springframework.transaction.annotation.Transactional;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
 import tc.lv.utils.Downloader;
-import tc.lv.utils.Parser;
-import tc.lv.utils.ParserResult;
+import tc.lv.utils.ParserInterface;
 import tc.lv.utils.ParserChaosreignsWL;
 import tc.lv.utils.ParserOpenBSD;
+import tc.lv.utils.ParserResults;
 import tc.lv.utils.ParserUceprotect;
 
 @Service
 public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 
-    @Autowired
-    private SourceDao sourceDao;
+	@Autowired
+	private SourceDao sourceDao;
 
-    @Transactional
-    @Override
-    public List<Source> loadSourceList() {
-	return sourceDao.getListOfSources();
-    }
+	@Transactional
+	@Override
+	public List<Source> loadSourceList() {
+		return sourceDao.getListOfSources();
+	}
 
-    @Transactional
-    @Override
-    public List<ParserResult> downloadParseData(List<String> sourceNameList,
-	    Map<Source, Parser> parserMap) {
-	Downloader downloader = new Downloader();
-	List<ParserResult> resultList = new ArrayList<ParserResult>();
-	File file;
-	Set<Source> sourceSet = parserMap.keySet();
-	for (String sourceName : sourceNameList) {
-	    for (Source source : sourceSet) {
-		if (source.getSourceName().equals(sourceName)) {
-		    file = downloader.downloadFile(source.getUrl(),
-			    source.getDirname());
-		    ParserResult tmp = parserMap.get(source).parse(file);
-		    tmp.setSourceIs(source.getSourceId());
-		    resultList.add(tmp);
+	@Transactional
+	@Override
+	public List<ParserResults> downloadParseData(List<String> sourceNameList,
+			Map<Source, ParserInterface> parserMap) {
+		Downloader downloader = new Downloader();
+		List<ParserResults> resultList = new ArrayList<ParserResults>();
+		File file;
+		Set<Source> sourceSet = parserMap.keySet();
+		for (String sourceName : sourceNameList) {
+			for (Source source : sourceSet) {
+				if (source.getSourceName().equals(sourceName)) {
+					file = downloader.downloadFile(source.getUrl(),
+							source.getDirname());
+					ParserResults tmp = parserMap.get(source).parse(file);
+					tmp.setSourceId(source.getSourceId());
+					resultList.add(tmp);
+				}
+			}
 		}
-	    }
+		return resultList;
 	}
-	return resultList;
-    }
 
-    @Override
-    public Map<Source, Parser> createParserMap(List<Source> sourceList) {
-	Map<Source, Parser> parserMap = new HashMap<Source, Parser>();
-	for(Source source: sourceList){
-	    Class parserClass = Class.forName(source.getParserName());
-	    Parser parser = (Parser)parserClass.newInstance();
-	    parserMap.put(source, parser);
+	@Override
+	public Map<Source, ParserInterface> createParserMap(List<Source> sourceList) {
+		Map<Source, ParserInterface> parserMap = new HashMap<Source, ParserInterface>();
+		for (Source source : sourceList) {
+			//Class parserClass = Class.forName(source.getParserName());
+			//ParserInterface parser = (ParserInterface) parserClass
+				//	.newInstance();
+			//parserMap.put(source, parser);
+		}
+		return parserMap;
 	}
-	return parserMap;
-    }
 }
