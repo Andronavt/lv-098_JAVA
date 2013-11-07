@@ -16,10 +16,12 @@ function getContentLogin() {
 		url : "signin",
 		cache : false,
 		beforeSend : function() {
-			$('#content').html('get login page');
+			alert("WHAT1?");
+			$('#body').html('get login page');
 		},
 		success : function(html) {
-			$("#content").html(html);
+			alert("WHAT2?");
+			$("#body").html(html);
 		}
 	});
 	return false;

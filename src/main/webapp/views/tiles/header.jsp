@@ -7,42 +7,28 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ page session="false"%>
-<script type="text/javascript"
-	src="<c:url value="/resources/js/content.js" />"></script>
-<p align="right">
 
-	<sec:authorize access="isAnonymous()">
+<html>
+<head>
+</head>
+<body>
+	<p align="right">
+
+		<sec:authorize access="isAnonymous()">
     Welcome! Guest
    </sec:authorize>
-	<sec:authorize access="isAuthenticated()">
+		<sec:authorize access="isAuthenticated()">
    Welcome! <sec:authentication property="principal.username" />
-	</sec:authorize>
+		</sec:authorize>
 
 
-	<sec:authorize access="isAnonymous()">
-		<a href="#" id="getContentLogin">Login/Registration</a>
-	</sec:authorize>
-	<sec:authorize access="isAuthenticated()">
-		<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
-	</sec:authorize>
-</p>
-<script>
-	$(document).ready(function() {
-		$('#getContentLogin').click(function() {
-			$.ajax({
-				url : "signin",
-				cache : false,
-				beforeSend : function() {
-					$('#body').html('get login page');
-				},
-				success : function(html) {
-					$("#body").html(html);
-				}
-			});
-			return false;
-		});
-	});
-</script>
+		<sec:authorize access="isAnonymous()">
+			<a href="signin" id="getContentLogin">Login/Registration</a>
+		</sec:authorize>
+		<sec:authorize access="isAuthenticated()">
+			<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
+		</sec:authorize>
+	</p>
+</body>
+</html>
 
-<!-- </body> -->
-<!-- </html> -->

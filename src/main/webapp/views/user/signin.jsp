@@ -2,7 +2,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page session="true"%>
-<%@ page import="org.apache.log4j.Logger"%>
 <html>
 <head>
 <script type="text/javascript"
@@ -23,15 +22,15 @@
 	<!-- 	<center><a href="#" id="registration" style="color: gray">Forgot password </a></center> -->
 	<br>
 	<center>
-		<a href="#" id="registration">Registration</a>
+		<a href="registration" id="registration">Registration</a>
 	</center>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#registration').click(function() {
-				registration();
-			});
-		});
-	</script>
+	<!-- 	<script type="text/javascript"> -->
+	<!-- // 		$(document).ready(function() { -->
+	<!-- // 			$('#registration').click(function() { -->
+	<!-- // 				registration(); -->
+	<!-- // 			}); -->
+	<!-- // 		}); -->
+	<!-- 	</script> -->
 
 </body>
 

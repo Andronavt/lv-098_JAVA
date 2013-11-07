@@ -15,12 +15,12 @@ public class RegistrationController {
 	@Autowired
 	private UserEntityService userEntityService;
 
-	@RequestMapping(value = "/user/registration", method = RequestMethod.GET)
+	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public String registration() {
-		return "user/registration";
+		return "registration";
 	}
 
-	@RequestMapping(value = "/user/registration", method = RequestMethod.POST)
+	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public @ResponseBody
 	String addUser(@ModelAttribute(value = "user_name") String user_name,
 			@ModelAttribute(value = "first_name") String first_name,

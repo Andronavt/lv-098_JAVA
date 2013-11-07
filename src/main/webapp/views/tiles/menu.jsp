@@ -12,13 +12,15 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/content.js" />"></script>
+<%-- <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet" --%>
+<!-- 	type="text/css" /> -->
 </head>
 <body>
 	<div id="accordion" align="left">
 
 		<h6 style="width: 150px;">Home</h6>
 		<div style="width: 125px;">
-			<a class="button" href="" title="Home">Home</a>
+			<a class="button" href="welcomes" title="Home">Home</a>
 		</div>
 		<sec:authorize access="hasRole('ROLE_USER')">
 
