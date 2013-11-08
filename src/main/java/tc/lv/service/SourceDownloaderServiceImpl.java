@@ -26,64 +26,69 @@ import tc.lv.utils.ParserResults;
 
 @Service
 public class SourceDownloaderServiceImpl implements SourceDownloaderService {
-    private static final Logger logger = Logger.getLogger("errorLog");
-    @Autowired
-    private SourceDao sourceDao;
+	private static final Logger logger = Logger.getLogger("errorLog");
+	@Autowired
+	private SourceDao sourceDao;
 
-    @Transactional
-    @Override
-    public List<Source> loadSourceList() {
-	return sourceDao.loadAll();
-    }
+	@Transactional
+	@Override
+	public List<Source> loadSourceList() {
+		return sourceDao.loadAll();
+	}
 
-    @Transactional
-    @Override
-    public List<ParserResults> downloadParseData(List<String> sourceNameList,
-	    Map<Source, ParserInterface> parserMap) throws DownloadFileNotFoundException, DownloadIOException, DownloadMalformedURLException {
-	Downloader downloader = new Downloader();
-	List<ParserResults> resultList = new ArrayList<ParserResults>();
-	File file;
-	Set<Source> sourceSet = parserMap.keySet();
-	for (String sourceName : sourceNameList) {
-	    for (Source source : sourceSet) {
-		if (source.getSourceName().equals(sourceName)) {
-		    file = downloader.downloadFile(source.getUrl(),
-			    source.getDirname());
-		    ParserResults tmp = parserMap.get(source).parse(file);
-		    tmp.setSourceId(source.getSourceId());
-		    resultList.add(tmp);
+	@Transactional
+	@Override
+	public List<ParserResults> downloadParseData(List<String> sourceNameList,
+			Map<Source, ParserInterface> parserMap)
+			throws DownloadFileNotFoundException, DownloadIOException,
+			DownloadMalformedURLException {
+		Downloader downloader = new Downloader();
+		List<ParserResults> resultList = new ArrayList<ParserResults>();
+		File file;
+		Set<Source> sourceSet = parserMap.keySet();
+		for (String sourceName : sourceNameList) {
+			for (Source source : sourceSet) {
+				if (source.getSourceName().equals(sourceName)) {
+					file = downloader.downloadFile(source.getUrl(),
+							source.getDirname());
+					ParserResults tmp = parserMap.get(source).parse(file);
+					tmp.setSourceId(source.getSourceId());
+					resultList.add(tmp);
+				}
+			}
 		}
-	    }
+		return resultList;
 	}
-	return resultList;
-    }
 
-    @Transactional
-    @Override
-    public Map<Source, ParserInterface> createParserMap(List<Source> sourceList)
-	    throws DownloadClassNotFoundException, DownloadInstantiationException, DownloadIllegalAccessException {
-	Map<Source, ParserInterface> parserMap = new HashMap<Source, ParserInterface>();
-	for (Source source : sourceList) {
-	    Class parserClass;
-	    try {
-		parserClass = Class.forName(source.getParser());
-	    } catch (ClassNotFoundException e) {
-		logger.error(e);
-		throw new DownloadClassNotFoundException("Can't find Class of Parser!");
-	    }
-	    ParserInterface parser = null;
-	    try {
-		parser = (ParserInterface) parserClass
-		    .newInstance();
-	    } catch (InstantiationException e) {
-		logger.error(e);
-		throw new DownloadInstantiationException("class of Parser cannot be instantiated!");
-	    } catch (IllegalAccessException e) {
-		logger.error(e);
-		throw new DownloadIllegalAccessException("currently executing method does not have access to the definition of the specified class Parser");
-	    }
-	    parserMap.put(source, parser);
+	@Transactional
+	@Override
+	public Map<Source, ParserInterface> createParserMap(List<Source> sourceList)
+			throws DownloadClassNotFoundException,
+			DownloadInstantiationException, DownloadIllegalAccessException {
+		Map<Source, ParserInterface> parserMap = new HashMap<Source, ParserInterface>();
+		for (Source source : sourceList) {
+			Class parserClass;
+			try {
+				parserClass = Class.forName(source.getParser());
+			} catch (ClassNotFoundException e) {
+				logger.error(e);
+				throw new DownloadClassNotFoundException(
+						"Can't find Class of Parser!");
+			}
+			ParserInterface parser = null;
+			try {
+				parser = (ParserInterface) parserClass.newInstance();
+			} catch (InstantiationException e) {
+				logger.error(e);
+				throw new DownloadInstantiationException(
+						"class of Parser cannot be instantiated!");
+			} catch (IllegalAccessException e) {
+				logger.error(e);
+				throw new DownloadIllegalAccessException(
+						"currently executing method does not have access to the definition of the specified class Parser");
+			}
+			parserMap.put(source, parser);
+		}
+		return parserMap;
 	}
-	return parserMap;
-    }
 }

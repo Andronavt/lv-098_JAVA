@@ -39,10 +39,10 @@ public class ParserUceprotect implements ParserInterface {
 				if (matcher.find()) {
 					ipStr = matcher.group();
 					if (IpValidator.isIpV4(ipStr)) {
-						parserResults.ip4List.add(new IpV4Address(ipStr,
+						parserResults.ipV4List.add(new IpV4Address(ipStr,
 								new Date()));
 					} else if (IpValidator.isIpV6(ipStr)) {
-						parserResults.ip6List.add(new IpV6Address(ipStr,
+						parserResults.ipV6List.add(new IpV6Address(ipStr,
 								new Date()));
 					} else {
 						parserResults.notValidList.add(new NotValidIp(ipStr,
@@ -54,7 +54,7 @@ public class ParserUceprotect implements ParserInterface {
 		} catch (FileNotFoundException e) {
 			log.error("File not found!", e);
 		}
-		System.out.println(parserResults.ip4List.size() + " ipv4 size");
+		System.out.println(parserResults.ipV4List.size() + " ipv4 size");
 		return parserResults;
 	}
 

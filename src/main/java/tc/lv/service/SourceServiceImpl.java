@@ -1,5 +1,6 @@
 package tc.lv.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import tc.lv.dao.SourceDao;
 import tc.lv.dao.WhiteListDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.Source;
+import tc.lv.exceptions.DBCreateSourceException;
 
 @Service
 public class SourceServiceImpl implements SourceService {
@@ -34,19 +36,31 @@ public class SourceServiceImpl implements SourceService {
 	}
 
 	@Transactional
-	public void setIpV4Address(String ip, int sourceId) {
-	    ipV4AddressDao..setIpV4Address(ip, sourceId);
+	public void setIpV4AddressToWl(String ip, int sourceId) {
+	    whiteListDao.saveIpV4(ip);
+	}
+	
+	@Transactional
+	public void setIpV4AddressToBl(String ip, int sourceId) {
+	    blackListDao.saveIpV4(ip);
 	}
 
 	@Transactional
-	public void setIpV6Address(String ip, int sourceId) {
-		sourceDao.setIpV6Address(ip, sourceId);
+	public void setIpV6AddressToWl(String ip, int sourceId) {
+		whiteListDao.saveIpV6(ip);
+	}
+	
+	@Transactional
+	public void setIpV6AddressToBl(String ip, int sourceId) {
+		blackListDao.saveIpV6(ip);
 	}
 
 	@Transactional
-	public void addNewFeed( String typeofList, String rank,
-			String sourceName, String url) {
-		sourceDao.creat(sourceName, url, sourceDateAdded, rank, dirname, listType, updated, parser, ipSet);
+	public void addNewFeed(String dirname, String listType, double rank,
+			String sourceName) throws DBCreateSourceException {
+		Source tempSource = new Source(sourceName, new Date(), rank, dirname, listType);
+		
+			sourceDao.create(tempSource);
 	}
 
 	@Transactional

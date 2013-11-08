@@ -20,9 +20,9 @@ public class RegistrationController {
 	public String registration() {
 		return "user/registration";
 	}
-
+	
 	@RequestMapping(value = "/user/registration", method = RequestMethod.POST)
-	@ExceptionHandler({RegistrationException.class})
+
 	public @ResponseBody
 	String addUser(@ModelAttribute(value = "user_name") String user_name,
 			@ModelAttribute(value = "first_name") String first_name,
@@ -32,7 +32,7 @@ public class RegistrationController {
 		String returnText;
 
 		if (user_name.trim() == "") {
-			throw new RegistrationException("You have entered wrong data");
+			return "NoT";
 		} else {
 			if (!result.hasErrors()) {
 				userEntityService.addCustomerUser(user_name, first_name,
