@@ -30,6 +30,7 @@
         </layout>
 	</appender>
 	<appender name="fileWarn" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="d:/lv-098_JAVA/logs/warn.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
@@ -37,6 +38,7 @@
 	</appender>
 	
 	<appender name="fileErr" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="d:/lv-098_JAVA/logs/error.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
@@ -80,7 +82,7 @@
 	</logger>
 	<logger name="errorLog">
 		<level value="error" />
-		<appender-ref ref="console" />
+<!-- 		<appender-ref ref="console" /> -->
 		<appender-ref ref="fileErr" />		
 	</logger>
 

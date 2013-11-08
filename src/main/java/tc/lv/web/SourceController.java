@@ -86,7 +86,7 @@ public class SourceController {
 	public String addNew(@RequestParam String typeOfList,
 			@RequestParam String rankOfSource, @RequestParam String sourceName,
 			@RequestParam String url) {
-		souService.addNewFeed(typeOfList, rankOfSource, sourceName, url);
+//		souService.addNewFeed(typeOfList, rankOfSource, sourceName, url);
 		return "admin/AddNewFeed";
 	}
 

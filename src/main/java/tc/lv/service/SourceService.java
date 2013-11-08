@@ -1,5 +1,6 @@
 package tc.lv.service;
 
+import java.util.Date;
 import java.util.List;
 
 import tc.lv.domain.IpV4Address;
@@ -13,8 +14,8 @@ public interface SourceService{
 
 	public void setIpV6Address(String ip, int sourceId);
 
-	public void addNewFeed(String typeofList, String rank,
-			String sourceName, String url);
+	public void addNewFeed(String sourceName, Date sourceDateAdded,
+		    Double rank, String dirname, String listType);
 
 	public void deleteFeed(String sourceName);
 

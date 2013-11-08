@@ -43,7 +43,9 @@
 	<div id="content">
 		<center>
 			<h1>Welcome to IP-info resource</h1>
-			<a href="updateSources">RUN</a>
+<a href="updateSources" name="updateSources">RUN</a> 
+
+
 		</center>
 		<div id="divContent"></div>
 	</div>

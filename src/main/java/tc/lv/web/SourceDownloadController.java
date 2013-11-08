@@ -1,17 +1,16 @@
 package tc.lv.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.DownloadClassNotFoundException;
 import tc.lv.exceptions.DownloadFileNotFoundException;
@@ -21,6 +20,7 @@ import tc.lv.exceptions.DownloadInstantiationException;
 import tc.lv.exceptions.DownloadMalformedURLException;
 import tc.lv.service.ParserResultService;
 import tc.lv.service.SourceDownloaderService;
+import tc.lv.utils.ParserChaosreignsWL;
 import tc.lv.utils.ParserInterface;
 import tc.lv.utils.ParserResults;
 
@@ -34,6 +34,8 @@ public class SourceDownloadController {
 
     @Autowired
     private ParserResultService parserResultService;
+    @Autowired
+    private SourceDao sourceDao;
 
     // Getting updateSourcesPag.jsp
     @RequestMapping("/admin/SourcesUpdatePage")
@@ -44,38 +46,48 @@ public class SourceDownloadController {
     }
 
     // Updating Sources
-    @RequestMapping(value = "/admin/updateSources", method = RequestMethod.POST)
-    public @ResponseBody
-    String sourceDownloader(
-	    @ModelAttribute(value = "select") String[] sourceNameArray,
-	    Map<String, Object> map) {
+    // @RequestMapping(value = "/admin/updateSources", method =
+    // RequestMethod.POST)
+    // public @ResponseBody
+    // String sourceDownloader(
+    // @ModelAttribute(value = "select") String[] sourceNameArray,
+    // Map<String, Object> map) {
+
+    @RequestMapping("/updateSources")
+    public void sourceDownloader() {
 
 	// ----!!!Test block!!!------
 	String name1 = "OpenBSD traplist";
 	String name2 = "Nixspam list";
 	String name3 = "Chaosreigns Whitelist";
 	List<String> sourceNameList = new ArrayList<String>();
-	sourceNameList.add(name1);
-	sourceNameList.add(name2);
 	sourceNameList.add(name3);
+	// sourceNameList.add(name2);
+	// sourceNameList.add(name3);
 
 	// List<String> sourceNameList = new
 	// ArrayList<String>(Arrays.asList(sourceNameArray));
 	List<Source> sourceList = sourceDownloaderService.loadSourceList();
 	Map<Source, ParserInterface> parserMap = null;
-	try {
-	    parserMap = sourceDownloaderService.createParserMap(sourceList);
-	} catch (DownloadClassNotFoundException e) {
-	    loggerErr.error(e);
-	} catch (DownloadInstantiationException e) {
-	    loggerErr.error(e);
-	} catch (DownloadIllegalAccessException e) {
-	    loggerErr.error(e);
-	}
+
+	// parserMap.put(sourceDao.loadByName(name3), new
+	// ParserChaosreignsWL());
+	parserMap = new HashMap<Source, ParserInterface>();
+	parserMap.put(sourceDao.loadByName(name3), new ParserChaosreignsWL());
+//	try {
+//
+//	     parserMap = sourceDownloaderService.createParserMap(sourceList);
+//	} catch (DownloadClassNotFoundException e) {
+//	    loggerErr.error(e);
+//	} catch (DownloadInstantiationException e) {
+//	    loggerErr.error(e);
+//	} catch (DownloadIllegalAccessException e) {
+//	    loggerErr.error(e);
+//	}
 	List<ParserResults> parserResultList = null;
 	try {
-	    parserResultList = sourceDownloaderService
-	    	.downloadParseData(sourceNameList, parserMap);
+	    parserResultList = sourceDownloaderService.downloadParseData(
+		    sourceNameList, parserMap);
 	} catch (DownloadFileNotFoundException e) {
 	    loggerErr.error(e);
 	} catch (DownloadIOException e) {
@@ -107,8 +119,9 @@ public class SourceDownloadController {
 	// }
 	// }
 	// map.put("resultList", resultList);
-	return "admin/updateSourcesResult";// Need create new jsp-file for view
-					   // result
+	// return "admin/updateSourcesResult";// Need create new jsp-file for
+	// view
+	// result
 
     }
 }
