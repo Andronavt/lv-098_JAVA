@@ -16,6 +16,10 @@
 		<put-attribute name="body" value="/views/user/signin.jsp" />
 	</definition>
 
+	<definition name="signinFailure" extends="base.definition">
+		<put-attribute name="body" value="/views/user/signinFailure.jsp" />
+	</definition>
+
 	<definition name="welcome" extends="base.definition">
 		<put-attribute name="body" value="/views/tiles/welcome.jsp" />
 	</definition>
