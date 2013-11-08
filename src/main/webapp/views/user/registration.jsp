@@ -19,18 +19,20 @@
 
 <script type="text/javascript"
 	src="<c:url value="/resources/js/validation.js" />"></script>
+	
+<script type="text/javascript"
+	src="<c:url value="/resources/js/rules.js" />"></script>
 
 <link href="<c:url value="/resources/css/validation.css" />"
 	rel="stylesheet" type="text/css" />
 
 </head>
 <body>
-	<form method="post" id="loginform" action="">
+	<form method="post" id="loginform" action="" name="login-form">
 		<fieldset>
 			<legend style="color: green" align="center">
-				<h3>Registration</h3>
+				Registration
 			</legend>
-
 			<div align="left">
 				User name: <input type="text" id="user_name" name="userName" />
 				<br>
@@ -45,9 +47,12 @@
 				<div id="info" style="color: green;"></div>
 			</div>
 		</fieldset>
-		<input type="button" name="registration" value="Registration"
-			onclick="doAjaxPostRegistration()" />
+		<input id="btn" type="button" name="registration" value="Registration" />
 	</form>
+<script type="text/javascript">
+$(document).ready(function() { validateRegForm();});
+</script>
+
 
 </body>
 </html>
