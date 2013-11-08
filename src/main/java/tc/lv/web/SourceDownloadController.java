@@ -72,18 +72,17 @@ public class SourceDownloadController {
 
 	// parserMap.put(sourceDao.loadByName(name3), new
 	// ParserChaosreignsWL());
-	parserMap = new HashMap<Source, ParserInterface>();
-	parserMap.put(sourceDao.loadByName(name3), new ParserChaosreignsWL());
-//	try {
-//
-//	     parserMap = sourceDownloaderService.createParserMap(sourceList);
-//	} catch (DownloadClassNotFoundException e) {
-//	    loggerErr.error(e);
-//	} catch (DownloadInstantiationException e) {
-//	    loggerErr.error(e);
-//	} catch (DownloadIllegalAccessException e) {
-//	    loggerErr.error(e);
-//	}
+//	parserMap = new HashMap<Source, ParserInterface>();
+//	parserMap.put(sourceDao.loadByName(name3), new ParserChaosreignsWL());
+	try {
+	     parserMap = sourceDownloaderService.createParserMap(sourceList);
+	} catch (DownloadClassNotFoundException e) {
+	    loggerErr.error(e);
+	} catch (DownloadInstantiationException e) {
+	    loggerErr.error(e);
+	} catch (DownloadIllegalAccessException e) {
+	    loggerErr.error(e);
+	}
 	List<ParserResults> parserResultList = null;
 	try {
 	    parserResultList = sourceDownloaderService.downloadParseData(

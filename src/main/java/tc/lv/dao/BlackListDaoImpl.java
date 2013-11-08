@@ -1,6 +1,7 @@
 package tc.lv.dao;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -10,10 +11,13 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.Source;
 
+@Repository
 public class BlackListDaoImpl implements BlackListDao {
 	@PersistenceContext(name = "primary")
 	private EntityManager entityManager;
