@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import tc.lv.exceptions.*;
 import tc.lv.service.UserEntityService;
 
@@ -30,18 +31,17 @@ public class RegistrationController {
 			@ModelAttribute(value = "email") String email,
 			@ModelAttribute(value = "pass") String pass, BindingResult result) {
 		String returnText;
-
-		if (user_name.trim() == "") {
-			return "NoT";
-		} else {
-			if (!result.hasErrors()) {
-				userEntityService.addCustomerUser(user_name, first_name,
-						last_name, email, pass);
-				return "Success";
-			} else {
-				returnText = "Sorry, an error has occur.";
+		if (!result.hasErrors()) {
+			try {
+				userEntityService.addCustomerUser(user_name, first_name, last_name,
+						email, pass);
+			} catch (DBCreateUserException e) {
+				e.printStackTrace();
 			}
-			return returnText;
+			return "Success";
+		} else {
+			returnText = "Sorry, an error has occur.";
 		}
+		return returnText;
 	}
 }

@@ -29,7 +29,7 @@ public class ParserResultServiceImpl implements ParserResultService {
 	@Override
 	public void saveAllSources(List<ParserResults> resultList) {
 		for (ParserResults result : resultList) {
-			downloaderDao.save(result);
+			this.save(result);
 		}
 	}
 }

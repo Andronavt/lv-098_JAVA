@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.DownloadClassNotFoundException;
 import tc.lv.exceptions.DownloadFileNotFoundException;
@@ -34,6 +35,9 @@ public class SourceDownloadController {
 
     @Autowired
     private ParserResultService parserResultService;
+    
+    @Autowired
+    private SourceDao sourceDao;
 
     // Getting updateSourcesPag.jsp
     @RequestMapping("/admin/SourcesUpdatePage")
@@ -43,35 +47,38 @@ public class SourceDownloadController {
 	return "admin/SourcesUpdatePage";
     }
 
+//    // Updating Sources
+//    @RequestMapping(value = "/admin/updateSources", method = RequestMethod.POST)
+//    public @ResponseBody
+//    String sourceDownloader(
+//	    @ModelAttribute(value = "select") String[] sourceNameArray,
+//	    Map<String, Object> map) {
+    
     // Updating Sources
-    @RequestMapping(value = "/admin/updateSources", method = RequestMethod.POST)
-    public @ResponseBody
-    String sourceDownloader(
-	    @ModelAttribute(value = "select") String[] sourceNameArray,
-	    Map<String, Object> map) {
+    @RequestMapping("/updateSources")
+    public void sourceDownloader() {
 
 	// ----!!!Test block!!!------
-	String name1 = "OpenBSD traplist";
-	String name2 = "Nixspam list";
+	//String name1 = "OpenBSD traplist";
+	//String name2 = "Nixspam list";
 	String name3 = "Chaosreigns Whitelist";
 	List<String> sourceNameList = new ArrayList<String>();
-	sourceNameList.add(name1);
-	sourceNameList.add(name2);
+	//sourceNameList.add(name1);
+	//sourceNameList.add(name2);
 	sourceNameList.add(name3);
 
 	// List<String> sourceNameList = new
 	// ArrayList<String>(Arrays.asList(sourceNameArray));
-	List<Source> sourceList = sourceDownloaderService.loadSourceList();
-	Map<Source, ParserInterface> parserMap = null;
-	try {
-	    parserMap = sourceDownloaderService.createParserMap(sourceList);
-	} catch (DownloadClassNotFoundException e) {
-	    loggerErr.error(e);
-	} catch (DownloadInstantiationException e) {
-	    loggerErr.error(e);
-	} catch (DownloadIllegalAccessException e) {
-	    loggerErr.error(e);
-	}
+	Map<Source, ParserInterface> parserMap = sourceDao.getMapOfParsers();
+//	try {
+//	    parserMap = sourceDownloaderService.createParserMap(sourceList);
+//	} catch (DownloadClassNotFoundException e) {
+//	    loggerErr.error(e);
+//	} catch (DownloadInstantiationException e) {
+//	    loggerErr.error(e);
+//	} catch (DownloadIllegalAccessException e) {
+//	    loggerErr.error(e);
+//	}
 	List<ParserResults> parserResultList = null;
 	try {
 	    parserResultList = sourceDownloaderService
@@ -107,7 +114,7 @@ public class SourceDownloadController {
 	// }
 	// }
 	// map.put("resultList", resultList);
-	return "admin/updateSourcesResult";// Need create new jsp-file for view
+	//return "admin/updateSourcesResult";// Need create new jsp-file for view
 					   // result
 
     }

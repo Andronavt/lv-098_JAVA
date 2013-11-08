@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tc.lv.domain.Source;
+import tc.lv.exceptions.DBCreateSourceException;
 import tc.lv.service.SourceService;
 
 @Controller
@@ -66,7 +67,7 @@ public class SourceController {
 		logger.info("getting IP-adress from form");
 		if (!result.hasErrors()) {
 			logger.info("sending data to DataBase");
-			souService.setIpV4Address(ip, source);
+			//souService.setIpV4Address(ip, source);
 			returnText = "IP-address was added " + ip + " in source # "
 					+ source;
 		} else {
@@ -86,7 +87,12 @@ public class SourceController {
 	public String addNew(@RequestParam String typeOfList,
 			@RequestParam String rankOfSource, @RequestParam String sourceName,
 			@RequestParam String url) {
-		souService.addNewFeed(typeOfList, rankOfSource, sourceName, url);
+		try {
+			souService.addNewFeed("C:!!!!!!!111",typeOfList, Double.parseDouble(rankOfSource), sourceName);
+		} catch (DBCreateSourceException | NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "admin/AddNewFeed";
 	}
 
