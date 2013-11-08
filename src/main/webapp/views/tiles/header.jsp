@@ -10,8 +10,13 @@
 
 <html>
 <head>
+<link href="<c:url value="/resources/css/olkolos.css" />" rel="stylesheet"
+	type="text/css" />
+
 </head>
-<body>
+<body id="boo">
+<%-- 	 	<img src="<c:url value='/resources/images/IP-banner.jpg'/>" height="150" width="1300">  --%>
+
 	<p align="right">
 
 		<sec:authorize access="isAnonymous()">
