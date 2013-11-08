@@ -54,7 +54,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 					ParserResults tmp = parserMap.get(source).parse(file);
 					tmp.setSourceId(source.getSourceId());
 					tmp.printLists();
-					resultList.add(tmp);
+					System.out.println(resultList.add(tmp));
 				}
 			}
 		}

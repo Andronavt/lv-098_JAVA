@@ -19,12 +19,12 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table(name="not_valid_ip")
-@PrimaryKeyJoinColumn(name="id")
+@Table(name = "not_valid_ip")
+@PrimaryKeyJoinColumn(name = "id")
 @NamedQueries({
-    @NamedQuery(name = "NotValidIp.loadBySource", query = "SELECT ip FROM NotValidIp ip, Source s JOIN ip.sourceSet ipS JOIN s.ipSet sIp WHERE ipS.sourceId = :id AND sIp.id = ip.id")})
+	@NamedQuery(name = "NotValidIp.loadAll" , query = "SELECT ip FROM NotValidIp ip"),
+	@NamedQuery(name = "NotValidIp.loadBySource", query = "SELECT ip FROM NotValidIp ip, Source s JOIN ip.sourceSet ipS JOIN s.ipSet sIp WHERE ipS.sourceId = :id AND sIp.id = ip.id")})
 public class NotValidIp extends IpAddress {
-
 
 	public NotValidIp() {
 

@@ -13,12 +13,10 @@ import tc.lv.utils.ParserResults;
 @Service
 public class ParserResultServiceImpl implements ParserResultService {
 	@Autowired
-	// МаЄ бути Download DAO
 	private SourceDao sourceDao;
+	@Autowired
 	private DownloaderDao downloaderDao;
-
-	// Update source in DataBAse
-
+		// Update source in DataBAse
 	@Transactional
 	@Override
 	public void save(ParserResults result) {
@@ -28,9 +26,8 @@ public class ParserResultServiceImpl implements ParserResultService {
 	@Transactional
 	@Override
 	public void saveAllSources(List<ParserResults> resultList) {
-		
 		for (ParserResults result : resultList) {
-			this.save(result);
+			downloaderDao.save(result);
 		}
 	}
 }

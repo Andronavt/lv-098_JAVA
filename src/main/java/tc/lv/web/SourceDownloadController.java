@@ -84,6 +84,7 @@ public class SourceDownloadController {
 		try {
 			parserResultList = sourceDownloaderService.downloadParseData(
 					sourceNameList, parserMap);
+			parserResultService.saveAllSources(parserResultList);
 		} catch (DownloadFileNotFoundException e) {
 			loggerErr.error(e);
 		} catch (DownloadIOException e) {
@@ -91,7 +92,6 @@ public class SourceDownloadController {
 		} catch (DownloadMalformedURLException e) {
 			loggerErr.error(e);
 		}
-		parserResultService.saveAllSources(parserResultList);
 
 		// for (String name : sourceNameList) {
 		// if (!name.equals("")) {
