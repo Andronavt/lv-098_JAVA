@@ -16,4 +16,7 @@ public interface DownloaderDao {
 	void saveNotValIpList(List<NotValidIp> list, int sourceId);
 
 	void save(ParserResults parser);
+
+	void updateWhiteList();
+
 }

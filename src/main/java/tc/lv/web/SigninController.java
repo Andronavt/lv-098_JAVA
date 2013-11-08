@@ -10,11 +10,9 @@ public class SigninController {
 	public String signin() {
 		return "user/signin";
 	}
-	
-	@RequestMapping(value = "/signin-failure", method = RequestMethod.GET
-		)
+
+	@RequestMapping(value = "/signin-failure", method = RequestMethod.GET)
 	public String signinFailure() {
 		return "user/signin_failure";
 	}
-	
 }

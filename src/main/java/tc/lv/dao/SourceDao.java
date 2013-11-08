@@ -1,22 +1,19 @@
 package tc.lv.dao;
 
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
+import tc.lv.exceptions.DBCreateSourceException;
+import tc.lv.utils.ParserInterface;
 
 public interface SourceDao {
 
-	void creat(String sourceName, Date sourceDateAdded, Double rank,
-			String dirname, String listType);
-
-	void creat(String sourceName, String url, Date sourceDateAdded,
-			Double rank, String dirname, String listType, Date updated,
-			String parser, Collection<IpAddress> ipSet);
+	void create(Source source) throws DBCreateSourceException;
 
 	Source loadByName(String sourceName);
+	
+	public Map<Source,ParserInterface> getMapOfParsers();
 
 	List<Source> loadAll();
 

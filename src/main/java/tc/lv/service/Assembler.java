@@ -25,8 +25,7 @@ public class Assembler {
 		for (Role role : userEntity.getRoleSet()) {
 			authorities.add(new GrantedAuthorityImpl(role.getRole()));
 		}
-		User user = new User(username, password, authorities);
-		System.out.println(user.toString()+" UUUUUUUUUUUUUUUUUUUUSSSSSSSSSSSSSSSSSSSSSSEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRR");
+		User user = new User(username, password, authorities);		
 		return user;
 	}
 }

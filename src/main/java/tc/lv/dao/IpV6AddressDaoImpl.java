@@ -22,7 +22,7 @@ public class IpV6AddressDaoImpl implements IpV6AddressDao {
 		List<IpV6Address> list = new ArrayList<IpV6Address>();
 		Query q = entityManager
 			.createNamedQuery(
-				"loadIpV6BySource").setParameter("id", sourceId);
+				"IpV6Address.loadBySource").setParameter("id", sourceId);
 		list.addAll(q.getResultList());
 		return list;
 	}

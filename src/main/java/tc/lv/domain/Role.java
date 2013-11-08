@@ -18,6 +18,7 @@ public class Role {
 	@Id
 	@Column(name = "role_id", nullable = false)
 	private int id;
+
 	@Column(name = "role", nullable = false)
 	private String role;
 
@@ -42,6 +43,14 @@ public class Role {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	public Set<UserEntity> getUserSet() {
+		return userSet;
+	}
+	
+	public void setUserSet(Set<UserEntity> userSet) {
+		this.userSet = userSet;
 	}
 
 }

@@ -14,11 +14,16 @@ import tc.lv.utils.ParserInterface;
 import tc.lv.utils.ParserResults;
 
 public interface SourceDownloaderService {
-	
-    	public List<Source> loadSourceList();
-    	
-    	public Map <Source, ParserInterface> createParserMap(List<Source> sourceList) throws DownloadClassNotFoundException, DownloadInstantiationException, DownloadIllegalAccessException;
-	
-	public List <ParserResults> downloadParseData(List<String> sourceNameList, Map <Source, ParserInterface> parserMap) throws DownloadFileNotFoundException, DownloadIOException, DownloadMalformedURLException;
-	
+
+	public List<Source> loadSourceList();
+
+	public Map<Source, ParserInterface> createParserMap(List<Source> sourceList)
+			throws DownloadClassNotFoundException,
+			DownloadInstantiationException, DownloadIllegalAccessException;
+
+	public List<ParserResults> downloadParseData(List<String> sourceNameList,
+			Map<Source, ParserInterface> parserMap)
+			throws DownloadFileNotFoundException, DownloadIOException,
+			DownloadMalformedURLException;
+
 }

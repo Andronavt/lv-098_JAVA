@@ -22,7 +22,7 @@ public class NotValidIpAddressDaoImpl implements NotValidIpAddressDao {
 		List<NotValidIp> list = new ArrayList<NotValidIp>();
 		Query q = entityManager
 			.createNamedQuery(
-				"loadNotValidIpBySource").setParameter("id", sourceId);
+				"NotValidIp.loadBySource").setParameter("id", sourceId);
 		list.addAll(q.getResultList());
 		return list;
 	}

@@ -12,23 +12,19 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table(name = "not_valid_ip")
-@NamedQueries({ @NamedQuery(name = "findNotValName", query = "SELECT c from NotValidIp c WHERE c.address= :address"),
-    @NamedQuery(name = "loadNotValidIpBySource", query = "SELECT ip FROM NotValidIp ip, Source s JOIN ip.sourceSet ipS JOIN s.ipSet sIp WHERE ipS.sourceId = :id AND sIp.id = ip.id")})
+@Table(name="not_valid_ip")
+@PrimaryKeyJoinColumn(name="id")
+@NamedQueries({
+    @NamedQuery(name = "NotValidIp.loadBySource", query = "SELECT ip FROM NotValidIp ip, Source s JOIN ip.sourceSet ipS JOIN s.ipSet sIp WHERE ipS.sourceId = :id AND sIp.id = ip.id")})
 public class NotValidIp extends IpAddress {
 
-	private static final long serialVersionUID = 7981579039217484865L;
-
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "source_to_addresses", joinColumns = { @JoinColumn(name = "not_valid_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "source_id", updatable = true, nullable = true) })
-	@Fetch(FetchMode.JOIN)
-	private Set<Source> sourceSet = new HashSet<Source>();
 
 	public NotValidIp() {
 

@@ -38,10 +38,10 @@ public class ParserChaosreignsWL implements ParserInterface {
 				if (matcher.find()) {
 					ipStr = matcher.group();
 					if (IpValidator.isIpV4(ipStr)) {
-						parserResults.ip4List.add(new IpV4Address(ipStr,
+						parserResults.ipV4List.add(new IpV4Address(ipStr,
 								new Date()));
 					} else if (IpValidator.isIpV6(ipStr)) {
-						parserResults.ip6List.add(new IpV6Address(ipStr,
+						parserResults.ipV6List.add(new IpV6Address(ipStr,
 								new Date()));
 					} else {
 						parserResults.notValidList.add(new NotValidIp(ipStr,
@@ -53,7 +53,7 @@ public class ParserChaosreignsWL implements ParserInterface {
 		} catch (FileNotFoundException e) {
 			log.error("File not found!", e);
 		}
-		System.out.println("IPV4SIZE "+parserResults.ip4List.size());
+		System.out.println("IPV4SIZE "+parserResults.ipV4List.size());
 		return parserResults;
 	}
 

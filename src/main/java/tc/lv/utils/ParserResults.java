@@ -7,25 +7,30 @@ import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 
 public class ParserResults {
-	public ArrayList<IpV4Address> ip4List = new ArrayList<IpV4Address>();
-	public ArrayList<IpV6Address> ip6List = new ArrayList<IpV6Address>();
+	public ArrayList<IpV4Address> ipV4List = new ArrayList<IpV4Address>();
+	public ArrayList<IpV6Address> ipV6List = new ArrayList<IpV6Address>();
 	public ArrayList<NotValidIp> notValidList = new ArrayList<NotValidIp>();
 	public int sourceId;
+	
+	public void printLists(){
+		System.out.println("ipV4List size "+ipV4List.size());
+	}
+	
 
-	public ArrayList<IpV4Address> getIp4list() {
-		return ip4List;
+	public ArrayList<IpV4Address> getIpV4List() {
+		return ipV4List;
 	}
 
-	public void setIp4List(ArrayList<IpV4Address> ip4list) {
-		this.ip4List = ip4list;
+	public void setIpV4List(ArrayList<IpV4Address> ipV4List) {
+		this.ipV4List = ipV4List;
 	}
 
-	public ArrayList<IpV6Address> getIp6list() {
-		return ip6List;
+	public ArrayList<IpV6Address> getIpV6List() {
+		return ipV6List;
 	}
 
-	public void setIp6List(ArrayList<IpV6Address> ip6list) {
-		this.ip6List = ip6list;
+	public void setIpV6List(ArrayList<IpV6Address> ipV6List) {
+		this.ipV6List = ipV6List;
 	}
 
 	public ArrayList<NotValidIp> getNotValidList() {
@@ -43,5 +48,4 @@ public class ParserResults {
 	public void setSourceId(int sourceId) {
 		this.sourceId = sourceId;
 	}
-
 }

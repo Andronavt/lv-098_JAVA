@@ -14,6 +14,7 @@ import tc.lv.dao.SourceDao;
 import tc.lv.dao.WhiteListDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.Source;
+import tc.lv.exceptions.DBCreateSourceException;
 
 @Service
 public class SourceServiceImpl implements SourceService {
@@ -38,17 +39,30 @@ public class SourceServiceImpl implements SourceService {
     public void setIpV4Address(String ip, int sourceId) {
 	whiteListDao.saveIpV4(ip);
     }
+    
+	@Transactional
+	public void setIpV4AddressToBl(String ip, int sourceId) {
+	    blackListDao.saveIpV4(ip);
+	}
 
-    @Transactional
-    public void setIpV6Address(String ip, int sourceId) {
-	whiteListDao.saveIpV6(ip);
-    }
+	@Transactional
+	public void setIpV6AddressToWl(String ip, int sourceId) {
+		whiteListDao.saveIpV6(ip);
+	}
+	
+	@Transactional
+	public void setIpV6AddressToBl(String ip, int sourceId) {
+		blackListDao.saveIpV6(ip);
+	}
 
-    @Transactional
-    public void addNewFeed(String sourceName, Date sourceDateAdded,
-	    Double rank, String dirname, String listType) {
-	sourceDao.creat(sourceName, sourceDateAdded, rank, dirname, listType);
-    }
+ 
+	@Transactional
+	public void addNewFeed(String dirname, String listType, double rank,
+			String sourceName) throws DBCreateSourceException {
+		Source tempSource = new Source(sourceName, new Date(), rank, dirname, listType);
+		
+			sourceDao.create(tempSource);
+	}
 
     @Transactional
     public List<Source> getListOfSourcess() {

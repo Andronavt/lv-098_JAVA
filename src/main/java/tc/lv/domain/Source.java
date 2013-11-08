@@ -1,5 +1,6 @@
 package tc.lv.domain;
 
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -12,12 +13,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+
+import tc.lv.utils.ParserInterface;
+
 @Entity
 @Table(name = "sources")
-@NamedQuery(name = "Source.findByName", query = "SELECT c FROM Source c WHERE c.sourceName  = :sourceName")
+@NamedQueries({
+		@NamedQuery(name = "Source.loadAll", query = "SELECT c FROM Source c"),
+		@NamedQuery(name = "Source.loadByName", query = "SELECT c FROM Source c WHERE c.sourceName  = :sourceName") })
 public class Source {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,6 +57,20 @@ public class Source {
 
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.EAGER)
 	private Collection<IpAddress> ipSet = new HashSet<IpAddress>();
+	
+	public Source() {
+
+	}
+
+	public Source(String sourceName, Date sourceDateAdded, Double rank,
+			String dirname, String listType) {
+		super();
+		this.sourceName = sourceName;
+		this.sourceDateAdded = sourceDateAdded;
+		this.rank = rank;
+		this.dirname = dirname;
+		this.listType = listType;
+	}
 
 	public Source(String sourceName, String url, Date sourceDateAdded,
 			Double rank, String dirname, String listType, Date updated,
@@ -65,20 +86,6 @@ public class Source {
 		this.parser = parser;
 
 		this.ipSet = ipSet;
-	}
-
-	public Source(String sourceName, Date sourceDateAdded, Double rank,
-			String dirname, String listType) {
-		super();
-		this.sourceName = sourceName;
-		this.sourceDateAdded = sourceDateAdded;
-		this.rank = rank;
-		this.dirname = dirname;
-		this.listType = listType;
-	}
-
-	public Source() {
-
 	}
 
 	public int getSourceId() {

@@ -24,7 +24,7 @@ public class WhiteListDaoImpl implements WhiteListDao {
 
 	@Override
 	public List<IpV4Address> loadIpV4List() {
-		Query q = entityManager.createNamedQuery("loadWhiteIpV4List")
+		Query q = entityManager.createNamedQuery("IpV4Address.loadWhiteList")
 				.setParameter("whitelist", true);
 		ArrayList<IpV4Address> list = new ArrayList<IpV4Address>();
 		list.addAll(q.getResultList());
@@ -33,7 +33,7 @@ public class WhiteListDaoImpl implements WhiteListDao {
 
 	@Override
 	public List<IpV6Address> loadIpV6List() {
-		Query q = entityManager.createNamedQuery("loadWhiteIpV6List")
+		Query q = entityManager.createNamedQuery("IpV6Address.loadWhiteList")
 				.setParameter("whitelist", true);
 		ArrayList<IpV6Address> list = new ArrayList<IpV6Address>();
 		list.addAll(q.getResultList());
@@ -42,7 +42,7 @@ public class WhiteListDaoImpl implements WhiteListDao {
 
 	@Override
 	public void saveIpV4(String address) {
-		Query q = entityManager.createNamedQuery("loadIpV4ByName")
+		Query q = entityManager.createNamedQuery("IpV4Address.loadByName")
 				.setParameter("address", address);
 		IpV4Address obj = null;
 		try {
@@ -64,7 +64,7 @@ public class WhiteListDaoImpl implements WhiteListDao {
 
 	@Override
 	public void saveIpV6(String address) {
-		Query q = entityManager.createNamedQuery("loadIpV6ByName")
+		Query q = entityManager.createNamedQuery("IpV6Address.loadByName")
 				.setParameter("address", address);
 		IpV6Address obj = null;
 		try {
@@ -100,8 +100,9 @@ public class WhiteListDaoImpl implements WhiteListDao {
 
 	@Override
 	public void deleteIpV4(String address) {
-		Query q = entityManager.createNamedQuery("loadWhiteIpV4byName")
-				.setParameter("address", address);
+		Query q = entityManager.createNamedQuery(
+				"IpV4Address.loadWhiteIpByName").setParameter("address",
+				address);
 		IpV4Address obj = (IpV4Address) q.getSingleResult();
 		obj.setWhiteList(false);
 		entityManager.persist(obj);
@@ -110,11 +111,11 @@ public class WhiteListDaoImpl implements WhiteListDao {
 
 	@Override
 	public void deleteIpV6(String address) {
-		Query q = entityManager.createNamedQuery("loadWhiteIpV6byName")
-				.setParameter("address", address);
+		Query q = entityManager.createNamedQuery(
+				"IpV6Address.loadWhiteIpByName").setParameter("address",
+				address);
 		IpV6Address obj = (IpV6Address) q.getSingleResult();
 		obj.setWhiteList(false);
 		entityManager.persist(obj);
 	}
-
 }

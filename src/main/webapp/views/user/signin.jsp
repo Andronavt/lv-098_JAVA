@@ -2,14 +2,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page session="true"%>
-<%@ page import="org.apache.log4j.Logger" %>
 <html>
 <head>
 <title>Sign In</title>
 </head>
 <body>
-	<% Logger logger=Logger.getLogger("infoLog"); %>
-	<%logger.info("create signin page");%>
 	<h3 style="color: green" align="center">Login</h3>
 	<form class="login-form" action="j_spring_security_check" method="post"
 		style="text-align: center">
@@ -19,27 +16,11 @@
 			name="j_password" size="20" maxlength="50" type="password" /><br>
 		<input type="submit" value="Login" />
 	</form>
-<%-- 	<center><a href="#" id="registration" style="color: gray">Forgot password </a></center> --%>
 	<br>
-	<center><a href="#" id="registration" >Registration</a></center>
-	<script type="text/javascript">
-	$(document).ready(function() {
-	$('#registration').click(function() {
-				$.ajax({
-					url : "user/registration",
-					cache : false,
-					beforeSend : function() {
-						$('#content').html('registration not loaded');
-					},
-					success : function(html) {
-						$("#content").html(html);
-					}
-				});
-				return false;
-			});
-	});
-	</script>		
-	
+	<center>
+		<a href="registration" id="registration">Registration</a>
+	</center>
+
 </body>
 
 </html>

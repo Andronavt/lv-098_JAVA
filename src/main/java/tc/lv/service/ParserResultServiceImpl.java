@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.DownloaderDao;
+import tc.lv.dao.DownloaderDao;
 import tc.lv.utils.ParserResults;
 
 @Service
 public class ParserResultServiceImpl implements ParserResultService {
+
     @Autowired
     //МаЄ бути Download DAO
     private DownloaderDao  downloaderDao;
@@ -31,5 +33,4 @@ public class ParserResultServiceImpl implements ParserResultService {
 	}
     }
 }
-
 
