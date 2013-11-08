@@ -3,11 +3,12 @@ package tc.lv.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import tc.lv.exceptions.*;
 import tc.lv.service.UserEntityService;
 
 @Controller
@@ -21,6 +22,7 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(value = "/user/registration", method = RequestMethod.POST)
+	@ExceptionHandler({RegistrationException.class})
 	public @ResponseBody
 	String addUser(@ModelAttribute(value = "user_name") String user_name,
 			@ModelAttribute(value = "first_name") String first_name,
@@ -28,13 +30,18 @@ public class RegistrationController {
 			@ModelAttribute(value = "email") String email,
 			@ModelAttribute(value = "pass") String pass, BindingResult result) {
 		String returnText;
-		if (!result.hasErrors()) {
-			userEntityService.addCustomerUser(user_name, first_name, last_name,
-					email, pass);
-			return "Success";
+
+		if (user_name.trim() == "") {
+			throw new RegistrationException("You have entered wrong data");
 		} else {
-			returnText = "Sorry, an error has occur.";
+			if (!result.hasErrors()) {
+				userEntityService.addCustomerUser(user_name, first_name,
+						last_name, email, pass);
+				return "Success";
+			} else {
+				returnText = "Sorry, an error has occur.";
+			}
+			return returnText;
 		}
-		return returnText;
 	}
 }

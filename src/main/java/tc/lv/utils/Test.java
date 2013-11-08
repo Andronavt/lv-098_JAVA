@@ -5,10 +5,20 @@ import java.util.List;
 public class Test {
 	public static void main(String[] args) {
 		Downloader downloader = new Downloader();
-		String name = downloader
-				.downloadFile("http://www.chaosreigns.com/iprep/iprep.txt","D:\\textfiles\\");
-//		String name = downloader
-//				.downloadFile("http://www.openbsd.org/spamd/traplist.gz");
-		System.out.println(name);
+		ParserChaosreignsWL parserChaosreignsWL = new ParserChaosreignsWL();
+		ParserOpenBSD parserOpenBSD = new ParserOpenBSD();
+		ParserUceprotect parserUceprotect = new ParserUceprotect();
+		
+		
+		
+//		parserOpenBSD.parse(downloader.downloadFile("http://www.openbsd.org/spamd/traplist.gz", "D:\\textfiles\\"));
+		
+		parserUceprotect.parse(downloader.downloadFile("http://wget-mirrors.uceprotect.net/rbldnsd-all/dnsbl-1.uceprotect.net.gz", "D:\\textfiles\\"));
+		
+//		parserChaosreignsWL.parse(downloader
+//				.downloadFile("http://www.chaosreigns.com/iprep/iprep.txt",
+		// "D:\\textfiles\\"));
+
+		System.out.println();
 	}
 }

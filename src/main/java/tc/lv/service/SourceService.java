@@ -5,7 +5,7 @@ import java.util.List;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.Source;
 
-public interface SourceService {
+public interface SourceService{
 
 	public List<IpV4Address> getIpV4ListFromSource(int sourceId);
 

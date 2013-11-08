@@ -12,6 +12,31 @@
 <body>
 	<h3 style="color: green" align="center">Registration</h3>
 
+	<script type="text/javascript">
+		function doAjaxPost() {
+			// get the form values
+			var user_name = $('#user_name').val();
+			var first_name = $('#first_name').val();
+			var last_name = $('#last_name').val();
+			var email = $('#email').val();
+			var pass = $('#pass').val();
+			$.ajax({
+				type : "POST",
+				url : "user/registration",
+				data : "user_name=" + user_name + "&first_name=" + first_name
+						+ "&last_name=" + last_name + "&email=" + email
+						+ "&pass=" + pass,
+				success : function(response) {
+					// we have the response
+					$('#info').html(response);
+				},
+				error : function(e) {
+					alert('Error: ' + e);
+				}
+			});
+		}
+	</script>
+
 	<table align="center">
 
 		<tr>
@@ -41,7 +66,8 @@
 
 		<tr>
 			<th><input type="button" value="Registration"
-				onclick="doAjaxPostRegistration()" /></th>
+				onclick="doAjaxPost()" /></th>
+
 		</tr>
 		<tr>
 			<td colspan="2"><div id="info" style="color: green;"></div></td>

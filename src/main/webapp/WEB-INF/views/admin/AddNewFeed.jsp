@@ -16,12 +16,6 @@
 				<th><b>Add new source:</b></th>
 			</tr>
 			<tr>
-				<th>Add adaptor:</th>
-				<th><input name="adaptor" type="text" size="30" maxlength="30"
-					value="" /> <br></th>
-					
-			</tr>
-			<tr>
 				<th>Add source name:</th>
 				<th><input name="sourceName" type="text" size="30"
 					maxlength="50" value="" /> <br></th>

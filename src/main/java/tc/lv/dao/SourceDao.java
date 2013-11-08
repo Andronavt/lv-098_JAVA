@@ -1,49 +1,25 @@
 package tc.lv.dao;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
-import tc.lv.domain.IpV4Address;
-import tc.lv.domain.IpV6Address;
-import tc.lv.domain.NotValidIp;
+import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
-import tc.lv.utils.Parser;
 
 public interface SourceDao {
 
-	public List<IpV4Address> getIpV4ListFromSource(int sourceId);
+	void creat(String sourceName, Date sourceDateAdded, Double rank,
+			String dirname, String listType);
 
-	public List<IpV6Address> getIpV6ListFromSource(int sourceId);
+	void creat(String sourceName, String url, Date sourceDateAdded,
+			Double rank, String dirname, String listType, Date updated,
+			String parser, Collection<IpAddress> ipSet);
 
-	public List<NotValidIp> getNotValidIpFromSource(int sourceId);
+	Source loadByName(String sourceName);
 
-	public List<IpV4Address> getFirstIpV4ListFromSource(int sourceId,
-			int start, int end);
+	List<Source> loadAll();
 
-	public List<IpV6Address> getFirstIpV6ListFromSource(int sourceId,
-			int start, int end);
+	void delete(String sourceName);
 
-	public List<NotValidIp> getFirstNotValidIpListFromSource(int sourceId,
-			int count);
-
-	public void addNewFeed(String typeofList, String rank,
-			String sourceName, String url);
-
-	public void setIpV4Address(String ip, int sourceId);
-
-	public void setIpV6Address(String ip, int sourceId);
-
-	public void deleteFeed(String sourceName);
-
-	public List<Source> getListOfSources();
-
-	public void updateSourceIpV4List(List<IpV4Address> list, int sourceId);
-
-	public void updateSourceIpV6List(List<IpV6Address> list, int sourceId);
-
-	public void updateSourceNotValIpList(List<NotValidIp> list, int sourceId);
-	
-	public void updateSourceIpList(Parser parser);
-	
-	public Source loadSourceByName(String sourceName);
-	
 }

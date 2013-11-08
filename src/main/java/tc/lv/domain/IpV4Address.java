@@ -2,70 +2,48 @@ package tc.lv.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "ipv4_addresses")
-@NamedQueries({ @NamedQuery(name = "findIpV4ByName", query = "SELECT c from IpV4Address c WHERE c.address= :address"), })
+@PrimaryKeyJoinColumn(name = "id")
+@NamedQueries({
+	@NamedQuery(name = "loadIpV4BySource", query = "SELECT ip FROM IpV4Address ip, Source s JOIN ip.sourceSet ipS JOIN s.ipSet sIp WHERE ipS.sourceId = :id AND sIp.id = ip.id"),
+	@NamedQuery(name = "loadIpV4ByName", query = "SELECT c from IpV4Address c WHERE c.address= :address"),
+	@NamedQuery(name = "loadWhiteIpV4List", query = "SELECT s from IpV4Address s where s.whiteList = :whitelist"),
+	@NamedQuery(name = "loadUndefinedIpV4List", query = "SELECT s from IpV4Address s where s.whiteList is null"),
+	@NamedQuery(name = "loadWhiteIpV4byName", query = "SELECT s from IpV4Address s where s.whiteList = TRUE and s.address =:address"),
+	@NamedQuery(name = "loadBlackIpV4byName", query = "SELECT s from IpV4Address s where s.whiteList = FALSE and s.address =:address") })
 public class IpV4Address extends IpAddress implements Serializable {
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "source_to_addresses", joinColumns = { @JoinColumn(name = "v4_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "source_id", updatable = true, nullable = true) })
-	@Fetch(FetchMode.JOIN)
-	// @OnDelete(action = OnDeleteAction.CASCADE)
-	@Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-	private Set<Source> sourceSet = new HashSet<Source>();
+    @Column(name = "white_list")
+    private Boolean whiteList;
 
-	@Column(name = "white_list")
-	private Boolean whiteList;
+    public IpV4Address() {
 
-	public IpV4Address() {
+    }
 
-	}
+    public IpV4Address(String address) {
+	this.address = address;
+    }
 
-	public IpV4Address(String address) {
-		this.address = address;
-	}
+    public IpV4Address(String address, Date dateAdded) {
+	this.address = address;
+	this.dateAdded = dateAdded;
+    }
 
-	public IpV4Address(String address, Date dateAdded) {
-		this.address = address;
-		this.dateAdded = dateAdded;
-	}
+    public Boolean getWhiteList() {
+	return this.whiteList;
+    }
 
-	public Set<Source> getSourceSet() {
-		return sourceSet;
-	}
-
-	public void setSourceSet(Set<Source> sourceSet) {
-		this.sourceSet = sourceSet;
-	}
-
-	public void addElementToSourceSet(Source source) {
-		sourceSet.add(source);
-	}
-
-	public Boolean getWhiteList() {
-		return whiteList;
-	}
-
-	public void setWhiteList(Boolean whiteList) {
-		this.whiteList = whiteList;
-	}
+    public void setWhiteList(Boolean whiteList) {
+	this.whiteList = whiteList;
+    }
 
 }

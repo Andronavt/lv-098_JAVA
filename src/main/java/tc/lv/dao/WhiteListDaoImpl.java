@@ -1,0 +1,120 @@
+package tc.lv.dao;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+
+import tc.lv.domain.IpV4Address;
+import tc.lv.domain.IpV6Address;
+import tc.lv.domain.Source;
+
+@Repository
+public class WhiteListDaoImpl implements WhiteListDao {
+
+	@PersistenceContext(name = "primary")
+	private EntityManager entityManager;
+
+	@Override
+	public List<IpV4Address> loadIpV4List() {
+		Query q = entityManager.createNamedQuery("loadWhiteIpV4List")
+				.setParameter("whitelist", true);
+		ArrayList<IpV4Address> list = new ArrayList<IpV4Address>();
+		list.addAll(q.getResultList());
+		return list;
+	}
+
+	@Override
+	public List<IpV6Address> loadIpV6List() {
+		Query q = entityManager.createNamedQuery("loadWhiteIpV6List")
+				.setParameter("whitelist", true);
+		ArrayList<IpV6Address> list = new ArrayList<IpV6Address>();
+		list.addAll(q.getResultList());
+		return list;
+	}
+
+	@Override
+	public void saveIpV4(String address) {
+		Query q = entityManager.createNamedQuery("loadIpV4ByName")
+				.setParameter("address", address);
+		IpV4Address obj = null;
+		try {
+			obj = (IpV4Address) q.getSingleResult();
+			obj.setWhiteList(true);
+			entityManager.persist(obj);
+		} catch (NoResultException e) {
+			// Adding to admin source..... need source id
+			// TODO
+			Source source = entityManager.find(Source.class, 4);
+			obj = new IpV4Address();
+			obj.setAddress(address);
+			obj.setDateAdded(new Date());
+			obj.setWhiteList(true);
+			obj.getSourceSet().add(source);
+			entityManager.persist(obj);
+		}
+	}
+
+	@Override
+	public void saveIpV6(String address) {
+		Query q = entityManager.createNamedQuery("loadIpV6ByName")
+				.setParameter("address", address);
+		IpV6Address obj = null;
+		try {
+			obj = (IpV6Address) q.getSingleResult();
+			obj.setWhiteList(true);
+			entityManager.persist(obj);
+		} catch (NoResultException e) {
+			// Adding to admin source..... need source id
+			// TODO
+			Source source = entityManager.find(Source.class, 4);
+			obj = new IpV6Address();
+			obj.setAddress(address);
+			obj.setDateAdded(new Date());
+			obj.setWhiteList(true);
+			obj.getSourceSet().add(source);
+			entityManager.persist(obj);
+		}
+	}
+
+	@Override
+	public void saveIpV4List(Collection<String> list) {
+		for (String address : list) {
+			saveIpV4(address);
+		}
+	}
+
+	@Override
+	public void saveIpV6List(Collection<String> list) {
+		for (String address : list) {
+			saveIpV6(address);
+		}
+	}
+
+	@Override
+	public void deleteIpV4(String address) {
+		Query q = entityManager.createNamedQuery("loadWhiteIpV4byName")
+				.setParameter("address", address);
+		IpV4Address obj = (IpV4Address) q.getSingleResult();
+		obj.setWhiteList(false);
+		entityManager.persist(obj);
+
+	}
+
+	@Override
+	public void deleteIpV6(String address) {
+		Query q = entityManager.createNamedQuery("loadWhiteIpV6byName")
+				.setParameter("address", address);
+		IpV6Address obj = (IpV6Address) q.getSingleResult();
+		obj.setWhiteList(false);
+		entityManager.persist(obj);
+	}
+
+}

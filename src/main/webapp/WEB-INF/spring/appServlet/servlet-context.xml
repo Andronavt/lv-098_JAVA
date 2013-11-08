@@ -24,6 +24,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
+
 	<!-- Bean Apache Tiles -->
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
@@ -38,6 +39,7 @@
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles2.TilesView" />
+
 	</beans:bean>
 
 	<context:component-scan base-package="tc.lv.web" />
