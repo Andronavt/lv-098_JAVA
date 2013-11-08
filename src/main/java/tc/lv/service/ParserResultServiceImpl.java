@@ -28,6 +28,7 @@ public class ParserResultServiceImpl implements ParserResultService {
 	@Transactional
 	@Override
 	public void saveAllSources(List<ParserResults> resultList) {
+		
 		for (ParserResults result : resultList) {
 			this.save(result);
 		}
