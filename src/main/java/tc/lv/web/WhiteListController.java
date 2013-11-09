@@ -17,12 +17,12 @@ public class WhiteListController {
 	@Autowired
 	private WhiteListService wlService;
 
-	@RequestMapping(value = "/admin/WL", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteIpFromWL", method = RequestMethod.GET)
 	public String deleteFromWL() {
-		return "admin/WL";
+		return "deleteIpFromWL";
 	}
 
-	@RequestMapping(value = "/admin/WL", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteIpFromWL", method = RequestMethod.POST)
 	public @ResponseBody
 	String deleteFromWL(@ModelAttribute("address") String ipAddress,
 			BindingResult result) {
@@ -44,12 +44,12 @@ public class WhiteListController {
 		}
 	}
 
-	@RequestMapping(value = "/admin/AddIpToWL", method = RequestMethod.GET)
+	@RequestMapping(value = "/addIpToWL", method = RequestMethod.GET)
 	public String addToWl() {
-		return "admin/AddIpToWL";
+		return "addIpToWL";
 	}
 
-	@RequestMapping(value = "/admin/AddIpToWL", method = RequestMethod.POST)
+	@RequestMapping(value = "/addIpToWL", method = RequestMethod.POST)
 	public @ResponseBody
 	String addToWl(@ModelAttribute("address") String ipAddress,
 			BindingResult result) {
@@ -75,14 +75,14 @@ public class WhiteListController {
 		}
 	}
 
-	@RequestMapping(value = "/secure/ShowIpListFromWL", method = RequestMethod.GET)
+	@RequestMapping(value = "/showIpListFromWL", method = RequestMethod.GET)
 	public String showIpListFromWl() {
-		return "secure/ShowIpListFromWL";
+		return "showIpListFromWL";
 	}
 
-	@RequestMapping(value = "/secure/ShowIpListFromWL", method = RequestMethod.POST)
+	@RequestMapping(value = "/showIpListFromWL", method = RequestMethod.POST)
 	public String showIpListFromWl(Map<String, Object> map) {
 		map.put("ipList", wlService.loadIpV4List());
-		return "secure/listIpv4";
+		return "listIpv4";
 	}
 }

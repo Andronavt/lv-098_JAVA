@@ -39,10 +39,11 @@ public class Downloader {
 		GZIPOutputStream gZipFile = null;
 		File file = null;
 		File fileOut = null;
+		
 		if (urlString.contains(".gz")) {
 			try {
-
-				file = new File(dir + fileName + ".gz");
+			    	System.err.println("START DOWNLOADING");
+				file = new File("D:\\lv-098_JAVA\\sources\\" + fileName + ".gz");
 				System.out.println(dir + fileName);
 
 				inputStream = new BufferedInputStream(
@@ -96,8 +97,8 @@ public class Downloader {
 			System.out.println("DOWNLOADING AND UNZIPPING COMPLETED");
 		} else {
 			try {
-				
-				file = new File("D:\\textfiles\\" + fileName + ".txt");
+			    	System.err.println("START DOWNLOADING");
+				file = new File("D:\\lv-098_JAVA\\sources\\" + fileName + ".txt");
 				inputStream = new BufferedInputStream(
 						new URL(urlString).openStream());
 				outputFile = new FileOutputStream(file);
@@ -138,6 +139,7 @@ public class Downloader {
 				}
 			}
 		}
+		System.out.println("DOWNLOADING COMPLETED");
 		return fileOut;
 	}
 
