@@ -12,6 +12,12 @@
 		<put-attribute name="footer" value="/views/tiles/footer.jsp" />
 	</definition>
 
+	<!-- TEST EXCEPTION -->
+
+	<definition name="ExceptionPage" extends="base.definition">
+		<put-attribute name="body" value="/views/ExceptionPage.jsp" />
+	</definition>
+
 	<definition name="signin" extends="base.definition">
 		<put-attribute name="body" value="/views/user/signin.jsp" />
 	</definition>

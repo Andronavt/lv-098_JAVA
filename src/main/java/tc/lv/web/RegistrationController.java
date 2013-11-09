@@ -3,6 +3,7 @@ package tc.lv.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ public class RegistrationController {
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	@ExceptionHandler((TestException.class))
 	public @ResponseBody
 	String addUser(@ModelAttribute(value = "user_name") String user_name,
 			@ModelAttribute(value = "first_name") String first_name,
@@ -29,12 +31,21 @@ public class RegistrationController {
 			@ModelAttribute(value = "pass") String pass, BindingResult result) {
 		String returnText;
 		if (!result.hasErrors()) {
-			userEntityService.addCustomerUser(user_name, first_name, last_name,
-					email, pass);
-			return "Success";
+			if (user_name.length() > 5) {
+				throw new TestException("WHAT?");
+			} else {
+				userEntityService.addCustomerUser(user_name, first_name,
+						last_name, email, pass);
+				return "Success";
+			}
 		} else {
 			returnText = "Sorry, an error has occur.";
 		}
 		return returnText;
+	}
+
+	@RequestMapping(value = "/ExceptionPage")
+	public String erroe() {
+		return "ExceptionPage";
 	}
 }
