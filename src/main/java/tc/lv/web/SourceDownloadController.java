@@ -10,8 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
+import tc.lv.exceptions.DBException;
+import tc.lv.exceptions.DBIllegalArgumentException;
+import tc.lv.exceptions.DBIllegalStateException;
+import tc.lv.exceptions.DBPersistanceException;
 import tc.lv.exceptions.DownloadFileNotFoundException;
 import tc.lv.exceptions.DownloadIOException;
 import tc.lv.exceptions.DownloadMalformedURLException;
@@ -31,40 +34,42 @@ public class SourceDownloadController {
     @Autowired
     private ParserResultService parserResultService;
 
-    @Autowired
-    private SourceDao sourceDao;
-
-    // Getting updateSourcesPag.jsp
+    // Getting updateSources.jsp
     @RequestMapping("/updateSources")
     public String getlistIpV4(Map<String, Object> map) {
 	map.put("listSource", sourceDownloaderService.loadSourceList());
 	return "updateSources";
     }
 
-    // // Updating Sources
-    // @RequestMapping(value = "/admin/updateSources", method =
-    // RequestMethod.POST)
-    // public @ResponseBody
-    // String sourceDownloader(
-    // @ModelAttribute(value = "select") String[] sourceNameArray,
-    // Map<String, Object> map) {
-
     // Updating Sources
     @RequestMapping(value = "/updateSourcesButton", method = RequestMethod.GET)
     public String sourceDownloader(Map<String, Object> map) {
 	// ----!!!Test block!!!------
 	// String name1 = "OpenBSD traplist";
-	 String name2 = "Nixspam list";
-	//String name3 = "Chaosreigns Whitelist";
+	String name2 = "Nixspam list";
+	// String name3 = "Chaosreigns Whitelist";
 	List<String> sourceNameList = new ArrayList<String>();
 	// sourceNameList.add(name1);
 	// sourceNameList.add(name2);
 	sourceNameList.add(name2);
 
-	// List<String> sourceNameList = new
-	// ArrayList<String>(Arrays.asList(sourceNameArray));
 	loggerInfo.info("Create MAP of sources and Parsers");
-	Map<Source, ParserInterface> parserMap = sourceDao.getMapOfParsers();
+	Map<Source, ParserInterface> parserMap = null;
+	try {
+	    parserMap = sourceDownloaderService.getMapOfParsers();
+	} catch (DBPersistanceException e) {
+	    loggerErr.error(e);
+	    System.err.println(e);
+	} catch (DBIllegalArgumentException e) {
+	    loggerErr.error(e);
+	    System.err.println(e);
+	} catch (DBIllegalStateException e) {
+	    loggerErr.error(e);
+	    System.err.println(e);
+	} catch (DBException e) {
+	    loggerErr.error(e);
+	    System.err.println(e);
+	}
 	loggerInfo.info("Create MAP of sources and Parsers");
 	List<ParserResults> parserResultList = null;
 	loggerInfo.info("Start downloading, parsing and updating Data Base");
@@ -82,10 +87,8 @@ public class SourceDownloadController {
 	    loggerErr.error(e);
 	    System.err.println(e);
 	}
-
 	map.put("Result", "UPDATED!!!");
 	return "updateSources";
-	
 
     }
 }
