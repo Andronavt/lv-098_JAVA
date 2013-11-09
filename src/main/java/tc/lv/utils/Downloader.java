@@ -43,7 +43,7 @@ public class Downloader {
 		if (urlString.contains(".gz")) {
 			try {
 			    	System.err.println("START DOWNLOADING");
-				file = new File("D:\\lv-098_JAVA\\sources\\" + fileName + ".gz");
+				file = new File(dir + fileName + ".gz");
 				System.out.println(dir + fileName);
 
 				inputStream = new BufferedInputStream(
@@ -98,7 +98,7 @@ public class Downloader {
 		} else {
 			try {
 			    	System.err.println("START DOWNLOADING");
-				file = new File("D:\\lv-098_JAVA\\sources\\" + fileName + ".txt");
+				file = new File(dir + fileName + ".txt");
 				inputStream = new BufferedInputStream(
 						new URL(urlString).openStream());
 				outputFile = new FileOutputStream(file);
