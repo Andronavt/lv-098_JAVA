@@ -66,15 +66,6 @@ public class SourceDownloadController {
 	loggerInfo.info("Create MAP of sources and Parsers");
 	Map<Source, ParserInterface> parserMap = sourceDao.getMapOfParsers();
 	loggerInfo.info("Create MAP of sources and Parsers");
-	// try {
-	// parserMap = sourceDownloaderService.createParserMap(sourceList);
-	// } catch (DownloadClassNotFoundException e) {
-	// loggerErr.error(e);
-	// } catch (DownloadInstantiationException e) {
-	// loggerErr.error(e);
-	// } catch (DownloadIllegalAccessException e) {
-	// loggerErr.error(e);
-	// }
 	List<ParserResults> parserResultList = null;
 	loggerInfo.info("Start downloading, parsing and updating Data Base");
 	try {
@@ -92,32 +83,9 @@ public class SourceDownloadController {
 	    System.err.println(e);
 	}
 
-	// for (String name : sourceNameList) {
-	// if (!name.equals("")) {
-	// try {
-	// Source source = sourceDownloaderService
-	// .loadSourceByName(name);
-	// Downloader downloader = new Downloader();
-	// String path = downloader.downloadFile(source.getUrl(),
-	// source.getDirname());
-	// System.out.println(path);
-	// ParseStrategy parser = new ParseStrategy(
-	// new ParserOpenBSD(path, source.getSourceId()));
-	// sourceDownloaderService.updateSource(parser.getParser());
-	// resultList.add("Source " + name + " updated !");
-	// } catch (Exception e) {
-	// loggerErr.error(e);
-	// resultList.add("Error! Source " + name
-	// + " don't updated, because catch exception " + e);
-	// continue;
-	// }
-	// }
-	// }
-	// map.put("resultList", resultList);
 	map.put("Result", "UPDATED!!!");
-	return "updateSources";// Need create new jsp-file for
-	// view
-	// result
+	return "updateSources";
+	
 
     }
 }
