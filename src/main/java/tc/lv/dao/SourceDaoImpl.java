@@ -43,7 +43,7 @@ public class SourceDaoImpl implements SourceDao {
 	query.setParameter("sourceName", sourceName);
 	return (Source) query.getSingleResult();
     }
-    
+    @Override
     public Map<Source,ParserInterface> getMapOfParsers(){
     	List<Source> sourceList = entityManager.createQuery("from Source").getResultList();
     	Map<Source,ParserInterface> outputMap = new HashMap<Source, ParserInterface>();
