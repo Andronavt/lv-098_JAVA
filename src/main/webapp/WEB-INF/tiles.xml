@@ -33,7 +33,7 @@
 		<put-attribute name="body" value="/views/admin/AddIpToWL.jsp" />
 	</definition>
 
-	<definition name="addIpv4" extends="base.definition">
+	<definition name="AddIpv4" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/AddIpv4.jsp" />
 	</definition>
 

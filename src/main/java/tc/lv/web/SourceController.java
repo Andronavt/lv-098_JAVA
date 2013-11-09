@@ -30,7 +30,7 @@ public class SourceController {
 		return "getIpV4List";
 	}
 	// Get IPv4 List from Source -- get data from form
-	@RequestMapping(value = "listIpV4", method = RequestMethod.POST)
+	@RequestMapping(value = "/listIpv4", method = RequestMethod.POST)
 	public String addContact(Map<String, Object> map,
 			@ModelAttribute(value = "source") String source,
 			BindingResult result) {
@@ -38,7 +38,7 @@ public class SourceController {
 		map.put("source", source);
 		map.put("ipList",
 				souService.getIpV4ListFromSource(Integer.valueOf(source)));
-		return "listIpV4";
+		return "listIpv4";
 	}
 
 	// Add IPv4 to Source -- get jsp
@@ -46,7 +46,7 @@ public class SourceController {
 	public String addIplistPage(Map<String, Object> map) {
 		logger.info("getting admin/AddIpv4.jsp");
 		map.put("listSource", souService.getListOfSourcess());
-		return "addIpv4";
+		return "AddIpv4";
 	}
 	// Add IPv4 to Source -- get data from form
 	@RequestMapping(value = "/addIpv4", method = RequestMethod.POST)
