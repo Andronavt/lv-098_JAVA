@@ -54,11 +54,11 @@ public class SourceDaoImpl implements SourceDao {
     		checkParser=tempSource.getParser();
     		switch(checkParser){
 				case "ParserOpenBSD" :
-					tempPaser = new ParserOpenBSD();
+					tempPaser = new ParserOpenBSD();break;
 				case "ParserUceprotect" :
-					tempPaser = new ParserUceprotect();
+					tempPaser = new ParserUceprotect();break;
 				case "ParserChaosreignsWL" :
-					tempPaser = new ParserChaosreignsWL();
+					tempPaser = new ParserChaosreignsWL();break;
     		}
     		outputMap.put(tempSource, tempPaser);
     	}

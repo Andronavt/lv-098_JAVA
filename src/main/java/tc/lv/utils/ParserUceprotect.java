@@ -23,7 +23,7 @@ public class ParserUceprotect implements ParserInterface {
     protected static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
 
     public ParserUceprotect() {
-
+	parserResults = new ParserResults();
     }
 
     @Override
