@@ -74,4 +74,9 @@
 		<put-attribute name="body" value="/views/secure/ShowIpListFromWL.jsp" />
 	</definition>
 
+	<!-- Page is under construction -->
+	<definition name="inProgres" extends="base.definition">
+		<put-attribute name="body" value="/views/tiles/inProgres.jsp" />
+	</definition>
+
 </tiles-definitions>
