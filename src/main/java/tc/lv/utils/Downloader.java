@@ -23,7 +23,8 @@ public class Downloader {
 	long timeStamp = new Date().getTime();
 	String fileName = Long.toString(timeStamp);
 	private static final Logger loggerErr = Logger.getLogger("errorLog");
-
+	private static final Logger loggerInfo = Logger.getLogger("infoLog");
+	
 	public Downloader() {
 
 	}
@@ -31,7 +32,7 @@ public class Downloader {
 	public File downloadFile(String urlString, String dir)
 			throws DownloadFileNotFoundException, DownloadIOException,
 			DownloadMalformedURLException {
-
+	    	loggerInfo.info("START DOWNLOADING");
 		BufferedInputStream inputStream = null;
 		GZIPInputStream gInputStream = null;
 
@@ -92,9 +93,11 @@ public class Downloader {
 				}
 			}
 			System.out.println("UNZIPPING");
-			unZip(file);
-			fileOut = file;
+			
+			fileOut = unZip(file);
 			System.out.println("DOWNLOADING AND UNZIPPING COMPLETED");
+			return fileOut;
+			
 		} else {
 			try {
 			    	System.err.println("START DOWNLOADING");
@@ -140,10 +143,11 @@ public class Downloader {
 			}
 		}
 		System.out.println("DOWNLOADING COMPLETED");
+		loggerInfo.info("FINISH DOWNLOADING");
 		return fileOut;
 	}
 
-	public void unZip(File file) throws DownloadFileNotFoundException,
+	public File unZip(File file) throws DownloadFileNotFoundException,
 			DownloadIOException {
 
 		FileInputStream fileInput = null;
@@ -151,7 +155,7 @@ public class Downloader {
 		FileOutputStream fileOutput = null;
 
 		try {
-			String outputFileName = file.getAbsolutePath() + ".txt";
+			File outputFileName = new File(file.getAbsolutePath() + ".txt");
 			// String outputFileName = "D:\\textfiles\\";
 
 			System.err.println("File for extracting " + outputFileName);
@@ -168,6 +172,8 @@ public class Downloader {
 				fileOutput.write(buffer, 0, count);
 			}
 			System.err.println("File successful extract");
+			return outputFileName;
+			
 		} catch (FileNotFoundException e) {
 			loggerErr.error(e);
 			throw new DownloadFileNotFoundException(

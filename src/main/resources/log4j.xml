@@ -36,7 +36,6 @@
             <param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
         </layout>
 	</appender>
-	
 	<appender name="fileErr" class="org.apache.log4j.RollingFileAppender">
 		<param name="file" value="d:/lv-098_JAVA/logs/error.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
