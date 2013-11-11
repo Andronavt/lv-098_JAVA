@@ -55,7 +55,7 @@ public class Source {
 	@Column(name = "parser", nullable = true)
 	private String parser;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.LAZY)
 	private Collection<IpAddress> ipSet = new HashSet<IpAddress>();
 	
 	public Source() {

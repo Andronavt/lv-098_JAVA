@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -34,21 +35,18 @@ public class UserDaoImpl implements UserDao {
 	public void createUser(UserEntity user) throws DBCreateUserException {
 		// TODO Auto-generated method stub
 		Query query = entityManager.createNamedQuery("User.loadByName",
-				Source.class);
+				UserEntity.class);
+		try{
 		UserEntity temp = (UserEntity) query.setParameter("username",
 				user.getUsername()).getSingleResult();
-
+		throw new DBCreateUserException("That user is already exists");
+		}catch(NoResultException e){
 		Set<Role> roleSet = new HashSet<Role>();
 		Role role = new Role();
 		role = entityManager.find(Role.class, 2);
 		roleSet.add(role);
 		user.setRoleSet(roleSet);
 		entityManager.persist(user);
-
-		if (temp == null) {
-			entityManager.persist(user);
-		} else {
-			throw new DBCreateUserException("That user is already exists");
 		}
 	}
 

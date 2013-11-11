@@ -53,13 +53,14 @@ public class SourceDownloadController {
 	@RequestMapping(value = "/updateSourcesButton", method = RequestMethod.GET)
 	public String sourceDownloader(Map<String, Object> map) {
 		// ----!!!Test block!!!------
-		// String name1 = "OpenBSD traplist";
-		// String name2 = "Nixspam list";
-		String name2 = "Chaosreigns Whitelist";
+		String name3 = "OpenBSD traplist";
+	        String name2 = "Nixspam list";
+		String name1 = "Chaosreigns Whitelist";
+		parserResultService.deleteAllIp();
 		List<String> sourceNameList = new ArrayList<String>();
-		// sourceNameList.add(name1);
-		// sourceNameList.add(name2);
+		sourceNameList.add(name1);
 		sourceNameList.add(name2);
+		sourceNameList.add(name3);
 
 		// List<String> sourceNameList = new
 		// ArrayList<String>(Arrays.asList(sourceNameArray));

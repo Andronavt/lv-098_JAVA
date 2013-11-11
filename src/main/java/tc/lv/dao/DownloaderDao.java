@@ -18,5 +18,6 @@ public interface DownloaderDao {
 	void save(ParserResults parser);
 
 	void updateWhiteList();
+	void DeleteAllIp();
 
 }

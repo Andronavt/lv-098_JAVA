@@ -30,4 +30,12 @@ public class ParserResultServiceImpl implements ParserResultService {
 			downloaderDao.save(result);
 		}
 	}
+
+	@Transactional
+	@Override
+	public void deleteAllIp() {
+	    downloaderDao.DeleteAllIp();
+	    
+	}
+	
 }

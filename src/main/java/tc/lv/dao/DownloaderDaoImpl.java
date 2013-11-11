@@ -115,6 +115,19 @@ public class DownloaderDaoImpl implements DownloaderDao {
     }
 
     @Override
+    public void DeleteAllIp()
+    {
+      Query[] q = new Query[5];
+      q[0] = entityManager.createNativeQuery("DELETE FROM sources_to_addresses WHERE sources_to_addresses.ip_id>0 ");
+      q[1] =  entityManager.createNativeQuery("DELETE FROM ipv6_addresses WHERE ipv6_addresses.id>0");
+      q[2] =  entityManager.createNativeQuery("DELETE FROM ipv4_addresses WHERE ipv4_addresses.id>0");
+      q[3] =  entityManager.createNativeQuery("DELETE FROM not_valid_ip WHERE not_valid_ip.id>0");
+      q[4] =  entityManager.createNativeQuery("DELETE FROM ip_addresses WHERE ip_addresses.id>0");
+      for(Query query: q)
+	  query.executeUpdate();
+       
+    }
+    @Override
     public void save(ParserResults parser) {
 	loggerInfo.info("START UPDATE IpV4List");
 	saveIpV4List(parser.getIpV4List(), parser.getSourceId());

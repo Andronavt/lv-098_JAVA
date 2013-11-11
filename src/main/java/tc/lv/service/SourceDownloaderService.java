@@ -19,6 +19,7 @@ import tc.lv.utils.ParserResults;
 
 public interface SourceDownloaderService {
 
+    
     public List<Source> loadSourceList();
 
     public Map<Source, ParserInterface> createParserMap(List<Source> sourceList)

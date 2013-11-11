@@ -105,6 +105,6 @@
 </html>
 <script>
 	$("#accordion").accordion({
-		collapsible : true
+		active : false, collapsible : true
 	});
 </script>

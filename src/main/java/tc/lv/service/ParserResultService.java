@@ -6,6 +6,8 @@ import java.util.List;
 import tc.lv.utils.ParserResults;
 
 public interface ParserResultService {
+    
+    public void deleteAllIp();
 
     public void saveAllSources(List<ParserResults> resultList);
 
