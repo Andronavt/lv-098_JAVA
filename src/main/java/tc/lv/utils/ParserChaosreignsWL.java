@@ -1,3 +1,4 @@
+
 package tc.lv.utils;
 
 import java.io.BufferedReader;
@@ -16,8 +17,8 @@ import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 
 public class ParserChaosreignsWL implements ParserInterface {
-	private static final Logger log = Logger
-			.getLogger(ParserChaosreignsWL.class);
+    	private static final Logger loggerErr = Logger.getLogger("errorLog");
+	private static final Logger loggerInfo = Logger.getLogger("infoLog");
 	private ParserResults parserResults;
 	protected static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
 
@@ -27,6 +28,7 @@ public class ParserChaosreignsWL implements ParserInterface {
 
 	@Override
 	public ParserResults parse(File f) {
+	    	loggerInfo.info("START PARSING ChaosreignsWL");
 		Pattern pattern = Pattern.compile(IP_ALL);
 		Matcher matcher;
 		Scanner line;
@@ -51,9 +53,10 @@ public class ParserChaosreignsWL implements ParserInterface {
 			}
 			line.close();
 		} catch (FileNotFoundException e) {
-			log.error("File not found!", e);
+			loggerErr.error("File not found!", e);
 		}
 		System.out.println("IPV4SIZE "+parserResults.ipV4List.size());
+		loggerInfo.info("FINISH PARSING ChaosreignsWL");
 		return parserResults;
 	}
 

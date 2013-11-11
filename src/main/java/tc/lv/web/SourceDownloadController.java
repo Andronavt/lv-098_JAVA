@@ -1,3 +1,4 @@
+
 package tc.lv.web;
 
 import java.util.ArrayList;
@@ -45,13 +46,13 @@ public class SourceDownloadController {
     @RequestMapping(value = "/updateSourcesButton", method = RequestMethod.GET)
     public String sourceDownloader(Map<String, Object> map) {
 	// ----!!!Test block!!!------
-	// String name1 = "OpenBSD traplist";
-//	String name2 = "Nixspam list";
-	 String name2 = "Chaosreigns Whitelist";
+	String name1 = "OpenBSD traplist";
+	String name2 = "Nixspam list";
+	String name3 = "Chaosreigns Whitelist";
 	List<String> sourceNameList = new ArrayList<String>();
-	// sourceNameList.add(name1);
-	// sourceNameList.add(name2);
-	sourceNameList.add(name2);
+	sourceNameList.add(name1);
+	//sourceNameList.add(name2);
+	//sourceNameList.add(name3);
 
 	loggerInfo.info("Create MAP of sources and Parsers");
 	Map<Source, ParserInterface> parserMap = null;
@@ -72,7 +73,7 @@ public class SourceDownloadController {
 	}
 	loggerInfo.info("Create MAP of sources and Parsers");
 	List<ParserResults> parserResultList = null;
-	loggerInfo.info("Start downloading, parsing and updating Data Base");
+	loggerInfo.info("START downloading, parsing and updating Data Base");
 	try {
 	    parserResultList = sourceDownloaderService.downloadParseData(
 		    sourceNameList, parserMap);
@@ -87,6 +88,7 @@ public class SourceDownloadController {
 	    loggerErr.error(e);
 	    System.err.println(e);
 	}
+	loggerInfo.info("FINISHED downloading, parsing and updating Data Base");
 	map.put("Result", "UPDATED!!!");
 	return "updateSources";
 
