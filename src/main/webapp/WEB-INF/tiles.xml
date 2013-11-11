@@ -12,15 +12,12 @@
 		<put-attribute name="footer" value="/views/tiles/footer.jsp" />
 	</definition>
 
-<<<<<<< HEAD
 	<!-- TEST EXCEPTION -->
 
 	<definition name="ExceptionPage" extends="base.definition">
 		<put-attribute name="body" value="/views/ExceptionPage.jsp" />
 	</definition>
 
-=======
->>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045
 	<definition name="signin" extends="base.definition">
 		<put-attribute name="body" value="/views/user/signin.jsp" />
 	</definition>
@@ -42,11 +39,7 @@
 		<put-attribute name="body" value="/views/admin/AddIpToWL.jsp" />
 	</definition>
 
-<<<<<<< HEAD
-	<definition name="AddIpv4" extends="base.definition">
-=======
 	<definition name="addIpv4" extends="base.definition">
->>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045
 		<put-attribute name="body" value="/views/admin/AddIpv4.jsp" />
 	</definition>
 
@@ -62,8 +55,6 @@
 		<put-attribute name="body" value="/views/admin/deleteIpFromWL.jsp" />
 	</definition>
 
-<<<<<<< HEAD
-=======
 	<definition name="updateSources" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/updateSources.jsp" />
 	</definition>
@@ -77,8 +68,6 @@
 	</definition>
 
 
-
->>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045
 	<!-- secure views -->
 
 	<definition name="getIpV4List" extends="base.definition">
@@ -88,13 +77,6 @@
 	<definition name="listIpV4" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/listIpv4.jsp" />
 	</definition>
-
-<<<<<<< HEAD
-	<definition name="ShowIpListFromWL" extends="base.definition">
-		<put-attribute name="body" value="/views/secure/ShowIpListFromWL.jsp" />
-	</definition>
-
-=======
 	<definition name="showIpListFromWL" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/ShowIpListFromWL.jsp" />
 	</definition>
@@ -104,5 +86,4 @@
 		<put-attribute name="body" value="/views/tiles/inProgres.jsp" />
 	</definition>
 
->>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045
 </tiles-definitions>

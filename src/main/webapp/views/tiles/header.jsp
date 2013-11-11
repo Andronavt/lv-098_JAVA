@@ -11,14 +11,8 @@
 <html>
 <head>
 </head>
-<<<<<<< HEAD:src/main/webapp/views/tiles/header.jsp
 <body>
 	<p align="right">
-=======
-<body >
-	<p align="right">
-
->>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045:src/main/webapp/views/tiles/header.jsp
 		<sec:authorize access="isAnonymous()">
     Welcome! Guest
    </sec:authorize>

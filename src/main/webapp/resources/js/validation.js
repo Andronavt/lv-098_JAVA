@@ -1,14 +1,10 @@
 function validateRegForm() {
 
-    $('#loginform').validate();
+	$('#loginform').validate();
 
-    $('#btn').click(function () {
-        if ($("#loginform").valid()) {
-        	doAjaxPostRegistration();
-        }
-    });
-<<<<<<< HEAD
+	$('#btn').click(function() {
+		if ($("#loginform").valid()) {
+			doAjaxPostRegistration();
+		}
+	});
 }
-=======
-}
->>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045
