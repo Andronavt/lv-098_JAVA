@@ -7,5 +7,6 @@ import tc.lv.domain.NotValidIp;
 public interface NotValidIpAddressDao {
 
 	List<NotValidIp> loadAll(int sourceId);
+	List<NotValidIp> loadNotValidIpList(int from, int count);
 
 }
