@@ -76,13 +76,9 @@ public class WhiteListController {
 	}
 
 	@RequestMapping(value = "/showIpListFromWL", method = RequestMethod.GET)
-	public String showIpListFromWl() {
+	public String showIpListFromWl(Map<String, Object> map) {
+		map.put("ipList", wlService.loadIpV4List());
 		return "showIpListFromWL";
 	}
 
-	@RequestMapping(value = "/showIpListFromWL", method = RequestMethod.POST)
-	public String showIpListFromWl(Map<String, Object> map) {
-		map.put("ipList", wlService.loadIpV4List());
-		return "listIpv4";
-	}
 }

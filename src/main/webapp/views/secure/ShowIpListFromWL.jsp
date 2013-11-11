@@ -18,10 +18,12 @@
 		<br>
 		<div id=showIpListFromWhiteList></div>
 	</center>
+	<c:forEach var="IpFromWL" items="${ipList}">
+		<tr>
+			<td>${IpFromWL.id}</td>
+			<td>${IpFromWL.address}</td>
+			<td>${IpFromWL.date_added}</td>
+		</tr>
+	</c:forEach>
 </body>
-<script type="text/javascript">
-	$(document).ready(function() {
-		ShowIpListFromWL();
-	});
-</script>
 </html>

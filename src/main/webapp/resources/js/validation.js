@@ -1,9 +1,9 @@
 function validateRegForm() {
 
-    $('#loginform').validate();
+    $('#registration').validate();
 
     $('#btn').click(function () {
-        if ($("#loginform").valid()) {
+        if ($("#registration").valid()) {
         	doAjaxPostRegistration();
         }
     });

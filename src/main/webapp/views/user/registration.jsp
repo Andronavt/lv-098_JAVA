@@ -28,7 +28,7 @@
 
 </head>
 <body>
-	<form method="post" id="loginform" action="" name="login-form">
+	<form method="post" id="registration" action="" name="login-form">
 		<fieldset>
 			<legend style="color: green" align="center">
 				Registration

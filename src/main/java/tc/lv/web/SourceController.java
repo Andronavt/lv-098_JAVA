@@ -21,13 +21,14 @@ public class SourceController {
 	private SourceService souService;
 
 	// Get IPv4 List from Source -- get jsp
-	@RequestMapping("getIp4List")
+	@RequestMapping("/getIp4List")
 	public String getlistIpV4Page(Map<String, Object> map) {
 		map.put("listSource", souService.getListOfSourcess());
 		return "getIp4List";
 	}
+
 	// Get IPv4 List from Source -- get data from form
-	@RequestMapping(value = "listIpv4", method = RequestMethod.POST)
+	@RequestMapping(value = "/listIpv4", method = RequestMethod.POST)
 	public String getlistIpV4(Map<String, Object> map,
 			@ModelAttribute(value = "source") String source,
 			BindingResult result) {
@@ -43,6 +44,7 @@ public class SourceController {
 		map.put("listSource", souService.getListOfSourcess());
 		return "addIpv4";
 	}
+
 	// Add IPv4 to Source -- get data from form
 	@RequestMapping(value = "/addIpv4", method = RequestMethod.POST)
 	public @ResponseBody
@@ -50,7 +52,7 @@ public class SourceController {
 			@ModelAttribute(value = "source") int source, BindingResult result) {
 		String returnText;
 		if (!result.hasErrors()) {
-			//souService.setIpV4Address(ip, source);
+			// souService.setIpV4Address(ip, source);
 			returnText = "IP-address was added " + ip + " in source # "
 					+ source;
 		} else {
@@ -71,7 +73,8 @@ public class SourceController {
 			@RequestParam String url) {
 
 		try {
-			souService.addNewFeed("C:!!!!!!!111",typeOfList, Double.parseDouble(rankOfSource), sourceName);
+			souService.addNewFeed("C:!!!!!!!111", typeOfList,
+					Double.parseDouble(rankOfSource), sourceName);
 		} catch (DBCreateSourceException | NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,13 +82,12 @@ public class SourceController {
 		return "addNewFeed";
 	}
 
-	
-
 	@RequestMapping(value = "/listOfSource", method = RequestMethod.GET)
 	public String deleteSourcePage(Map<String, Object> map) {
 		map.put("listSource", souService.getListOfSourcess());
 		return "listOfSource";
 	}
+
 	@RequestMapping(value = "/listOfSurce", method = RequestMethod.POST)
 	public String deleteSource(@ModelAttribute(value = "source") String source) {
 		souService.deleteFeed(source);
