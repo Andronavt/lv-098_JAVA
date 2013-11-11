@@ -94,7 +94,7 @@ function getIP4List() {
 	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "secure/getList",
+		url : "listIpv4",
 		data : "source=" + source,
 		success : function(response) {
 			// we have the response

@@ -22,4 +22,4 @@
 				value="jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=ip_addresses" />
 		</properties>
 	</persistence-unit>
-</persistence> 
+</persistence>

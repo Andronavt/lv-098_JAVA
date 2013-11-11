@@ -32,7 +32,7 @@
 			<h6 style="width: 150px;">Statistics:</h6>
 			<div style="width: 125px;">
 				<!--      <a class="button" href="secure/ip-charts" title="Charts">Charts</a> -->
-				<a class="button" href="ShowIpListFromWL"
+				<a class="button" href="showIpListFromWL"
 					id="getContentShowIpListFromWl" title="Show Ip list from WList">Show
 					Ip list from WList</a>
 				<!--      <a class="button" href="secure/blacklist-map" title="Blacklist map">Blacklist map</a> -->
@@ -43,8 +43,8 @@
 			<div style="width: 125px;">
 				<!--      <a class="button" href="secure/black_ip_by_city" title="Black IP by city">Black IP by city</a> -->
 				<!--      <a class="button" href="secure/top_black_ip_by_country" title="Black IP by country">Black IP by country</a> -->
-				<a class="button" href="addIpv4" id="getContentAddIp4List"
-					title="Add IP to Source">List of IPv4 from source</a>
+				<a class="button" href="getIp4List" id="getIp4List"
+					title="List of IPv4 from source">List of IPv4 from source</a>
 			</div>
 		</sec:authorize>
 
@@ -60,6 +60,7 @@
 					to WList</a> <a class="button" href="deleteIpFromWL"
 					id="getContentDeleteWlIp" title="Delete IP from WList">Delete
 					IP from WList</a>
+				<a class="button" href="updateSources" title="updateSources">Update Sources</a>
 				<!--   TODO  <a class="button" href="admin/list-downloads" title="List downloads">List downloads</a> -->
 			</div>
 			<!--     <a class="button" href="admin/daemon-control" title="Daemon controls">Daemon controls</a> -->

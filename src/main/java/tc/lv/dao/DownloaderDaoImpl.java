@@ -1,3 +1,4 @@
+
 package tc.lv.dao;
 
 import java.util.HashSet;
@@ -43,7 +44,7 @@ public class DownloaderDaoImpl implements DownloaderDao {
 					entityManager.persist(ip);
 				} else {
 					Query query2 = entityManager.createNamedQuery(
-							"IpV4Address.findByName").setParameter("address",
+							"IpV4Address.loadByName").setParameter("address",
 							ip.getAddress());
 					IpV4Address temp = (IpV4Address) query2.getSingleResult();
 					temp.addElementToSourceSet(source);
@@ -72,7 +73,7 @@ public class DownloaderDaoImpl implements DownloaderDao {
 					entityManager.persist(ip);
 				} else {
 					Query query2 = entityManager.createNamedQuery(
-							"IpV6Address.findByName").setParameter("address",
+							"IpV6Address.loadByName").setParameter("address",
 							ip.getAddress());
 					IpV6Address temp = (IpV6Address) query2.getSingleResult();
 					temp.addElementToSourceSet(source);
