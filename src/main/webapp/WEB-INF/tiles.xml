@@ -18,6 +18,10 @@
 		<put-attribute name="body" value="/views/ExceptionPage.jsp" />
 	</definition>
 
+	<definition name="error" extends="base.definition">
+		<put-attribute name="body" value="/views/error.jsp" />
+	</definition>
+
 	<definition name="signin" extends="base.definition">
 		<put-attribute name="body" value="/views/user/signin.jsp" />
 	</definition>
