@@ -37,13 +37,13 @@ public class WhiteListServiceImpl implements WhiteListService {
 	}
 
 	@Transactional
-	public Collection<IpV4Address> loadIpV4List(int from, int count) {
-		return whiteListDao.loadIpV4List(from, count);
+	public Collection<IpV4Address> loadIpV4List() {
+		return whiteListDao.loadAllIpV4List();
 	}
 
 	@Transactional
-	public Collection<IpV6Address> loadIpV6List(int from, int count) {
-		return whiteListDao.loadIpV6List(from, count);
+	public Collection<IpV6Address> loadIpV6List() {
+		return whiteListDao.loadAllIpV6List();
 	}
 
 }

@@ -48,19 +48,22 @@
 	<definition name="deleteIpFromWL" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/deleteIpFromWL.jsp" />
 	</definition>
+
 	<definition name="updateSources" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/updateSources.jsp" />
 	</definition>
+
 	<definition name="getIp4List" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/GetIp4List.jsp" />
 	</definition>
+
 	<definition name="listIpv4" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/listIpv4.jsp" />
 	</definition>
 
 
 
-	<!-- secure views -->	
+	<!-- secure views -->
 
 	<definition name="getIpV4List" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/GetIp4List.jsp" />
@@ -78,4 +81,5 @@
 	<definition name="inProgres" extends="base.definition">
 		<put-attribute name="body" value="/views/tiles/inProgres.jsp" />
 	</definition>
+
 </tiles-definitions>

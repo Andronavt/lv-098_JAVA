@@ -13,7 +13,6 @@ public class SigninController {
 
     @RequestMapping(value = "/signin-failure", method = RequestMethod.GET)
     public String signinFailure() {
-	return "signin_failure";
+	return "signinFailure";
     }
 }
-

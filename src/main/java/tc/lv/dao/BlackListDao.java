@@ -8,9 +8,13 @@ import tc.lv.domain.IpV6Address;
 
 public interface BlackListDao {
 
-    List<IpV4Address> loadIpV4List(int from, int count);
+    List<IpV4Address> loadIpV4ListByRange(int from, int count);
 
-    List<IpV6Address> loadIpV6List(int from, int count);
+    List<IpV6Address> loadIpV6ListByRange(int from, int count);
+
+    List<IpV4Address> loadAllIpV4List();
+
+    List<IpV6Address> loadAllIpV6List();
 
     void saveIpV4(String address);
 
@@ -25,4 +29,3 @@ public interface BlackListDao {
     void deleteIpV6(String address);
 
 }
-

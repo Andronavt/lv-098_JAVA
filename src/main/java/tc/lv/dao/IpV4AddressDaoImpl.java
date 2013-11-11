@@ -18,7 +18,7 @@ public class IpV4AddressDaoImpl implements IpV4AddressDao {
     private EntityManager entityManager;
 
     @Override
-    public List<IpV4Address> loadAll(int sourceId) {
+    public List<IpV4Address> loadAllIpBySource(int sourceId) {
 	List<IpV4Address> list = new ArrayList<IpV4Address>();
 	Query q = entityManager.createNamedQuery("IpV4Address.loadBySource")
 		.setParameter("id", sourceId);

@@ -19,7 +19,7 @@ public class NotValidIpAddressDaoImpl implements NotValidIpAddressDao {
 	private EntityManager entityManager;
 
 	@Override
-	public List<NotValidIp> loadAll(int sourceId) {
+	public List<NotValidIp> loadAllIpBySource(int sourceId) {
 		List<NotValidIp> list = new ArrayList<NotValidIp>();
 		Query q = entityManager
 			.createNamedQuery(
@@ -28,10 +28,18 @@ public class NotValidIpAddressDaoImpl implements NotValidIpAddressDao {
 		return list;
 	}
 	@Override
-	    public List<NotValidIp> loadNotValidIpList(int from, int count) {
+	    public List<NotValidIp> loadNotValidIpListByRange(int from, int count) {
 		Query q = entityManager.createNamedQuery("NotValidIp.loadAll").setFirstResult(from).setMaxResults(count);
 		ArrayList<NotValidIp> list = new ArrayList<NotValidIp>();
 		list.addAll(q.getResultList());
 		return list;
 	    }
+	@Override
+	public List<NotValidIp> loadAllNotValidIpList() {
+	    Query q = entityManager.createNamedQuery("NotValidIp.loadAll");
+		ArrayList<NotValidIp> list = new ArrayList<NotValidIp>();
+		list.addAll(q.getResultList());
+		return list;
+	}
+	
 }
