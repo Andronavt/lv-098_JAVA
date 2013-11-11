@@ -32,7 +32,7 @@ public class SourceServiceImpl implements SourceService {
         
         @Transactional
         public List<IpV4Address> getIpV4ListFromSource(int sourceId) {
-                return ipV4AddressDao.loadAll(sourceId);
+                return ipV4AddressDao.loadAllIpBySource(sourceId);
         }
 
         @Transactional

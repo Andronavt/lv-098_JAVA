@@ -18,7 +18,7 @@ public class IpV6AddressDaoImpl implements IpV6AddressDao {
 	private EntityManager entityManager;
 
 	@Override
-	public List<IpV6Address> loadAll(int sourceId) {
+	public List<IpV6Address> loadAllIpBySource(int sourceId) {
 		List<IpV6Address> list = new ArrayList<IpV6Address>();
 		Query q = entityManager
 			.createNamedQuery(
