@@ -24,18 +24,18 @@ public class WhiteListDaoImpl implements WhiteListDao {
 	private EntityManager entityManager;
 
 	@Override
-	public List<IpV4Address> loadIpV4List() {
+	public List<IpV4Address> loadIpV4List(int from, int count) {
 		Query q = entityManager.createNamedQuery("IpV4Address.loadWhiteList")
-				.setParameter("whitelist", true);
+				.setParameter("whitelist", true).setFirstResult(from).setMaxResults(count);
 		ArrayList<IpV4Address> list = new ArrayList<IpV4Address>();
 		list.addAll(q.getResultList());
 		return list;
 	}
 
 	@Override
-	public List<IpV6Address> loadIpV6List() {
+	public List<IpV6Address> loadIpV6List(int from, int count) {
 		Query q = entityManager.createNamedQuery("IpV6Address.loadWhiteList")
-				.setParameter("whitelist", true);
+				.setParameter("whitelist", true).setFirstResult(from).setMaxResults(count);
 		ArrayList<IpV6Address> list = new ArrayList<IpV6Address>();
 		list.addAll(q.getResultList());
 		return list;

@@ -8,9 +8,9 @@ import tc.lv.domain.IpV6Address;
 
 public interface WhiteListDao {
 
-	List<IpV4Address> loadIpV4List();
+	List<IpV4Address> loadIpV4List(int from, int count);
 
-	List<IpV6Address> loadIpV6List();
+	List<IpV6Address> loadIpV6List(int from, int count);
 
 	void saveIpV4(String address);
 
