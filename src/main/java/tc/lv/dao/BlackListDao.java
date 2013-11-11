@@ -25,3 +25,4 @@ public interface BlackListDao {
     void deleteIpV6(String address);
 
 }
+

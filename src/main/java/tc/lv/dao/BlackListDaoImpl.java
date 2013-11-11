@@ -1,4 +1,3 @@
-
 package tc.lv.dao;
 
 import java.util.ArrayList;
@@ -116,3 +115,4 @@ public class BlackListDaoImpl implements BlackListDao {
 	entityManager.persist(obj);
     }
 }
+

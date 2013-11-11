@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 
 # Package Files #
@@ -14,3 +15,18 @@
 
 #config db connect#
 /src/main/resources/META-INF/persistence.xml
+=======
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.classpath
+*.project
+*.springBeans
+
+# Folders #
+.settings
+/target
+>>>>>>> a8735b5153285a0e5faf37ed2110b02495a4a804

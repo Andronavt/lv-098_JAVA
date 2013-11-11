@@ -16,7 +16,7 @@ public interface WhiteListService {
 
     public void saveIpV6(String address);
 
-    public Collection<IpV4Address> loadIpV4List();
+    public Collection<IpV4Address> loadIpV4List(int from, int count);
 
-    public Collection<IpV6Address> loadIpV6List();
+    public Collection<IpV6Address> loadIpV6List(int from, int count);
 }

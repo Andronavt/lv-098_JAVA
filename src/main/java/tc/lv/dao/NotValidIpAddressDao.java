@@ -10,3 +10,4 @@ public interface NotValidIpAddressDao {
 	List<NotValidIp> loadNotValidIpList(int from, int count);
 
 }
+

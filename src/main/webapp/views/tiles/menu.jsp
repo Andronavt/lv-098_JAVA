@@ -31,39 +31,30 @@
 
 			<h6 style="width: 150px;">Statistics:</h6>
 			<div style="width: 125px;">
-				<a class="button" href="inProgres" title="Charts">Charts</a> <a
-					class="button" href="showIpListFromWL"
-					id="getContentShowIpListFromWl" title="Show Ip list from WList">Show
-					Ip list from WList</a> <a class="button" href="inProgres"
-					title="Blacklist map">Blacklist map</a> <a class="button"
-					href="inProgres" title="Whitelist map">Whitelist map</a> <a
-					class="button" href="inProgres" title="Top oldest IP">Top
-					oldest IP</a>
+				<a class="button" href="inProgres" title="Charts">Charts</a> 
+				<a class="button" href="showIpListFromWL" id="getContentShowIpListFromWl" title="Show Ip list from WList">Show Ip list from WList</a>
+				<a class="button" href="inProgres" 	title="Blacklist map">Blacklist map</a>
+				<a class="button" href="inProgres" title="Whitelist map">Whitelist map</a>
+				<a class="button" href="inProgres" title="Top oldest IP">Top oldest IP</a>
 			</div>
 			<h6 style="width: 150px;">Ip data:</h6>
 			<div style="width: 125px;">
-				<a class="button" href="inProgres" title="Black IP by city">Black
-					IP by city</a> <a class="button" href="inProgres"
-					title="Black IP by country">Black IP by country</a> <a
-					class="button" href="getIp4List" id="getIp4List"
-					title="List of IPv4 from source">List of IPv4 from source</a>
+				<a class="button" href="inProgres" title="Black IP by city">Black IP by city</a>
+				<a class="button" href="inProgres" title="Black IP by country">Black IP by country</a>
+				<a class="button" href="getIp4List" id="getIp4List" title="List of IPv4 from source">List of IPv4 from source</a>
 			</div>
 		</sec:authorize>
 
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<h6 style="width: 150px;">Feeds:</h6>
 			<div style="width: 125px;">
-				<a class="button" href="deleteIpFromWL" id="getContentDeleteFeed"
-					title="Delete Feed">Delete Feed</a> <a class="button"
-					href="addNewFeed" id="getContentAddNewFeed" title="Add new Feed">Add
-					new Feed</a> <a class="button" href="addIpv4" id="getContentAddIp4"
-					title="Add IP to Source">Add IP to Source</a> <a class="button"
-					href="addIpToWL" id="getContentAddIpToWl" title="Add to WList">Add
-					to WList</a> <a class="button" href="deleteIpFromWL"
-					id="getContentDeleteWlIp" title="Delete IP from WList">Delete
-					IP from WList</a> <a class="button" href="updateSources"
-					title="updateSources">Update Sources</a> <a class="button"
-					href="inProgres" title="List downloads">List downloads</a>
+				<a class="button" href="listOfSource" id="getContentDeleteFeed" title="Delete Feed">Delete Feed</a>
+				<a class="button" href="addNewFeed" id="getContentAddNewFeed" title="Add new Feed">Add new Feed</a>
+				<a class="button" href="addIpv4" id="getContentAddIp4" title="Add IP to Source">Add IP to Source</a>
+				<a class="button" href="addIpToWL" id="getContentAddIpToWl" title="Add to WList">Add to WList</a>
+				<a class="button" href="deleteIpFromWL" id="getContentDeleteWlIp" title="Delete IP from WList">Delete IP from WList</a>
+				<a class="button" href="updateSources" title="updateSources">Update Sources</a>
+				<a class="button" href="inProgres" title="List downloads">List downloads</a>
 			</div>
 <!-- 			<a class="button" href="inProgres" title="Daemon controls">Daemon -->
 <!-- 				controls</a> -->

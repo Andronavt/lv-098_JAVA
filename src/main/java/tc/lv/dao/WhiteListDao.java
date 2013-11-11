@@ -25,3 +25,4 @@ public interface WhiteListDao {
 	void deleteIpV6(String address);
 
 }
+
