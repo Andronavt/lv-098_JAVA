@@ -9,6 +9,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import tc.lv.domain.IpV4Address;
 import tc.lv.domain.NotValidIp;
 
 @Repository
@@ -26,4 +27,11 @@ public class NotValidIpAddressDaoImpl implements NotValidIpAddressDao {
 		list.addAll(q.getResultList());
 		return list;
 	}
+	@Override
+	    public List<NotValidIp> loadNotValidIpList(int from, int count) {
+		Query q = entityManager.createNamedQuery("NotValidIp.loadAll").setFirstResult(from).setMaxResults(count);
+		ArrayList<NotValidIp> list = new ArrayList<NotValidIp>();
+		list.addAll(q.getResultList());
+		return list;
+	    }
 }
