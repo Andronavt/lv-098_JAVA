@@ -105,3 +105,19 @@ function getIP4List() {
 		}
 	});
 }
+
+function doAjaxUpdateSource() {
+	 var parser = $('select[name=sources]').val();
+	 $.ajax({
+	  type : "POST",
+	  url : "updateSources",
+	  data : "parser=" + parser,
+	  success : function(response) {
+	   // we have the response
+	   $('#1').html(response);
+	  },
+	  error : function(e) {
+	   alert('Error: ' + e);
+	  }
+	 });
+	}

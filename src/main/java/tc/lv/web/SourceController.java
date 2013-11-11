@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import tc.lv.exceptions.DBCreateSourceException;
 import tc.lv.service.SourceService;
+import tc.lv.utils.IpValidator;
 
 @Controller
 public class SourceController {
@@ -35,28 +36,6 @@ public class SourceController {
 		map.put("ipList",
 				souService.getIpV4ListFromSource(Integer.valueOf(source)));
 		return "listIpv4";
-	}
-
-	// Add IPv4 to Source -- get jsp
-	@RequestMapping(value = "/addIpv4", method = RequestMethod.GET)
-	public String addIpV4Page(Map<String, Object> map) {
-		map.put("listSource", souService.getListOfSourcess());
-		return "addIpv4";
-	}
-	// Add IPv4 to Source -- get data from form
-	@RequestMapping(value = "/addIpv4", method = RequestMethod.POST)
-	public @ResponseBody
-	String addIpV4(@ModelAttribute(value = "ip") String ip,
-			@ModelAttribute(value = "source") int source, BindingResult result) {
-		String returnText;
-		if (!result.hasErrors()) {
-			//souService.setIpV4Address(ip, source);
-			returnText = "IP-address was added " + ip + " in source # "
-					+ source;
-		} else {
-			returnText = "Sorry, an error has occur. IP-address has not been added to source.";
-		}
-		return returnText;
 	}
 
 	// Add new sources

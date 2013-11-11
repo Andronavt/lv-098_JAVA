@@ -79,10 +79,6 @@
 						title="Add new Feed">Add new Feed</a>
 				</p>
 				<p>
-					<a class="button" href="addIpv4" id="getContentAddIp4"
-						title="Add IP to Source">Add IP to Source</a>
-				</p>
-				<p>
 					<a class="button" href="addIpToWL" id="getContentAddIpToWl"
 						title="Add to WList">Add to WList</a>
 				</p>
