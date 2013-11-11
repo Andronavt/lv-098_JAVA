@@ -6,6 +6,6 @@ import tc.lv.domain.IpV6Address;
 
 public interface IpV6AddressDao {
 
-	List<IpV6Address> loadAll(int sourceId);
+	List<IpV6Address> loadAllIpBySource(int sourceId);
 
 }
