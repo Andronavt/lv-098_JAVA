@@ -30,7 +30,7 @@ function getContentLogin() {
 function ShowIpListFromWL() {
 	$.ajax({
 		type : "POST",
-		url : "secure/ShowIpListFromWL",
+		url : "/showIpListFromWL",
 		success : function(response) {
 			// we have the response
 			$('#showIpListFromWhiteList').html(response);

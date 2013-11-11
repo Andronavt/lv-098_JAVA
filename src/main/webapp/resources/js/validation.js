@@ -7,4 +7,8 @@ function validateRegForm() {
         	doAjaxPostRegistration();
         }
     });
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045

@@ -1,5 +1,6 @@
 @CHARSET "ISO-8859-1";
 
+<<<<<<< HEAD
 
 .button {
 	font-size: 10px;
@@ -20,4 +21,57 @@
 	/*   background: -ms-radial-gradient(#fff, #827e55); */
 	/*   background: -o-radial-gradient(#fff, #827e55); */
 	/*   background: -webkit-radial-gradient(#fff, #827e55); */
+=======
+h6 {
+	width: 170px;
+	background: #6f95ad;
+}
+
+.divmenu {
+	width: 145px;
+}
+
+.ui-widget-content {
+	border: 1px solid #331D1D;
+	background: #D6E0FF;
+	color: #3A1C1C;
+}
+
+/*
+,.ui-widget-header 
+,.ui-state-default
+*/
+.ui-state-default {
+	border: 1px solid #6f95ad;
+	background: #6f95ad;
+	color: #222222;
+	font-weight: bold;
+}
+
+.button {
+	background: #6f95ad;
+	padding: 2px 5px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	-webkit-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+	-moz-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+	box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+	text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+	color: white;
+	font-size: 11px;
+	font-family: Georgia, serif;
+	text-decoration: none;
+}
+
+.button:hover {
+	border-top-color: #312b8a;
+	background: #312b8a;
+	color: #e3dae3;
+}
+
+.button:active {
+	border-top-color: #1b5c22;
+	background: #1b5c22;
+>>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045
 }

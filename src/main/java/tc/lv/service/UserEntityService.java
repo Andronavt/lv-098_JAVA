@@ -1,10 +1,11 @@
 package tc.lv.service;
 
+import tc.lv.exceptions.DBCreateUserException;
+
 public interface UserEntityService {
 
-	public void addAdminUser(String username, String firstname,
-			String lastname, String email, String password);
+	public void makeUserAdmin(String username);
 
 	public void addCustomerUser(String username, String firstname,
-			String lastname, String email, String password);
+			String lastname, String email, String password) throws DBCreateUserException;
 }

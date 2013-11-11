@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package tc.lv.web;
 
 import org.springframework.stereotype.Controller;
@@ -23,3 +24,17 @@ public class IndexController {
 		return "welcome";
 	}
 }
+=======
+package tc.lv.web;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class IndexController {
+    @RequestMapping(value = "/welcomes")
+    public String index() {
+	return "welcome";
+    }
+}
+>>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045

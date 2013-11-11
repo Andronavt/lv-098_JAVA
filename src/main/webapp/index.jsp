@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <%
 	System.out.println("Spring tiles program !!!!!!!!!!!!!!!! ");
@@ -65,3 +66,6 @@
 
 <!-- </body> -->
 <!-- </html> -->
+=======
+<jsp:forward page="welcomes.html"></jsp:forward>
+>>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045

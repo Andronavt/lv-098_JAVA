@@ -1,14 +1,14 @@
 package tc.lv.dao;
 
 import tc.lv.domain.UserEntity;
+import tc.lv.exceptions.DBCreateUserException;
 
 public interface UserDao {
-	public UserEntity getUserByName(String name);
 
-	public void addAdminUser(String username, String firstname,
-			String lastname, String email, String password);
+    UserEntity loadByName(String name);
 
-	public void addCustomerUser(String username, String firstname,
-			String lastname, String email, String password);
+    public void createUser(UserEntity user) throws DBCreateUserException;
+    
+    public void makeUserAdmin(UserEntity user);
 
 }

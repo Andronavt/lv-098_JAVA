@@ -13,7 +13,11 @@ h2 {
 	font-size: 1.4em;
 	text-align: right;
 	padding: 5px;
+<<<<<<< HEAD
 	background-color: Silver;
+=======
+	background-color: #6f95ad;
+>>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045
 	background-image: url(IP-banner.jpg);
 }
 
@@ -38,7 +42,11 @@ h2 {
 }
 
 #footer {
+<<<<<<< HEAD
 	background: #8fa09b;
+=======
+	background: #6f95ad;
+>>>>>>> 362cec57dcceece1c58bdc48eb73cc759bfd2045
 	color: #fff;
 	padding: 5px;
 	position: fixed;
