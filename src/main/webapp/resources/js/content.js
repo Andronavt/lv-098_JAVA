@@ -11,11 +11,26 @@ function registration() {
 	});
 	return false;
 }
+function getContentLogin() {
+	$.ajax({
+		url : "signin",
+		cache : false,
+		beforeSend : function() {
+			alert("WHAT1?");
+			$('#body').html('get login page');
+		},
+		success : function(html) {
+			alert("WHAT2?");
+			$("#body").html(html);
+		}
+	});
+	return false;
+}
 
 function ShowIpListFromWL() {
 	$.ajax({
 		type : "POST",
-		url : "secure/ShowIpListFromWL",
+		url : "/showIpListFromWL",
 		success : function(response) {
 			// we have the response
 			$('#showIpListFromWhiteList').html(response);
@@ -24,21 +39,6 @@ function ShowIpListFromWL() {
 			alert('Error: ' + e);
 		}
 	});
-}
-
-function getContentLogin() {
-	$.ajax({
-		url : "signin",
-		cache : false,
-		beforeSend : function() {
-			$('#content').html('get login page');
-		},
-		success : function(html) {
-			$("#content").html(html);
-		}
-	});
-	return false;
-
 }
 
 function getContentAddIp4() {

@@ -1,45 +1,50 @@
-
 body {
-	font: 10pt Arial, Helvetica, sans-serif; 
-	background: #e1dfb9; 
+	font: 10pt Arial, Helvetica, sans-serif;
+	background: #e1dfb9;
 }
 
 h2 {
-	font-size: 1.1em; 
-	color: #800040; 
-	margin-top: 0; 
-}
-
-#container {
-	width: auto; 
-	margin: 0 auto;
-	background: #f0f0f0; 
+	font-size: 1.1em;
+	color: #800040;
+	margin-top: 0;
 }
 
 #header {
 	font-size: 1.4em;
-	text-align: right; 
+	text-align: right;
 	padding: 5px;
 	background-color: Silver;
+	background-image: url(IP-banner.jpg);
 }
 
-#sidebar {
+#login {
+	float: right;
+}
+
+#menu {
 	height: auto margin-top: 0px;
-	width: auto; 
+	float: right;
+	width: auto;
 	padding: 0x;
-	float: left; 
+	float: left;
+	width: auto;
 }
 
-#content {
-	margin-left: 220px; 
-	padding: 10px; 
-	background: #fff; 
+#body {
+	margin-left: 220px;
+	padding: 10px;
+	background: #fff;
+	margin-bottom: 40px;
 }
 
 #footer {
-	background: #8fa09b; 
-	color: #fff; 
-	padding: 5px; 
-	clear: left; 
-	position: bottom;
+	background: #8fa09b;
+	color: #fff;
+	padding: 5px;
+	position: fixed;
+	height: 40px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	margin-bottom: 0px;
 }
