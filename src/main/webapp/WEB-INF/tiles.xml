@@ -16,6 +16,10 @@
 		<put-attribute name="body" value="/views/user/signin.jsp" />
 	</definition>
 
+	<definition name="signinFailure" extends="base.definition">
+		<put-attribute name="body" value="/views/user/signinFailure.jsp" />
+	</definition>
+
 	<definition name="welcome" extends="base.definition">
 		<put-attribute name="body" value="/views/tiles/welcome.jsp" />
 	</definition>
@@ -53,10 +57,10 @@
 	<definition name="listIpv4" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/listIpv4.jsp" />
 	</definition>
-	
-	
 
-	<!-- secure views -->
+
+
+	<!-- secure views -->	
 
 	<definition name="getIpV4List" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/GetIp4List.jsp" />
@@ -68,6 +72,11 @@
 
 	<definition name="showIpListFromWL" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/ShowIpListFromWL.jsp" />
+	</definition>
+
+	<!-- Page is under construction -->
+	<definition name="inProgres" extends="base.definition">
+		<put-attribute name="body" value="/views/tiles/inProgres.jsp" />
 	</definition>
 
 </tiles-definitions>

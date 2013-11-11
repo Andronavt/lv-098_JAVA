@@ -31,19 +31,21 @@
 
 			<h6 style="width: 150px;">Statistics:</h6>
 			<div style="width: 125px;">
-				<!--      <a class="button" href="secure/ip-charts" title="Charts">Charts</a> -->
-				<a class="button" href="showIpListFromWL"
+				<a class="button" href="inProgres" title="Charts">Charts</a> <a
+					class="button" href="showIpListFromWL"
 					id="getContentShowIpListFromWl" title="Show Ip list from WList">Show
-					Ip list from WList</a>
-				<!--      <a class="button" href="secure/blacklist-map" title="Blacklist map">Blacklist map</a> -->
-				<!--      <a class="button" href="secure/whitelist-map" title="Whitelist map">Whitelist map</a> -->
-				<!--      <a class="button" href="secure/top_old_ip" title="Top oldest IP">Top oldest IP</a> -->
+					Ip list from WList</a> <a class="button" href="inProgres"
+					title="Blacklist map">Blacklist map</a> <a class="button"
+					href="inProgres" title="Whitelist map">Whitelist map</a> <a
+					class="button" href="inProgres" title="Top oldest IP">Top
+					oldest IP</a>
 			</div>
 			<h6 style="width: 150px;">Ip data:</h6>
 			<div style="width: 125px;">
-				<!--      <a class="button" href="secure/black_ip_by_city" title="Black IP by city">Black IP by city</a> -->
-				<!--      <a class="button" href="secure/top_black_ip_by_country" title="Black IP by country">Black IP by country</a> -->
-				<a class="button" href="getIp4List" id="getIp4List"
+				<a class="button" href="inProgres" title="Black IP by city">Black
+					IP by city</a> <a class="button" href="inProgres"
+					title="Black IP by country">Black IP by country</a> <a
+					class="button" href="getIp4List" id="getIp4List"
 					title="List of IPv4 from source">List of IPv4 from source</a>
 			</div>
 		</sec:authorize>
@@ -59,12 +61,13 @@
 					href="addIpToWL" id="getContentAddIpToWl" title="Add to WList">Add
 					to WList</a> <a class="button" href="deleteIpFromWL"
 					id="getContentDeleteWlIp" title="Delete IP from WList">Delete
-					IP from WList</a>
-				<a class="button" href="updateSources" title="updateSources">Update Sources</a>
-				<!--   TODO  <a class="button" href="admin/list-downloads" title="List downloads">List downloads</a> -->
+					IP from WList</a> <a class="button" href="updateSources"
+					title="updateSources">Update Sources</a> <a class="button"
+					href="inProgres" title="List downloads">List downloads</a>
 			</div>
-			<!--     <a class="button" href="admin/daemon-control" title="Daemon controls">Daemon controls</a> -->
-			<!--     <a class="button" href="admin/admin" title="Admin">Admin</a> -->
+<!-- 			<a class="button" href="inProgres" title="Daemon controls">Daemon -->
+<!-- 				controls</a> -->
+<!-- 			<a class="button" href="inProgres" title="Admin">Admin</a> -->
 		</sec:authorize>
 	</div>
 
