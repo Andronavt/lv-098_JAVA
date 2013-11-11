@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.class
 
 # Package Files #
@@ -11,3 +12,21 @@
 # Folders #
 .settings
 /target
+=======
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.classpath
+*.project
+*.springBeans
+
+# Folders #
+.settings
+/target
+
+#config db connect#
+/src/main/resources/META-INF/persistence.xml
+>>>>>>> 232233a6a8dc6bb578ffb3177f0db65f9c83bd83
