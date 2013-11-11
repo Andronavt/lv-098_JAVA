@@ -49,10 +49,10 @@ public class SourceDownloadController {
 	String name2 = "Nixspam list";
 	String name3 = "Chaosreigns Whitelist";
 	List<String> sourceNameList = new ArrayList<String>();
-	sourceNameList.add(name1);
+	//sourceNameList.add(name1);
 	//sourceNameList.add(name2);
 	//sourceNameList.add(name3);
-
+System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 	loggerInfo.info("Create MAP of sources and Parsers");
 	Map<Source, ParserInterface> parserMap = null;
 	try {
