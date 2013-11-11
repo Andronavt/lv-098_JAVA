@@ -17,9 +17,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-
-import tc.lv.utils.ParserInterface;
-
 @Entity
 @Table(name = "sources")
 @NamedQueries({
