@@ -13,194 +13,100 @@ import tc.lv.dao.WhiteListDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.exceptions.DBException;
-import tc.lv.exceptions.DBIllegalArgumentException;
-import tc.lv.exceptions.DBIllegalStateException;
-import tc.lv.exceptions.DBPersistanceException;
+import tc.lv.exceptions.WhiteListServiceException;
 
 @Service
 public class WhiteListServiceImpl implements WhiteListService {
-    private static final Logger logger = Logger.getLogger("errorLog");
-    @Autowired
-    private WhiteListDao whiteListDao;
+	private static final Logger logger = Logger.getLogger("errorLog");
+	@Autowired
+	private WhiteListDao whiteListDao;
 
-    @Transactional
-    public void deleteIpV4(String address) throws DBPersistanceException,
-	    DBIllegalArgumentException, DBIllegalStateException, DBException {
-	try {
-	    whiteListDao.deleteIpV4(address);
-	} catch (PersistenceException e) {
-	    logger.error(e);
-	    throw new DBPersistanceException("Entity manager Exception");
-	} catch (IllegalArgumentException e) {
-	    logger.error(e);
-	    throw new DBIllegalArgumentException(
-		    "method deleteIpV4 has been passed an illegal or inappropriate argument.");
-	} catch (IllegalStateException e) {
-	    logger.error(e);
-	    throw new DBIllegalStateException(
-		    "method deleteIpV4 has been passed an illegal or inappropriate argument.");
-	} catch (RuntimeException e) {
-	    logger.error(e);
-	    throw new DBException("Data Base Exception");
+	@Transactional
+	public void deleteIpV4(String address) throws WhiteListServiceException {
+		try {
+			IpV4Address tempIpV4 = new IpV4Address(address);
+			whiteListDao.deleteIpV4(tempIpV4);
+		} catch (Exception e) {
+			logger.error(e);
+			throw new WhiteListServiceException("Entity manager Exception", e);
+		}
 	}
-    }
 
-    @Transactional
-    public void deleteIpV6(String address) throws DBPersistanceException,
-	    DBIllegalArgumentException, DBIllegalStateException, DBException {
-	try {
-	    whiteListDao.deleteIpV6(address);
-	} catch (PersistenceException e) {
-	    logger.error(e);
-	    throw new DBPersistanceException("Entity manager Exception");
-	} catch (IllegalArgumentException e) {
-	    logger.error(e);
-	    throw new DBIllegalArgumentException(
-		    "method deleteIpV6 has been passed an illegal or inappropriate argument.");
-	} catch (IllegalStateException e) {
-	    logger.error(e);
-	    throw new DBIllegalStateException(
-		    "method deleteIpV6 has been passed an illegal or inappropriate argument.");
-	} catch (RuntimeException e) {
-	    logger.error(e);
-	    throw new DBException("Data Base Exception");
+	@Transactional
+	public void deleteIpV6(String address) throws WhiteListServiceException {
+		try {
+			IpV6Address tempIpV6 = new IpV6Address(address);
+			whiteListDao.deleteIpV6(tempIpV6);
+		} catch (Exception e) {
+			logger.error(e);
+			throw new WhiteListServiceException("Entity manager Exception", e);
+		}
 	}
-    }
 
-    @Transactional
-    public void saveIpV4(String address) throws DBPersistanceException,
-	    DBIllegalArgumentException, DBIllegalStateException, DBException {
-	try {
-	    whiteListDao.saveIpV4(address);
-	} catch (PersistenceException e) {
-	    logger.error(e);
-	    throw new DBPersistanceException("Entity manager Exception");
-	} catch (IllegalArgumentException e) {
-	    logger.error(e);
-	    throw new DBIllegalArgumentException(
-		    "method saveIpV4 has been passed an illegal or inappropriate argument.");
-	} catch (IllegalStateException e) {
-	    logger.error(e);
-	    throw new DBIllegalStateException(
-		    "method saveIpV4 has been passed an illegal or inappropriate argument.");
-	} catch (RuntimeException e) {
-	    logger.error(e);
-	    throw new DBException("Data Base Exception");
+	@Transactional
+	public void saveIpV4(String address) throws WhiteListServiceException {
+		try {
+			IpV4Address tempIpV4 = new IpV4Address(address);
+			whiteListDao.saveIpV4(tempIpV4);
+		} catch (Exception e) {
+			logger.error(e);
+			throw new WhiteListServiceException("Entity manager Exception", e);
+		}
 	}
-    }
 
-    @Transactional
-    public void saveIpV6(String address) throws DBPersistanceException,
-	    DBIllegalArgumentException, DBIllegalStateException, DBException {
-	try {
-	    whiteListDao.saveIpV6(address);
-	} catch (PersistenceException e) {
-	    logger.error(e);
-	    throw new DBPersistanceException("Entity manager Exception");
-	} catch (IllegalArgumentException e) {
-	    logger.error(e);
-	    throw new DBIllegalArgumentException(
-		    "method saveIpV6 has been passed an illegal or inappropriate argument.");
-	} catch (IllegalStateException e) {
-	    logger.error(e);
-	    throw new DBIllegalStateException(
-		    "method saveIpV6 has been passed an illegal or inappropriate argument.");
-	} catch (RuntimeException e) {
-	    logger.error(e);
-	    throw new DBException("Data Base Exception");
+	@Transactional
+	public void saveIpV6(String address) throws WhiteListServiceException {
+		try {
+			IpV6Address tempIpV6 = new IpV6Address(address);
+			whiteListDao.saveIpV6(tempIpV6);
+		} catch (Exception e) {
+			logger.error(e);
+			throw new WhiteListServiceException("Entity manager Exception", e);
+		}
 	}
-    }
 
-    @Transactional
-    public Collection<IpV4Address> loadIpV4List()
-	    throws DBPersistanceException, DBIllegalArgumentException,
-	    DBIllegalStateException, DBException {
-	try {
-	    return whiteListDao.loadAllIpV4List();
-	} catch (PersistenceException e) {
-	    logger.error(e);
-	    throw new DBPersistanceException("Entity manager Exception");
-	} catch (IllegalArgumentException e) {
-	    logger.error(e);
-	    throw new DBIllegalArgumentException(
-		    "method loadIpV4List has been passed an illegal or inappropriate argument.");
-	} catch (IllegalStateException e) {
-	    logger.error(e);
-	    throw new DBIllegalStateException(
-		    "method loadIpV4List has been passed an illegal or inappropriate argument.");
-	} catch (RuntimeException e) {
-	    logger.error(e);
-	    throw new DBException("Data Base Exception");
+	@Transactional
+	public Collection<IpV4Address> loadIpV4List()
+			throws WhiteListServiceException {
+		try {
+			return whiteListDao.loadAllIpV4List();
+		} catch (Exception e) {
+			logger.error(e);
+			throw new WhiteListServiceException("Entity manager Exception", e);
+		}
 	}
-    }
 
-    @Transactional
-    public Collection<IpV6Address> loadIpV6List()
-	    throws DBPersistanceException, DBIllegalArgumentException,
-	    DBIllegalStateException, DBException {
-	try {
-	    return whiteListDao.loadAllIpV6List();
-	} catch (PersistenceException e) {
-	    logger.error(e);
-	    throw new DBPersistanceException("Entity manager Exception");
-	} catch (IllegalArgumentException e) {
-	    logger.error(e);
-	    throw new DBIllegalArgumentException(
-		    "method loadIpV6List has been passed an illegal or inappropriate argument.");
-	} catch (IllegalStateException e) {
-	    logger.error(e);
-	    throw new DBIllegalStateException(
-		    "method loadIpV6List has been passed an illegal or inappropriate argument.");
-	} catch (RuntimeException e) {
-	    logger.error(e);
-	    throw new DBException("Data Base Exception");
+	@Transactional
+	public Collection<IpV6Address> loadIpV6List()
+			throws WhiteListServiceException {
+		try {
+			return whiteListDao.loadAllIpV6List();
+		} catch (Exception e) {
+			logger.error(e);
+			throw new WhiteListServiceException("Entity manager Exception", e);
+		}
 	}
-    }
 
-    @Transactional
-    public Collection<IpV4Address> loadIpV4ListByRange(int from, int count)
-	    throws DBPersistanceException, DBIllegalArgumentException,
-	    DBIllegalStateException, DBException {
-	try {
-	    return whiteListDao.loadIpV4ListByRange(from, count);
-	} catch (PersistenceException e) {
-	    logger.error(e);
-	    throw new DBPersistanceException("Entity manager Exception");
-	} catch (IllegalArgumentException e) {
-	    logger.error(e);
-	    throw new DBIllegalArgumentException(
-		    "method loadIpV4ListByRange has been passed an illegal or inappropriate argument.");
-	} catch (IllegalStateException e) {
-	    logger.error(e);
-	    throw new DBIllegalStateException(
-		    "method loadIpV4ListByRange has been passed an illegal or inappropriate argument.");
-	} catch (RuntimeException e) {
-	    logger.error(e);
-	    throw new DBException("Data Base Exception");
+	@Transactional
+	public Collection<IpV4Address> loadIpV4ListByRange(int from, int count)
+			throws WhiteListServiceException {
+		try {
+			return whiteListDao.loadIpV4ListByRange(from, count);
+		} catch (Exception e) {
+			logger.error(e);
+			throw new WhiteListServiceException("Entity manager Exception", e);
+		}
 	}
-    }
 
-    @Transactional
-    public Collection<IpV6Address> loadIpV6ListByRange(int from, int count)
-	    throws DBPersistanceException, DBIllegalArgumentException,
-	    DBIllegalStateException, DBException {
-	try {
-	    return whiteListDao.loadIpV6ListByRange(from, count);
-	} catch (PersistenceException e) {
-	    logger.error(e);
-	    throw new DBPersistanceException("Entity manager Exception");
-	} catch (IllegalArgumentException e) {
-	    logger.error(e);
-	    throw new DBIllegalArgumentException(
-		    "method loadIpV6ListByRange has been passed an illegal or inappropriate argument.");
-	} catch (IllegalStateException e) {
-	    logger.error(e);
-	    throw new DBIllegalStateException(
-		    "method loadIpV6ListByRange has been passed an illegal or inappropriate argument.");
-	} catch (RuntimeException e) {
-	    logger.error(e);
-	    throw new DBException("Data Base Exception");
+	@Transactional
+	public Collection<IpV6Address> loadIpV6ListByRange(int from, int count)
+			throws WhiteListServiceException {
+		try {
+			return whiteListDao.loadIpV6ListByRange(from, count);
+		} catch (Exception e) {
+			logger.error(e);
+			throw new WhiteListServiceException("Entity manager Exception", e);
+		}
 	}
-    }
 
 }

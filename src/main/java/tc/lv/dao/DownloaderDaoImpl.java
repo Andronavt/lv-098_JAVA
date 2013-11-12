@@ -162,5 +162,4 @@ public class DownloaderDaoImpl implements DownloaderDao {
 			entityManager.persist(ip);
 		}
 	}
-
 }

@@ -34,9 +34,4 @@ public class IpV4Address extends IpAddress implements Serializable {
 		this.address = address;
 		this.dateAdded = dateAdded;
 	}
-
-	// @PrePersist()
-	// public void persist(){
-	// File file = new File();
-	// }
 }
