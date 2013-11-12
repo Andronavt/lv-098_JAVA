@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tc.lv.exceptions.DBCreateUserException;
+import tc.lv.exceptions.DBException;
+import tc.lv.exceptions.DBIllegalArgumentException;
+import tc.lv.exceptions.DBIllegalStateException;
+import tc.lv.exceptions.DBPersistanceException;
 import tc.lv.exceptions.UserValidationException;
 import tc.lv.service.UserEntityService;
 import tc.lv.utils.UserValidator;
@@ -30,13 +34,14 @@ public class RegistrationController {
 	    @ModelAttribute(value = "last_name") String last_name,
 	    @ModelAttribute(value = "email") String email,
 	    @ModelAttribute(value = "pass") String pass)
-	    throws DBCreateUserException, UserValidationException {
+	    throws UserValidationException, DBPersistanceException,
+	    DBIllegalArgumentException, DBIllegalStateException, DBException {
 	if (UserValidator.isCorrectName(user_name)
 		&& UserValidator.isCorrectFirstName(first_name)
 		&& UserValidator.isCorrectLastName(last_name)
 		&& UserValidator.isCorrectEmail(email)
 		&& UserValidator.isCorrectPassword(pass)) {
-	    userEntityService.addCustomerUser(user_name, first_name, last_name,
+	    userEntityService.createUser(user_name, first_name, last_name,
 		    email, pass);
 	    return "User was registred";
 	} else {

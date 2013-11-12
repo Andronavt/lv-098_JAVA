@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
+import tc.lv.exceptions.DBException;
+import tc.lv.exceptions.DBIllegalArgumentException;
+import tc.lv.exceptions.DBIllegalStateException;
+import tc.lv.exceptions.DBPersistanceException;
 import tc.lv.exceptions.DownloadFileNotFoundException;
 import tc.lv.exceptions.DownloadIOException;
 import tc.lv.exceptions.DownloadMalformedURLException;
@@ -52,7 +56,9 @@ public class SourceDownloadController {
 
     // Updating Sources
     @RequestMapping(value = "/updateSourcesButton", method = RequestMethod.GET)
-    public String sourceDownloader(Map<String, Object> map) {
+    public String sourceDownloader(Map<String, Object> map)
+	    throws DBPersistanceException, DBIllegalArgumentException,
+	    DBIllegalStateException, DBException {
 	// ----!!!Test block!!!------
 	// String name1 = "OpenBSD traplist";
 	// String name2 = "Nixspam list";
