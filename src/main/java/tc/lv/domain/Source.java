@@ -1,6 +1,5 @@
 package tc.lv.domain;
 
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -52,20 +51,21 @@ public class Source {
 	@Column(name = "parser", nullable = true)
 	private String parser;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.LAZY)
 	private Collection<IpAddress> ipSet = new HashSet<IpAddress>();
-	
+
 	public Source() {
 
 	}
 
-	public Source(String sourceName, Date sourceDateAdded, Double rank,
-			String dirname, String listType) {
+	public Source(String parser, String sourceName, String url,  String listType, 
+		Double rank) {
 		super();
+		this.parser= parser;
 		this.sourceName = sourceName;
-		this.sourceDateAdded = sourceDateAdded;
+		this.sourceDateAdded = new Date();
 		this.rank = rank;
-		this.dirname = dirname;
+		this.dirname = "d://lv-098_JAVA//sources//"+sourceName+"//";
 		this.listType = listType;
 	}
 
