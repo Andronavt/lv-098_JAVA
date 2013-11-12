@@ -60,10 +60,6 @@
 					<a class="button" href="inProgres" title="Black IP by country">Black
 						IP by country</a>
 				</p>
-				<p>
-					<a class="button" href="getIp4List" id="getIp4List"
-						title="List of IPv4 from source">List of IPv4 from source</a>
-				</p>
 			</div>
 		</sec:authorize>
 
