@@ -1,6 +1,5 @@
 package tc.lv.exceptions;
 
-
 public class ValidationException extends IPException {
     /**
      * 
@@ -14,4 +13,7 @@ public class ValidationException extends IPException {
 	super(msg);
     }
 
+    public ValidationException(String msg, Exception e) {
+	super(msg, e);
+    }
 }

@@ -1,6 +1,5 @@
 package tc.lv.exceptions;
 
-
 public class DBException extends IPException {
     /**
      * 
@@ -12,5 +11,9 @@ public class DBException extends IPException {
 
     public DBException(String msg) {
 	super(msg);
+    }
+
+    public DBException(String msg, Exception e) {
+	super(msg, e);
     }
 }

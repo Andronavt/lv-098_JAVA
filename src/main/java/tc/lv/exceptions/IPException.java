@@ -24,4 +24,11 @@ public class IPException extends Exception {
 	printStackTrace(new PrintWriter(trace));
 	logger.error(trace.toString());
     }
+
+    public IPException(String msg, Exception e) {
+	super(msg, e);
+	StringWriter trace = new StringWriter();
+	printStackTrace(new PrintWriter(trace));
+	logger.error(trace.toString());
+    }
 }
