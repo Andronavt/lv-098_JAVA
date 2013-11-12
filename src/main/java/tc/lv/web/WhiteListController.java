@@ -10,79 +10,82 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import tc.lv.exceptions.DBException;
+import tc.lv.exceptions.DBIllegalArgumentException;
+import tc.lv.exceptions.DBIllegalStateException;
+import tc.lv.exceptions.DBPersistanceException;
+import tc.lv.exceptions.IpValidationException;
 import tc.lv.service.WhiteListService;
+import tc.lv.utils.IpValidator;
 
 @Controller
 public class WhiteListController {
-	@Autowired
-	private WhiteListService wlService;
+    @Autowired
+    private WhiteListService wlService;
+    
+    //Delete IP-address from WhiteList
+    @RequestMapping(value = "/deleteIpFromWL", method = RequestMethod.GET)
+    public String deleteFromWL() {
+	return "deleteIpFromWL";
+    }
+  //Delete IP-address from WhiteList
+    @RequestMapping(value = "/deleteIpFromWL", method = RequestMethod.POST)
+    public @ResponseBody
+    String deleteFromWL(@ModelAttribute("address") String ipAddress,
+	    BindingResult result) throws DBPersistanceException,
+	    DBIllegalArgumentException, DBIllegalStateException, DBException,
+	    IpValidationException {
 
-	@RequestMapping(value = "/deleteIpFromWL", method = RequestMethod.GET)
-	public String deleteFromWL() {
-		return "deleteIpFromWL";
+	if (IpValidator.isIpV4(ipAddress)) {
+	    wlService.deleteIpV4(ipAddress);
+	    return "IpV4: " + ipAddress + " has been successfully deleted.";
+	} else if (IpValidator.isIpV6(ipAddress)) {
+	    wlService.deleteIpV6(ipAddress);
+	    return "IpV6: " + ipAddress + " has been successfully deleted.";
+	} else {
+	    throw new IpValidationException("Incorrect IP-address!");
+	}
+    }
+    
+    //Add IP-address from WhiteList
+    @RequestMapping(value = "/addIpToWL", method = RequestMethod.GET)
+    public String addToWl() {
+	return "addIpToWL";
+    }
+    
+    //Add IP-address from WhiteList
+    @RequestMapping(value = "/addIpToWL", method = RequestMethod.POST)
+    public @ResponseBody
+    String addToWl(@ModelAttribute("address") String ipAddress,
+	    BindingResult result) throws IpValidationException,
+	    DBPersistanceException, DBIllegalArgumentException,
+	    DBIllegalStateException, DBException {
+	if (IpValidator.isIpV4(ipAddress)) {
+	    wlService.saveIpV4(ipAddress);
+	    return "IpV4: " + ipAddress
+		    + " has been successfully added to WhiteList.";
+	} else if (IpValidator.isIpV6(ipAddress)) {
+	    wlService.saveIpV6(ipAddress);
+	    return "IpV6: " + ipAddress
+		    + " has been successfully added to WhiteList.";
+	} else {
+	    throw new IpValidationException("Incorrect IP-address!");
 	}
 
-	@RequestMapping(value = "/deleteIpFromWL", method = RequestMethod.POST)
-	public @ResponseBody
-	String deleteFromWL(@ModelAttribute("address") String ipAddress,
-			BindingResult result) {
-		try {
-			if (ipAddress.contains(".")) {
-				wlService.deleteIpV4(ipAddress);
-				return "IpV4: " + ipAddress + " has been successfully deleted.";
-			} else if (ipAddress.contains(":")) {
-				wlService.deleteIpV6(ipAddress);
-				return "IpV6: " + ipAddress + " has been successfully deleted.";
-			} else {
-				String response = "Some problems occurred with deleting IpAddress "
-						+ ipAddress + " !!!";
-				return response;
-			}
-		} catch (RuntimeException e) {
-			return "Where was error with deleting " + ipAddress + "!!!\n"
-					+ e.toString();
-		}
-	}
-
-	@RequestMapping(value = "/addIpToWL", method = RequestMethod.GET)
-	public String addToWl() {
-		return "addIpToWL";
-	}
-
-	@RequestMapping(value = "/addIpToWL", method = RequestMethod.POST)
-	public @ResponseBody
-	String addToWl(@ModelAttribute("address") String ipAddress,
-			BindingResult result) {
-		try {
-			// TODO: Add here validation
-			if (ipAddress.contains(".")) {
-				wlService.saveIpV4(ipAddress);
-				return "IpV4: " + ipAddress
-						+ " has been successfully added to WhiteList.";
-			} else if (ipAddress.contains(":")) {
-				wlService.saveIpV6(ipAddress);
-				return "IpV6: " + ipAddress
-						+ " has been successfully added to WhiteList.";
-			} else {
-				String response = "Some problems occurred adding IpAddress "
-						+ ipAddress + " !!!";
-				return response;
-			}
-		} catch (RuntimeException e) {
-			// TODO: handle exception
-			return "Where was error with adding " + ipAddress + "!!!\n"
-					+ e.toString();
-		}
-	}
-
-	@RequestMapping(value = "/showIpListFromWL", method = RequestMethod.GET)
-	public String showIpListFromWl() {
-		return "showIpListFromWL";
-	}
-
-	@RequestMapping(value = "/showIpListFromWL", method = RequestMethod.POST)
-	public String showIpListFromWl(Map<String, Object> map) {
-		map.put("ipList", wlService.loadIpV4List());
-		return "listIpv4";
-	}
+    }
+    
+    //Add IP-address from WhiteList
+    @RequestMapping(value = "/showIpListFromWL", method = RequestMethod.GET)
+    public String showIpListFromWl() {
+	return "showIpListFromWL";
+    }
+    
+    //Add IP-address from WhiteList
+    @RequestMapping(value = "/showIpListFromWL", method = RequestMethod.POST)
+    public String showIpListFromWl(Map<String, Object> map)
+	    throws DBPersistanceException, DBIllegalArgumentException,
+	    DBIllegalStateException, DBException {
+	map.put("ipList", wlService.loadIpV4List());
+	return "showIpListFromWL"; // Need create alone jsp-page
+    }
 }

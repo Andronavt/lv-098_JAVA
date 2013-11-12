@@ -6,10 +6,8 @@ import javax.persistence.PersistenceException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import tc.lv.dao.WhiteListDao;
+import tc.lv.dao.BlackListDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.exceptions.DBException;
@@ -17,17 +15,16 @@ import tc.lv.exceptions.DBIllegalArgumentException;
 import tc.lv.exceptions.DBIllegalStateException;
 import tc.lv.exceptions.DBPersistanceException;
 
-@Service
-public class WhiteListServiceImpl implements WhiteListService {
+public class BlackListServiceImpl implements BlackListService {
     private static final Logger logger = Logger.getLogger("errorLog");
     @Autowired
-    private WhiteListDao whiteListDao;
+    private BlackListDao blackListDao;
 
-    @Transactional
+    @Override
     public void deleteIpV4(String address) throws DBPersistanceException,
 	    DBIllegalArgumentException, DBIllegalStateException, DBException {
 	try {
-	    whiteListDao.deleteIpV4(address);
+	    blackListDao.deleteIpV4(address);
 	} catch (PersistenceException e) {
 	    logger.error(e);
 	    throw new DBPersistanceException("Entity manager Exception");
@@ -43,13 +40,14 @@ public class WhiteListServiceImpl implements WhiteListService {
 	    logger.error(e);
 	    throw new DBException("Data Base Exception");
 	}
+
     }
 
-    @Transactional
+    @Override
     public void deleteIpV6(String address) throws DBPersistanceException,
 	    DBIllegalArgumentException, DBIllegalStateException, DBException {
 	try {
-	    whiteListDao.deleteIpV6(address);
+	    blackListDao.deleteIpV6(address);
 	} catch (PersistenceException e) {
 	    logger.error(e);
 	    throw new DBPersistanceException("Entity manager Exception");
@@ -65,13 +63,14 @@ public class WhiteListServiceImpl implements WhiteListService {
 	    logger.error(e);
 	    throw new DBException("Data Base Exception");
 	}
+
     }
 
-    @Transactional
+    @Override
     public void saveIpV4(String address) throws DBPersistanceException,
 	    DBIllegalArgumentException, DBIllegalStateException, DBException {
 	try {
-	    whiteListDao.saveIpV4(address);
+	    blackListDao.saveIpV4(address);
 	} catch (PersistenceException e) {
 	    logger.error(e);
 	    throw new DBPersistanceException("Entity manager Exception");
@@ -87,13 +86,14 @@ public class WhiteListServiceImpl implements WhiteListService {
 	    logger.error(e);
 	    throw new DBException("Data Base Exception");
 	}
+
     }
 
-    @Transactional
+    @Override
     public void saveIpV6(String address) throws DBPersistanceException,
 	    DBIllegalArgumentException, DBIllegalStateException, DBException {
 	try {
-	    whiteListDao.saveIpV6(address);
+	    blackListDao.saveIpV6(address);
 	} catch (PersistenceException e) {
 	    logger.error(e);
 	    throw new DBPersistanceException("Entity manager Exception");
@@ -109,14 +109,15 @@ public class WhiteListServiceImpl implements WhiteListService {
 	    logger.error(e);
 	    throw new DBException("Data Base Exception");
 	}
+
     }
 
-    @Transactional
+    @Override
     public Collection<IpV4Address> loadIpV4List()
 	    throws DBPersistanceException, DBIllegalArgumentException,
 	    DBIllegalStateException, DBException {
 	try {
-	    return whiteListDao.loadAllIpV4List();
+	    return blackListDao.loadAllIpV4List();
 	} catch (PersistenceException e) {
 	    logger.error(e);
 	    throw new DBPersistanceException("Entity manager Exception");
@@ -134,12 +135,12 @@ public class WhiteListServiceImpl implements WhiteListService {
 	}
     }
 
-    @Transactional
+    @Override
     public Collection<IpV6Address> loadIpV6List()
 	    throws DBPersistanceException, DBIllegalArgumentException,
 	    DBIllegalStateException, DBException {
 	try {
-	    return whiteListDao.loadAllIpV6List();
+	    return blackListDao.loadAllIpV6List();
 	} catch (PersistenceException e) {
 	    logger.error(e);
 	    throw new DBPersistanceException("Entity manager Exception");
@@ -157,12 +158,12 @@ public class WhiteListServiceImpl implements WhiteListService {
 	}
     }
 
-    @Transactional
+    @Override
     public Collection<IpV4Address> loadIpV4ListByRange(int from, int count)
 	    throws DBPersistanceException, DBIllegalArgumentException,
 	    DBIllegalStateException, DBException {
 	try {
-	    return whiteListDao.loadIpV4ListByRange(from, count);
+	    return blackListDao.loadIpV4ListByRange(from, count);
 	} catch (PersistenceException e) {
 	    logger.error(e);
 	    throw new DBPersistanceException("Entity manager Exception");
@@ -180,12 +181,12 @@ public class WhiteListServiceImpl implements WhiteListService {
 	}
     }
 
-    @Transactional
+    @Override
     public Collection<IpV6Address> loadIpV6ListByRange(int from, int count)
 	    throws DBPersistanceException, DBIllegalArgumentException,
 	    DBIllegalStateException, DBException {
 	try {
-	    return whiteListDao.loadIpV6ListByRange(from, count);
+	    return blackListDao.loadIpV6ListByRange(from, count);
 	} catch (PersistenceException e) {
 	    logger.error(e);
 	    throw new DBPersistanceException("Entity manager Exception");

@@ -10,6 +10,8 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+	<!-- Loging into file -->
+
 	 <appender name="fileInfo" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="file" value="d:/lv-098_JAVA/logs/info.log" />
         <param name="DatePattern" value="'.'yyyy-MM-dd" />

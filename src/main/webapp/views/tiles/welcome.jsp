@@ -8,12 +8,21 @@
 </head>
 <body>
 	<center>
+<<<<<<< HEAD
 		<h2>
 			Welcome to HELL!
 			<sec:authorize access="isAuthenticated()">
 				<sec:authentication property="principal.username" />
 			</sec:authorize>
 		</h2>
+=======
+		<h2>Welcome to HELL! 
+		<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal.username" />
+		</sec:authorize>
+		</h2>
+		
+>>>>>>> 4fbc0858ea1b4f17d6b64a6e915bb10be72b4566
 	</center>
 
 </body>

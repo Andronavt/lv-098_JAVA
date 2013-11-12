@@ -9,3 +9,4 @@ public interface IpV6AddressDao {
 	List<IpV6Address> loadAllIpBySource(int sourceId);
 
 }
+

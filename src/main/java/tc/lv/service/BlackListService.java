@@ -9,7 +9,7 @@ import tc.lv.exceptions.DBIllegalArgumentException;
 import tc.lv.exceptions.DBIllegalStateException;
 import tc.lv.exceptions.DBPersistanceException;
 
-public interface WhiteListService {
+public interface BlackListService {
     public void deleteIpV4(String address) throws DBPersistanceException,
 	    DBIllegalArgumentException, DBIllegalStateException, DBException;
 
