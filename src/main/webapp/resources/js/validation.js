@@ -8,13 +8,3 @@ function validateRegForm() {
 		}
 	});
 }
-
-function AddNewFeed() {
-	$('#addNewFeed').validate();
-
-	$('#btnAddNewFeed').click(function() {
-		if ($("#addNewFeed").valid()) {
-			doAjaxAddNewFeed();
-		}
-	});
-}
