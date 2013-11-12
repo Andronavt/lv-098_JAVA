@@ -24,5 +24,22 @@
 			<div id="Info" style="color: green;"></div>
 		</form>
 	</center>
+<!-- <script type="text/javascript"> -->
+// function doAjaxPostAddIpToWhiteList() {
+// 	// get the form values
+// 	var ipAddress = $('#IP').val();
+// 	$.ajax({
+// 		type : "POST",
+// 		url : "addIpToWL",
+// 		data : "address=" + ipAddress,
+// 		success : function(response) {
+// 			$('#Info').html(response);
+// 		},
+// 		error : function(e) {
+// 			alert('Error: ' + e);
+// 		}
+// 	});
+// }
+<!-- </script> -->
 </body>
 </html>
