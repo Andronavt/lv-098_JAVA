@@ -7,8 +7,8 @@ import tc.lv.domain.IpV6Address;
 
 public interface UndefinedListDao {
 
-	Collection<IpV4Address> loadIpV4List();
+	Collection<IpV4Address> getIpV4List();
 
-	Collection<IpV6Address> loadIpV6List();
+	Collection<IpV6Address> getIpV6List();
 
 }

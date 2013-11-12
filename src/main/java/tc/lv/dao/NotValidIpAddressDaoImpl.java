@@ -1,6 +1,5 @@
 package tc.lv.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,12 +17,10 @@ public class NotValidIpAddressDaoImpl implements NotValidIpAddressDao {
 	private EntityManager entityManager;
 
 	@Override
-	public List<NotValidIp> loadAll(int sourceId) {
-		List<NotValidIp> list = new ArrayList<NotValidIp>();
-		Query q = entityManager
-			.createNamedQuery(
-				"NotValidIp.loadBySource").setParameter("id", sourceId);
-		list.addAll(q.getResultList());
+	public List<NotValidIp> getListBySource(int sourceId) {
+		Query query = entityManager.createNamedQuery("NotValidIp.loadBySource");
+		query.setParameter("id", sourceId);
+		List<NotValidIp> list = query.getResultList();
 		return list;
 	}
 }

@@ -4,19 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 import tc.lv.domain.Source;
-import tc.lv.exceptions.DBCreateSourceException;
 import tc.lv.utils.ParserInterface;
 
 public interface SourceDao {
 
-	void create(Source source) throws DBCreateSourceException;
+	void create(Source source);
 
-	Source loadByName(String sourceName);
-	
-	public Map<Source,ParserInterface> getMapOfParsers();
+	Source findByName(String sourceName);
 
-	List<Source> loadAll();
+	Map<Source, ParserInterface> getMapOfParsers();
 
-	void delete(String sourceName);
+	List<Source> getAll();
+
+	void delete(Source source);
 
 }

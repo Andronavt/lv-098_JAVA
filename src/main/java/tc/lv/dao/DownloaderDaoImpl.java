@@ -29,17 +29,14 @@ public class DownloaderDaoImpl implements DownloaderDao {
 
 	@Override
 	public void saveIpV4List(List<IpV4Address> list, int sourceId) {
-
 		Source source = entityManager.find(Source.class, sourceId);
 		if (source == null) {
 			// We can't find source for this Id
 			// TODO
 		} else {
-			long start = System.currentTimeMillis();
-			Query query = entityManager.createNamedQuery("IpV4Address.loadAll",
+			Query query = entityManager.createNamedQuery("IpV4Address.getAll",
 					IpV4Address.class);
 			Map<String, IpV4Address> map = new HashMap<String, IpV4Address>();
-			start = System.currentTimeMillis();
 			List<IpV4Address> listFromDB = query.getResultList();
 			for (IpV4Address ip : listFromDB) {
 				map.put(ip.getAddress(), ip);
@@ -67,11 +64,9 @@ public class DownloaderDaoImpl implements DownloaderDao {
 			// We can't find source for this Id
 			// TODO
 		} else {
-			long start = System.currentTimeMillis();
 			Query query = entityManager.createNamedQuery("IpV6Address.loadAll",
 					IpV6Address.class);
 			Map<String, IpV6Address> map = new HashMap<String, IpV6Address>();
-			start = System.currentTimeMillis();
 			List<IpV6Address> listFromDB = query.getResultList();
 			for (IpV6Address ip : listFromDB) {
 				map.put(ip.getAddress(), ip);

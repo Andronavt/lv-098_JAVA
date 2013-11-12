@@ -28,8 +28,8 @@ import org.hibernate.annotations.FetchMode;
 @Table(name = "ip_addresses")
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-		@NamedQuery(name = "IpAddress.loadAllNotValidIp", query = "SELECT ip FROM IpAddress ip, NotValidIp nv WHERE ip.id = nv.id"),
-		@NamedQuery(name = "IpAddress.loadAllValidIp", query = "SELECT ipO FROM IpAddress ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpAddress ipI, NotValidIp nv WHERE ipI.id = nv.id)") })
+		@NamedQuery(name = "IpAddress.getAllNotValidIp", query = "SELECT ip FROM IpAddress ip, NotValidIp nv WHERE ip.id = nv.id"),
+		@NamedQuery(name = "IpAddress.getAllValidIp", query = "SELECT ipO FROM IpAddress ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpAddress ipI, NotValidIp nv WHERE ipI.id = nv.id)") })
 public class IpAddress implements Serializable {
 
 	@Id

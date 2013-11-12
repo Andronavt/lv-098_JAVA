@@ -19,8 +19,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sources")
 @NamedQueries({
-		@NamedQuery(name = "Source.loadAll", query = "SELECT c FROM Source c"),
-		@NamedQuery(name = "Source.loadByName", query = "SELECT c FROM Source c WHERE c.sourceName  = :sourceName") })
+		@NamedQuery(name = "Source.getAll", query = "SELECT c FROM Source c"),
+		@NamedQuery(name = "Source.findByName", query = "SELECT c FROM Source c WHERE c.sourceName  = :sourceName") })
 public class Source {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,14 +58,14 @@ public class Source {
 
 	}
 
-	public Source(String parser, String sourceName, String url,  String listType, 
-		Double rank) {
+	public Source(String parser, String sourceName, String url,
+			String listType, Double rank) {
 		super();
-		this.parser= parser;
+		this.parser = parser;
 		this.sourceName = sourceName;
 		this.sourceDateAdded = new Date();
 		this.rank = rank;
-		this.dirname = "d://lv-098_JAVA//sources//"+sourceName+"//";
+		this.dirname = "d://lv-098_JAVA//sources//" + sourceName + "//";
 		this.listType = listType;
 	}
 
