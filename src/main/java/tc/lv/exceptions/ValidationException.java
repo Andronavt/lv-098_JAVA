@@ -16,4 +16,7 @@ public class ValidationException extends IPException {
 		super(msg, e);
 	}
 
+    public ValidationException(String msg, Exception e) {
+	super(msg, e);
+    }
 }

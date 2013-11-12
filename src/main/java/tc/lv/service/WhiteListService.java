@@ -5,9 +5,6 @@ import java.util.Collection;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.exceptions.DBException;
-import tc.lv.exceptions.DBIllegalArgumentException;
-import tc.lv.exceptions.DBIllegalStateException;
-import tc.lv.exceptions.DBPersistanceException;
 import tc.lv.exceptions.WhiteListServiceException;
 
 public interface WhiteListService {
