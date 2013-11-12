@@ -8,8 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8"></meta>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.0.3.js"></script>
-<script type="text/javascript"
-	src="<c:url value="/resources/js/ajax.js" />"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -19,27 +17,28 @@
 		<form class="Add-IP">
 			<label id="AddToWL">Enter the IP that you want add to
 				WhiteList: </label> <input id="IP" size="20" maxlength="50" type="text">
-			<input id="btn1" type="button" value="ADD"
-				onclick="doAjaxPostAddIpToWhiteList()"> <br>
+			<input id="btn1" type="button" value="ADD" onclick="mustChange()">
+			<br>
 			<div id="Info" style="color: green;"></div>
 		</form>
 	</center>
-<!-- <script type="text/javascript"> -->
-// function doAjaxPostAddIpToWhiteList() {
-// 	// get the form values
-// 	var ipAddress = $('#IP').val();
-// 	$.ajax({
-// 		type : "POST",
-// 		url : "addIpToWL",
-// 		data : "address=" + ipAddress,
-// 		success : function(response) {
-// 			$('#Info').html(response);
-// 		},
-// 		error : function(e) {
-// 			alert('Error: ' + e);
-// 		}
-// 	});
-// }
-<!-- </script> -->
+	<script>
+		function mustChange() {
+			// get the form values
+			alert("TEST FOR CHECK TO WORK");
+			var ipAddress = $('#IP').val();
+			$.ajax({
+				type : "POST",
+				url : "addIpToWL",
+				data : "address=" + ipAddress,
+				success : function(response) {
+					$('#Info').html(response);
+				},
+				error : function(e) {
+					alert('Error: ' + e);
+				}
+			});
+		}
+	</script>
 </body>
 </html>

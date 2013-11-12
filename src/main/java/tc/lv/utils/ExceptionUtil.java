@@ -4,20 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExceptionUtil {
-    public static List<String> createErrorList(Exception e) {
-	ArrayList<String> errorList = new ArrayList<>();
-	ArrayList<String> errorListTmp = new ArrayList<>();
-	for (StackTraceElement ste : e.getStackTrace()) {
-	    errorListTmp.add(ste.toString());
+	public static List<String> createErrorList(Exception e) {
+		ArrayList<String> errorList = new ArrayList<>();
+		ArrayList<String> errorListTmp = new ArrayList<>();
+		for (StackTraceElement ste : e.getStackTrace()) {
+			errorListTmp.add(ste.toString());
+		}
+		for (int i = 0; i < errorListTmp.size(); i++) {
+			if (errorListTmp.get(i).contains("ERROR")
+					|| errorListTmp.get(i).contains("Caused by")) {
+				errorList.add(errorListTmp.get(++i));
+				errorList.add(errorListTmp.get(++i));
+				errorList.add(errorListTmp.get(++i));
+			}
+		}
+		return errorListTmp;
 	}
-	for (int i = 0; i < errorListTmp.size(); i++) {
-	    if (errorListTmp.get(i).contains("ERROR")
-		    || errorListTmp.get(i).contains("Caused by")) {
-		errorList.add(errorListTmp.get(++i));
-		errorList.add(errorListTmp.get(++i));
-		errorList.add(errorListTmp.get(++i));
-	    }
-	}
-	return errorList;
-    }
 }
+
