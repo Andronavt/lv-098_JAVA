@@ -14,9 +14,10 @@ import org.apache.log4j.Logger;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
+import tc.lv.exceptions.DownloadException;
 
 public class ParserChaosreignsWL implements ParserInterface {
-    	private static final Logger loggerErr = Logger.getLogger("errorLog");
+	private static final Logger loggerErr = Logger.getLogger("errorLog");
 	private static final Logger loggerInfo = Logger.getLogger("infoLog");
 	private ParserResults parserResults;
 	protected static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
@@ -26,8 +27,8 @@ public class ParserChaosreignsWL implements ParserInterface {
 	}
 
 	@Override
-	public ParserResults parse(File f) {
-	    	loggerInfo.info("START PARSING ChaosreignsWL");
+	public ParserResults parse(File f) throws DownloadException {
+		loggerInfo.info("START PARSING ChaosreignsWL");
 		Pattern pattern = Pattern.compile(IP_ALL);
 		Matcher matcher;
 		Scanner line;
@@ -51,10 +52,10 @@ public class ParserChaosreignsWL implements ParserInterface {
 				}
 			}
 			line.close();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			loggerErr.error("File not found!", e);
+			throw new DownloadException("File not found", e);
 		}
-		System.out.println("IPV4SIZE "+parserResults.ipV4List.size());
 		loggerInfo.info("FINISH PARSING ChaosreignsWL");
 		return parserResults;
 	}
