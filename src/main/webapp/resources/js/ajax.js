@@ -26,7 +26,7 @@ function doAjaxPostAddIpToWhiteList() {
 	var ipAddress = $('#IP').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/AddIpToWL",
+		url : "AddIpToWL",
 		data : "address=" + ipAddress,
 		success : function(response) {
 			$('#Info').html(response);
@@ -44,7 +44,7 @@ function doAjaxPostAddIpV4() {
 	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/AddIpv4",
+		url : "/addIpv4",
 		data : "ip=" + ip + "&source=" + source,
 		success : function(response) {
 			// we have the response
@@ -53,6 +53,7 @@ function doAjaxPostAddIpV4() {
 		},
 		error : function(e) {
 			alert('Error: ' + e);
+			aler('Here');
 		}
 	});
 }
@@ -61,7 +62,7 @@ function selectSource() {
 	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/listOfSurce",
+		url : "listOfSource",
 		data : "source=" + source,
 		success : function(response) {
 			// we have the response

@@ -21,14 +21,14 @@ public class SourceController {
 	private SourceService souService;
 
 	// Get IPv4 List from Source -- get jsp
-	@RequestMapping("getIp4List")
+	@RequestMapping("/getIp4List")
 	public String getlistIpV4Page(Map<String, Object> map) {
 		map.put("listSource", souService.getListOfSourcess());
 		return "getIp4List";
 	}
 
 	// Get IPv4 List from Source -- get data from form
-	@RequestMapping(value = "listIpv4", method = RequestMethod.POST)
+	@RequestMapping(value = "/listIpv4", method = RequestMethod.POST)
 	public String getlistIpV4(Map<String, Object> map,
 			@ModelAttribute(value = "source") String source,
 			BindingResult result) {
