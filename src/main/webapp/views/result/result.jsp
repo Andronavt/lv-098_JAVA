@@ -3,9 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
 
-<p>SUCESS</p>
-<p>${addIpV4}</p>
-<p>${addIpV6}</p>
+<p>SUCCESS</p>
+<p>${successMsg}</p>
+
 <br>
 <p>ERROR</p>
 <p>${errorMsg}</p>
