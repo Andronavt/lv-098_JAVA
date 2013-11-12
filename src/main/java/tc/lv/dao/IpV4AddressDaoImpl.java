@@ -94,7 +94,7 @@ public class IpV4AddressDaoImpl implements IpV4AddressDao {
 	}
 
 	@Override
-	public void deleteFromBlackList(IpV4Address address) {
+	public void removeFromBlackList(IpV4Address address) {
 		address.setWhiteList(true);
 		entityManager.persist(address);
 	}

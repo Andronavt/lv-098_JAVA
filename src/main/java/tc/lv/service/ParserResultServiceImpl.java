@@ -8,15 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.DownloaderDao;
-import tc.lv.dao.SourceDao;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.utils.ParserResults;
 
 @Service
 public class ParserResultServiceImpl implements ParserResultService {
 	private static final Logger logger = Logger.getLogger("errorLog");
-	@Autowired
-	private SourceDao sourceDao;
 	@Autowired
 	private DownloaderDao downloaderDao;
 

@@ -8,7 +8,7 @@ import tc.lv.utils.ParserInterface;
 
 public interface SourceDao {
 
-	void create(Source source);
+	void save(Source source);
 
 	Source findByName(String sourceName);
 

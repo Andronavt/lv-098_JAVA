@@ -2,30 +2,31 @@ package tc.lv.service;
 
 import java.util.Collection;
 
-import javax.persistence.PersistenceException;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tc.lv.dao.WhiteListDao;
+import tc.lv.dao.IpV4AddressDao;
+import tc.lv.dao.IpV6AddressDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
-import tc.lv.exceptions.DBException;
 import tc.lv.exceptions.WhiteListServiceException;
 
 @Service
 public class WhiteListServiceImpl implements WhiteListService {
 	private static final Logger logger = Logger.getLogger("errorLog");
 	@Autowired
-	private WhiteListDao whiteListDao;
+	private IpV4AddressDao ipV4AddressDao;
+
+	@Autowired
+	private IpV6AddressDao ipV6AddressDao;
 
 	@Transactional
 	public void deleteIpV4(String address) throws WhiteListServiceException {
 		try {
 			IpV4Address tempIpV4 = new IpV4Address(address);
-			whiteListDao.deleteIpV4(tempIpV4);
+			ipV4AddressDao.removeFromWhiteList(tempIpV4);
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);
@@ -36,7 +37,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 	public void deleteIpV6(String address) throws WhiteListServiceException {
 		try {
 			IpV6Address tempIpV6 = new IpV6Address(address);
-			whiteListDao.deleteIpV6(tempIpV6);
+			ipV6AddressDao.removeFromWhiteList(tempIpV6);
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);
@@ -47,7 +48,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 	public void saveIpV4(String address) throws WhiteListServiceException {
 		try {
 			IpV4Address tempIpV4 = new IpV4Address(address);
-			whiteListDao.saveIpV4(tempIpV4);
+			ipV4AddressDao.save(tempIpV4);
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);
@@ -58,7 +59,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 	public void saveIpV6(String address) throws WhiteListServiceException {
 		try {
 			IpV6Address tempIpV6 = new IpV6Address(address);
-			whiteListDao.saveIpV6(tempIpV6);
+			ipV6AddressDao.save(tempIpV6);
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);
@@ -69,7 +70,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 	public Collection<IpV4Address> loadIpV4List()
 			throws WhiteListServiceException {
 		try {
-			return whiteListDao.loadAllIpV4List();
+			return ipV4AddressDao.getWhiteList();
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);
@@ -80,7 +81,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 	public Collection<IpV6Address> loadIpV6List()
 			throws WhiteListServiceException {
 		try {
-			return whiteListDao.loadAllIpV6List();
+			return ipV6AddressDao.getWhiteList();
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);
@@ -91,7 +92,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 	public Collection<IpV4Address> loadIpV4ListByRange(int from, int count)
 			throws WhiteListServiceException {
 		try {
-			return whiteListDao.loadIpV4ListByRange(from, count);
+			return ipV4AddressDao.getWhiteList(from, count);
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);
@@ -102,7 +103,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 	public Collection<IpV6Address> loadIpV6ListByRange(int from, int count)
 			throws WhiteListServiceException {
 		try {
-			return whiteListDao.loadIpV6ListByRange(from, count);
+			return ipV6AddressDao.getWhiteList(from, count);
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);

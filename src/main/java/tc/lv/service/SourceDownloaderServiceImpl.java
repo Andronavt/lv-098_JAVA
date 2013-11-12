@@ -68,11 +68,11 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 		}
 		return mapOfParsers;
 	}
-	// Don't use now
+	
 	@Transactional
 	@Override
 	public List<Source> loadSourceList() {
-		return sourceDao.loadAll();
+		return sourceDao.getAll();
 	}
 	// Don't use now
 	@Transactional

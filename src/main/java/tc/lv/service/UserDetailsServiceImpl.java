@@ -13,23 +13,23 @@ import tc.lv.domain.UserEntity;
 
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
-    
-    @Autowired
-    private UserDao dao;
-    @Autowired
-    private Assembler assembler;
 
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username)
-	    throws UsernameNotFoundException, DataAccessException {
+	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private Assembler assembler;
 
-	UserDetails userDetails = null;
-	UserEntity userEntity = dao.loadByName(username);
-	if (userEntity == null) {
-	    throw new UsernameNotFoundException("user not found");
+	@Override
+	@Transactional
+	public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException, DataAccessException {
+
+		UserDetails userDetails = null;
+		UserEntity userEntity = userDao.findByName(username);
+		if (userEntity == null) {
+			throw new UsernameNotFoundException("user not found");
+		}
+		userDetails = assembler.buildUserFromUserEntity(userEntity);
+		return userDetails;
 	}
-	userDetails = assembler.buildUserFromUserEntity(userEntity);
-	return userDetails;
-    }
 }

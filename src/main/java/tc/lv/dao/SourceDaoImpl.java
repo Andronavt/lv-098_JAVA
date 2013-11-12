@@ -24,7 +24,7 @@ public class SourceDaoImpl implements SourceDao {
 	private EntityManager entityManager;
 
 	@Override
-	public void create(Source source) {
+	public void save(Source source) {
 		entityManager.persist(source);
 	}
 

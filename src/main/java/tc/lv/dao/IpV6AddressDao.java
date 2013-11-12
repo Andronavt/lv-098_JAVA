@@ -22,6 +22,6 @@ public interface IpV6AddressDao {
 
 	List<IpV6Address> getBlackList();
 
-	void deleteFromBlackList(IpV6Address address);
+	void removeFromBlackList(IpV6Address address);
 
 }

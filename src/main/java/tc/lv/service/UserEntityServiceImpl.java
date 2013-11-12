@@ -11,35 +11,39 @@ import tc.lv.exceptions.UserEntityServiceException;
 
 @Service
 public class UserEntityServiceImpl implements UserEntityService {
-    private static final Logger logger = Logger.getLogger("errorLog");
-    
-    @Autowired
-    private UserDao userDao;
+	private static final Logger logger = Logger.getLogger("errorLog");
 
-    @Transactional
-    public void createUser(String username, String firstname, String lastname,
-	    String email, String password) throws UserEntityServiceException {
-	try {
-	    UserEntity tempUser = new UserEntity(username, firstname, lastname,
-		    email, password);
-	    userDao.createUser(tempUser);
-	} catch (Exception e) {
-	    logger.error(e);
-	    throw new UserEntityServiceException("Entity manager Exception", e);
+	@Autowired
+	private UserDao userDao;
+
+	@Transactional
+	public void createUser(String username, String firstname, String lastname,
+			String email, String password) throws UserEntityServiceException {
+		try {
+			UserEntity tempUser = new UserEntity(username, firstname, lastname,
+					email, password);
+			userDao.save(tempUser);
+		} catch (Exception e) {
+			logger.error(e);
+			throw new UserEntityServiceException("Entity manager Exception", e);
+		}
+
 	}
-
-    }
-
-    @Override
-    public void makeUserAdmin(String username)
-	    throws UserEntityServiceException {
-	try {
-	    UserEntity tempUser = userDao.loadByName(username);
-	    userDao.makeUserAdmin(tempUser);
-	} catch (Exception e) {
-	    logger.error(e);
-	    throw new UserEntityServiceException("Entity manager Exception", e);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see tc.lv.service.UserEntityService#makeUserAdmin(java.lang.String) Тут
+	 * потрібно дописати в ДАО юзерів або створити RoleDao
+	 */
+	@Override
+	public void makeUserAdmin(String username)
+			throws UserEntityServiceException {
+		// try {
+		// UserEntity tempUser = userDao.findByName(username);
+		// userDao.
+		// } catch (Exception e) {
+		// logger.error(e);
+		// throw new UserEntityServiceException("Entity manager Exception", e);
+		// }
 	}
-    }
-
 }

@@ -22,6 +22,6 @@ public interface IpV4AddressDao {
 
 	List<IpV4Address> getBlackList();
 
-	void deleteFromBlackList(IpV4Address address);
+	void removeFromBlackList(IpV4Address address);
 
 }

@@ -94,7 +94,7 @@ public class IpV6AddressDaoImpl implements IpV6AddressDao {
 	}
 
 	@Override
-	public void deleteFromBlackList(IpV6Address address) {
+	public void removeFromBlackList(IpV6Address address) {
 		address.setWhiteList(true);
 		entityManager.persist(address);
 
