@@ -17,9 +17,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -65,7 +66,7 @@ public class IpAddress implements Serializable {
 	this.whiteList = whiteList;
     }
 
-    private void setId(int id) {
+	private void setId(int id) {
 	this.id = id;
     }
 
