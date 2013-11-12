@@ -3,14 +3,36 @@ function doAjaxPostRegistration() {
 	var user_name = $('#user_name').val();
 	var first_name = $('#first_name').val();
 	var last_name = $('#last_name').val();
-	var email = $('#email').val();
+	var email = $('#e-mail').val();
 	var pass = $('#pass').val();
 	$.ajax({
 		type : "POST",
 		url : "registration",
 		data : "user_name=" + user_name + "&first_name=" + first_name
-				+ "&last_name=" + last_name + "&email=" + email + "&pass="
+				+ "&last_name=" + last_name + "&e-mail=" + email + "&pass="
 				+ pass,
+		success : function(response) {
+			// we have the response
+			$('#info').html(response);
+		},
+		error : function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
+function doAjaxAddNewFeed() {
+	// get the form values
+	var parser = $('#parser').val();
+	var sourceName = $('#sourceName').val();
+	var url = $('#url').val();
+	var listType = $('#listType').val();
+	var rank = $('#rank').val();
+	$.ajax({
+		type : "POST",
+		url : "addNewFeed",
+		data : "parser=" + parser + "&sourceName=" + sourceName
+				+ "&url=" + url + "&listType=" + listType + "&rank" + rank,
 		success : function(response) {
 			// we have the response
 			$('#info').html(response);
@@ -35,7 +57,6 @@ function doAjaxPostAddIpToWhiteList() {
 			alert('Error: ' + e);
 		}
 	});
-	return false;
 }
 
 function doAjaxPostAddIpV4() {
@@ -102,6 +123,23 @@ function getIP4List() {
 		},
 		error : function(e) {
 			alert('Error: ' + e);
+		}
+	});
+}
+
+function doAjaxUpdateSource() {
+	var parser = $('select[name=sources]').val();
+	$.ajax({
+		type : "POST",
+		url : "admin/updateSources",
+		data : "parser=" + parser,
+		success : function(response) {
+			// we have the response
+			alert('Success' + parser);
+			$('#1').html(response);
+		},
+		error : function(e) {
+			alert('Error: ' + parser);
 		}
 	});
 }

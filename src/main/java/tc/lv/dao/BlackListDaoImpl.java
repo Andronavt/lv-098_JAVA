@@ -1,3 +1,4 @@
+
 package tc.lv.dao;
 
 import java.util.ArrayList;
@@ -22,37 +23,16 @@ public class BlackListDaoImpl implements BlackListDao {
     private EntityManager entityManager;
 
     @Override
-    public List<IpV4Address> loadIpV4ListByRange(int from, int count) {
-	Query q = entityManager.createNamedQuery("IpV4Address.loadWhiteList")
-		.setParameter("whitelist", false).setFirstResult(from)
-		.setMaxResults(count);
-	ArrayList<IpV4Address> list = new ArrayList<IpV4Address>();
-	list.addAll(q.getResultList());
-	return list;
-    }
-
-    @Override
-    public List<IpV6Address> loadIpV6ListByRange(int from, int count) {
-	Query q = entityManager.createNamedQuery("IpV6Address.loadWhiteList")
-		.setParameter("whitelist", false).setFirstResult(from)
-		.setMaxResults(count);
-	ArrayList<IpV6Address> list = new ArrayList<IpV6Address>();
-	list.addAll(q.getResultList());
-	return list;
-    }
-
-    @Override
-    public List<IpV4Address> loadAllIpV4List() {
+    public List<IpV4Address> loadIpV4List() {
 	Query q = entityManager.createNamedQuery("IpV4Address.loadWhiteList")
 		.setParameter("whitelist", false);
-	;
 	ArrayList<IpV4Address> list = new ArrayList<IpV4Address>();
 	list.addAll(q.getResultList());
 	return list;
     }
 
     @Override
-    public List<IpV6Address> loadAllIpV6List() {
+    public List<IpV6Address> loadIpV6List() {
 	Query q = entityManager.createNamedQuery("IpV6Address.loadWhiteList")
 		.setParameter("whitelist", false);
 	ArrayList<IpV6Address> list = new ArrayList<IpV6Address>();

@@ -7,20 +7,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript"
+	src="<c:url value="/resources/js/ajax.js" />"></script>
+	
 <title>Insert title here</title>
 </head>
 <body>
-	Update Source
-	<br>
-	<select multiple>
-		<c:forEach var="Source" items="${listSource}">
-			<option value="${Source.getSourceId()}">${Source.getSourceName()}
-				#${Source.getSourceId()}</option>
-		</c:forEach>
-	</select>
-	<br><br>
-	<a href="updateSourcesButton"> Update </a>
-	<br><br>
-	Result: ${Result}
+	<form action="" id="updateSource">
+		<div id="1">
+			<fieldset>
+				<legend align="left">Source for update:</legend>
+				<select name="sources" size="1">
+					<c:forEach var="Source" items="${listSource}">
+						<option value="${Source.getParser()}">${Source.getSourceName()}</option>
+					</c:forEach>
+				</select> <br> 
+				<input type="button" value="Update source" onclick="doAjaxUpdateSource()">
+			<!-- 	<input align="left" id="btnUpdate" type="button" name="updateSource" value="Update source" /> -->
+			<br> Result: ${Result}
+			</fieldset>
+		</div>
+	</form>
+
 </body>
 </html>

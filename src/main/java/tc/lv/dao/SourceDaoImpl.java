@@ -1,5 +1,3 @@
-
-
 package tc.lv.dao;
 
 import java.util.HashMap;
@@ -22,63 +20,67 @@ import tc.lv.utils.ParserUceprotect;
 @Repository
 public class SourceDaoImpl implements SourceDao {
 
-    @PersistenceContext(name = "primary")
-    private EntityManager entityManager;
+	@PersistenceContext(name = "primary")
+	private EntityManager entityManager;
 
-    @Override
-    public void create(Source source) throws DBCreateSourceException {
-	Query query = entityManager.createNamedQuery("Source.loadByName",
-		Source.class);
-	Source temp = (Source) query.setParameter("sourceName",
-		source.getSourceName()).getSingleResult();
-	if (temp == null) {
-	    entityManager.persist(source);
-	} else {
-	    throw new DBCreateSourceException("That source is already exists");
+	@Override
+	public void create(Source source) throws DBCreateSourceException {
+		Query query = entityManager.createNamedQuery("Source.loadByName",
+				Source.class);
+		Source temp = (Source) query.setParameter("sourceName",
+				source.getSourceName()).getSingleResult();
+		if (temp == null) {
+			entityManager.persist(source);
+		} else {
+			throw new DBCreateSourceException("That source is already exists");
+		}
 	}
-    }
 
-    @Override
-    public Source loadByName(String sourceName) {
-	Query query = entityManager.createNamedQuery("Source.loadByName",
-		Source.class);
-	query.setParameter("sourceName", sourceName);
-	return (Source) query.getSingleResult();
-    }
-    
-    public Map<Source,ParserInterface> getMapOfParsers(){
-    	List<Source> sourceList = entityManager.createQuery("from Source").getResultList();
-    	Map<Source,ParserInterface> outputMap = new HashMap<Source, ParserInterface>();
-    	ParserInterface tempPaser = null;
-    	String checkParser;
-    	for(Source tempSource:sourceList){
-    		checkParser=tempSource.getParser();
-    		switch(checkParser){
-				case "ParserOpenBSD" :
-					tempPaser = new ParserOpenBSD();break;
-				case "ParserUceprotect" :
-					tempPaser = new ParserUceprotect();break;
-				case "ParserChaosreignsWL" :
-					tempPaser = new ParserChaosreignsWL();break;
-    		}
-    		outputMap.put(tempSource, tempPaser);
-    	}
-    	return outputMap;
-    }
+	@Override
+	public Source loadByName(String sourceName) {
+		Query query = entityManager.createNamedQuery("Source.loadByName",
+				Source.class);
+		query.setParameter("sourceName", sourceName);
+		return (Source) query.getSingleResult();
+	}
 
-    @Override
-    public List<Source> loadAll() {
-	return entityManager.createNamedQuery("Source.loadAll", Source.class)
-		.getResultList();
-    }
+	public Map<Source, ParserInterface> getMapOfParsers() {
+		List<Source> sourceList = entityManager.createQuery("from Source")
+				.getResultList();
+		Map<Source, ParserInterface> outputMap = new HashMap<Source, ParserInterface>();
+		ParserInterface tempPaser = null;
+		String checkParser;
+		for (Source tempSource : sourceList) {
+			checkParser = tempSource.getParser();
+			switch (checkParser) {
+			case "ParserOpenBSD":
+				tempPaser = new ParserOpenBSD();
+				break;
+			case "ParserUceprotect":
+				tempPaser = new ParserUceprotect();
+				break;
+			case "ParserChaosreignsWL":
+				tempPaser = new ParserChaosreignsWL();
+				break;
+			}
+			outputMap.put(tempSource, tempPaser);
+		}
+		return outputMap;
+	}
 
-    @Override
-    public void delete(String sourceName) {
-	sourceName = sourceName.trim();
-	Query query = entityManager.createNamedQuery("Source.loadByName",
-		Source.class).setParameter("sourceName", sourceName);
-	Source tempSource = (Source) query.getSingleResult();
-	entityManager.remove(tempSource);
-    }
+	@Override
+	public List<Source> loadAll() {
+		return entityManager.createNamedQuery("Source.loadAll", Source.class)
+				.getResultList();
+	}
+
+	@Override
+	public void delete(String sourceName) {
+		sourceName = sourceName.trim();
+		Query query = entityManager.createNamedQuery("Source.loadByName",
+				Source.class).setParameter("sourceName", sourceName);
+		Source tempSource = (Source) query.getSingleResult();
+		entityManager.remove(tempSource);
+	}
 
 }

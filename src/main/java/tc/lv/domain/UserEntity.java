@@ -22,7 +22,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "User.loadByName", query = "SELECT c FROM UserEntity c WHERE c.username = :username")
+@NamedQuery(name = "UserEntity.loadByName", query = "SELECT c FROM UserEntity c WHERE c.username = :username")
 public class UserEntity {
 
 	@Id
@@ -52,7 +52,7 @@ public class UserEntity {
 	private Date ltime;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id", updatable = true, nullable = true)}, inverseJoinColumns = {@JoinColumn(name = "role_id", updatable = true, nullable = true)})
+	@JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = "user_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "role_id", updatable = true, nullable = true) })
 	@Fetch(FetchMode.JOIN)
 	private Set<Role> roleSet = new HashSet<Role>();
 

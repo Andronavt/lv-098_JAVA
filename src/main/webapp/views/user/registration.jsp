@@ -48,7 +48,7 @@
 	</form>
 	
 <script type="text/javascript">
-$(document).ready(function() { validateRegForm();});
+$(document).ready(function() {validateRegForm();});
 </script>
 
 </body>
