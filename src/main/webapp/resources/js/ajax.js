@@ -48,7 +48,7 @@ function doAjaxPostAddIpToWhiteList() {
 	var ipAddress = $('#IP').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/AddIpToWL",
+		url : "addIpToWL",
 		data : "address=" + ipAddress,
 		success : function(response) {
 			$('#Info').html(response);

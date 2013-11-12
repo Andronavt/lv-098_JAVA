@@ -10,74 +10,58 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import tc.lv.exceptions.SourceServiseException;
 import tc.lv.service.SourceService;
+import tc.lv.utils.ExceptionUtil;
 
 @Controller
 public class SourceController {
 
-	@Autowired
-	private SourceService souService;
+    @Autowired
+    private SourceService souService;
 
-	// Get IPv4 List from Source -- get jsp
-	@RequestMapping("getIp4List")
-	public String getlistIpV4Page(Map<String, Object> map)
-			throws SourceServiseException {
-		try {
-			map.put("listSource", souService.getListOfSourcess());
-			return "getIp4List";
-		} catch (Exception e) {
-			throw new SourceServiseException("Could not put in map", e);
-		}
-	}
-	// Get IPv4 List from Source -- get data from form
-	// Fix on UI
-	// @RequestMapping(value = "listIpv4", method = RequestMethod.POST)
-	// public String getlistIpV4(Map<String, Object> map,
-	// @ModelAttribute(value = "source") String source,
-	// BindingResult result) throws SourceServiseException {
-	// map.put("source", source);
-	// map.put("ipList",
-	// souService.getIpV4ListFromSource(Integer.valueOf(source)));
-	// return "listIpv4";
-	// }
+    // Add new sources
+    @RequestMapping(value = "addNewFeed", method = RequestMethod.GET)
+    public String addNewFeedPage() {
+	return "addNewFeed";
+    }
 
-	// Add new sources
-	@RequestMapping(value = "addNewFeed", method = RequestMethod.GET)
-	public String addNewFeedPage() {
-		return "addNewFeed";
+    // Add new sources
+    @RequestMapping(value = "/newFeed", method = RequestMethod.POST)
+    public String addNewFeed(@ModelAttribute(value = "parser") String parser,
+	    @ModelAttribute(value = "sourceName") String sourceName,
+	    @ModelAttribute(value = "url") String url,
+	    @ModelAttribute(value = "listType") String listType,
+	    @ModelAttribute(value = "rank") String rank, Map<String, Object> map) {
+	try {
+	    souService.addNewFeed(parser, sourceName, url, listType,
+		    Double.parseDouble(rank));
+	    return "addNewFeed";
+	} catch (SourceServiseException e) {
+	    map.put("errorList", ExceptionUtil.createErrorList(e));
+	    map.put("errorMsg", e.getMessage());
+	    return "result";
 	}
+    }
 
-	@RequestMapping(value = "/newFeed", method = RequestMethod.POST)
-	public String addNewFeed(@ModelAttribute(value = "parser") String parser,
-			@ModelAttribute(value = "sourceName") String sourceName,
-			@ModelAttribute(value = "url") String url,
-			@ModelAttribute(value = "listType") String listType,
-			@ModelAttribute(value = "rank") String rank)
-			throws SourceServiseException {
-		try {
-			souService.addNewFeed(parser, sourceName, url, listType,
-					Double.parseDouble(rank));
-			return "addNewFeed";
-		} catch (Exception e) {
-			throw new SourceServiseException("Could not add new feed", e);
-		}
-	}
+    // Delete new sources
+    @RequestMapping(value = "/listOfSource", method = RequestMethod.GET)
+    public String deleteSourcePage(Map<String, Object> map)
+	    throws SourceServiseException {
+	map.put("listSource", souService.getListOfSourcess());
+	return "listOfSource";
+    }
 
-	@RequestMapping(value = "/listOfSource", method = RequestMethod.GET)
-	public String deleteSourcePage(Map<String, Object> map)
-			throws SourceServiseException {
-		map.put("listSource", souService.getListOfSourcess());
-		return "listOfSource";
+    // Delete new sources
+    @RequestMapping(value = "/listOfSurce", method = RequestMethod.POST)
+    public String deleteSource(@ModelAttribute(value = "source") String source,
+	    Map<String, Object> map) {
+	try {
+	    souService.deleteFeed(source);
+	    return "listOfSource";
+	} catch (SourceServiseException e) {
+	    map.put("errorList", ExceptionUtil.createErrorList(e));
+	    map.put("errorMsg", e.getMessage());
+	    return "result";
 	}
-
-	@RequestMapping(value = "/listOfSurce", method = RequestMethod.POST)
-	public String deleteSource(@ModelAttribute(value = "source") String source)
-			throws SourceServiseException {
-		try {
-			souService.deleteFeed(source);
-			return "listOfSource";
-		} catch (Exception e) {
-			throw new SourceServiseException("Could not delete new feed", e);
-		}
-	}
+    }
 
 }
