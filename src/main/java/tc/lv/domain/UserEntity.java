@@ -22,7 +22,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "UserEntity.loadByName", query = "SELECT c FROM UserEntity c WHERE c.username = :username")
+@NamedQuery(name = "UserEntity.findByName", query = "SELECT c FROM UserEntity c WHERE c.username = :username")
 public class UserEntity {
 
 	@Id
@@ -177,4 +177,7 @@ public class UserEntity {
 		return true;
 	}
 
+	public void addRoleToUser(Role role) {
+		roleSet.add(role);
+	}
 }

@@ -9,10 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
+@NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.role = :roleName")
 public class Role {
 
 	@Id

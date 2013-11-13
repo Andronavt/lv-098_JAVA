@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import tc.lv.domain.Role;
 import tc.lv.domain.UserEntity;
 
 @Repository
@@ -33,4 +34,16 @@ public class UserDaoImpl implements UserDao {
 		entityManager.persist(user);
 	}
 
+	@Override
+	public Role findRoleByName(String roleName) {
+		Query query = entityManager.createNamedQuery("UserEntity.loadByName",
+				UserEntity.class).setParameter("username", roleName);
+		Role role;
+		try {
+			role = (Role) query.getSingleResult();
+			return role;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }
