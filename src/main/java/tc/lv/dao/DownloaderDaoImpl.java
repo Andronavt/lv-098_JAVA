@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import tc.lv.domain.IpAddress;
@@ -22,7 +21,6 @@ import tc.lv.utils.ParserResults;
 
 @Repository
 public class DownloaderDaoImpl implements DownloaderDao {
-	private static final Logger loggerInfo = Logger.getLogger("infoLog");
 
 	@PersistenceContext(name = "primary")
 	private EntityManager entityManager;

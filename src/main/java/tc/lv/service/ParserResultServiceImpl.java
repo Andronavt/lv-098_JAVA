@@ -13,7 +13,7 @@ import tc.lv.utils.ParserResults;
 
 @Service
 public class ParserResultServiceImpl implements ParserResultService {
-	private static final Logger logger = Logger.getLogger("errorLog");
+	private static final Logger logger = Logger.getLogger(ParserResultServiceImpl.class);
 	@Autowired
 	private DownloaderDao downloaderDao;
 
