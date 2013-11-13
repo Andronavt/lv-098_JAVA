@@ -14,12 +14,12 @@ $(document).ready(function() {
 
 			urlIn : {
 				required : true,
-				url: true,
+				url : true,
 			},
 
 			rankIn : {
 				required : true,
-				range: [0.0, 1.0]
+				range : [ 0.0, 1.0 ]
 			},
 
 		},
@@ -36,14 +36,14 @@ $(document).ready(function() {
 
 			urlIn : {
 				required : "Please insert url for upload.",
-				url: "Insert correct url",
+				url : "Insert correct url",
 			},
 
 			rankIn : {
 				required : "Please insert rank of source.",
-				range: "Insert correct rank 0.0 --> 1.0",
+				range : "Insert correct rank 0.0 --> 1.0",
 			},
-			
+
 		},
 
 	});

@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import tc.lv.domain.Role;
 import tc.lv.domain.UserEntity;
 
 @Repository
@@ -17,7 +18,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public UserEntity findByName(String name) {
-		Query query = entityManager.createNamedQuery("UserEntity.loadByName",
+		Query query = entityManager.createNamedQuery("UserEntity.findByName",
 				UserEntity.class).setParameter("username", name);
 		UserEntity foundUser;
 		try {
@@ -33,4 +34,16 @@ public class UserDaoImpl implements UserDao {
 		entityManager.persist(user);
 	}
 
+	@Override
+	public Role findRoleByName(String roleName) {
+		Query query = entityManager.createNamedQuery("UserEntity.loadByName",
+				UserEntity.class).setParameter("username", roleName);
+		Role role;
+		try {
+			role = (Role) query.getSingleResult();
+			return role;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }
