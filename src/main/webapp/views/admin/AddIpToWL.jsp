@@ -35,12 +35,10 @@
 			<input id="IP" type="text" name="addIp" size="20" maxlength="50">
 
 			<br>
-			<div id="Info" style="color: green;"></div>
-
 		</form>
 	</fieldset>
 	<input id="btnAddIp" type="button" name="addIp" value="ADD">
-
+	<div id="Info" style="color: green;"></div>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			validateIpAddress();
