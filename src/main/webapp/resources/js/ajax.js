@@ -55,6 +55,7 @@ function doAjaxPostAddIpToWhiteList() {
 			$('#Info').html(response);
 		},
 		error : function(e) {
+			alert('address' + ipAddress);
 			alert('Error: ' + e);
 		}
 	});

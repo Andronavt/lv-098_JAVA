@@ -1,6 +1,7 @@
 package tc.lv.service;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.IpV4AddressDao;
 import tc.lv.dao.IpV6AddressDao;
+import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.exceptions.WhiteListServiceException;
@@ -21,6 +23,9 @@ public class WhiteListServiceImpl implements WhiteListService {
 
 	@Autowired
 	private IpV6AddressDao ipV6AddressDao;
+
+	@Autowired
+	private SourceDao sourceDao;
 
 	@Transactional
 	public void deleteIpV4(String address) throws WhiteListServiceException {
@@ -57,9 +62,14 @@ public class WhiteListServiceImpl implements WhiteListService {
 	public void saveIpV4(String address) throws WhiteListServiceException {
 		try {
 			IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
-			if (tempIpV4 == null)
+			if (tempIpV4 == null) {
+				tempIpV4 = new IpV4Address(address, new Date());
+				tempIpV4.getSourceSet().add(
+						sourceDao.findByName("Admin Whitelist"));
+				tempIpV4.setWhiteList(true);
+
 				ipV4AddressDao.save(tempIpV4);
-			else {
+			} else {
 				throw new WhiteListServiceException(
 						"There is such ip in WhiteList");
 			}
