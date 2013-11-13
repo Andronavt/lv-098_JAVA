@@ -37,6 +37,7 @@ public class DownloaderDaoImpl implements DownloaderDao {
 			String queryName = list.get(1).getClass().getSimpleName();
 			Query query = entityManager.createNamedQuery(queryName + ".getAll");
 			Map<String, IpAddress> map = new HashMap<String, IpAddress>();
+
 			@SuppressWarnings("unchecked")
 			List<IpAddress> listFromDB = query.getResultList();
 			for (IpAddress ip : listFromDB) {
@@ -68,6 +69,8 @@ public class DownloaderDaoImpl implements DownloaderDao {
 			Query query = entityManager.createNamedQuery("IpV4Address.getAll",
 					IpV4Address.class);
 			Map<String, IpV4Address> map = new HashMap<String, IpV4Address>();
+
+			@SuppressWarnings("unchecked")
 			List<IpV4Address> listFromDB = query.getResultList();
 			for (IpV4Address ip : listFromDB) {
 				map.put(ip.getAddress(), ip);
@@ -99,6 +102,8 @@ public class DownloaderDaoImpl implements DownloaderDao {
 			Query query = entityManager.createNamedQuery("IpV6Address.getAll",
 					IpV6Address.class);
 			Map<String, IpV6Address> map = new HashMap<String, IpV6Address>();
+
+			@SuppressWarnings("unchecked")
 			List<IpV6Address> listFromDB = query.getResultList();
 			for (IpV6Address ip : listFromDB) {
 				map.put(ip.getAddress(), ip);
@@ -127,11 +132,11 @@ public class DownloaderDaoImpl implements DownloaderDao {
 			// We can't find source for this Id
 			// TODO
 		} else {
-			long start = System.currentTimeMillis();
 			Query query = entityManager.createNamedQuery("NotValidIp.getAll",
 					NotValidIp.class);
 			Map<String, NotValidIp> map = new HashMap<String, NotValidIp>();
-			start = System.currentTimeMillis();
+
+			@SuppressWarnings("unchecked")
 			List<NotValidIp> listFromDB = query.getResultList();
 			for (NotValidIp ip : listFromDB) {
 				map.put(ip.getAddress(), ip);
@@ -153,16 +158,18 @@ public class DownloaderDaoImpl implements DownloaderDao {
 
 	@Override
 	public void save(ParserResults parser) {
-		loggerInfo.info("START UPDATE IpV4List (" + parser.getIpV4List().size()
-				+ " ip's)");
+		// loggerInfo.info("START UPDATE IpV4List (" +
+		// parser.getIpV4List().size()
+		// + " ip's)");
 		saveList(parser.getIpV4List(), parser.getSourceId());
-		loggerInfo.info("START UPDATE IpV6List (" + parser.getIpV6List().size()
-				+ " ip's)");
+		// loggerInfo.info("START UPDATE IpV6List (" +
+		// parser.getIpV6List().size()
+		// + " ip's)");
 		saveList(parser.getIpV6List(), parser.getSourceId());
-		loggerInfo.info("START UPDATE NotValidList ("
-				+ parser.getNotValidList().size() + " ip's)");
+		// loggerInfo.info("START UPDATE NotValidList ("
+		// + parser.getNotValidList().size() + " ip's)");
 		saveList(parser.getNotValidList(), parser.getSourceId());
-		loggerInfo.info("UPDATE ALL LISTS IN CURRENT SOURCE");
+		// loggerInfo.info("UPDATE ALL LISTS IN CURRENT SOURCE");
 	}
 
 	@Override
@@ -170,6 +177,7 @@ public class DownloaderDaoImpl implements DownloaderDao {
 	public void updateWhiteList() {
 		Query query = entityManager.createNamedQuery("IpAddress.getAllValidIp",
 				IpAddress.class);
+		@SuppressWarnings("unchecked")
 		List<IpAddress> list = query.getResultList();
 
 		for (IpAddress ip : list) {

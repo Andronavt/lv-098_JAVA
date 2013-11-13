@@ -11,4 +11,6 @@ public interface UserDao {
 
 	Role findRoleByName(String roleName);
 
+	void remove(UserEntity user);
+
 }
