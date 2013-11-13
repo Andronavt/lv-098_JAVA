@@ -31,14 +31,14 @@ function doAjaxAddNewFeed() {
 	$.ajax({
 		type : "POST",
 		url : "addNewFeed",
-		data : "parser=" + parser + "&sourceName=" + sourceName
-				+ "&url=" + url + "&listType=" + listType + "&rank" + rank,
+		data : "parser=" + parser + "&sourceName=" + sourceName + "&url=" + url
+				+ "&listType=" + listType + "&rank=" + rank,
 		success : function(response) {
 			// we have the response
 			$('#info').html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + parser + sourceName + url);
+			alert('Error: ' + parser + sourceName + url + listType + rank, e);
 		}
 	});
 }
