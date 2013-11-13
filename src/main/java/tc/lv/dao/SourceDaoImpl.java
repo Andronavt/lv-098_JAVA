@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import tc.lv.domain.Source;
+import tc.lv.domain.IpAddress;
 import tc.lv.utils.ParserChaosreignsWL;
 import tc.lv.utils.ParserInterface;
 import tc.lv.utils.ParserOpenBSD;
@@ -75,7 +76,18 @@ public class SourceDaoImpl implements SourceDao {
 
 	@Override
 	public void delete(Source source) {
-		entityManager.remove(source);
+	    Query query = entityManager.createNamedQuery("Source.findByName",
+			Source.class).setParameter("sourceName", source);
+		Source tempSource = (Source) query.getSingleResult();
+		for (IpAddress address : tempSource.getIpSet()) {
+		    address.getSourceSet().remove(tempSource);
+		    if(address.getSourceSet().size()==0)
+		    {
+			entityManager.remove(address);
+		    }
+		}
+		tempSource.getIpSet().clear();
+		entityManager.remove(tempSource);
 	}
 
 }
