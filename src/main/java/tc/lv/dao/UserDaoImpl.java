@@ -36,7 +36,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Role findRoleByName(String roleName) {
-		Query query = entityManager.createNamedQuery("UserEntity.loadByName",
+		Query query = entityManager.createNamedQuery("UserEntity.findByName",
 				UserEntity.class).setParameter("username", roleName);
 		Role role;
 		try {

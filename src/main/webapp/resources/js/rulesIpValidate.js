@@ -4,7 +4,7 @@ $(document).ready(function() {
 		    'regexp',
 		    function(value, element, regexp) {
 				  var re = new RegExp(regexp);
-		        return this.optional(element) || re.test(value);
+		        return  re.test(value);
 		    },
 		    "Please check your input."
 		); 
@@ -13,7 +13,7 @@ $(document).ready(function() {
 		 rules: {
 			 addIp: {
 				 required : true,
-				 regexp: '(^([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\.([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\.([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\.([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]))|([a-f0-9]{1,4}:([a-f0-9]{0,4}:){1,6}[a-f0-9]{1,4})$',
+				 regexp: '((([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])|([a-f0-9]{1,4}:([a-f0-9]{0,4}:){1,6}[a-f0-9]{1,4}))$',
 		        },
 		    },
 		    
