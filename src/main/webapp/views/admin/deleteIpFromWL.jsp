@@ -6,24 +6,46 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8"></meta>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-2.0.3.js"></script>
-<script type="text/javascript"
+	<title>Insert title here</title>
+	<script type="text/javascript"
 	src="<c:url value="/resources/js/ajax.js" />"></script>
-<title>Insert title here</title>
+
+<!-- 	validation -->
+<script type="text/javascript"
+	src="<c:url value="/resources/js/jquery-1.5.2.min.js" />"></script>
+
+<script type="text/javascript"
+	src="<c:url value="/resources/js/jquery.validate.min.js" />"></script>
+
+<script type="text/javascript"
+	src="<c:url value="/resources/js/validationIpDeleting.js" />"></script>
+	
+<script type="text/javascript"
+	src="<c:url value="/resources/js/rulesIpDeleting.js" />"></script>
+
+<link href="<c:url value="/resources/css/validation.css" />"
+	rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<center>
-		<h2>Delete IP from WhiteList</h2>
+		<fieldset>
+		
+		<legend style="color: green">Delete IP from WhiteList</legend>
+		
+			<form class="Delete-IP" id="deleteIp" method="post" name="deleteFromWL">
+		
+				<div>Insert ip for deleting:</div>
+				<input id="ipForRemove" type="text" name="deleteIpIn" size="20" maxlength="50">
+			</form>
+			
+		</fieldset>
+		<br>
+		<input id="btnDeleteIp" type="button" name="deleteIp" value="DELETE">
+		
+	<script type="text/javascript">
 
-		<form class="Delete-IP">
-			<label id="Label">Enter the IP that you want to remove: </label> <input
-				id="IpRemoveStr" size="20" maxlength="50" type="text"> <input
-				id="btn1" type="button" value="DELETE"
-				onclick="doAjaxPostDeleteIp()"> <br>
-			<div id="Info" style="color: green;"></div>
-		</form>
-	</center>
+		$(document).ready(function() {validateIpDeleting();});
+	
+	</script>
+		
 </body>
-
 </html>
