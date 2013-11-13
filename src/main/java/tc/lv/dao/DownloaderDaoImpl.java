@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import tc.lv.domain.IpAddress;
@@ -22,6 +23,8 @@ import tc.lv.utils.ParserResults;
 @Repository
 public class DownloaderDaoImpl implements DownloaderDao {
 
+	private static final Logger loggerInfo = Logger.getLogger("infoLog");
+
 	@PersistenceContext(name = "primary")
 	private EntityManager entityManager;
 
@@ -32,7 +35,10 @@ public class DownloaderDaoImpl implements DownloaderDao {
 			// We can't find source for this Id
 			// TODO
 		} else {
-			String queryName = list.get(1).getClass().getSimpleName();
+			if (list.size() < 1) {
+				return;
+			}
+			String queryName = list.get(0).getClass().getSimpleName();
 			Query query = entityManager.createNamedQuery(queryName + ".getAll");
 			Map<String, IpAddress> map = new HashMap<String, IpAddress>();
 
@@ -156,18 +162,16 @@ public class DownloaderDaoImpl implements DownloaderDao {
 
 	@Override
 	public void save(ParserResults parser) {
-		// loggerInfo.info("START UPDATE IpV4List (" +
-		// parser.getIpV4List().size()
-		// + " ip's)");
+		loggerInfo.info("START UPDATE IpV4List (" + parser.getIpV4List().size()
+				+ " ip's)");
 		saveList(parser.getIpV4List(), parser.getSourceId());
-		// loggerInfo.info("START UPDATE IpV6List (" +
-		// parser.getIpV6List().size()
-		// + " ip's)");
+		loggerInfo.info("START UPDATE IpV6List (" + parser.getIpV6List().size()
+				+ " ip's)");
 		saveList(parser.getIpV6List(), parser.getSourceId());
-		// loggerInfo.info("START UPDATE NotValidList ("
-		// + parser.getNotValidList().size() + " ip's)");
+		loggerInfo.info("START UPDATE NotValidList ("
+				+ parser.getNotValidList().size() + " ip's)");
 		saveList(parser.getNotValidList(), parser.getSourceId());
-		// loggerInfo.info("UPDATE ALL LISTS IN CURRENT SOURCE");
+		loggerInfo.info("UPDATE ALL LISTS IN CURRENT SOURCE");
 	}
 
 	@Override
