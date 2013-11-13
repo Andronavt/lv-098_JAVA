@@ -38,13 +38,14 @@ function doAjaxAddNewFeed() {
 			$('#info').html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + parser + sourceName + url);
+			alert('Error: ' + parser);
 		}
 	});
 }
 
 function doAjaxPostAddIpToWhiteList() {
 	// get the form values
+	alert("TEST FOR CHECK TO WORK");
 	var ipAddress = $('#IP').val();
 	$.ajax({
 		type : "POST",
