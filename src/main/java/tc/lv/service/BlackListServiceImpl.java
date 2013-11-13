@@ -14,7 +14,7 @@ import tc.lv.domain.IpV6Address;
 import tc.lv.exceptions.BlackListServiceException;
 
 public class BlackListServiceImpl implements BlackListService {
-	private static final Logger logger = Logger.getLogger("errorLog");
+	private static final Logger logger = Logger.getLogger(BlackListServiceImpl.class);
 	@Autowired
 	private IpV4AddressDao ipV4AddressDao;
 
