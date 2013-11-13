@@ -25,8 +25,13 @@ public class WhiteListServiceImpl implements WhiteListService {
 	@Transactional
 	public void deleteIpV4(String address) throws WhiteListServiceException {
 		try {
-			IpV4Address tempIpV4 = new IpV4Address(address);
-			ipV4AddressDao.removeFromWhiteList(tempIpV4);
+			IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
+			if (tempIpV4 != null)
+				ipV4AddressDao.removeFromWhiteList(tempIpV4);
+			else {
+				throw new WhiteListServiceException(
+						"There is no such ip in database");
+			}
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);
@@ -36,19 +41,28 @@ public class WhiteListServiceImpl implements WhiteListService {
 	@Transactional
 	public void deleteIpV6(String address) throws WhiteListServiceException {
 		try {
-			IpV6Address tempIpV6 = new IpV6Address(address);
-			ipV6AddressDao.removeFromWhiteList(tempIpV6);
+			IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
+			if (tempIpV6 != null)
+				ipV6AddressDao.removeFromWhiteList(tempIpV6);
+			else {
+				throw new WhiteListServiceException(
+						"There is no such ip in database");
+			}
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);
 		}
 	}
-
 	@Transactional
 	public void saveIpV4(String address) throws WhiteListServiceException {
 		try {
-			IpV4Address tempIpV4 = new IpV4Address(address);
-			ipV4AddressDao.save(tempIpV4);
+			IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
+			if (tempIpV4 == null)
+				ipV4AddressDao.save(tempIpV4);
+			else {
+				throw new WhiteListServiceException(
+						"There is such ip in WhiteList");
+			}
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);
@@ -58,8 +72,13 @@ public class WhiteListServiceImpl implements WhiteListService {
 	@Transactional
 	public void saveIpV6(String address) throws WhiteListServiceException {
 		try {
-			IpV6Address tempIpV6 = new IpV6Address(address);
-			ipV6AddressDao.save(tempIpV6);
+			IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
+			if (tempIpV6 == null)
+				ipV6AddressDao.save(tempIpV6);
+			else {
+				throw new WhiteListServiceException(
+						"There is such ip in WhiteList");
+			}
 		} catch (Exception e) {
 			logger.error(e);
 			throw new WhiteListServiceException("Entity manager Exception", e);

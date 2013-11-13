@@ -1,15 +1,26 @@
 $(document).ready(function() {
-	$("#ipAddForm").validate({
+
+	jQuery.validator.addMethod(
+		    'regexp',
+		    function(value, element, regexp) {
+				  var re = new RegExp(regexp);
+		        return  re.test(value);
+		    },
+		    "Please check your input."
+		); 
+	
+	$("#addIpToWL").validate({
 		 rules: {
-			 
-		        login: {
-		            regexp: '\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b'
+			 addIp: {
+				 required : true,
+				 regexp: '((([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])|([a-f0-9]{1,4}:([a-f0-9]{0,4}:){1,6}[a-f0-9]{1,4}))$',
 		        },
 		    },
 		    
 		    messages: {
-		        login: {
-		            regexp: 'Логин может состоять только из латинских букв, цифр и знака подчеркивания'
+		    	addIp: {
+		    		required : "Input ip address",
+		    		regexp: "Input correct ip",
 		        }
 		    }
 	});
