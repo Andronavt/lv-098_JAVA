@@ -38,7 +38,13 @@ public class SourceDownloadController {
     // Getting updateSourcesPag.jsp
     @RequestMapping("/updateSources")
     public String getlistIpV4(Map<String, Object> map) {
-	map.put("listSource", sourceDownloaderService.loadSourceList());
+	try {
+	    map.put("listSource", sourceDownloaderService.loadSourceList());
+	} catch (SourceDownloaderServiceException e) {
+	    map.put("errorList", ExceptionUtil.createErrorList(e));
+	    map.put("errorMsg", e.getMessage());
+	    return "result";
+	}
 	return "updateSources";
     }
 
