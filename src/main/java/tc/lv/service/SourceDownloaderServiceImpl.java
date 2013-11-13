@@ -38,9 +38,9 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 	    File file;
 	    Set<Source> sourceSet = parserMap.keySet();
 	    for (String sourceName : sourceNameList) {
-		logger.info("for 1" + sourceName); 
+		logger.info("for 1" + sourceName);
 		for (Source source : sourceSet) {
-		    logger.info("for 2" + source); 
+		    logger.info("for 2" + source);
 		    if (source.getSourceName().equals(sourceName)) {
 			logger.info("Start downloading from" + source.getUrl());
 			file = downloader.downloadFile(source.getUrl(),
@@ -60,6 +60,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 	}
     }
 
+    // Don't use now
     @Transactional
     @Override
     public Map<Source, ParserInterface> getMapOfParsers()
@@ -88,7 +89,6 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 	}
     }
 
-    // Don't use now
     @Transactional
     @Override
     public Map<Source, ParserInterface> createParserMap(List<Source> sourceList)
