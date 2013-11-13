@@ -32,7 +32,8 @@
 				url : "addIpToWL",
 				data : "address=" + ipAddress,
 				success : function(response) {
-					$('#Info').html(response);
+					// 					$('#Info').html(response);
+					location.href = "result";
 				},
 				error : function(e) {
 					alert('Error: ' + e);
