@@ -32,13 +32,17 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 	    Map<Source, ParserInterface> parserMap)
 	    throws SourceDownloaderServiceException {
 	try {
+	    logger.info("Start downloading!!!!!!");
 	    Downloader downloader = new Downloader();
 	    List<ParserResults> resultList = new ArrayList<ParserResults>();
 	    File file;
 	    Set<Source> sourceSet = parserMap.keySet();
 	    for (String sourceName : sourceNameList) {
+		logger.info("for 1" + sourceName); 
 		for (Source source : sourceSet) {
+		    logger.info("for 2" + source); 
 		    if (source.getSourceName().equals(sourceName)) {
+			logger.info("Start downloading from" + source.getUrl());
 			file = downloader.downloadFile(source.getUrl(),
 				source.getDirname());
 			ParserResults tmp = parserMap.get(source).parse(file);
@@ -91,23 +95,25 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 	    throws SourceDownloaderServiceException {
 	Map<Source, ParserInterface> parserMap = new HashMap<Source, ParserInterface>();
 	for (Source source : sourceList) {
-	    Class parserClass;
-	    try {
-		parserClass = Class.forName(source.getParser());
-	    } catch (Exception e) {
-		logger.error(e);
-		throw new SourceDownloaderServiceException(
-			"Can't find Class of Parser!", e);
+	    if (source.getParser() != null) {
+		Class parserClass;
+		try {
+		    parserClass = Class.forName(source.getParser());
+		} catch (Exception e) {
+		    logger.error(e);
+		    throw new SourceDownloaderServiceException(
+			    "Can't find Class of Parser!", e);
+		}
+		ParserInterface parser = null;
+		try {
+		    parser = (ParserInterface) parserClass.newInstance();
+		} catch (Exception e) {
+		    logger.error(e);
+		    throw new SourceDownloaderServiceException(
+			    "class of Parser cannot be instantiated!", e);
+		}
+		parserMap.put(source, parser);
 	    }
-	    ParserInterface parser = null;
-	    try {
-		parser = (ParserInterface) parserClass.newInstance();
-	    } catch (Exception e) {
-		logger.error(e);
-		throw new SourceDownloaderServiceException(
-			"class of Parser cannot be instantiated!", e);
-	    }
-	    parserMap.put(source, parser);
 	}
 	return parserMap;
     }

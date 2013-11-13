@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.exceptions.SourceDownloaderServiceException;
@@ -32,9 +31,6 @@ public class SourceDownloadController {
 
     @Autowired
     private ParserResultService parserResultService;
-
-    @Autowired
-    private SourceDao sourceDao;
 
     // Getting updateSourcesPag.jsp
     @RequestMapping("/updateSources")
@@ -58,32 +54,38 @@ public class SourceDownloadController {
     // Map<String, Object> map) {
 
     // Updating Sources
-    @RequestMapping(value = "/updateSourcesButton", method = RequestMethod.GET)
-    public String sourceDownloader(Map<String, Object> map) {
+    @RequestMapping(value = "/updateSourcesButton", method = RequestMethod.POST)
+    public String sourceDownloader(
+	    @ModelAttribute(value = "source") String sourceName,
+	    Map<String, Object> map) {
 	// ----!!!Test block!!!------
-	String name1 = "OpenBSD traplist";
-	String name2 = "Nixspam list";
-	String name3 = "Chaosreigns Whitelist";
+	// String name1 = "OpenBSD traplist";
+	// String name2 = "Nixspam list";
+	// String name3 = "Chaosreigns Whitelist";
 	List<String> sourceNameList = new ArrayList<String>();
-	sourceNameList.add(name1);
-	sourceNameList.add(name2);
-	sourceNameList.add(name3);
+	logger.info("SOURCE:" + sourceName);
+	sourceNameList.add(sourceName);
+	// sourceNameList.add(name1);
+	// sourceNameList.add(name2);
+	// sourceNameList.add(name3);
 
 	// List<String> sourceNameList = new
 	// ArrayList<String>(Arrays.asList(sourceNameArray));
 	try {
 	    logger.info("Create MAP of sources and Parsers");
-	    Map<Source, ParserInterface> parserMap = sourceDao
-		    .getMapOfParsers();
-	    logger.info("Create MAP of sources and Parsers");
+	    // Map<Source, ParserInterface> parserMap = sourceDownloaderService
+	    // .getMapOfParsers();
+	    List<Source> sourceList = sourceDownloaderService.loadSourceList();
+	    Map<Source, ParserInterface> parserMap = sourceDownloaderService
+		    .createParserMap(sourceList);
 	    List<ParserResults> parserResultList = null;
 	    logger.info("Start downloading, parsing and updating Data Base");
-
 	    parserResultList = sourceDownloaderService.downloadParseData(
 		    sourceNameList, parserMap);
 	    parserResultService.saveAllSources(parserResultList);
+	    logger.info("Finish downloading, parsing and updating Data Base");
 	    map.put("Result", "Sources UPDATED!!!");
-	    return "updateSources";
+	    return "result";
 	} catch (SourceDownloaderServiceException
 		| ParserResultServiceException e) {
 	    map.put("errorList", ExceptionUtil.createErrorList(e));

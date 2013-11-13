@@ -22,12 +22,13 @@
 				<legend align="left">Source for update:</legend>
 				<select name="sources" size="1">
 					<c:forEach var="Source" items="${listSource}">
-						<option value="${Source.getParser()}">${Source.getSourceName()}</option>
+						<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
 					</c:forEach>
 				</select> <br> 
 				<input type="button" value="Update source" onclick="doAjaxUpdateSource()">
 			<!-- 	<input align="left" id="btnUpdate" type="button" name="updateSource" value="Update source" /> -->
-			<br> Result: ${Result}
+			<br> Result: 
+			<div id="updateSource" style="color: green;"></div>
 			</fieldset>
 		</div>
 	</form>
