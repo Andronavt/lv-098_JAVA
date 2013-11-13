@@ -54,8 +54,8 @@
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
-		<appender-ref ref="console" />
 		<appender-ref ref="file" />
+		<appender-ref ref="console" />
 	</root>
 
 </log4j:configuration>
