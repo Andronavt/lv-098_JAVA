@@ -12,8 +12,8 @@ import javax.persistence.Table;
 @Table(name = "not_valid_ip")
 @PrimaryKeyJoinColumn(name = "id")
 @NamedQueries({
-		@NamedQuery(name = "NotValidIp.findByAddress", query = "SELECT c from NotValidIp c WHERE c.address= :address"),
-		@NamedQuery(name = "NotValidIp.getBySource", query = "SELECT ip FROM NotValidIp ip, Source s JOIN ip.sourceSet ipS JOIN s.ipSet sIp WHERE ipS.sourceId = :id AND sIp.id = ip.id") })
+		@NamedQuery(name = "NotValidIp.findByAddress", query = "SELECT ip from NotValidIp ip WHERE ip.address= :address"),
+		@NamedQuery(name = "NotValidIp.getBySource", query = "SELECT ip from NotValidIp ip join ip.sourceSet s where s.sourceId= :id") })
 public class NotValidIp extends IpAddress {
 
 	public NotValidIp() {
