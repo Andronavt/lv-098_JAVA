@@ -22,7 +22,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "UserEntity.loadByName", query = "SELECT c FROM UserEntity c WHERE c.username = :username")
+@NamedQuery(name = "UserEntity.findByName", query = "SELECT c FROM UserEntity c WHERE c.username = :username")
 public class UserEntity {
 
 	@Id
@@ -30,7 +30,7 @@ public class UserEntity {
 	@Column(name = "id", nullable = false)
 	private int userId;
 
-	@Column(name = "username", nullable = false)
+	@Column(name = "username", nullable = false, unique = true)
 	private String username;
 
 	@Column(name = "firstname", nullable = true)
@@ -62,7 +62,6 @@ public class UserEntity {
 
 	public UserEntity(String username, String email, String password,
 			Set<Role> roleSet) {
-		super();
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -71,7 +70,6 @@ public class UserEntity {
 
 	public UserEntity(String username, String firstname, String lastname,
 			String email, String password) {
-		super();
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -177,4 +175,11 @@ public class UserEntity {
 		return true;
 	}
 
+	public void addRoleToUser(Role role) {
+		getRoleSet().add(role);
+	}
+
+	public void removeRoleFromUser(Role role) {
+		getRoleSet().remove(role);
+	}
 }

@@ -26,25 +26,26 @@ function doAjaxAddNewFeed() {
 	var parser = $('#parser').val();
 	var sourceName = $('#sourceName').val();
 	var url = $('#url').val();
-	var listType = $('#listType').val();
+	var listType = $('select[name=typeList]').val();
 	var rank = $('#rank').val();
 	$.ajax({
 		type : "POST",
 		url : "addNewFeed",
-		data : "parser=" + parser + "&sourceName=" + sourceName
-				+ "&url=" + url + "&listType=" + listType + "&rank" + rank,
+		data : "parser=" + parser + "&sourceName=" + sourceName + "&url=" + url
+				+ "&listType=" + listType + "&rank=" + rank,
 		success : function(response) {
 			// we have the response
 			$('#info').html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + e);
+			alert('Error: ' + parser + sourceName + url + listType + rank, e);
 		}
 	});
 }
 
 function doAjaxPostAddIpToWhiteList() {
 	// get the form values
+	alert("TEST FOR CHECK TO WORK");
 	var ipAddress = $('#IP').val();
 	$.ajax({
 		type : "POST",
@@ -54,6 +55,7 @@ function doAjaxPostAddIpToWhiteList() {
 			$('#Info').html(response);
 		},
 		error : function(e) {
+			alert('address' + ipAddress);
 			alert('Error: ' + e);
 		}
 	});

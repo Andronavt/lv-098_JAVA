@@ -50,7 +50,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 			return resultList;
 		} catch (Exception e) {
 			throw new SourceDownloaderServiceException(
-					"Data havent downloaded -> ", e);
+					"Data havent been downloaded ", e);
 		}
 	}
 
@@ -68,11 +68,17 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 		}
 		return mapOfParsers;
 	}
-	
+
 	@Transactional
 	@Override
-	public List<Source> loadSourceList() {
-		return sourceDao.getAll();
+	public List<Source> loadSourceList()
+			throws SourceDownloaderServiceException {
+		try {
+			return sourceDao.getAll();
+		} catch (Exception e) {
+			throw new SourceDownloaderServiceException(
+					"Entity manager Exception", e);
+		}
 	}
 	// Don't use now
 	@Transactional
