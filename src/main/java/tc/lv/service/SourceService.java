@@ -7,11 +7,11 @@ import tc.lv.exceptions.SourceServiseException;
 
 public interface SourceService {
 
-    public void addNewFeed(String parser, String sourceName, String url,
-	    String listType, Double rank) throws SourceServiseException;
+	public void addNewFeed(String parser, String sourceName, String url,
+			String listType, Double rank) throws SourceServiseException;
 
-    public void deleteFeed(String sourceName) throws SourceServiseException;
+	public void deleteFeed(String sourceName) throws SourceServiseException;
 
-    public List<Source> getListOfSourcess() throws SourceServiseException;
+	public List<Source> getListOfSourcess() throws SourceServiseException;
 
 }

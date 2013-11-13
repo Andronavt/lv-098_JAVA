@@ -83,9 +83,14 @@ public class WhiteListServiceImpl implements WhiteListService {
 	public void saveIpV6(String address) throws WhiteListServiceException {
 		try {
 			IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
-			if (tempIpV6 == null)
+			if (tempIpV6 == null) {
+				tempIpV6 = new IpV6Address(address, new Date());
+				tempIpV6.getSourceSet().add(
+						sourceDao.findByName("Admin Whitelist"));
+				tempIpV6.setWhiteList(true);
+
 				ipV6AddressDao.save(tempIpV6);
-			else {
+			} else {
 				throw new WhiteListServiceException(
 						"There is such ip in WhiteList");
 			}
@@ -94,7 +99,6 @@ public class WhiteListServiceImpl implements WhiteListService {
 			throw new WhiteListServiceException("Entity manager Exception", e);
 		}
 	}
-
 	@Transactional
 	public Collection<IpV4Address> loadIpV4List()
 			throws WhiteListServiceException {

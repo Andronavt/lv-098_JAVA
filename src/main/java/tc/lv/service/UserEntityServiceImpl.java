@@ -12,48 +12,42 @@ import tc.lv.exceptions.UserEntityServiceException;
 
 @Service
 public class UserEntityServiceImpl implements UserEntityService {
-    private static final Logger logger = Logger.getLogger("errorLog");
+	private static final Logger logger = Logger.getLogger("errorLog");
 
-    @Autowired
-    private UserDao userDao;
+	@Autowired
+	private UserDao userDao;
 
-    @Transactional
-    public void createUser(String username, String firstname, String lastname,
-	    String email, String password) throws UserEntityServiceException {
-	try {
-	    UserEntity tempUser = new UserEntity(username, firstname, lastname,
-		    email, password);
-	    if (userDao.findByName(username) == null) {
-		Role role = userDao.findRoleByName("ROLE_USER");
-		tempUser.addRoleToUser(role);
-		userDao.save(tempUser);
-	    } else {
-		throw new UserEntityServiceException("Current user exist!");
-	    }
+	@Transactional
+	public void createUser(String username, String firstname, String lastname,
+			String email, String password) throws UserEntityServiceException {
+		try {
+			UserEntity tempUser = new UserEntity(username, firstname, lastname,
+					email, password);
+			if (userDao.findByName(username) == null) {
+				Role role = userDao.findRoleByName("ROLE_USER");
+				tempUser.addRoleToUser(role);
+				userDao.save(tempUser);
+			} else {
+				throw new UserEntityServiceException("Current user exist!");
+			}
 
-	} catch (Exception e) {
-	    logger.error(e);
-	    throw new UserEntityServiceException("Entity manager Exception", e);
+		} catch (Exception e) {
+			logger.error(e);
+			throw new UserEntityServiceException("Entity manager Exception", e);
+		}
+
 	}
 
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see tc.lv.service.UserEntityService#makeUserAdmin(java.lang.String) Тут
-     * потрібно дописати в ДАО юзерів або створити RoleDao
-     */
-    @Override
-    public void makeUserAdmin(String username)
-	    throws UserEntityServiceException {
-	UserEntity user = userDao.findByName(username);
-	if (user != null) {
-	    Role role = userDao.findRoleByName("ROLE_ADMIN");
-	    user.addRoleToUser(role);
-	    userDao.save(user);
-	} else {
-	    throw new UserEntityServiceException("Current user not exist!");
+	@Override
+	public void makeUserAdmin(String username)
+			throws UserEntityServiceException {
+		UserEntity user = userDao.findByName(username);
+		if (user != null) {
+			Role role = userDao.findRoleByName("ROLE_ADMIN");
+			user.addRoleToUser(role);
+			userDao.save(user);
+		} else {
+			throw new UserEntityServiceException("Current user not exist!");
+		}
 	}
-    }
 }
