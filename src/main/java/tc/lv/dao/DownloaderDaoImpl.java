@@ -64,7 +64,7 @@ public class DownloaderDaoImpl implements DownloaderDao {
 			// We can't find source for this Id
 			// TODO
 		} else {
-			Query query = entityManager.createNamedQuery("IpV6Address.loadAll",
+			Query query = entityManager.createNamedQuery("IpV6Address.getAll",
 					IpV6Address.class);
 			Map<String, IpV6Address> map = new HashMap<String, IpV6Address>();
 			List<IpV6Address> listFromDB = query.getResultList();
@@ -95,7 +95,7 @@ public class DownloaderDaoImpl implements DownloaderDao {
 			// TODO
 		} else {
 			long start = System.currentTimeMillis();
-			Query query = entityManager.createNamedQuery("NotValidIp.loadAll",
+			Query query = entityManager.createNamedQuery("NotValidIp.getAll",
 					NotValidIp.class);
 			Map<String, NotValidIp> map = new HashMap<String, NotValidIp>();
 			start = System.currentTimeMillis();
@@ -134,8 +134,8 @@ public class DownloaderDaoImpl implements DownloaderDao {
 
 	@Override
 	public void updateWhiteList() {
-		Query query = entityManager.createNamedQuery(
-				"IpAddress.loadAllValidIp", IpAddress.class);
+		Query query = entityManager.createNamedQuery("IpAddress.getAllValidIp",
+				IpAddress.class);
 		List<IpAddress> list = query.getResultList();
 
 		for (IpAddress ip : list) {
