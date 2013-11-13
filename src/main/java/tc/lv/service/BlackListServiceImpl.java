@@ -22,8 +22,13 @@ public class BlackListServiceImpl implements BlackListService {
 	@Override
 	public void deleteIpV4(String address) throws BlackListServiceException {
 		try {
-			IpV4Address tempObject = new IpV4Address(address);
-			ipV4AddressDao.removeFromBlackList(tempObject);
+			IpV4Address tempObject = ipV4AddressDao.findByAddress(address);
+			if (tempObject != null)
+				ipV4AddressDao.removeFromBlackList(tempObject);
+			else {
+				throw new BlackListServiceException(
+						"There is no such ip adress");
+			}
 		} catch (Exception e) {
 			logger.error(e);
 			throw new BlackListServiceException("Entity manager Exception", e);
@@ -34,11 +39,15 @@ public class BlackListServiceImpl implements BlackListService {
 	@Override
 	public void deleteIpV6(String address) throws BlackListServiceException {
 		try {
-			IpV6Address tempObject = new IpV6Address(address);
-			ipV6AddressDao.removeFromBlackList(tempObject);
+			IpV6Address tempObject = ipV6AddressDao.findByAddress(address);
+			if (tempObject != null)
+				ipV6AddressDao.removeFromBlackList(tempObject);
+			else {
+				throw new BlackListServiceException("");
+			}
 		} catch (Exception e) {
 			logger.error(e);
-			throw new BlackListServiceException("Entity manager Exception", e);
+			throw new BlackListServiceException("There is no such ip adress", e);
 		}
 
 	}
@@ -46,8 +55,13 @@ public class BlackListServiceImpl implements BlackListService {
 	@Override
 	public void saveIpV4(String address) throws BlackListServiceException {
 		try {
-			IpV4Address tempObject = new IpV4Address(address);
-			ipV4AddressDao.save(tempObject);
+			IpV4Address tempObject = ipV4AddressDao.findByAddress(address);
+			if (tempObject == null)
+				ipV4AddressDao.save(tempObject);
+			else {
+				throw new BlackListServiceException(
+						"There is such ip address in BlackList");
+			}
 		} catch (Exception e) {
 			logger.error(e);
 			throw new BlackListServiceException("Entity manager Exception", e);
@@ -58,8 +72,13 @@ public class BlackListServiceImpl implements BlackListService {
 	@Override
 	public void saveIpV6(String address) throws BlackListServiceException {
 		try {
-			IpV6Address tempObject = new IpV6Address(address);
-			ipV6AddressDao.save(tempObject);
+			IpV6Address tempObject = ipV6AddressDao.findByAddress(address);
+			if (tempObject == null)
+				ipV6AddressDao.save(tempObject);
+			else {
+				throw new BlackListServiceException(
+						"There is such ip address in BlackList");
+			}
 		} catch (Exception e) {
 			logger.error(e);
 			throw new BlackListServiceException("Entity manager Exception", e);
