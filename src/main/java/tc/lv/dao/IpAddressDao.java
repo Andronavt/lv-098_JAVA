@@ -1,5 +1,6 @@
 package tc.lv.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import tc.lv.domain.IpAddress;
@@ -25,5 +26,7 @@ public interface IpAddressDao {
 	List<IpAddress> getBlackList();
 
 	boolean removeFromBlackList(IpAddress address);
+
+	Collection<IpAddress> getUnDefList(Class<? extends IpAddress> userClass);
 
 }
