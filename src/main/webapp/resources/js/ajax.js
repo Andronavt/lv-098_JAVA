@@ -26,7 +26,7 @@ function doAjaxAddNewFeed() {
 	var parser = $('#parser').val();
 	var sourceName = $('#sourceName').val();
 	var url = $('#url').val();
-	var listType = $('#listType').val();
+	var listType = $('select[name=typeList]').val();
 	var rank = $('#rank').val();
 	$.ajax({
 		type : "POST",
@@ -38,7 +38,7 @@ function doAjaxAddNewFeed() {
 			$('#info').html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + e);
+			alert('Error: ' + parser + sourceName + url);
 		}
 	});
 }
