@@ -7,20 +7,18 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
+
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.NotValidIp;
 
-//@Repository
+@Repository
 public class IpAddressDaoImpl implements IpAddressDao {
-	// private static final Logger loggerInfo = Logger.getLogger("infoLog");
+	private static final Logger loggerInfo = Logger.getLogger("infoLog");
 
 	@PersistenceContext(name = "primary")
 	private EntityManager entityManager;
-
-	@Deprecated
-	public IpAddressDaoImpl(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
 
 	@Override
 	public List<IpAddress> getListBySource(int sourceId,

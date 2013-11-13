@@ -10,6 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
+
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
@@ -17,17 +20,12 @@ import tc.lv.domain.NotValidIp;
 import tc.lv.domain.Source;
 import tc.lv.utils.ParserResults;
 
-//@Repository
+@Repository
 public class DownloaderDaoImpl implements DownloaderDao {
-	// private static final Logger loggerInfo = Logger.getLogger("infoLog");
+	private static final Logger loggerInfo = Logger.getLogger("infoLog");
 
 	@PersistenceContext(name = "primary")
 	private EntityManager entityManager;
-
-	@Deprecated
-	public DownloaderDaoImpl(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
 
 	@Override
 	public void saveList(List<? extends IpAddress> list, int sourceId) {
