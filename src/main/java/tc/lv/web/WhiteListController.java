@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,8 +15,6 @@ import tc.lv.utils.IpValidator;
 
 @Controller
 public class WhiteListController {
-
-	private static String ip;
 
 	@Autowired
 	private WhiteListService wlService;
@@ -60,53 +57,29 @@ public class WhiteListController {
 		return "addIpToWL";
 	}
 
-	@RequestMapping(value = "/result")
-	public String result(ModelMap map) {
+	// Add IP-address to WhiteList
+	@RequestMapping(value = "/addIpToWL", method = RequestMethod.POST)
+	public String addToWl(@ModelAttribute("address") String ipAddress,
+			Map<String, Object> map) {
 		try {
-			if (IpValidator.isIpV4(WhiteListController.ip)) {
-				wlService.saveIpV4(WhiteListController.ip);
-				map.addAttribute("successMsg", WhiteListController.ip
+			if (IpValidator.isIpV4(ipAddress)) {
+				wlService.saveIpV4(ipAddress);
+				map.put("successMsg", ipAddress
 						+ " has been successfully added to WhiteList.");
 				return "result";
-			} else if (IpValidator.isIpV6(WhiteListController.ip)) {
-				wlService.saveIpV6(WhiteListController.ip);
-				map.addAttribute("successMsg", WhiteListController.ip
+			} else if (IpValidator.isIpV6(ipAddress)) {
+				wlService.saveIpV6(ipAddress);
+				map.put("successMsg", ipAddress
 						+ " has been successfully added to WhiteList.");
 				return "result";
 			} else {
 				throw new WhiteListServiceException("Incorrect IP-address!");
 			}
 		} catch (WhiteListServiceException e) {
-			map.addAttribute("errorList", ExceptionUtil.createErrorList(e));
-			map.addAttribute("errorMsg", e.getMessage());
+			map.put("errorList", ExceptionUtil.createErrorList(e));
+			map.put("errorMsg", e.getMessage());
 			return "result";
 		}
-	}
-
-	// Add IP-address to WhiteList
-	@RequestMapping(value = "/addIpToWL", method = RequestMethod.POST)
-	public String addToWl(@ModelAttribute("address") String ipAddress) {
-		WhiteListController.ip = ipAddress;
-		// try {
-		// if (IpValidator.isIpV4(ipAddress)) {
-		// wlService.saveIpV4(ipAddress);
-		// map.addAttribute("successMsg", ipAddress
-		// + " has been successfully added to WhiteList.");
-		// return "result";
-		// } else if (IpValidator.isIpV6(ipAddress)) {
-		// wlService.saveIpV6(ipAddress);
-		// map.addAttribute("successMsg", ipAddress
-		// + " has been successfully added to WhiteList.");
-		// return "result";
-		// } else {
-		// throw new WhiteListServiceException("Incorrect IP-address!");
-		// }
-		// } catch (WhiteListServiceException e) {
-		// map.addAttribute("errorList", ExceptionUtil.createErrorList(e));
-		// map.addAttribute("errorMsg", e.getMessage());
-		// return "result";
-		// }
-		return "result";
 	}
 
 	// Show IP-address from WhiteList

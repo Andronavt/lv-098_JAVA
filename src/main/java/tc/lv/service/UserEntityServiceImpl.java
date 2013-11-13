@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.UserDao;
+import tc.lv.domain.Role;
 import tc.lv.domain.UserEntity;
 import tc.lv.exceptions.UserEntityServiceException;
 
@@ -22,28 +23,31 @@ public class UserEntityServiceImpl implements UserEntityService {
 		try {
 			UserEntity tempUser = new UserEntity(username, firstname, lastname,
 					email, password);
-			userDao.save(tempUser);
+			if (userDao.findByName(username) == null) {
+				Role role = userDao.findRoleByName("ROLE_USER");
+				tempUser.addRoleToUser(role);
+				userDao.save(tempUser);
+			} else {
+				throw new UserEntityServiceException("Current user exist!");
+			}
+
 		} catch (Exception e) {
 			logger.error(e);
 			throw new UserEntityServiceException("Entity manager Exception", e);
 		}
 
 	}
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see tc.lv.service.UserEntityService#makeUserAdmin(java.lang.String) Тут
-	 * потрібно дописати в ДАО юзерів або створити RoleDao
-	 */
+
 	@Override
 	public void makeUserAdmin(String username)
 			throws UserEntityServiceException {
-		// try {
-		// UserEntity tempUser = userDao.findByName(username);
-		// userDao.
-		// } catch (Exception e) {
-		// logger.error(e);
-		// throw new UserEntityServiceException("Entity manager Exception", e);
-		// }
+		UserEntity user = userDao.findByName(username);
+		if (user != null) {
+			Role role = userDao.findRoleByName("ROLE_ADMIN");
+			user.addRoleToUser(role);
+			userDao.save(user);
+		} else {
+			throw new UserEntityServiceException("Current user not exist!");
+		}
 	}
 }

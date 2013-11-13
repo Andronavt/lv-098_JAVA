@@ -23,7 +23,7 @@ public class IpV4AddressDaoImpl implements IpV4AddressDao {
 		Query query = entityManager.createNamedQuery("IpV4Address.getBySource");
 		query.setParameter("id", sourceId);
 		List<IpV4Address> list = query.getResultList();
-		return list;
+		return query.getResultList();
 	}
 
 	@Override

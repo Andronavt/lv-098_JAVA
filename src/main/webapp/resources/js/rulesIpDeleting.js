@@ -9,16 +9,16 @@ $(document).ready(function() {
 		    "Please check your input."
 		); 
 	
-	$("#addIpToWL").validate({
+	$("#deleteIp").validate({
 		 rules: {
-			 addIp: {
+			 deleteIpIn: {
 				 required : true,
 				 regexp: '((([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])|([a-f0-9]{1,4}:([a-f0-9]{0,4}:){1,6}[a-f0-9]{1,4}))$',
 		        },
 		    },
 		    
 		    messages: {
-		    	addIp: {
+		    	deleteIpIn: {
 		    		required : "Input ip address",
 		    		regexp: "Input correct ip",
 		        }
