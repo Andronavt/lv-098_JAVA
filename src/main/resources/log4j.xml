@@ -10,8 +10,8 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-	<appender name="file" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="d:/lv-098_JAVA/logs/log.log" />
+	<appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="d:/lv-098_JAVA/logs/info.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
