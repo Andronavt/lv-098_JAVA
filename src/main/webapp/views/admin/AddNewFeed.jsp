@@ -30,23 +30,27 @@
 
 	<form action="newFeed" id="addNewFeed" method="post" name="input_feed">
 		<fieldset>
+		
 			<legend style="color: green">Add new source:</legend>
 
 			<div>
 				<b>Add parser:</b>
 			</div>
+			
 			<input id="parser" type="text" name="parserIn" size="30"
 				maxlength="30" />
 
 			<div>
 				<b>Add source name:</b>
 			</div>
+			
 			<input id="sourceName" type="text" name="sourceNameIn" size="30"
 				maxlength="50" />
 
 			<div>
 				<b>Add url:</b>
 			</div>
+			
 			<input id="url" type="text" name="urlIn" size="30" maxlength="50" />
 			<br> <br>
 			<div>
@@ -56,23 +60,29 @@
 						<option>white list</option>
 				</select></b>
 			</div>
+			
 			<br>
 			<div>
 				<b>Add rank of source:</b>
 			</div>
+			
 			<input id="rank" type="text" name="rankIn" size="30" maxlength="50" />
 
+		<div><input id="btnAddNewFeed" type="button" name="addNewFeed" value="Add new feed" /></div>
+
 		</fieldset>
-		<input id="btnAddNewFeed" type="button" name="addNewFeed"
-			value="Add new feed" />
+		
 
 	</form>
+	
 	<div id="Info" style="color: green;"></div>	
 
 	<script type="text/javascript">
+	
 		$(document).ready(function() {
 			validateAddNewFeed();
 		});
+		
 	</script>
 
 </body>

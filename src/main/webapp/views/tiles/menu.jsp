@@ -6,15 +6,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF8">
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+	
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
 <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet"
 	type="text/css" />
+	
 </head>
 <body>
 	<div id="accordion" align="left">
@@ -32,19 +37,23 @@
 				<p>
 					<a class="button" href="inProgres" title="Charts">Charts</a>
 				</p>
+				
 				<p>
 					<a class="button" href="showIpListFromWL"
 						id="getContentShowIpListFromWl" title="Show Ip list from WList">Show
 						Ip list from WList</a>
 				</p>
+				
 				<p>
 					<a class="button" href="inProgres" title="Blacklist map">Blacklist
 						map</a>
 				</p>
+				
 				<p>
 					<a class="button" href="inProgres" title="Whitelist map">Whitelist
 						map</a>
 				</p>
+				
 				<p>
 					<a class="button" href="inProgres" title="Top oldest IP">Top
 						oldest IP</a>
@@ -70,37 +79,42 @@
 					<a class="button" href="listOfSource" id="getContentDeleteFeed"
 						title="Delete Feed">Delete Feed</a>
 				</p>
+				
 				<p>
 					<a class="button" href="addNewFeed" id="getContentAddNewFeed"
 						title="Add new Feed">Add new Feed</a>
 				</p>
-				<p>
-					<a class="button" href="addIpv4" id="getContentAddIp4"
-						title="Add IP to Source">Add IP to Source</a>
-				</p>
+	
 				<p>
 					<a class="button" href="addIpToWL" id="getContentAddIpToWl"
 						title="Add to WList">Add to WList</a>
 				</p>
+				
 				<p>
 					<a class="button" href="deleteIpFromWL" id="getContentDeleteWlIp"
 						title="Delete IP from WList">Delete IP from WList</a>
 				</p>
+				
 				<p>
 					<a class="button" href="updateSources" title="updateSources">Update
 						Sources</a>
 				</p>
+				
 				<p>
 					<a class="button" href="inProgres" title="List downloads">List
 						downloads</a>
 				</p>
+				
 			</div>
 		</sec:authorize>
 	</div>
-</body>
-</html>
-<script>
+	
+	<script>
 	$("#accordion").accordion({
 		collapsible : true
 	});
 </script>
+	
+	
+</body>
+</html>

@@ -11,7 +11,9 @@
 <html>
 <head>
 </head>
-<body >
+
+<body>
+
 	<p align="right">
 
 		<sec:authorize access="isAnonymous()">
@@ -21,14 +23,15 @@
    Welcome! <sec:authentication property="principal.username" />
 		</sec:authorize>
 
-
 		<sec:authorize access="isAnonymous()">
 			<a href="signin" id="getContentLogin">Login/Registration</a>
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
 			<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 		</sec:authorize>
+
 	</p>
+
 </body>
 </html>
 
