@@ -6,9 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import tc.lv.domain.IpV6Address;
 
-//@Repository
+@Repository
 public class IpV6AddressDaoImpl implements IpV6AddressDao {
 
 	@PersistenceContext(name = "primary")

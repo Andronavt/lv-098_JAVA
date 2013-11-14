@@ -47,5 +47,4 @@ public interface IpAddressDao {
 
 	void updateWhiteList(Class<? extends IpAddressImpl> updateClass)
 			throws InstantiationException, IllegalAccessException;
-
 }

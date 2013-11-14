@@ -11,13 +11,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import tc.lv.domain.IpAddressImpl;
 import tc.lv.domain.NotValidIp;
 import tc.lv.domain.Source;
 import tc.lv.utils.ParserResults;
 
-//@Repository
+@Repository
 public class DownloaderDaoImpl implements DownloaderDao {
 
 	private static final Logger loggerInfo = Logger.getLogger("infoLog");
@@ -43,6 +44,7 @@ public class DownloaderDaoImpl implements DownloaderDao {
 	@Override
 	@Deprecated
 	public void saveList(List<? extends IpAddressImpl> list, int sourceId) {
+
 		Source source = entityManager.find(Source.class, sourceId);
 		if (source == null) {
 			// We can't find source for this Id
@@ -62,6 +64,7 @@ public class DownloaderDaoImpl implements DownloaderDao {
 			}
 
 			for (IpAddressImpl ip : list) {
+
 				if (!map.containsKey(ip.getAddress())) {
 					ip.getSourceSet().add(source);
 					entityManager.persist(ip);

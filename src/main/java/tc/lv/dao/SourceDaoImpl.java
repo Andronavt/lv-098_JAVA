@@ -6,19 +6,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import tc.lv.domain.IpAddressImpl;
 import tc.lv.domain.Source;
 
-//@Repository
+@Repository
 public class SourceDaoImpl implements SourceDao {
 
 	@PersistenceContext(name = "primary")
 	private EntityManager entityManager;
-
-	@Deprecated
-	public SourceDaoImpl(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
 
 	@Override
 	public void delete(Source source) {

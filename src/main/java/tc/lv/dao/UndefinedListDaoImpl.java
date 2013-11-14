@@ -5,10 +5,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
+
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 
-//@Repository
+@Repository
 public class UndefinedListDaoImpl implements UndefinedListDao {
 
 	@PersistenceContext(name = "primary")

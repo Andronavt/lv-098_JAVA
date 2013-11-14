@@ -12,94 +12,94 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ipv6_addresses")
 @PrimaryKeyJoinColumn(name = "id")
-@NamedQueries({ @NamedQuery(name = IpV6Address.GET_ALL, query = IpV6Address.GET_ALL_QUERY),
-        @NamedQuery(name = IpV6Address.GET_BY_SOURCE, query = IpV6Address.GET_BY_SOURCE_QUERY),
-        @NamedQuery(name = IpV6Address.FIND_BY_ADDRESS, query = IpV6Address.FIND_BY_ADDRESS_QUERY),
-        @NamedQuery(name = IpV6Address.GET_WHITELIST, query = IpV6Address.GET_WHITELIST_QUERY),
-        @NamedQuery(name = IpV6Address.GET_UNDEFINEDLIST, query = IpV6Address.GET_UNDEFINEDLIST_QUERY),
-        @NamedQuery(name = IpV6Address.FIND_WHITE_IP_BY_NAME, query = IpV6Address.FIND_WHITE_IP_BY_NAME_QUERY),
-        @NamedQuery(name = IpV6Address.FIND_BLACK_IP_BY_NAME, query = IpV6Address.FIND_BLACK_IP_BY_NAME_QUERY) })
+@NamedQueries({
+		@NamedQuery(name = IpV6Address.GET_ALL, query = IpV6Address.GET_ALL_QUERY),
+		@NamedQuery(name = IpV6Address.GET_BY_SOURCE, query = IpV6Address.GET_BY_SOURCE_QUERY),
+		@NamedQuery(name = IpV6Address.FIND_BY_ADDRESS, query = IpV6Address.FIND_BY_ADDRESS_QUERY),
+		@NamedQuery(name = IpV6Address.GET_WHITELIST, query = IpV6Address.GET_WHITELIST_QUERY),
+		@NamedQuery(name = IpV6Address.GET_UNDEFINEDLIST, query = IpV6Address.GET_UNDEFINEDLIST_QUERY),
+		@NamedQuery(name = IpV6Address.FIND_WHITE_IP_BY_NAME, query = IpV6Address.FIND_WHITE_IP_BY_NAME_QUERY),
+		@NamedQuery(name = IpV6Address.FIND_BLACK_IP_BY_NAME, query = IpV6Address.FIND_BLACK_IP_BY_NAME_QUERY) })
 public class IpV6Address extends IpAddressImpl implements Serializable {
 
-    public static final String FIND_BLACK_IP_BY_NAME = "IpV6Address.findBlackIpByName";
-    public static final String FIND_BLACK_IP_BY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = FALSE and ip.address = ?1";
+	public static final String FIND_BLACK_IP_BY_NAME = "IpV6Address.findBlackIpByName";
+	public static final String FIND_BLACK_IP_BY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = FALSE and ip.address = ?1";
 
-    public static final String FIND_BY_ADDRESS = "IpV6Address.findByAddress";
-    public static final String FIND_BY_ADDRESS_QUERY = "SELECT ip from IpV6Address ip WHERE ip.address= ?1";
+	public static final String FIND_BY_ADDRESS = "IpV6Address.findByAddress";
+	public static final String FIND_BY_ADDRESS_QUERY = "SELECT ip from IpV6Address ip WHERE ip.address= ?1";
 
-    public static final String FIND_WHITE_IP_BY_NAME = "IpV6Address.findWhiteIpByName";
-    public static final String FIND_WHITE_IP_BY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = TRUE and ip.address = ?1";
+	public static final String FIND_WHITE_IP_BY_NAME = "IpV6Address.findWhiteIpByName";
+	public static final String FIND_WHITE_IP_BY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = TRUE and ip.address = ?1";
 
-    public static final String GET_ALL = "IpV6Address.getAll";
-    public static final String GET_ALL_QUERY = "SELECT ip from IpV6Address ip";
+	public static final String GET_ALL = "IpV6Address.getAll";
+	public static final String GET_ALL_QUERY = "SELECT ip from IpV6Address ip";
 
-    public static final String GET_BY_SOURCE = "IpV6Address.getBySource";
-    public static final String GET_BY_SOURCE_QUERY = "SELECT ip from IpV6Address ip join ip.sourceSet s where s.sourceId = ?1";
+	public static final String GET_BY_SOURCE = "IpV6Address.getBySource";
+	public static final String GET_BY_SOURCE_QUERY = "SELECT ip from IpV6Address ip join ip.sourceSet s where s.sourceId = ?1";
 
-    public static final String GET_UNDEFINEDLIST = "IpV6Address.getUndefinedList";
-    public static final String GET_UNDEFINEDLIST_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList is null";
+	public static final String GET_UNDEFINEDLIST = "IpV6Address.getUndefinedList";
+	public static final String GET_UNDEFINEDLIST_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList is null";
 
-    public static final String GET_WHITELIST = "IpV6Address.getWhiteList";
-    public static final String GET_WHITELIST_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = ?1";
+	public static final String GET_WHITELIST = "IpV6Address.getWhiteList";
+	public static final String GET_WHITELIST_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = ?1";
 
-    public IpV6Address() {
+	public IpV6Address() {
 
-    }
+	}
 
-    public IpV6Address(String address) {
-        this.address = address;
-    }
+	public IpV6Address(String address) {
+		this.address = address;
+	}
 
-    public IpV6Address(String address, Date dateAdded) {
-        this.address = address;
-        this.dateAdded = dateAdded;
-    }
+	public IpV6Address(String address, Date dateAdded) {
+		this.address = address;
+		this.dateAdded = dateAdded;
+	}
 
-    @Override
-    public String getFindBlackIpByName() {
-        return FIND_BLACK_IP_BY_NAME;
-    }
+	@Override
+	public String getFindBlackIpByName() {
+		return FIND_BLACK_IP_BY_NAME;
+	}
 
-    @Override
-    public String getFindByAddress() {
-        return FIND_BY_ADDRESS;
-    }
+	@Override
+	public String getFindByAddress() {
+		return FIND_BY_ADDRESS;
+	}
 
-    @Override
-    public String getFindWhiteIpByName() {
-        return FIND_WHITE_IP_BY_NAME;
-    }
+	@Override
+	public String getFindWhiteIpByName() {
+		return FIND_WHITE_IP_BY_NAME;
+	}
 
-    @Override
-    public String getGetAll() {
-        return GET_ALL;
-    }
+	@Override
+	public String getGetAll() {
+		return GET_ALL;
+	}
 
-    @Override
-    @Deprecated
-    public String getGetAllNotValid() {
-        return null;
-    }
+	@Override
+	@Deprecated
+	public String getGetAllNotValid() {
+		return null;
+	}
 
-    @Override
-    @Deprecated
-    public String getGetAllValid() {
-        return null;
-    }
+	@Override
+	@Deprecated
+	public String getGetAllValid() {
+		return null;
+	}
 
-    @Override
-    public String getGetBySource() {
-        return GET_BY_SOURCE;
-    }
+	@Override
+	public String getGetBySource() {
+		return GET_BY_SOURCE;
+	}
 
-    @Override
-    public String getGetUndefinedlist() {
-        return GET_UNDEFINEDLIST;
-    }
+	@Override
+	public String getGetUndefinedlist() {
+		return GET_UNDEFINEDLIST;
+	}
 
-    @Override
-    public String getGetWhitelist() {
-        return GET_WHITELIST;
-    }
-
+	@Override
+	public String getGetWhitelist() {
+		return GET_WHITELIST;
+	}
 }

@@ -10,21 +10,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.IpAddressImpl;
 import tc.lv.domain.NotValidIp;
 import tc.lv.domain.Source;
 
-//@Repository
+@Repository
 public class IpAddressDaoImpl implements IpAddressDao {
 
 	@PersistenceContext(name = "primary")
 	private EntityManager entityManager;
-
-	@Deprecated
-	public IpAddressDaoImpl(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
 
 	@Override
 	public IpAddressImpl findByAddress(String address,
@@ -220,5 +217,4 @@ public class IpAddressDaoImpl implements IpAddressDao {
 			entityManager.persist(ip);
 		}
 	}
-
 }

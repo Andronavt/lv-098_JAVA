@@ -6,9 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import tc.lv.domain.IpV4Address;
 
-//@Repository
+@Repository
 public class IpV4AddressDaoImpl implements IpV4AddressDao {
 
 	@PersistenceContext(name = "primary")
@@ -78,7 +80,6 @@ public class IpV4AddressDaoImpl implements IpV4AddressDao {
 
 	@Override
 	public void removeFromWhiteList(IpV4Address address) {
-
 		address.setWhiteList(false);
 		entityManager.persist(address);
 	}

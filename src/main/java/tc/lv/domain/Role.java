@@ -16,45 +16,44 @@ import javax.persistence.Table;
 @NamedQuery(name = Role.FIND_BY_NAME, query = Role.FIND_BY_NAME_QUERY)
 public class Role {
 
-    public static final String FIND_BY_NAME = "Role.findByName";
-    public static final String FIND_BY_NAME_QUERY = "SELECT r FROM Role r WHERE r.role = ?1";
+	public static final String FIND_BY_NAME = "Role.findByName";
+	public static final String FIND_BY_NAME_QUERY = "SELECT r FROM Role r WHERE r.role = ?1";
 
-    @Id
-    @Column(name = "role_id", nullable = false)
-    private int id;
+	@Id
+	@Column(name = "role_id", nullable = false)
+	private int id;
 
-    @Column(name = "role", nullable = false)
-    private String role;
+	@Column(name = "role", nullable = false)
+	private String role;
 
-    @ManyToMany(mappedBy = "roleSet", fetch = FetchType.EAGER)
-    private Set<UserEntity> userSet = new HashSet<UserEntity>();
+	@ManyToMany(mappedBy = "roleSet", fetch = FetchType.EAGER)
+	private Set<UserEntity> userSet = new HashSet<UserEntity>();
 
-    public Role() {
+	public Role() {
 
-    }
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getRole() {
-        return role;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public Set<UserEntity> getUserSet() {
-        return userSet;
-    }
+	public Set<UserEntity> getUserSet() {
+		return userSet;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+	public void setRole(String role) {
+		this.role = role;
+	}
 
-    public void setUserSet(Set<UserEntity> userSet) {
-        this.userSet = userSet;
-    }
-
+	public void setUserSet(Set<UserEntity> userSet) {
+		this.userSet = userSet;
+	}
 }

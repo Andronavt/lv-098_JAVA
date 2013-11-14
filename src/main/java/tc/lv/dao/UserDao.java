@@ -7,10 +7,10 @@ public interface UserDao {
 
 	UserEntity findByName(String name);
 
+	void save(UserEntity user);
+
 	Role findRoleByName(String roleName);
 
 	void remove(UserEntity user);
-
-	void save(UserEntity user);
 
 }
