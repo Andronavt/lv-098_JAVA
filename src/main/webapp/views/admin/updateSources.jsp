@@ -27,11 +27,11 @@
 				</select> <br> 
 				<input type="button" value="Update source" onclick="doAjaxUpdateSource()">
 			<!-- 	<input align="left" id="btnUpdate" type="button" name="updateSource" value="Update source" /> -->
-			<br> Result: 
-			<div id="updateSource" style="color: green;"></div>
+			
 			</fieldset>
 		</div>
 	</form>
-
+	<br> 
+	<div id="upSource" style="color: black;"></div>
 </body>
 </html>

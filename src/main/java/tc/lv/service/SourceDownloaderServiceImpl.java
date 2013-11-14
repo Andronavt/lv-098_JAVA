@@ -32,17 +32,13 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 	    Map<Source, ParserInterface> parserMap)
 	    throws SourceDownloaderServiceException {
 	try {
-	    logger.info("Start downloading!!!!!!");
 	    Downloader downloader = new Downloader();
 	    List<ParserResults> resultList = new ArrayList<ParserResults>();
 	    File file;
 	    Set<Source> sourceSet = parserMap.keySet();
 	    for (String sourceName : sourceNameList) {
-		logger.info("for 1" + sourceName);
 		for (Source source : sourceSet) {
-		    logger.info("for 2" + source);
 		    if (source.getSourceName().equals(sourceName)) {
-			logger.info("Start downloading from" + source.getUrl());
 			file = downloader.downloadFile(source.getUrl(),
 				source.getDirname());
 			ParserResults tmp = parserMap.get(source).parse(file);
@@ -58,22 +54,6 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 	    throw new SourceDownloaderServiceException(
 		    "Data havent been downloaded ", e);
 	}
-    }
-
-    // Don't use now
-    @Transactional
-    @Override
-    public Map<Source, ParserInterface> getMapOfParsers()
-	    throws SourceDownloaderServiceException {
-	Map<Source, ParserInterface> mapOfParsers;
-	try {
-	    mapOfParsers = sourceDao.getMapOfParsers();
-	} catch (Exception e) {
-	    logger.error(e);
-	    throw new SourceDownloaderServiceException(
-		    "Entity manager Exception", e);
-	}
-	return mapOfParsers;
     }
 
     @Transactional
@@ -116,6 +96,22 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 	    }
 	}
 	return parserMap;
+    }
+
+    // Don't use now
+    @Transactional
+    @Override
+    public Map<Source, ParserInterface> getMapOfParsers()
+	    throws SourceDownloaderServiceException {
+	Map<Source, ParserInterface> mapOfParsers;
+	try {
+	    mapOfParsers = sourceDao.getMapOfParsers();
+	} catch (Exception e) {
+	    logger.error(e);
+	    throw new SourceDownloaderServiceException(
+		    "Entity manager Exception", e);
+	}
+	return mapOfParsers;
     }
 
 }

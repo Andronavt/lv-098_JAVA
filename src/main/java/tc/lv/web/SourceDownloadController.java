@@ -45,18 +45,9 @@ public class SourceDownloadController {
 	return "updateSources";
     }
 
-    // // Updating Sources
-    // @RequestMapping(value = "/admin/updateSources", method =
-    // RequestMethod.POST)
-    // public @ResponseBody
-    // String sourceDownloader(
-    // @ModelAttribute(value = "select") String[] sourceNameArray,
-    // Map<String, Object> map) {
-
     // Updating Sources
     @RequestMapping(value = "/updateSourcesButton", method = RequestMethod.POST)
-    public String sourceDownloader(
-	    @ModelAttribute(value = "source") String sourceName,
+    public String sourceDownloader(@ModelAttribute("source") String sourceName,
 	    Map<String, Object> map) {
 	// ----!!!Test block!!!------
 	// String name1 = "OpenBSD traplist";
@@ -65,16 +56,9 @@ public class SourceDownloadController {
 	List<String> sourceNameList = new ArrayList<String>();
 	logger.info("SOURCE:" + sourceName);
 	sourceNameList.add(sourceName);
-	// sourceNameList.add(name1);
-	// sourceNameList.add(name2);
-	// sourceNameList.add(name3);
 
-	// List<String> sourceNameList = new
-	// ArrayList<String>(Arrays.asList(sourceNameArray));
 	try {
 	    logger.info("Create MAP of sources and Parsers");
-	    // Map<Source, ParserInterface> parserMap = sourceDownloaderService
-	    // .getMapOfParsers();
 	    List<Source> sourceList = sourceDownloaderService.loadSourceList();
 	    Map<Source, ParserInterface> parserMap = sourceDownloaderService
 		    .createParserMap(sourceList);
@@ -84,7 +68,7 @@ public class SourceDownloadController {
 		    sourceNameList, parserMap);
 	    parserResultService.saveAllSources(parserResultList);
 	    logger.info("Finish downloading, parsing and updating Data Base");
-	    map.put("Result", "Sources UPDATED!!!");
+	    map.put("successMsg", "Sourc " + sourceName + " UPDATED!!!");
 	    return "result";
 	} catch (SourceDownloaderServiceException
 		| ParserResultServiceException e) {
@@ -93,12 +77,5 @@ public class SourceDownloadController {
 	    return "result";
 	}
 
-    }
-
-    @RequestMapping(value = "/updateSources", method = RequestMethod.POST)
-    public String updateSource(@ModelAttribute(value = "source") String source,
-	    Map<String, Object> map) {
-	map.put("Result", source + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-	return "updateSources";
     }
 }

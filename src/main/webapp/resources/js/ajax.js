@@ -135,10 +135,12 @@ function doAjaxUpdateSource() {
 		type : "POST",
 		url : "updateSourcesButton",
 		data : "source=" + source,
+		beforeSend: function() {
+//		    $('#upSource').html("<img src='/resources/images/ajax-loader.gif' />");
+			$('#upSource').html("Please wait. Source updating");
+		  },
 		success : function(response) {
-			// we have the response
-			alert('Success' + parser);
-			$('#updateSource').html(response);
+			$('#upSource').html(response);
 		},
 		error : function(e) {
 			alert('Error: ' + parser);
