@@ -71,9 +71,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 		tempIpV4.getSourceSet().add(
 			sourceDao.findByName("Admin Whitelist"));
 		tempIpV4.setWhiteList(true);
-
 		ipV4AddressDao.save(tempIpV4);
-		//throw new RuntimeException("TEST ERROR!!!!!");
 	    } else if (tempIpV4.getWhiteList() != true) {
 		tempIpV4.setWhiteList(true);
 
