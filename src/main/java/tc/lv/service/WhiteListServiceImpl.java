@@ -98,6 +98,10 @@ public class WhiteListServiceImpl implements WhiteListService {
 		tempIpV6.setWhiteList(true);
 
 		ipV6AddressDao.save(tempIpV6);
+	    } else if (tempIpV6.getWhiteList() != true) {
+		tempIpV6.setWhiteList(true);
+
+		ipV6AddressDao.save(tempIpV6);
 	    } else {
 		throw new WhiteListServiceException(
 			"There is such ip in WhiteList");
