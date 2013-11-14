@@ -98,16 +98,17 @@ function selectSource() {
 
 function doAjaxPostDeleteIp() {
 	// get the form values
-	var ipAddress = $('#IpRemoveStr').val();
+	var ipAddress = $('#ipForRemove').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/WL",
+		url : "deleteIpFromWL",
 		data : "address=" + ipAddress,
 		success : function(response) {
+			alert('Success' + ipAddress);
 			$('#Info').html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + e);
+			alert('Error: ' + ipAddress, e);
 		}
 	});
 	return false;
