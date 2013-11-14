@@ -58,21 +58,6 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 
     @Transactional
     @Override
-    public Map<Source, ParserInterface> getMapOfParsers()
-	    throws SourceDownloaderServiceException {
-	Map<Source, ParserInterface> mapOfParsers;
-	try {
-	    mapOfParsers = sourceDao.getMapOfParsers();
-	} catch (Exception e) {
-	    logger.error(e);
-	    throw new SourceDownloaderServiceException(
-		    "Entity manager Exception", e);
-	}
-	return mapOfParsers;
-    }
-
-    @Transactional
-    @Override
     public List<Source> loadSourceList()
 	    throws SourceDownloaderServiceException {
 	try {
@@ -84,32 +69,49 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 	}
     }
 
-    // Don't use now
     @Transactional
     @Override
     public Map<Source, ParserInterface> createParserMap(List<Source> sourceList)
 	    throws SourceDownloaderServiceException {
 	Map<Source, ParserInterface> parserMap = new HashMap<Source, ParserInterface>();
 	for (Source source : sourceList) {
-	    Class parserClass;
-	    try {
-		parserClass = Class.forName(source.getParser());
-	    } catch (Exception e) {
-		logger.error(e);
-		throw new SourceDownloaderServiceException(
-			"Can't find Class of Parser!", e);
+	    if (source.getParser() != null) {
+		Class parserClass;
+		try {
+		    parserClass = Class.forName(source.getParser());
+		} catch (Exception e) {
+		    logger.error(e);
+		    throw new SourceDownloaderServiceException(
+			    "Can't find Class of Parser!", e);
+		}
+		ParserInterface parser = null;
+		try {
+		    parser = (ParserInterface) parserClass.newInstance();
+		} catch (Exception e) {
+		    logger.error(e);
+		    throw new SourceDownloaderServiceException(
+			    "class of Parser cannot be instantiated!", e);
+		}
+		parserMap.put(source, parser);
 	    }
-	    ParserInterface parser = null;
-	    try {
-		parser = (ParserInterface) parserClass.newInstance();
-	    } catch (Exception e) {
-		logger.error(e);
-		throw new SourceDownloaderServiceException(
-			"class of Parser cannot be instantiated!", e);
-	    }
-	    parserMap.put(source, parser);
 	}
 	return parserMap;
+    }
+
+    // Don't use now
+    @Transactional
+    @Override
+    public Map<Source, ParserInterface> getMapOfParsers()
+	    throws SourceDownloaderServiceException {
+	Map<Source, ParserInterface> mapOfParsers;
+	try {
+	    mapOfParsers = sourceDao.getMapOfParsers();
+	} catch (Exception e) {
+	    logger.error(e);
+	    throw new SourceDownloaderServiceException(
+		    "Entity manager Exception", e);
+	}
+	return mapOfParsers;
     }
 
 }

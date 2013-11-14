@@ -19,8 +19,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sources")
 @NamedQueries({
-		@NamedQuery(name = "Source.getAll", query = "SELECT c FROM Source c"),
-		@NamedQuery(name = "Source.findByName", query = "SELECT c FROM Source c WHERE c.sourceName  = :sourceName") })
+		@NamedQuery(name = "Source.getAll", query = "SELECT s FROM Source s"),
+		@NamedQuery(name = "Source.findByName", query = "SELECT s FROM Source s WHERE s.sourceName  = :sourceName") })
 public class Source {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

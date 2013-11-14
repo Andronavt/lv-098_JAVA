@@ -1,5 +1,6 @@
 package tc.lv.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import tc.lv.domain.NotValidIp;
 
 @Repository
 public class IpAddressDaoImpl implements IpAddressDao {
+
 	private static final Logger loggerInfo = Logger.getLogger("infoLog");
 
 	@PersistenceContext(name = "primary")
@@ -31,6 +33,7 @@ public class IpAddressDaoImpl implements IpAddressDao {
 		return list;
 	}
 
+	@Deprecated
 	@Override
 	public List<IpAddress> getWhiteList(int from, int count,
 			Class<? extends IpAddress> userClass) {
@@ -43,6 +46,7 @@ public class IpAddressDaoImpl implements IpAddressDao {
 		return list;
 	}
 
+	@Deprecated
 	@Override
 	public List<IpAddress> getWhiteList(Class<? extends IpAddress> userClass) {
 		Query query = entityManager.createNamedQuery(
@@ -117,4 +121,13 @@ public class IpAddressDaoImpl implements IpAddressDao {
 		}
 	}
 
+	@Override
+	public Collection<IpAddress> getUnDefList(
+			Class<? extends IpAddress> userClass) {
+		Query query = entityManager.createNamedQuery(userClass.getSimpleName()
+				+ ".getUndefinedList");
+		@SuppressWarnings("unchecked")
+		List<IpAddress> list = query.getResultList();
+		return list;
+	}
 }

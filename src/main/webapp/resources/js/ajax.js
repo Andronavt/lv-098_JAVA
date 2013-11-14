@@ -130,15 +130,17 @@ function getIP4List() {
 }
 
 function doAjaxUpdateSource() {
-	var parser = $('select[name=sources]').val();
+	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/updateSources",
-		data : "parser=" + parser,
+		url : "updateSourcesButton",
+		data : "source=" + source,
+		beforeSend: function() {
+//		    $('#upSource').html("<img src='/resources/images/ajax-loader.gif' />");
+			$('#upSource').html("Please wait. Source updating");
+		  },
 		success : function(response) {
-			// we have the response
-			alert('Success' + parser);
-			$('#1').html(response);
+			$('#upSource').html(response);
 		},
 		error : function(e) {
 			alert('Error: ' + parser);
