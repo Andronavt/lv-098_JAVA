@@ -58,31 +58,37 @@
 					<a class="button" href="inProgres" title="Top oldest IP">Top
 						oldest IP</a>
 				</p>
+				
 			</div>
+			
 			<h6>Ip data:</h6>
 			<div class="divmenu">
+			
 				<p>
 					<a class="button" href="inProgres" title="Black IP by city">Black
 						IP by city</a>
 				</p>
+				
 				<p>
 					<a class="button" href="inProgres" title="Black IP by country">Black
 						IP by country</a>
 				</p>
+				
 			</div>
 		</sec:authorize>
 
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<h6>Feeds:</h6>
 			<div class="divmenu">
-				<p>
-					<a class="button" href="listOfSource" id="getContentDeleteFeed"
-						title="Delete Feed">Delete Feed</a>
-				</p>
-				
+								
 				<p>
 					<a class="button" href="addNewFeed" id="getContentAddNewFeed"
 						title="Add new Feed">Add new Feed</a>
+				</p>
+				
+				<p>
+					<a class="button" href="listOfSource" id="getContentDeleteFeed"
+						title="Delete Feed">Delete Feed</a>
 				</p>
 	
 				<p>
@@ -113,7 +119,7 @@
 	$("#accordion").accordion({
 		collapsible : true
 	});
-</script>
+	</script>
 	
 	
 </body>
