@@ -4,13 +4,14 @@
 <%@ page session="true"%>
 
 <c:if test="${!empty successMsg}">
-	<p align="left">SUCCESS</p>
-	<p align="left">${successMsg}</p>
+	<p align="left" style="color: green;">SUCCESS: ${successMsg}</p>
+</c:if>
+<c:if test="${!empty incorrectMsg}">
+	<p align="left" style="color: red">Warning: ${incorrectMsg}</p>
 </c:if>
 <c:if test="${!empty errorMsg}">
-	<p align="left">ERROR</p>
-	<p align="left">${errorMsg}</p>
-	<c:forEach var="error" items="${errorList}">
-		<p>${error}</p>
-	</c:forEach>
+	<p align="left" style="color: red;">ERROR: ${errorMsg}</p>
+		<c:forEach var="error" items="${errorList}">
+			<p>${error}</p>
+		</c:forEach>
 </c:if>

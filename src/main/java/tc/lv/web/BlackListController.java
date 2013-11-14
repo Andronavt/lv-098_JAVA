@@ -14,7 +14,7 @@ import tc.lv.utils.ExceptionUtil;
 import tc.lv.utils.IpValidator;
 
 public class BlackListController {
-    
+
     @Autowired
     private BlackListService blService;
 
@@ -28,6 +28,7 @@ public class BlackListController {
     @RequestMapping(value = "/deleteIpFromBL", method = RequestMethod.POST)
     public String deleteFromBL(@ModelAttribute("address") String ipAddress,
 	    Map<String, Object> map) {
+
 	try {
 	    if (IpValidator.isIpV4(ipAddress)) {
 		blService.deleteIpV4(ipAddress);
@@ -40,7 +41,8 @@ public class BlackListController {
 			+ " has been successfully deleted.");
 		return "result";
 	    } else {
-		throw new BlackListServiceException("Incorrect IP-address!");
+		map.put("incorrectMsg", "Incorrect IP-address!");
+		return "result";
 	    }
 	} catch (BlackListServiceException e) {
 	    map.put("errorList", ExceptionUtil.createErrorList(e));
@@ -60,6 +62,7 @@ public class BlackListController {
     public @ResponseBody
     String addToBl(@ModelAttribute("address") String ipAddress,
 	    Map<String, Object> map) {
+
 	try {
 	    if (IpValidator.isIpV4(ipAddress)) {
 		blService.saveIpV4(ipAddress);
@@ -72,7 +75,8 @@ public class BlackListController {
 			+ " has been successfully added to BlackList.");
 		return "result";
 	    } else {
-		throw new BlackListServiceException("Incorrect IP-address!");
+		map.put("incorrectMsg", "Incorrect IP-address!");
+		return "result";
 	    }
 	} catch (BlackListServiceException e) {
 	    map.put("errorList", ExceptionUtil.createErrorList(e));

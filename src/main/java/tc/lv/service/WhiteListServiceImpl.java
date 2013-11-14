@@ -73,6 +73,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 		tempIpV4.setWhiteList(true);
 
 		ipV4AddressDao.save(tempIpV4);
+		//throw new RuntimeException("TEST ERROR!!!!!");
 	    } else if (tempIpV4.getWhiteList() != true) {
 		tempIpV4.setWhiteList(true);
 
@@ -96,7 +97,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 		tempIpV6.getSourceSet().add(
 			sourceDao.findByName("Admin Whitelist"));
 		tempIpV6.setWhiteList(true);
-
+		
 		ipV6AddressDao.save(tempIpV6);
 	    } else if (tempIpV6.getWhiteList() != true) {
 		tempIpV6.setWhiteList(true);

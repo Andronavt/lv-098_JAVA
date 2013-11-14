@@ -31,7 +31,9 @@ public class RegistrationController {
 	    @ModelAttribute(value = "last_name") String last_name,
 	    @ModelAttribute(value = "e-mail") String email,
 	    @ModelAttribute(value = "pass") String pass, Map<String, Object> map) {
+
 	try {
+
 	    if (UserValidator.isCorrectName(user_name)
 		    && UserValidator.isCorrectFirstName(first_name)
 		    && UserValidator.isCorrectLastName(last_name)
@@ -41,10 +43,12 @@ public class RegistrationController {
 			email, pass);
 		map.put("successMsg", "User was registred");
 		return "result";
+
 	    } else {
-		throw new UserEntityServiceException(
-			"Inccorect data for registration!");
+		map.put("errorMsg", "Inccorect data for registration!");
+		return "result";
 	    }
+
 	} catch (UserEntityServiceException e) {
 	    map.put("errorList", ExceptionUtil.createErrorList(e));
 	    map.put("errorMsg", e.getMessage());
