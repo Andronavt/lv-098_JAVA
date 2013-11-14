@@ -15,30 +15,39 @@ import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 import tc.lv.exceptions.DownloadException;
 
-public class ParserChaosreignsWL implements ParserInterface {
-    private static final Logger logger = Logger
+public class ParserChaosreignsWL implements Parser {
+    protected static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
+
+    private static final Logger LOGGER = Logger
 	    .getLogger(ParserChaosreignsWL.class);
+    private static final Pattern PATTERN = Pattern.compile(IP_ALL);
 
     private ParserResults parserResults;
-    protected static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
 
     public ParserChaosreignsWL() {
 	parserResults = new ParserResults();
     }
 
     @Override
-    public ParserResults parse(File f) throws DownloadException {
-	logger.info("START PARSING ChaosreignsWL");
-	Pattern pattern = Pattern.compile(IP_ALL);
+    public ParserResults parse(File file) throws DownloadException {
+
+	LOGGER.info("START PARSING ChaosreignsWL");
+
 	Matcher matcher;
-	Scanner line;
+	Scanner scanner;
+
 	try {
-	    line = new Scanner(new BufferedReader(new FileReader(f)));
-	    while (line.hasNext()) {
+
+	    scanner = new Scanner(new BufferedReader(new FileReader(file)));
+
+	    while (scanner.hasNext()) {
+
 		String ipStr = "";
-		matcher = pattern.matcher(line.nextLine());
+		matcher = PATTERN.matcher(scanner.nextLine());
+
 		if (matcher.find()) {
 		    ipStr = matcher.group();
+
 		    if (IpValidator.isIpV4(ipStr)) {
 			parserResults.ipV4List.add(new IpV4Address(ipStr,
 				new Date()));
@@ -51,12 +60,13 @@ public class ParserChaosreignsWL implements ParserInterface {
 		    }
 		}
 	    }
-	    line.close();
+	    scanner.close();
+
 	} catch (Exception e) {
-	    logger.error("File not found!", e);
+	    LOGGER.error("File not found!", e);
 	    throw new DownloadException("File not found", e);
 	}
-	logger.info("FINISH PARSING ChaosreignsWL");
+	LOGGER.info("FINISH PARSING ChaosreignsWL");
 	return parserResults;
     }
 

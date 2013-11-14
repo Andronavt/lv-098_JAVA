@@ -14,22 +14,27 @@ import tc.lv.domain.UserEntity;
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-	@Autowired
-	private UserDao userDao;
-	@Autowired
-	private Assembler assembler;
+    @Autowired
+    private UserDao userDao;
 
-	@Override
-	@Transactional
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException, DataAccessException {
+    @Autowired
+    private Assembler assembler;
 
-		UserDetails userDetails = null;
-		UserEntity userEntity = userDao.findByName(username);
-		if (userEntity == null) {
-			throw new UsernameNotFoundException("user not found");
-		}
-		userDetails = assembler.buildUserFromUserEntity(userEntity);
-		return userDetails;
+    @Override
+    @Transactional
+    public UserDetails loadUserByUsername(String username)
+	    throws UsernameNotFoundException, DataAccessException {
+
+	UserDetails userDetails = null;
+
+	UserEntity userEntity = userDao.findByName(username);
+
+	if (userEntity == null) {
+	    throw new UsernameNotFoundException("user not found");
 	}
+
+	userDetails = assembler.buildUserFromUserEntity(userEntity);
+
+	return userDetails;
+    }
 }

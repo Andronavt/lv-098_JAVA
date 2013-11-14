@@ -17,7 +17,7 @@ import tc.lv.exceptions.SourceDownloaderServiceException;
 import tc.lv.service.ParserResultService;
 import tc.lv.service.SourceDownloaderService;
 import tc.lv.utils.ExceptionUtil;
-import tc.lv.utils.ParserInterface;
+import tc.lv.utils.Parser;
 import tc.lv.utils.ParserResults;
 
 @Controller
@@ -60,7 +60,7 @@ public class SourceDownloadController {
 	try {
 	    logger.info("Create MAP of sources and Parsers");
 	    List<Source> sourceList = sourceDownloaderService.loadSourceList();
-	    Map<Source, ParserInterface> parserMap = sourceDownloaderService
+	    Map<Source, Parser> parserMap = sourceDownloaderService
 		    .createParserMap(sourceList);
 	    List<ParserResults> parserResultList = null;
 	    logger.info("Start downloading, parsing and updating Data Base");

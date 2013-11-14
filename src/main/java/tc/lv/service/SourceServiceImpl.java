@@ -16,7 +16,7 @@ import tc.lv.exceptions.SourceServiseException;
 @Service
 public class SourceServiceImpl implements SourceService {
 
-    private static final Logger logger = Logger
+    private static final Logger LOGGER = Logger
 	    .getLogger(SourceServiceImpl.class);
 
     @Autowired
@@ -32,17 +32,20 @@ public class SourceServiceImpl implements SourceService {
     @Override
     public void addNewFeed(String parser, String sourceName, String url,
 	    String listType, Double rank) throws SourceServiseException {
+
 	try {
 
 	    if (sourceDao.findByName(sourceName) == null) {
 		Source tempSource = new Source(parser, sourceName, url,
 			listType, rank);
 		sourceDao.save(tempSource);
+
 	    } else {
 		throw new SourceServiseException("Current feed already exist");
 	    }
+
 	} catch (Exception e) {
-	    logger.error(e);
+	    LOGGER.error(e);
 	    throw new SourceServiseException("Entity manager Exception", e);
 	}
     }
@@ -50,10 +53,12 @@ public class SourceServiceImpl implements SourceService {
     @Transactional
     @Override
     public List<Source> getListOfSourcess() throws SourceServiseException {
+
 	try {
 	    return sourceDao.getAll();
+
 	} catch (Exception e) {
-	    logger.error(e);
+	    LOGGER.error(e);
 	    throw new SourceServiseException("Entity manager Exception", e);
 	}
     }
@@ -61,15 +66,18 @@ public class SourceServiceImpl implements SourceService {
     @Transactional
     @Override
     public void deleteFeed(String sourceName) throws SourceServiseException {
+
 	try {
 	    if (sourceDao.findByName(sourceName) != null) {
 		Source source = sourceDao.findByName(sourceName);
 		sourceDao.delete(source);
+
 	    } else {
 		throw new SourceServiseException("Current feed don't exist");
 	    }
+
 	} catch (Exception e) {
-	    logger.error(e);
+	    LOGGER.error(e);
 	    throw new SourceServiseException("Entity manager Exception", e);
 	}
     }
