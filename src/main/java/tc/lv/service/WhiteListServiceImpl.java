@@ -73,6 +73,10 @@ public class WhiteListServiceImpl implements WhiteListService {
 		tempIpV4.setWhiteList(true);
 
 		ipV4AddressDao.save(tempIpV4);
+	    } else if (tempIpV4.getWhiteList() != true) {
+		tempIpV4.setWhiteList(true);
+
+		ipV4AddressDao.save(tempIpV4);
 	    } else {
 		throw new WhiteListServiceException(
 			"There is such ip in WhiteList");
