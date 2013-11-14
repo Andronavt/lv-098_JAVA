@@ -12,17 +12,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="1">
-		<center>
-			<h2>List of sources</h2>
-			<select name="sources" size="1">
-				<c:forEach var="Source" items="${listSource}">
-					<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
-				</c:forEach>
-			</select> <br> <br> <input type="button" value="Delete source"
-				onclick="selectSource()">
-		</center>
-		<br> <br>
-	</div>
+	<fieldset>
+	<legend style="color: green" align="center">List of sources</legend>
+	<br>
+		<div id="1">
+			<center>
+				<select name="sources" size="1">
+					<c:forEach var="Source" items="${listSource}">
+						<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
+					</c:forEach>
+				</select> <br> <br> <input type="button" value="Delete source"
+					onclick="selectSource()">
+			</center>
+			<br> <br>
+		</div>
+	</fieldset>
+	<div id="Info" style="color: green;"></div>
 </body>
 </html>

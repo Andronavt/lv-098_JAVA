@@ -35,7 +35,7 @@ function doAjaxAddNewFeed() {
 				+ "&listType=" + listType + "&rank=" + rank,
 		success : function(response) {
 			// we have the response
-			$('#info').html(response);
+			$('#Info').html(response);
 		},
 		error : function(e) {
 			alert('Error: ' + parser + sourceName + url + listType + rank, e);
@@ -45,7 +45,6 @@ function doAjaxAddNewFeed() {
 
 function doAjaxPostAddIpToWhiteList() {
 	// get the form values
-	alert("TEST FOR CHECK TO WORK");
 	var ipAddress = $('#IP').val();
 	$.ajax({
 		type : "POST",
@@ -84,14 +83,14 @@ function selectSource() {
 	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/listOfSurce",
+		url : "listOfSource",
 		data : "source=" + source,
 		success : function(response) {
 			// we have the response
-			$('#1').html(response);
+			$('#Info').html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + e);
+			alert('Error: ' + source, e);
 		}
 	});
 }
@@ -104,7 +103,6 @@ function doAjaxPostDeleteIp() {
 		url : "deleteIpFromWL",
 		data : "address=" + ipAddress,
 		success : function(response) {
-			alert('Success' + ipAddress);
 			$('#Info').html(response);
 		},
 		error : function(e) {

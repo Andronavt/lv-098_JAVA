@@ -67,7 +67,7 @@
 			value="Add new feed" />
 
 	</form>
-	<div id="Info" style="color: green;"></div>
+	<div id="Info" style="color: green;"></div>	
 
 	<script type="text/javascript">
 		$(document).ready(function() {

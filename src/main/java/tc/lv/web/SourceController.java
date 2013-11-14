@@ -2,6 +2,7 @@ package tc.lv.web;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,8 @@ import tc.lv.utils.ExceptionUtil;
 @Controller
 public class SourceController {
 
+    private static final Logger logger = Logger.getLogger(SourceController.class);
+    
 	@Autowired
 	private SourceService souService;
 
@@ -31,11 +34,12 @@ public class SourceController {
 			@ModelAttribute(value = "url") String url,
 			@ModelAttribute(value = "listType") String listType,
 			@ModelAttribute(value = "rank") String rank, 
-			Map<String, Object> map) {
+			Map<String,Object> map) {
 		try {
 			souService.addNewFeed(parser, sourceName, url, listType,
 					Double.parseDouble(rank));
-			return "result";
+			map.put("successMsg", "Source " + sourceName + " succesfuly addeed!");
+			    return "result";
 		} catch (SourceServiseException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));
 			map.put("errorMsg", e.getMessage());
@@ -52,12 +56,14 @@ public class SourceController {
 	}
 
 	// Delete new sources
-	@RequestMapping(value = "/listOfSurce", method = RequestMethod.POST)
+	@RequestMapping(value = "/listOfSource", method = RequestMethod.POST)
 	public String deleteSource(@ModelAttribute(value = "source") String source,
 			Map<String, Object> map) {
+	    logger.info("Source delete.");
 		try {
 			souService.deleteFeed(source);
-			return "listOfSource";
+			map.put("successMsg", "Source " + source + " successfuly deletead!" );
+			return "result";
 		} catch (SourceServiseException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));
 			map.put("errorMsg", e.getMessage());
