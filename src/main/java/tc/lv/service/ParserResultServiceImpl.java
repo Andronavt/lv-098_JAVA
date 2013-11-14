@@ -13,8 +13,10 @@ import tc.lv.utils.ParserResults;
 
 @Service
 public class ParserResultServiceImpl implements ParserResultService {
-    private static final Logger logger = Logger
+
+    private static final Logger LOGGER = Logger
 	    .getLogger(ParserResultServiceImpl.class);
+
     @Autowired
     private DownloaderDao downloaderDao;
 
@@ -22,12 +24,14 @@ public class ParserResultServiceImpl implements ParserResultService {
     @Transactional
     @Override
     public void save(ParserResults result) throws ParserResultServiceException {
-	logger.info("Start updating Data Base");
+
+	LOGGER.info("Start updating Data Base");
 	try {
 	    downloaderDao.save(result);
-	    logger.info("Finish updating Data Base");
+	    LOGGER.info("Finish updating Data Base");
+
 	} catch (Exception e) {
-	    logger.error(e);
+	    LOGGER.error(e);
 	    throw new ParserResultServiceException("Entity manager Exception",
 		    e);
 	}
@@ -37,12 +41,15 @@ public class ParserResultServiceImpl implements ParserResultService {
     @Override
     public void saveAllSources(List<ParserResults> resultList)
 	    throws ParserResultServiceException {
+
 	try {
+
 	    for (ParserResults result : resultList) {
 		this.save(result);
 	    }
+
 	} catch (Exception e) {
-	    logger.error(e);
+	    LOGGER.error(e);
 	    throw new ParserResultServiceException("Entity manager Exception",
 		    e);
 	}

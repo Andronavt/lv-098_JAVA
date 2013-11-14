@@ -12,7 +12,7 @@ import tc.lv.exceptions.UserEntityServiceException;
 
 @Service
 public class UserEntityServiceImpl implements UserEntityService {
-    private static final Logger logger = Logger
+    private static final Logger LOGGER = Logger
 	    .getLogger(UserEntityServiceImpl.class);
 
     @Autowired
@@ -22,19 +22,23 @@ public class UserEntityServiceImpl implements UserEntityService {
     @Override
     public void createUser(String username, String firstname, String lastname,
 	    String email, String password) throws UserEntityServiceException {
+
 	try {
+
 	    UserEntity tempUser = new UserEntity(username, firstname, lastname,
 		    email, password);
+
 	    if (userDao.findByName(username) == null) {
 		Role role = userDao.findRoleByName("ROLE_USER");
 		tempUser.addRoleToUser(role);
 		userDao.save(tempUser);
+
 	    } else {
 		throw new UserEntityServiceException("Current user exist!");
 	    }
 
 	} catch (Exception e) {
-	    logger.error(e);
+	    LOGGER.error(e);
 	    throw new UserEntityServiceException("Entity manager Exception", e);
 	}
 
@@ -44,17 +48,22 @@ public class UserEntityServiceImpl implements UserEntityService {
     @Override
     public void makeUserAdmin(String username)
 	    throws UserEntityServiceException {
+
 	UserEntity user = userDao.findByName(username);
+
 	try {
+
 	    if (user != null) {
 		Role role = userDao.findRoleByName("ROLE_ADMIN");
 		user.addRoleToUser(role);
 		userDao.save(user);
+
 	    } else {
 		throw new UserEntityServiceException("Current user not exist!");
 	    }
+
 	} catch (Exception e) {
-	    logger.error(e);
+	    LOGGER.error(e);
 	    throw new UserEntityServiceException("Entity manager Exception", e);
 	}
     }

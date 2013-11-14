@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import tc.lv.domain.Source;
 import tc.lv.domain.IpAddress;
 import tc.lv.utils.ParserChaosreignsWL;
-import tc.lv.utils.ParserInterface;
+import tc.lv.utils.Parser;
 import tc.lv.utils.ParserOpenBSD;
 import tc.lv.utils.ParserUceprotect;
 
@@ -43,11 +43,11 @@ public class SourceDaoImpl implements SourceDao {
 	}
 
 	@Override
-	public Map<Source, ParserInterface> getMapOfParsers() {
+	public Map<Source, Parser> getMapOfParsers() {
 		List<Source> sourceList = entityManager.createQuery("from Source")
 				.getResultList();
-		Map<Source, ParserInterface> outputMap = new HashMap<Source, ParserInterface>();
-		ParserInterface tempPaser = null;
+		Map<Source, Parser> outputMap = new HashMap<Source, Parser>();
+		Parser tempPaser = null;
 		String checkParser;
 		for (Source tempSource : sourceList) {
 			checkParser = tempSource.getParser();
