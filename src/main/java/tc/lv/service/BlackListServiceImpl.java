@@ -68,7 +68,7 @@ public class BlackListServiceImpl implements BlackListService {
 
     @Override
     public boolean saveIpV4(String address) throws BlackListServiceException {
-
+        
 	try {
 	    IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
 

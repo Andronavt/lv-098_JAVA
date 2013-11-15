@@ -119,21 +119,6 @@ public class WhiteListController {
 	return "showIpListFromWL";
     }
 
-    // Show IP-address from WhiteList
-    // @RequestMapping(value = "/showIpListFromWL", method = RequestMethod.POST)
-    // public String showIpListFromWl(Map<String, Object> map) {
-    //
-    // try {
-    // map.put("ipList", wlService.loadIpV4List());
-    // return "showIpListFromWL";
-    //
-    // } catch (WhiteListServiceException e) {
-    // map.put("errorList", ExceptionUtil.createErrorList(e));
-    // map.put("errorMsg", e.getMessage());
-    // return "result";
-    // }
-    // }
-
     @RequestMapping(value = "/showIpListFromWL", method = RequestMethod.POST)
     public String showIpListFromWl(@ModelAttribute("page") String page,
 	    @ModelAttribute("value") String value, Map<String, Object> map) {
