@@ -18,8 +18,8 @@ import tc.lv.exceptions.WhiteListServiceException;
 @Service
 public class WhiteListServiceImpl implements WhiteListService {
 
-    private static final Logger LOGGER = Logger
-	    .getLogger(WhiteListServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(WhiteListServiceImpl.class);
+    private static final String ADMIN_WHITE_LIST = "Admin Whitelist";
 
     @Autowired
     private IpV4AddressDao ipV4AddressDao;
@@ -33,160 +33,141 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Transactional
     @Override
     public boolean deleteIpV4(String address) throws WhiteListServiceException {
+        try {
+            IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
 
-	try {
-	    IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
+            if (tempIpV4 != null) {
+                ipV4AddressDao.removeFromWhiteList(tempIpV4);
+                return true;
+            }
+            return false;
 
-	    if (tempIpV4 != null) {
-		ipV4AddressDao.removeFromWhiteList(tempIpV4);
-		return true;
-	    }
-
-	    else {
-		return false;
-	    }
-
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new WhiteListServiceException("Entity manager Exception", e);
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new WhiteListServiceException("Could not delete IPv4 from White List", e);
+        }
     }
 
     @Transactional
     @Override
     public boolean deleteIpV6(String address) throws WhiteListServiceException {
+        try {
+            IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
 
-	try {
-	    IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
+            if (tempIpV6 != null) {
+                ipV6AddressDao.removeFromWhiteList(tempIpV6);
+                return true;
+            }
+            return false;
 
-	    if (tempIpV6 != null) {
-		ipV6AddressDao.removeFromWhiteList(tempIpV6);
-		return true;
-	    }
-
-	    else {
-		return false;
-	    }
-
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new WhiteListServiceException("Entity manager Exception", e);
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new WhiteListServiceException("Could not delete IPv6 from White List", e);
+        }
     }
 
     @Transactional
     @Override
     public boolean saveIpV4(String address) throws WhiteListServiceException {
+        try {
+            IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
+            if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != true)) {
 
-	try {
-	    IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
+                if (tempIpV4 == null) {
+                    tempIpV4 = new IpV4Address(address, new Date());
+                    tempIpV4.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
+                    tempIpV4.setWhiteList(true);
+                    ipV4AddressDao.save(tempIpV4);
 
-	    if (tempIpV4 == null) {
-		tempIpV4 = new IpV4Address(address, new Date());
-		tempIpV4.getSourceSet().add(
-			sourceDao.findByName("Admin Whitelist"));
-		tempIpV4.setWhiteList(true);
-		ipV4AddressDao.save(tempIpV4);
-		return true;
+                } else {
+                    tempIpV4.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
+                    tempIpV4.setWhiteList(true);
+                    ipV4AddressDao.save(tempIpV4);
+                }
+                return true;
+            }
+            return false;
 
-	    } else if (tempIpV4.getWhiteList() != true) {
-		tempIpV4.setWhiteList(true);
-		ipV4AddressDao.save(tempIpV4);
-		return true;
-
-	    } else {
-		return false;
-	    }
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new WhiteListServiceException("Entity manager Exception", e);
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new WhiteListServiceException("Could not save IPv4 to White List", e);
+        }
     }
 
     @Transactional
     @Override
     public boolean saveIpV6(String address) throws WhiteListServiceException {
+        try {
+            IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
+            if ((tempIpV6 == null) || (tempIpV6.getWhiteList() != true)) {
 
-	try {
-	    IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
+                if (tempIpV6 == null) {
+                    tempIpV6 = new IpV6Address(address, new Date());
+                    tempIpV6.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
+                    tempIpV6.setWhiteList(true);
+                    ipV6AddressDao.save(tempIpV6);
 
-	    if (tempIpV6 == null) {
-		tempIpV6 = new IpV6Address(address, new Date());
-		tempIpV6.getSourceSet().add(
-			sourceDao.findByName("Admin Whitelist"));
-		tempIpV6.setWhiteList(true);
-		ipV6AddressDao.save(tempIpV6);
-		return true;
+                } else {
+                    tempIpV6.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
+                    tempIpV6.setWhiteList(true);
+                    ipV6AddressDao.save(tempIpV6);
+                }
+                return true;
+            }
+            return false;
 
-	    } else if (tempIpV6.getWhiteList() != true) {
-		tempIpV6.setWhiteList(true);
-		ipV6AddressDao.save(tempIpV6);
-		return true;
-
-	    } else {
-		return false;
-	    }
-
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new WhiteListServiceException("Entity manager Exception", e);
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new WhiteListServiceException("Could not save IPv6 to White List", e);
+        }
     }
 
     @Transactional
     @Override
-    public Collection<IpV4Address> loadIpV4List()
-	    throws WhiteListServiceException {
+    public Collection<IpV4Address> loadIpV4List() throws WhiteListServiceException {
+        try {
+            return ipV4AddressDao.getWhiteList();
 
-	try {
-	    return ipV4AddressDao.getWhiteList();
-
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new WhiteListServiceException("Entity manager Exception", e);
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new WhiteListServiceException("Could not load IPv4 White List", e);
+        }
     }
 
     @Transactional
     @Override
-    public Collection<IpV6Address> loadIpV6List()
-	    throws WhiteListServiceException {
+    public Collection<IpV6Address> loadIpV6List() throws WhiteListServiceException {
+        try {
+            return ipV6AddressDao.getWhiteList();
 
-	try {
-	    return ipV6AddressDao.getWhiteList();
-
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new WhiteListServiceException("Entity manager Exception", e);
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new WhiteListServiceException("Could not load IPv6 White List", e);
+        }
     }
 
     @Transactional
     @Override
-    public Collection<IpV4Address> loadIpV4ListByRange(int from, int count)
-	    throws WhiteListServiceException {
+    public Collection<IpV4Address> loadIpV4ListByRange(int from, int count) throws WhiteListServiceException {
+        try {
+            return ipV4AddressDao.getWhiteList(from, count);
 
-	try {
-	    return ipV4AddressDao.getWhiteList(from, count);
-
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new WhiteListServiceException("Entity manager Exception", e);
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new WhiteListServiceException("Could not load IPv4 White List by range", e);
+        }
     }
 
     @Transactional
     @Override
-    public Collection<IpV6Address> loadIpV6ListByRange(int from, int count)
-	    throws WhiteListServiceException {
+    public Collection<IpV6Address> loadIpV6ListByRange(int from, int count) throws WhiteListServiceException {
+        try {
+            return ipV6AddressDao.getWhiteList(from, count);
 
-	try {
-	    return ipV6AddressDao.getWhiteList(from, count);
-
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new WhiteListServiceException("Entity manager Exception", e);
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new WhiteListServiceException("Could not load IPv6 White List by range", e);
+        }
     }
 
 }
