@@ -39,10 +39,8 @@ public class RegistrationController {
 		    && UserValidator.isCorrectLastName(last_name)
 		    && UserValidator.isCorrectEmail(email)
 		    && UserValidator.isCorrectPassword(pass)) {
-		userEntityService.createUser(user_name, first_name, last_name,
-			email, pass);
-		map.put("successMsg", "User was registred");
-		return "result";
+		return addUserDB(userEntityService.createUser(user_name,
+			first_name, last_name, email, pass), map);
 
 	    } else {
 		map.put("errorMsg", "Inccorect data for registration!");
@@ -54,5 +52,16 @@ public class RegistrationController {
 	    map.put("errorMsg", e.getMessage());
 	    return "result";
 	}
+    }
+
+    private String addUserDB(boolean flag, Map<String, Object> map)
+	    throws UserEntityServiceException {
+
+	if (flag) {
+	    map.put("successMsg", "User was registred");
+	    return "result";
+	}
+	map.put("incorrectMsg", "Current User exist");
+	return "result";
     }
 }

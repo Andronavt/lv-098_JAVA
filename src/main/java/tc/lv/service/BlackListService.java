@@ -8,13 +8,13 @@ import tc.lv.exceptions.BlackListServiceException;
 
 public interface BlackListService {
 
-	public void deleteIpV4(String address) throws BlackListServiceException;
+	public boolean deleteIpV4(String address) throws BlackListServiceException;
 
-	public void deleteIpV6(String address) throws BlackListServiceException;
+	public boolean deleteIpV6(String address) throws BlackListServiceException;
 
-	public void saveIpV4(String address) throws BlackListServiceException;
+	public boolean saveIpV4(String address) throws BlackListServiceException;
 
-	public void saveIpV6(String address) throws BlackListServiceException;
+	public boolean saveIpV6(String address) throws BlackListServiceException;
 
 	public Collection<IpV4Address> loadIpV4List()
 			throws BlackListServiceException;

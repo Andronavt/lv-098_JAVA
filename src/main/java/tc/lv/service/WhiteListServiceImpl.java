@@ -32,17 +32,18 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
-    public void deleteIpV4(String address) throws WhiteListServiceException {
+    public boolean deleteIpV4(String address) throws WhiteListServiceException {
 
 	try {
 	    IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
 
-	    if (tempIpV4 != null)
+	    if (tempIpV4 != null) {
 		ipV4AddressDao.removeFromWhiteList(tempIpV4);
+		return true;
+	    }
 
 	    else {
-		throw new WhiteListServiceException(
-			"Current IP-address don't exist in database");
+		return false;
 	    }
 
 	} catch (Exception e) {
@@ -53,17 +54,18 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
-    public void deleteIpV6(String address) throws WhiteListServiceException {
+    public boolean deleteIpV6(String address) throws WhiteListServiceException {
 
 	try {
 	    IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
 
-	    if (tempIpV6 != null)
+	    if (tempIpV6 != null) {
 		ipV6AddressDao.removeFromWhiteList(tempIpV6);
+		return true;
+	    }
 
 	    else {
-		throw new WhiteListServiceException(
-			"Current IP-address don't exist in database");
+		return false;
 	    }
 
 	} catch (Exception e) {
@@ -74,7 +76,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
-    public void saveIpV4(String address) throws WhiteListServiceException {
+    public boolean saveIpV4(String address) throws WhiteListServiceException {
 
 	try {
 	    IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
@@ -85,14 +87,15 @@ public class WhiteListServiceImpl implements WhiteListService {
 			sourceDao.findByName("Admin Whitelist"));
 		tempIpV4.setWhiteList(true);
 		ipV4AddressDao.save(tempIpV4);
+		return true;
 
 	    } else if (tempIpV4.getWhiteList() != true) {
 		tempIpV4.setWhiteList(true);
 		ipV4AddressDao.save(tempIpV4);
+		return true;
 
 	    } else {
-		throw new WhiteListServiceException(
-			"There is such ip in WhiteList");
+		return false;
 	    }
 	} catch (Exception e) {
 	    LOGGER.error(e);
@@ -102,7 +105,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
-    public void saveIpV6(String address) throws WhiteListServiceException {
+    public boolean saveIpV6(String address) throws WhiteListServiceException {
 
 	try {
 	    IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
@@ -113,15 +116,15 @@ public class WhiteListServiceImpl implements WhiteListService {
 			sourceDao.findByName("Admin Whitelist"));
 		tempIpV6.setWhiteList(true);
 		ipV6AddressDao.save(tempIpV6);
+		return true;
 
 	    } else if (tempIpV6.getWhiteList() != true) {
 		tempIpV6.setWhiteList(true);
-
 		ipV6AddressDao.save(tempIpV6);
+		return true;
 
 	    } else {
-		throw new WhiteListServiceException(
-			"There is such ip in WhiteList");
+		return false;
 	    }
 
 	} catch (Exception e) {

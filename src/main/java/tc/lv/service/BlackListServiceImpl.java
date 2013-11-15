@@ -27,17 +27,17 @@ public class BlackListServiceImpl implements BlackListService {
     private SourceDao sourceDao;
 
     @Override
-    public void deleteIpV4(String address) throws BlackListServiceException {
+    public boolean deleteIpV4(String address) throws BlackListServiceException {
 
 	try {
 	    IpV4Address tempObject = ipV4AddressDao.findByAddress(address);
 
-	    if (tempObject != null)
+	    if (tempObject != null) {
 		ipV4AddressDao.removeFromBlackList(tempObject);
+		return true;
 
-	    else {
-		throw new BlackListServiceException(
-			"There is no such ip address");
+	    } else {
+		return false;
 	    }
 
 	} catch (Exception e) {
@@ -47,18 +47,18 @@ public class BlackListServiceImpl implements BlackListService {
     }
 
     @Override
-    public void deleteIpV6(String address) throws BlackListServiceException {
+    public boolean deleteIpV6(String address) throws BlackListServiceException {
 
 	try {
 	    IpV6Address tempObject = ipV6AddressDao.findByAddress(address);
 
-	    if (tempObject != null)
+	    if (tempObject != null) {
 		ipV6AddressDao.removeFromBlackList(tempObject);
+		return true;
 
-	    else {
-		throw new BlackListServiceException("");
+	    } else {
+		return false;
 	    }
-
 	} catch (Exception e) {
 	    LOGGER.error(e);
 	    throw new BlackListServiceException(
@@ -67,7 +67,7 @@ public class BlackListServiceImpl implements BlackListService {
     }
 
     @Override
-    public void saveIpV4(String address) throws BlackListServiceException {
+    public boolean saveIpV4(String address) throws BlackListServiceException {
 
 	try {
 	    IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
@@ -78,14 +78,15 @@ public class BlackListServiceImpl implements BlackListService {
 			sourceDao.findByName("Admin BlackList"));
 		tempIpV4.setWhiteList(false);
 		ipV4AddressDao.save(tempIpV4);
+		return true;
 
 	    } else if (tempIpV4.getWhiteList() != true) {
 		tempIpV4.setWhiteList(false);
 		ipV4AddressDao.save(tempIpV4);
+		return true;
 
 	    } else {
-		throw new BlackListServiceException(
-			"Current IP-address exist in BlackList");
+		return false;
 	    }
 
 	} catch (Exception e) {
@@ -96,7 +97,7 @@ public class BlackListServiceImpl implements BlackListService {
     }
 
     @Override
-    public void saveIpV6(String address) throws BlackListServiceException {
+    public boolean saveIpV6(String address) throws BlackListServiceException {
 
 	try {
 	    IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
@@ -107,14 +108,15 @@ public class BlackListServiceImpl implements BlackListService {
 			sourceDao.findByName("Admin BlackList"));
 		tempIpV6.setWhiteList(false);
 		ipV6AddressDao.save(tempIpV6);
+		return true;
 
 	    } else if (tempIpV6.getWhiteList() != true) {
 		tempIpV6.setWhiteList(false);
 		ipV6AddressDao.save(tempIpV6);
+		return true;
 
 	    } else {
-		throw new BlackListServiceException(
-			"There is such ip address in BlackList");
+		return false;
 	    }
 
 	} catch (Exception e) {

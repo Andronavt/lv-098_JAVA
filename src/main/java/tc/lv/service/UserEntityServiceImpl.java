@@ -20,8 +20,9 @@ public class UserEntityServiceImpl implements UserEntityService {
 
     @Transactional
     @Override
-    public void createUser(String username, String firstname, String lastname,
-	    String email, String password) throws UserEntityServiceException {
+    public boolean createUser(String username, String firstname,
+	    String lastname, String email, String password)
+	    throws UserEntityServiceException {
 
 	try {
 
@@ -32,9 +33,10 @@ public class UserEntityServiceImpl implements UserEntityService {
 		Role role = userDao.findRoleByName("ROLE_USER");
 		tempUser.addRoleToUser(role);
 		userDao.save(tempUser);
+		return true;
 
 	    } else {
-		throw new UserEntityServiceException("Current user exist!");
+		return false;
 	    }
 
 	} catch (Exception e) {
@@ -46,7 +48,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 
     @Transactional
     @Override
-    public void makeUserAdmin(String username)
+    public boolean makeUserAdmin(String username)
 	    throws UserEntityServiceException {
 
 	UserEntity user = userDao.findByName(username);
@@ -57,9 +59,10 @@ public class UserEntityServiceImpl implements UserEntityService {
 		Role role = userDao.findRoleByName("ROLE_ADMIN");
 		user.addRoleToUser(role);
 		userDao.save(user);
+		return true;
 
 	    } else {
-		throw new UserEntityServiceException("Current user not exist!");
+		return false;
 	    }
 
 	} catch (Exception e) {
