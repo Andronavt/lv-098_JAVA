@@ -4,18 +4,38 @@
 <%@ page session="false"%>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script
-	src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>
-<script
-	src="//raw.github.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.js"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/js/jquery.bootpag.js" />"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
 
-<div id="content"></div>
-<div id="page-selection">Pagination goes here</div>
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />
+
+<div id="content" class="content"></div>
+<div id="demo1" class="demo1"></div>
 <script>
 	// init bootpag
-	$('#page-selection').bootpag({
-		total : 10
-	}).on("page", function(event, /* page number here */num) {
-		$("#content").html("Test"); // some ajax content loading...
+	function test(page, value) {
+		$.ajax({
+			type : "POST",
+			url : "showIpListFromWL",
+			data : "page=" + page + "&value=" + value,
+			success : function(response) {
+				$("#content").html(response);
+			},
+			error : function(e) {
+				alert('Error: ' + e + page + value);
+			}
+		});
+	}
+	$(document).ready(function() {
+		$('#demo1').bootpag({
+			total : 5
+		}).on("page", function(event, num) {
+			test(num, 10);
+		});
 	});
 </script>

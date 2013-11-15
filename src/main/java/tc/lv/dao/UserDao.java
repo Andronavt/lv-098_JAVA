@@ -1,18 +1,18 @@
 package tc.lv.dao;
 
 import tc.lv.domain.Role;
-import tc.lv.domain.UserEntity;
+import tc.lv.domain.User;
 
 public interface UserDao {
 
-    UserEntity findByName(String name);
+    User findByName(String name);
 
-    void save(UserEntity user);
+    void save(User user);
 
     Role findRoleByName(String roleName);
 
-    void remove(UserEntity user);
+    void remove(User user);
 
-    UserEntity update(UserEntity user);
+    User update(User user);
 
 }

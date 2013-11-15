@@ -16,69 +16,69 @@ import tc.lv.exceptions.SourceServiseException;
 @Service
 public class SourceServiceImpl implements SourceService {
 
-    private static final Logger LOGGER = Logger
-	    .getLogger(SourceServiceImpl.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(SourceServiceImpl.class);
 
-    @Autowired
-    private SourceDao sourceDao;
+	@Autowired
+	private SourceDao sourceDao;
 
-    @Autowired
-    private IpV4AddressDao ipV4AddressDao;
+	@Autowired
+	private IpV4AddressDao ipV4AddressDao;
 
-    @Autowired
-    private IpV6AddressDao ipV6AddressDao;
+	@Autowired
+	private IpV6AddressDao ipV6AddressDao;
 
-    @Transactional
-    @Override
-    public void addNewFeed(String parser, String sourceName, String url,
-	    String listType, Double rank) throws SourceServiseException {
+	@Transactional
+	@Override
+	public void addNewFeed(String parser, String sourceName, String url,
+			String listType, Double rank) throws SourceServiseException {
 
-	try {
+		try {
 
-	    if (sourceDao.findByName(sourceName) == null) {
-		Source tempSource = new Source(parser, sourceName, url,
-			listType, rank);
-		sourceDao.save(tempSource);
+			if (sourceDao.findByName(sourceName) == null) {
+				Source tempSource = new Source(parser, sourceName, url,
+						listType, rank);
+				sourceDao.save(tempSource);
 
-	    } else {
-		throw new SourceServiseException("Current feed already exist");
-	    }
+			} else {
+				throw new SourceServiseException("Current feed already exist");
+			}
 
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new SourceServiseException("Entity manager Exception", e);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new SourceServiseException("Problem in adding new feed", e);
+		}
 	}
-    }
 
-    @Transactional
-    @Override
-    public List<Source> getListOfSourcess() throws SourceServiseException {
+	@Transactional
+	@Override
+	public List<Source> getListOfSourcess() throws SourceServiseException {
 
-	try {
-	    return sourceDao.getAll();
+		try {
+			return sourceDao.getAll();
 
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new SourceServiseException("Entity manager Exception", e);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new SourceServiseException("Could not get list of sources", e);
+		}
 	}
-    }
 
-    @Transactional
-    @Override
-    public void deleteFeed(String sourceName) throws SourceServiseException {
+	@Transactional
+	@Override
+	public void deleteFeed(String sourceName) throws SourceServiseException {
 
-	try {
-	    if (sourceDao.findByName(sourceName) != null) {
-		Source source = sourceDao.findByName(sourceName);
-		sourceDao.delete(source);
+		try {
+			if (sourceDao.findByName(sourceName) != null) {
+				Source source = sourceDao.findByName(sourceName);
+				sourceDao.delete(source);
 
-	    } else {
-		throw new SourceServiseException("Current feed don't exist");
-	    }
+			} else {
+				throw new SourceServiseException("Current feed don't exist");
+			}
 
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new SourceServiseException("Entity manager Exception", e);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new SourceServiseException("Could not delete feed", e);
+		}
 	}
-    }
 }

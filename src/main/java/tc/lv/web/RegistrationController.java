@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import tc.lv.exceptions.UserEntityServiceException;
-import tc.lv.service.UserEntityService;
+import tc.lv.service.UserService;
 import tc.lv.utils.ExceptionUtil;
 import tc.lv.utils.UserValidator;
 
@@ -17,7 +17,7 @@ import tc.lv.utils.UserValidator;
 public class RegistrationController {
 
     @Autowired
-    private UserEntityService userEntityService;
+    private UserService userService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration() {
@@ -39,7 +39,7 @@ public class RegistrationController {
 		    && UserValidator.isCorrectLastName(last_name)
 		    && UserValidator.isCorrectEmail(email)
 		    && UserValidator.isCorrectPassword(pass)) {
-		return addUserDB(userEntityService.createUser(user_name,
+		return addUserDB(userService.createUser(user_name,
 			first_name, last_name, email, pass), map);
 
 	    } else {

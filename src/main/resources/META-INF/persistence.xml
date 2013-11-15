@@ -10,14 +10,14 @@
 		<class>tc.lv.domain.NotValidIp</class>
 		<class>tc.lv.domain.Role</class>
 		<class>tc.lv.domain.Source</class>
-		<class>tc.lv.domain.UserEntity</class>
+		<class>tc.lv.domain.User</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
 			<property name="hibernate.connection.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="never" />
 			<property name="hibernate.connection.driver_class" value="net.sourceforge.jtds.jdbc.Driver" />
-			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="1234" />
+			<property name="hibernate.connection.username" value="andrew" />
+			<property name="hibernate.connection.password" value="1992" />
 			<property name="hibernate.connection.url"
 				value="jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=ip_addresses" />
 		</properties>

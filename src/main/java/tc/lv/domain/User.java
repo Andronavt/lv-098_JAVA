@@ -22,11 +22,11 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = UserEntity.FIND_BY_NAME, query = UserEntity.FIND_BY_NAME_QUERY)
-public class UserEntity {
+@NamedQuery(name = User.FIND_BY_NAME, query = User.FIND_BY_NAME_QUERY)
+public class User {
 
-    public static final String FIND_BY_NAME = "UserEntity.findByName";
-    public static final String FIND_BY_NAME_QUERY = "SELECT u FROM UserEntity u WHERE u.username = ?1";
+    public static final String FIND_BY_NAME = "User.findByName";
+    public static final String FIND_BY_NAME_QUERY = "SELECT u FROM User u WHERE u.username = ?1";
 
     @Column(name = "ctime", nullable = true)
     private Date ctime;
@@ -59,18 +59,18 @@ public class UserEntity {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    public UserEntity() {
+    public User() {
 
     }
 
-    public UserEntity(String username, String email, String password, Set<Role> roleSet) {
+    public User(String username, String email, String password, Set<Role> roleSet) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.roleSet = roleSet;
     }
 
-    public UserEntity(String username, String firstname, String lastname, String email, String password) {
+    public User(String username, String firstname, String lastname, String email, String password) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -90,7 +90,7 @@ public class UserEntity {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UserEntity other = (UserEntity) obj;
+        User other = (User) obj;
         if (password == null) {
             if (other.password != null)
                 return false;
