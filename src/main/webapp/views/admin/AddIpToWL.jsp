@@ -21,6 +21,7 @@
 
 <link href="<c:url value="/resources/css/validation.css" />"
 	rel="stylesheet" type="text/css" />
+
 <fieldset>
 	<legend style="color: green">Adding IP to WhiteList</legend>
 
@@ -44,3 +45,4 @@
 		validateIpAddress();
 	});
 </script>
+
