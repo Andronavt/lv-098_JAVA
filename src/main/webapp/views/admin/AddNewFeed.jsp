@@ -65,8 +65,7 @@
 		<input id="rank" type="text" name="rankIn" size="30" maxlength="50" />
 
 		<div>
-			<input id="btnAddNewFeed" type="button" name="addNewFeed"
-				value="Add new feed" />
+			<input id="btnAddNewFeed" type="button" name="addNewFeed" value="Add new feed" />
 		</div>
 
 	</fieldset>
