@@ -4,9 +4,10 @@ import tc.lv.exceptions.UserEntityServiceException;
 
 public interface UserEntityService {
 
-    public void makeUserAdmin(String username)
+    public boolean makeUserAdmin(String username)
 	    throws UserEntityServiceException;
 
-    public void createUser(String username, String firstname, String lastname,
-	    String email, String password) throws UserEntityServiceException;
+    public boolean createUser(String username, String firstname,
+	    String lastname, String email, String password)
+	    throws UserEntityServiceException;
 }
