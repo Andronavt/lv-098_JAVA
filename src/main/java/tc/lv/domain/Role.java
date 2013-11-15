@@ -27,7 +27,7 @@ public class Role {
 	private String role;
 
 	@ManyToMany(mappedBy = "roleSet", fetch = FetchType.EAGER)
-	private Set<UserEntity> userSet = new HashSet<UserEntity>();
+	private Set<User> userSet = new HashSet<User>();
 
 	public Role() {
 
@@ -41,7 +41,7 @@ public class Role {
 		return role;
 	}
 
-	public Set<UserEntity> getUserSet() {
+	public Set<User> getUserSet() {
 		return userSet;
 	}
 
@@ -53,7 +53,7 @@ public class Role {
 		this.role = role;
 	}
 
-	public void setUserSet(Set<UserEntity> userSet) {
+	public void setUserSet(Set<User> userSet) {
 		this.userSet = userSet;
 	}
 }

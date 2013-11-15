@@ -2,7 +2,7 @@ package tc.lv.service;
 
 import tc.lv.exceptions.UserEntityServiceException;
 
-public interface UserEntityService {
+public interface UserService {
 
     public boolean makeUserAdmin(String username)
 	    throws UserEntityServiceException;

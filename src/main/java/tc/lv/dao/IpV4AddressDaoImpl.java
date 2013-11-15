@@ -89,4 +89,10 @@ public class IpV4AddressDaoImpl implements IpV4AddressDao {
 
 		entityManager.persist(address);
 	}
+	
+	@Override
+	public IpV4Address update(IpV4Address address) {
+
+		return entityManager.merge(address);
+	}
 }

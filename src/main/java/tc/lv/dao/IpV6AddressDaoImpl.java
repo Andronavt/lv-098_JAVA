@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 
 @Repository
@@ -89,5 +90,11 @@ public class IpV6AddressDaoImpl implements IpV6AddressDao {
 	public void save(IpV6Address address) {
 
 		entityManager.persist(address);
+	}
+	
+	@Override
+	public IpV6Address update(IpV6Address address) {
+
+		return entityManager.merge(address);
 	}
 }

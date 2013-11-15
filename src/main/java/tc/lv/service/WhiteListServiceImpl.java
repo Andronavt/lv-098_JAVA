@@ -40,10 +40,7 @@ public class WhiteListServiceImpl implements WhiteListService {
                 ipV4AddressDao.removeFromWhiteList(tempIpV4);
                 return true;
             }
-
-            else {
-                return false;
-            }
+            return false;
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -61,10 +58,7 @@ public class WhiteListServiceImpl implements WhiteListService {
                 ipV6AddressDao.removeFromWhiteList(tempIpV6);
                 return true;
             }
-
-            else {
-                return false;
-            }
+            return false;
 
         } catch (Exception e) {
             LOGGER.error(e);
