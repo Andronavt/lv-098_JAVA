@@ -24,4 +24,6 @@ public interface IpV6AddressDao {
 
 	void save(IpV6Address address);
 
+	IpV6Address update(IpV6Address address);
+
 }

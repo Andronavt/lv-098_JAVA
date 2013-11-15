@@ -48,36 +48,16 @@ public class SourceDaoImpl implements SourceDao {
 				.getResultList();
 	}
 
-	// @Override
-	// @Deprecated
-	// public Map<Source, Parser> getMapOfParsers() {
-	// List<Source> sourceList =
-	// entityManager.createQuery("from Source").getResultList();
-	// Map<Source, Parser> outputMap = new HashMap<Source, Parser>();
-	// Parser tempPaser = null;
-	// String checkParser;
-	// for (Source tempSource : sourceList) {
-	// checkParser = tempSource.getParser();
-	// switch (checkParser) {
-	// case "ParserOpenBSD":
-	// tempPaser = new ParserOpenBSD();
-	// break;
-	// case "ParserUceprotect":
-	// tempPaser = new ParserUceprotect();
-	// break;
-	// case "ParserChaosreignsWL":
-	// tempPaser = new ParserChaosreignsWL();
-	// break;
-	// }
-	// outputMap.put(tempSource, tempPaser);
-	// }
-	// return outputMap;
-	// }
-
 	@Override
 	public void save(Source source) {
 
 		entityManager.persist(source);
+	}
+
+	@Override
+	public Source update(Source source) {
+
+		return entityManager.merge(source);
 	}
 
 }

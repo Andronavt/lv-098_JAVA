@@ -24,4 +24,6 @@ public interface IpV4AddressDao {
 
 	void save(IpV4Address address);
 
+	IpV4Address update(IpV4Address address);
+
 }

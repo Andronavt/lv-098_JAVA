@@ -12,8 +12,8 @@ public interface SourceDao {
 
 	List<Source> getAll();
 
-	// Map<Source, Parser> getMapOfParsers();
-
 	void save(Source source);
+
+	Source update(Source source);
 
 }
