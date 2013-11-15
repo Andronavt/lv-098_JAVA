@@ -5,14 +5,14 @@ import tc.lv.domain.User;
 
 public interface UserDao {
 
-	User findByName(String name);
+    User findByName(String name);
 
-	void save(User user);
+    void save(User user);
 
-	Role findRoleByName(String roleName);
+    Role findRoleByName(String roleName);
 
-	void remove(User user);
+    void remove(User user);
 
-	User update(User user);
+    User update(User user);
 
 }

@@ -6,14 +6,14 @@ import tc.lv.domain.Source;
 
 public interface SourceDao {
 
-	Source findByName(String sourceName);
+    Source findByName(String sourceName);
 
-	List<Source> getAll();
+    List<Source> getAll();
 
-	void save(Source source);
+    void save(Source source);
 
-	Source update(Source source);
+    Source update(Source source);
 
-	void delete(Source source);
+    void delete(Source source);
 
 }
