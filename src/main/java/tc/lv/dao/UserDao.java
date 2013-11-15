@@ -13,4 +13,6 @@ public interface UserDao {
 
 	void remove(User user);
 
+	UserEntity update(UserEntity user);
+
 }
