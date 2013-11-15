@@ -1,73 +1,70 @@
 package tc.lv.service;
 
-import javax.persistence.PersistenceException;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.UserDao;
+import tc.lv.domain.Role;
 import tc.lv.domain.UserEntity;
-import tc.lv.exceptions.DBCreateUserException;
-import tc.lv.exceptions.DBException;
-import tc.lv.exceptions.DBIllegalArgumentException;
-import tc.lv.exceptions.DBIllegalStateException;
-import tc.lv.exceptions.DBPersistanceException;
+import tc.lv.exceptions.UserEntityServiceException;
 
 @Service
 public class UserEntityServiceImpl implements UserEntityService {
-    private static final Logger logger = Logger.getLogger("errorLog");
+    private static final Logger LOGGER = Logger
+	    .getLogger(UserEntityServiceImpl.class);
+
     @Autowired
     private UserDao userDao;
 
     @Transactional
+    @Override
     public void createUser(String username, String firstname, String lastname,
-	    String email, String password) throws DBCreateUserException,
-	    DBPersistanceException, DBIllegalArgumentException,
-	    DBIllegalStateException, DBException {
+	    String email, String password) throws UserEntityServiceException {
+
 	try {
+
 	    UserEntity tempUser = new UserEntity(username, firstname, lastname,
 		    email, password);
-	    userDao.createUser(tempUser);
-	} catch (PersistenceException e) {
-	    logger.error(e);
-	    throw new DBPersistanceException("Entity manager Exception");
-	} catch (IllegalArgumentException e) {
-	    logger.error(e);
-	    throw new DBIllegalArgumentException(
-		    "method createUser() has been passed an illegal or inappropriate argument.");
-	} catch (IllegalStateException e) {
-	    logger.error(e);
-	    throw new DBIllegalStateException(
-		    "method createUser() has been passed an illegal or inappropriate argument.");
-	} catch (RuntimeException e) {
-	    logger.error(e);
-	    throw new DBException("Data Base Exception");
+
+	    if (userDao.findByName(username) == null) {
+		Role role = userDao.findRoleByName("ROLE_USER");
+		tempUser.addRoleToUser(role);
+		userDao.save(tempUser);
+
+	    } else {
+		throw new UserEntityServiceException("Current user exist!");
+	    }
+
+	} catch (Exception e) {
+	    LOGGER.error(e);
+	    throw new UserEntityServiceException("Entity manager Exception", e);
 	}
+
     }
 
+    @Transactional
     @Override
-    public void makeUserAdmin(String username) throws DBPersistanceException,
-	    DBIllegalArgumentException, DBIllegalStateException, DBException {
+    public void makeUserAdmin(String username)
+	    throws UserEntityServiceException {
+
+	UserEntity user = userDao.findByName(username);
+
 	try {
-	    UserEntity tempUser = userDao.loadByName(username);
-	    userDao.makeUserAdmin(tempUser);
-	} catch (PersistenceException e) {
-	    logger.error(e);
-	    throw new DBPersistanceException("Entity manager Exception");
-	} catch (IllegalArgumentException e) {
-	    logger.error(e);
-	    throw new DBIllegalArgumentException(
-		    "method makeUserAdmin() has been passed an illegal or inappropriate argument.");
-	} catch (IllegalStateException e) {
-	    logger.error(e);
-	    throw new DBIllegalStateException(
-		    "method makeUserAdmin() has been passed an illegal or inappropriate argument.");
-	} catch (RuntimeException e) {
-	    logger.error(e);
-	    throw new DBException("Data Base Exception");
+
+	    if (user != null) {
+		Role role = userDao.findRoleByName("ROLE_ADMIN");
+		user.addRoleToUser(role);
+		userDao.save(user);
+
+	    } else {
+		throw new UserEntityServiceException("Current user not exist!");
+	    }
+
+	} catch (Exception e) {
+	    LOGGER.error(e);
+	    throw new UserEntityServiceException("Entity manager Exception", e);
 	}
     }
-
 }

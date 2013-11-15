@@ -16,13 +16,6 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
-	<!-- <beans:bean -->
-	<!-- class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
-	<!-- <beans:property name="prefix" value="/WEB-INF/views/" /> -->
-	<!-- <beans:property name="suffix" value=".jsp" /> -->
-	<!-- </beans:bean> -->
 
 	<!-- Bean Apache Tiles -->
 	<beans:bean id="viewResolver"
@@ -34,7 +27,7 @@
 		</beans:property>
 	</beans:bean>
 
-	
+
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<beans:property name="definitions">
@@ -43,6 +36,5 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
-
 	<context:component-scan base-package="tc.lv.web" />
 </beans:beans>

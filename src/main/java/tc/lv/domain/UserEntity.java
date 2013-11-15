@@ -22,16 +22,17 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "UserEntity.loadByName", query = "SELECT c FROM UserEntity c WHERE c.username = :username")
+@NamedQuery(name = UserEntity.FIND_BY_NAME, query = UserEntity.FIND_BY_NAME_QUERY)
 public class UserEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private int userId;
+	public static final String FIND_BY_NAME = "UserEntity.findByName";
+	public static final String FIND_BY_NAME_QUERY = "SELECT u FROM UserEntity u WHERE u.username = ?1";
 
-	@Column(name = "username", nullable = false)
-	private String username;
+	@Column(name = "ctime", nullable = true)
+	private Date ctime;
+
+	@Column(name = "email", nullable = false)
+	private String email;
 
 	@Column(name = "firstname", nullable = true)
 	private String firstname;
@@ -39,22 +40,24 @@ public class UserEntity {
 	@Column(name = "lastname", nullable = true)
 	private String lastname;
 
-	@Column(name = "email", nullable = false)
-	private String email;
+	@Column(name = "ltime", nullable = true)
+	private Date ltime;
 
 	@Column(name = "password", nullable = false)
 	private String password;
-
-	@Column(name = "ctime", nullable = true)
-	private Date ctime;
-
-	@Column(name = "ltime", nullable = true)
-	private Date ltime;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = "user_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "role_id", updatable = true, nullable = true) })
 	@Fetch(FetchMode.JOIN)
 	private Set<Role> roleSet = new HashSet<Role>();
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	private int userId;
+
+	@Column(name = "username", nullable = false, unique = true)
+	private String username;
 
 	public UserEntity() {
 
@@ -62,7 +65,6 @@ public class UserEntity {
 
 	public UserEntity(String username, String email, String password,
 			Set<Role> roleSet) {
-		super();
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -71,7 +73,6 @@ public class UserEntity {
 
 	public UserEntity(String username, String firstname, String lastname,
 			String email, String password) {
-		super();
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -79,85 +80,8 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Date getCtime() {
-		return ctime;
-	}
-
-	public void setCtime(Date ctime) {
-		this.ctime = ctime;
-	}
-
-	public Date getLtime() {
-		return ltime;
-	}
-
-	public void setLtime(Date ltime) {
-		this.ltime = ltime;
-	}
-
-	public Set<Role> getRoleSet() {
-		return roleSet;
-	}
-
-	public void setRoleSet(Set<Role> roleSet) {
-		this.roleSet = roleSet;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((password == null) ? 0 : password.hashCode());
-		return result;
+	public void addRoleToUser(Role role) {
+		getRoleSet().add(role);
 	}
 
 	@Override
@@ -177,4 +101,88 @@ public class UserEntity {
 		return true;
 	}
 
+	public Date getCtime() {
+		return ctime;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public Date getLtime() {
+		return ltime;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public Set<Role> getRoleSet() {
+		return roleSet;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		return result;
+	}
+
+	public void removeRoleFromUser(Role role) {
+		getRoleSet().remove(role);
+	}
+
+	public void setCtime(Date ctime) {
+		this.ctime = ctime;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public void setLtime(Date ltime) {
+		this.ltime = ltime;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setRoleSet(Set<Role> roleSet) {
+		this.roleSet = roleSet;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 }

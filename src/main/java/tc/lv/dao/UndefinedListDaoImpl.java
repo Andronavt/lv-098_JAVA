@@ -1,11 +1,9 @@
 package tc.lv.dao;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,21 +17,16 @@ public class UndefinedListDaoImpl implements UndefinedListDao {
 	private EntityManager entityManager;
 
 	@Override
-	public Collection<IpV4Address> loadIpV4List() {
-		Query q = entityManager
-				.createNamedQuery("IpV4Address.loadUndefinedList");
-		ArrayList<IpV4Address> list = new ArrayList<IpV4Address>();
-		list.addAll(q.getResultList());
-		return list;
+	public List<IpV4Address> getIpV4List() {
+
+		return entityManager.createNamedQuery(IpV4Address.GET_UNDEFINEDLIST,
+				IpV4Address.class).getResultList();
 	}
 
 	@Override
-	public Collection<IpV6Address> loadIpV6List() {
-		Query q = entityManager
-				.createNamedQuery("IpV6Address.loadUndefinedList");
-		ArrayList<IpV6Address> list = new ArrayList<IpV6Address>();
-		list.addAll(q.getResultList());
-		return list;
-	}
+	public List<IpV6Address> getIpV6List() {
 
+		return entityManager.createNamedQuery(IpV6Address.GET_UNDEFINEDLIST,
+				IpV6Address.class).getResultList();
+	}
 }

@@ -12,6 +12,10 @@
 		<put-attribute name="footer" value="/views/tiles/footer.jsp" />
 	</definition>
 
+	<definition name="result.definition" template="/views/tiles/resultLayout.jsp">
+		<put-attribute name="body" value="" />
+	</definition>
+
 	<definition name="signin" extends="base.definition">
 		<put-attribute name="body" value="/views/user/signin.jsp" />
 	</definition>
@@ -76,6 +80,12 @@
 	<definition name="showIpListFromWL" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/ShowIpListFromWL.jsp" />
 	</definition>
+
+	<!-- Result page -->
+	<definition name="result" extends="result.definition">
+		<put-attribute name="body" value="/views/result/result.jsp" />
+	</definition>
+
 
 	<!-- Page is under construction -->
 	<definition name="inProgres" extends="base.definition">

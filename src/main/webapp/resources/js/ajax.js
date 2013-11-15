@@ -26,19 +26,19 @@ function doAjaxAddNewFeed() {
 	var parser = $('#parser').val();
 	var sourceName = $('#sourceName').val();
 	var url = $('#url').val();
-	var listType = $('#listType').val();
+	var listType = $('select[name=typeList]').val();
 	var rank = $('#rank').val();
 	$.ajax({
 		type : "POST",
 		url : "addNewFeed",
-		data : "parser=" + parser + "&sourceName=" + sourceName
-				+ "&url=" + url + "&listType=" + listType + "&rank" + rank,
+		data : "parser=" + parser + "&sourceName=" + sourceName + "&url=" + url
+				+ "&listType=" + listType + "&rank=" + rank,
 		success : function(response) {
 			// we have the response
-			$('#info').html(response);
+			$('#Info').html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + e);
+			alert('Error: ' + parser + sourceName + url + listType + rank, e);
 		}
 	});
 }
@@ -48,12 +48,13 @@ function doAjaxPostAddIpToWhiteList() {
 	var ipAddress = $('#IP').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/AddIpToWL",
+		url : "addIpToWL",
 		data : "address=" + ipAddress,
 		success : function(response) {
 			$('#Info').html(response);
 		},
 		error : function(e) {
+			alert('address' + ipAddress);
 			alert('Error: ' + e);
 		}
 	});
@@ -82,30 +83,30 @@ function selectSource() {
 	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/listOfSurce",
+		url : "listOfSource",
 		data : "source=" + source,
 		success : function(response) {
 			// we have the response
-			$('#1').html(response);
+			$('#Info').html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + e);
+			alert('Error: ' + source, e);
 		}
 	});
 }
 
 function doAjaxPostDeleteIp() {
 	// get the form values
-	var ipAddress = $('#IpRemoveStr').val();
+	var ipAddress = $('#ipForRemove').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/WL",
+		url : "deleteIpFromWL",
 		data : "address=" + ipAddress,
 		success : function(response) {
 			$('#Info').html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + e);
+			alert('Error: ' + ipAddress, e);
 		}
 	});
 	return false;
@@ -128,15 +129,17 @@ function getIP4List() {
 }
 
 function doAjaxUpdateSource() {
-	var parser = $('select[name=sources]').val();
+	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "admin/updateSources",
-		data : "parser=" + parser,
+		url : "updateSourcesButton",
+		data : "source=" + source,
+		beforeSend: function() {
+//		    $('#upSource').html("<img src='/resources/images/ajax-loader.gif' />");
+			$('#upSource').html("Please wait. Source updating");
+		  },
 		success : function(response) {
-			// we have the response
-			alert('Success' + parser);
-			$('#1').html(response);
+			$('#upSource').html(response);
 		},
 		error : function(e) {
 			alert('Error: ' + parser);

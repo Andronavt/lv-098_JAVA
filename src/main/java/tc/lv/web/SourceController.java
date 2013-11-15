@@ -2,81 +2,73 @@ package tc.lv.web;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import tc.lv.exceptions.DBException;
-import tc.lv.exceptions.DBIllegalArgumentException;
-import tc.lv.exceptions.DBIllegalStateException;
-import tc.lv.exceptions.DBPersistanceException;
+import tc.lv.exceptions.SourceServiseException;
 import tc.lv.service.SourceService;
+import tc.lv.utils.ExceptionUtil;
 
 @Controller
 public class SourceController {
 
-    @Autowired
-    private SourceService souService;
+    private static final Logger logger = Logger.getLogger(SourceController.class);
+    
+	@Autowired
+	private SourceService souService;
 
-    // Get IPv4 List from Source -- get jsp
-    @RequestMapping("getIp4List")
-    public String getlistIpV4Page(Map<String, Object> map)
-	    throws DBPersistanceException, DBIllegalArgumentException,
-	    DBIllegalStateException, DBException {
-	map.put("listSource", souService.getListOfSourcess());
-	return "getIp4List";
-    }
+	// Add new sources
+	@RequestMapping(value = "addNewFeed", method = RequestMethod.GET)
+	public String addNewFeedPage() {
+		return "addNewFeed";
+	}
 
-    // Get IPv4 List from Source -- get data from form
-    @RequestMapping(value = "listIpv4", method = RequestMethod.POST)
-    public String getlistIpV4(Map<String, Object> map,
-	    @ModelAttribute(value = "source") String source,
-	    BindingResult result) throws DBPersistanceException,
-	    DBIllegalArgumentException, DBIllegalStateException,
-	    NumberFormatException, DBException {
-	map.put("source", source);
-	map.put("ipList",
-		souService.getIpV4ListFromSource(Integer.valueOf(source)));
-	return "listIpv4";
-    }
+	// Add new sources
+	@RequestMapping(value = "/addNewFeed", method = RequestMethod.POST)
+	public String addNewFeed(@ModelAttribute(value = "parser") String parser,
+			@ModelAttribute(value = "sourceName") String sourceName,
+			@ModelAttribute(value = "url") String url,
+			@ModelAttribute(value = "listType") String listType,
+			@ModelAttribute(value = "rank") String rank, 
+			Map<String,Object> map) {
+		try {
+			souService.addNewFeed(parser, sourceName, url, listType,
+					Double.parseDouble(rank));
+			map.put("successMsg", "Source " + sourceName + " succesfuly addeed!");
+			    return "result";
+		} catch (SourceServiseException e) {
+			map.put("errorList", ExceptionUtil.createErrorList(e));
+			map.put("errorMsg", e.getMessage());
+			return "result";
+		}
+	}
 
-    // Add new sources
-    @RequestMapping(value = "addNewFeed", method = RequestMethod.GET)
-    public String addNewFeedPage() {
-	return "addNewFeed";
-    }
+	// Delete new sources
+	@RequestMapping(value = "/listOfSource", method = RequestMethod.GET)
+	public String deleteSourcePage(Map<String, Object> map)
+			throws SourceServiseException {
+		map.put("listSource", souService.getListOfSourcess());
+		return "listOfSource";
+	}
 
-    @RequestMapping(value = "/newFeed", method = RequestMethod.POST)
-    public String addNewFeed(@ModelAttribute(value = "parser") String parser,
-	    @ModelAttribute(value = "sourceName") String sourceName,
-	    @ModelAttribute(value = "url") String url,
-	    @ModelAttribute(value = "listType") String listType,
-	    @ModelAttribute(value = "rank") String rank)
-	    throws DBPersistanceException, DBIllegalArgumentException,
-	    DBIllegalStateException, DBException {
-		souService.addNewFeed(parser, sourceName, url, 
-			listType, Double.parseDouble(rank));
-	return "addNewFeed";
-    }
-
-    @RequestMapping(value = "/listOfSource", method = RequestMethod.GET)
-    public String deleteSourcePage(Map<String, Object> map)
-	    throws DBPersistanceException, DBIllegalArgumentException,
-	    DBIllegalStateException, DBException {
-	map.put("listSource", souService.getListOfSourcess());
-	return "listOfSource";
-    }
-
-    @RequestMapping(value = "/listOfSurce", method = RequestMethod.POST)
-    public String deleteSource(@ModelAttribute(value = "source") String source)
-	    throws DBPersistanceException, DBIllegalArgumentException,
-	    DBIllegalStateException, DBException {
-	souService.deleteFeed(source);
-	return "listOfSource";
-    }
+	// Delete new sources
+	@RequestMapping(value = "/listOfSource", method = RequestMethod.POST)
+	public String deleteSource(@ModelAttribute(value = "source") String source,
+			Map<String, Object> map) {
+	    logger.info("Source delete.");
+		try {
+			souService.deleteFeed(source);
+			map.put("successMsg", "Source " + source + " successfuly deletead!" );
+			return "result";
+		} catch (SourceServiseException e) {
+			map.put("errorList", ExceptionUtil.createErrorList(e));
+			map.put("errorMsg", e.getMessage());
+			return "result";
+		}
+	}
 
 }

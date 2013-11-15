@@ -2,7 +2,6 @@ package tc.lv.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Date;
 import java.util.Scanner;
@@ -14,51 +13,57 @@ import org.apache.log4j.Logger;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
+import tc.lv.exceptions.DownloadException;
 
-public class ParserOpenBSD implements ParserInterface {
-    	private static final Logger loggerErr = Logger.getLogger("errorLog");
-	private static final Logger loggerInfo = Logger.getLogger("infoLog");
-	private ParserResults parserResults;
-	protected static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
+public class ParserOpenBSD implements Parser {
+    protected static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
 
-	public ParserOpenBSD() {
-		parserResults = new ParserResults();
-	}
+    private static final Logger LOGGER = Logger.getLogger(ParserOpenBSD.class);
+    private static final Pattern PATTERN = Pattern.compile(IP_ALL);
 
-	@Override
-	public ParserResults parse(File f) {
-	    	loggerInfo.info("START PARSING OpenBSD");
-		System.out.println("BEGIN");
-		Pattern pattern = Pattern.compile(IP_ALL);
-		Matcher matcher;
-		Scanner line;
-		try {
-			line = new Scanner(new BufferedReader(new FileReader(f)));
-			while (line.hasNext()) {
-				String ipStr = "";
-				matcher = pattern.matcher(line.nextLine());
-				if (matcher.find()) {
-					ipStr = matcher.group();
-					if (IpValidator.isIpV4(ipStr)) {
-						System.out.println(parserResults.ipV4List
-								.add(new IpV4Address(ipStr, new Date())));
-					} else if (IpValidator.isIpV6(ipStr)) {
-						parserResults.ipV6List.add(new IpV6Address(ipStr,
-								new Date()));
-					} else {
-						parserResults.notValidList.add(new NotValidIp(ipStr,
-								new Date()));
-					}
-				}
-			}
-			System.out.println("END");
+    private ParserResults parserResults;
 
-			line.close();
-		} catch (FileNotFoundException e) {
-			loggerErr.error("File not found!", e);
+    public ParserOpenBSD() {
+	parserResults = new ParserResults();
+    }
+
+    @Override
+    public ParserResults parse(File file) throws DownloadException {
+
+	LOGGER.info("START PARSING OpenBSD");
+
+	Matcher matcher;
+	Scanner scanner;
+
+	try {
+	    scanner = new Scanner(new BufferedReader(new FileReader(file)));
+
+	    while (scanner.hasNext()) {
+		String ipStr = "";
+		matcher = PATTERN.matcher(scanner.nextLine());
+
+		if (matcher.find()) {
+		    ipStr = matcher.group();
+
+		    if (IpValidator.isIpV4(ipStr)) {
+			System.out.println(parserResults.ipV4List
+				.add(new IpV4Address(ipStr, new Date())));
+		    } else if (IpValidator.isIpV6(ipStr)) {
+			parserResults.ipV6List.add(new IpV6Address(ipStr,
+				new Date()));
+		    } else {
+			parserResults.notValidList.add(new NotValidIp(ipStr,
+				new Date()));
+		    }
 		}
-		System.out.println(" LIST SIZE " + parserResults.ipV4List.size());
-		loggerInfo.info("FINISH PARSING OpenBSD");
-		return parserResults;
+	    }
+	    scanner.close();
+
+	} catch (Exception e) {
+	    LOGGER.error("File not found!", e);
+	    throw new DownloadException("File not found", e);
 	}
+	LOGGER.info("FINISH PARSING OpenBSD");
+	return parserResults;
+    }
 }

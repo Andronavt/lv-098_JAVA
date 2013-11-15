@@ -1,22 +1,19 @@
 package tc.lv.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import tc.lv.domain.Source;
-import tc.lv.exceptions.DBCreateSourceException;
-import tc.lv.utils.ParserInterface;
 
 public interface SourceDao {
 
-	void create(Source source) throws DBCreateSourceException;
+	void delete(Source source);
 
-	Source loadByName(String sourceName);
-	
-	public Map<Source,ParserInterface> getMapOfParsers();
+	Source findByName(String sourceName);
 
-	List<Source> loadAll();
+	List<Source> getAll();
 
-	void delete(String sourceName);
+	// Map<Source, Parser> getMapOfParsers();
+
+	void save(Source source);
 
 }

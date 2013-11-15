@@ -10,26 +10,12 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-	 <appender name="fileInfo" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="file" value="d:/lv-098_JAVA/logs/info.log" />
-        <param name="DatePattern" value="'.'yyyy-MM-dd" />
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
-        </layout>
-	</appender>
-	<appender name="fileWarn" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="d:/lv-098_JAVA/logs/warn.log" />
+	<appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="d:/lv-098_JAVA/logs/log.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
-        </layout>
-	</appender>
-	<appender name="fileErr" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="d:/lv-098_JAVA/logs/error.log" />
-		<param name="DatePattern" value="'.'yyyy-MM-dd" />
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
-        </layout>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />
+		</layout>
 	</appender>
 
 	<!-- Application Loggers -->
@@ -37,7 +23,6 @@
 		<level value="info" />
 	</logger>
 
-	<!-- 3rdparty Loggers -->
 	<logger name="tc.lv.dao">
 		<level value="info" />
 	</logger>
@@ -46,37 +31,32 @@
 		<level value="info" />
 	</logger>
 
+	<logger name="tc.lv.exception">
+		<level value="info" />
+	</logger>
+
 	<logger name="tc.lv.service">
+		<level value="info" />
+	</logger>
+
+	<logger name="tc.lv.utils">
 		<level value="info" />
 	</logger>
 
 	<logger name="tc.lv.web">
 		<level value="info" />
 	</logger>
-	
+
 	<logger name="webapp">
 		<level value="info" />
-	</logger>
-	
-	<logger name="infoLog" additivity="false">
-		<level value="info" />
-		<appender-ref ref="fileInfo" />		
-	</logger>
-	
-	<logger name="warnLog" additivity="false">
-		<level value="warn" />
-		<appender-ref ref="fileWarn" />		
-	</logger>
-	<logger name="errorLog">
-		<level value="error" />
-		<appender-ref ref="console" />
-		<appender-ref ref="fileErr" />
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="info" />
+		<appender-ref ref="file" />
 		<appender-ref ref="console" />
 	</root>
 
 </log4j:configuration>
+

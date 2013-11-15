@@ -1,14 +1,16 @@
 package tc.lv.dao;
 
+import tc.lv.domain.Role;
 import tc.lv.domain.UserEntity;
-import tc.lv.exceptions.DBCreateUserException;
 
 public interface UserDao {
 
-    UserEntity loadByName(String name);
+	UserEntity findByName(String name);
 
-    public void createUser(UserEntity user) throws DBCreateUserException;
-    
-    public void makeUserAdmin(UserEntity user);
+	void save(UserEntity user);
+
+	Role findRoleByName(String roleName);
+
+	void remove(UserEntity user);
 
 }
