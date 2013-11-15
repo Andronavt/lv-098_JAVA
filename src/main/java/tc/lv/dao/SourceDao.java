@@ -6,8 +6,6 @@ import tc.lv.domain.Source;
 
 public interface SourceDao {
 
-	void delete(Source source);
-
 	Source findByName(String sourceName);
 
 	List<Source> getAll();
@@ -15,5 +13,7 @@ public interface SourceDao {
 	void save(Source source);
 
 	Source update(Source source);
+
+	void delete(Source source);
 
 }
