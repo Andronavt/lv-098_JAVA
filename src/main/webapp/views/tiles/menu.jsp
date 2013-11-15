@@ -87,7 +87,7 @@
 				</p>
 				
 				<p>
-					<a class="button" href="listOfSource" id="getContentDeleteFeed"
+					<a class="button" href="deleteSource" id="getContentDeleteFeed"
 						title="Delete Feed">Delete Feed</a>
 				</p>
 	
