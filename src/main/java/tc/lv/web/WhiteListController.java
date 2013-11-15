@@ -117,17 +117,34 @@ public class WhiteListController {
     }
 
     // Show IP-address from WhiteList
+    // @RequestMapping(value = "/showIpListFromWL", method = RequestMethod.POST)
+    // public String showIpListFromWl(Map<String, Object> map) {
+    //
+    // try {
+    // map.put("ipList", wlService.loadIpV4List());
+    // return "showIpListFromWL";
+    //
+    // } catch (WhiteListServiceException e) {
+    // map.put("errorList", ExceptionUtil.createErrorList(e));
+    // map.put("errorMsg", e.getMessage());
+    // return "result";
+    // }
+    // }
+
     @RequestMapping(value = "/showIpListFromWL", method = RequestMethod.POST)
-    public String showIpListFromWl(Map<String, Object> map) {
+    public String showIpListFromWl(@ModelAttribute("page") String page,
+	    @ModelAttribute("value") String value, Map<String, Object> map) {
 
 	try {
-	    map.put("ipList", wlService.loadIpV4List());
-	    return "showIpListFromWL";
+	    wlService.loadIpV4ListByRange(
+		    Integer.parseInt(page) * Integer.parseInt(value),
+		    Integer.parseInt(value));
 
 	} catch (WhiteListServiceException e) {
 	    map.put("errorList", ExceptionUtil.createErrorList(e));
 	    map.put("errorMsg", e.getMessage());
 	    return "result";
 	}
+	return "showIpListFromWL";
     }
 }
