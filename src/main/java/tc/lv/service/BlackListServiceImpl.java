@@ -14,166 +14,173 @@ import tc.lv.domain.IpV6Address;
 import tc.lv.exceptions.BlackListServiceException;
 
 public class BlackListServiceImpl implements BlackListService {
-    private static final Logger LOGGER = Logger
-	    .getLogger(BlackListServiceImpl.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(BlackListServiceImpl.class);
 
-    @Autowired
-    private IpV4AddressDao ipV4AddressDao;
+	@Autowired
+	private IpV4AddressDao ipV4AddressDao;
 
-    @Autowired
-    private IpV6AddressDao ipV6AddressDao;
+	@Autowired
+	private IpV6AddressDao ipV6AddressDao;
 
-    @Autowired
-    private SourceDao sourceDao;
+	@Autowired
+	private SourceDao sourceDao;
 
-    @Override
-    public boolean deleteIpV4(String address) throws BlackListServiceException {
+	@Override
+	public boolean deleteIpV4(String address) throws BlackListServiceException {
 
-	try {
-	    IpV4Address tempObject = ipV4AddressDao.findByAddress(address);
+		try {
+			IpV4Address tempObject = ipV4AddressDao.findByAddress(address);
 
-	    if (tempObject != null) {
-		ipV4AddressDao.removeFromBlackList(tempObject);
-		return true;
+			if (tempObject != null) {
+				ipV4AddressDao.removeFromBlackList(tempObject);
+				return true;
 
-	    } else {
-		return false;
-	    }
+			} else {
+				return false;
+			}
 
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new BlackListServiceException("Entity manager Exception", e);
-	}
-    }
-
-    @Override
-    public boolean deleteIpV6(String address) throws BlackListServiceException {
-
-	try {
-	    IpV6Address tempObject = ipV6AddressDao.findByAddress(address);
-
-	    if (tempObject != null) {
-		ipV6AddressDao.removeFromBlackList(tempObject);
-		return true;
-
-	    } else {
-		return false;
-	    }
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new BlackListServiceException(
-		    "Current IP-address don't exist in BlackList", e);
-	}
-    }
-
-    @Override
-    public boolean saveIpV4(String address) throws BlackListServiceException {
-
-	try {
-	    IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
-
-	    if (tempIpV4 == null) {
-		tempIpV4 = new IpV4Address(address, new Date());
-		tempIpV4.getSourceSet().add(
-			sourceDao.findByName("Admin BlackList"));
-		tempIpV4.setWhiteList(false);
-		ipV4AddressDao.save(tempIpV4);
-		return true;
-
-	    } else if (tempIpV4.getWhiteList() != true) {
-		tempIpV4.setWhiteList(false);
-		ipV4AddressDao.save(tempIpV4);
-		return true;
-
-	    } else {
-		return false;
-	    }
-
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new BlackListServiceException("Entity manager Exception", e);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new BlackListServiceException(
+					"Could not delete ip version 4 from BlackList", e);
+		}
 	}
 
-    }
+	@Override
+	public boolean deleteIpV6(String address) throws BlackListServiceException {
 
-    @Override
-    public boolean saveIpV6(String address) throws BlackListServiceException {
+		try {
+			IpV6Address tempObject = ipV6AddressDao.findByAddress(address);
 
-	try {
-	    IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
+			if (tempObject != null) {
+				ipV6AddressDao.removeFromBlackList(tempObject);
+				return true;
 
-	    if (tempIpV6 == null) {
-		tempIpV6 = new IpV6Address(address, new Date());
-		tempIpV6.getSourceSet().add(
-			sourceDao.findByName("Admin BlackList"));
-		tempIpV6.setWhiteList(false);
-		ipV6AddressDao.save(tempIpV6);
-		return true;
-
-	    } else if (tempIpV6.getWhiteList() != true) {
-		tempIpV6.setWhiteList(false);
-		ipV6AddressDao.save(tempIpV6);
-		return true;
-
-	    } else {
-		return false;
-	    }
-
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new BlackListServiceException("Entity manager Exception", e);
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new BlackListServiceException(
+					"Could not delete ip version 6 from BlackList", e);
+		}
 	}
-    }
 
-    @Override
-    public Collection<IpV4Address> loadIpV4List()
-	    throws BlackListServiceException {
+	@Override
+	public boolean saveIpV4(String address) throws BlackListServiceException {
 
-	try {
-	    return ipV4AddressDao.getBlackList();
+		try {
+			IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
 
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new BlackListServiceException("Entity manager Exception", e);
+			if (tempIpV4 == null) {
+				tempIpV4 = new IpV4Address(address, new Date());
+				tempIpV4.getSourceSet().add(
+						sourceDao.findByName("Admin BlackList"));
+				tempIpV4.setWhiteList(false);
+				ipV4AddressDao.save(tempIpV4);
+				return true;
+
+			} else if (tempIpV4.getWhiteList() != true) {
+				tempIpV4.setWhiteList(false);
+				ipV4AddressDao.save(tempIpV4);
+				return true;
+
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new BlackListServiceException("Could not save ip version 4",
+					e);
+		}
+
 	}
-    }
 
-    @Override
-    public Collection<IpV6Address> loadIpV6List()
-	    throws BlackListServiceException {
+	@Override
+	public boolean saveIpV6(String address) throws BlackListServiceException {
 
-	try {
-	    return ipV6AddressDao.getBlackList();
+		try {
+			IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
 
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new BlackListServiceException("Entity manager Exception", e);
+			if (tempIpV6 == null) {
+				tempIpV6 = new IpV6Address(address, new Date());
+				tempIpV6.getSourceSet().add(
+						sourceDao.findByName("Admin BlackList"));
+				tempIpV6.setWhiteList(false);
+				ipV6AddressDao.save(tempIpV6);
+				return true;
+
+			} else if (tempIpV6.getWhiteList() != true) {
+				tempIpV6.setWhiteList(false);
+				ipV6AddressDao.save(tempIpV6);
+				return true;
+
+			} else {
+				return false;
+			}
+
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new BlackListServiceException("Could not save ip version 6",
+					e);
+		}
 	}
-    }
 
-    @Override
-    public Collection<IpV4Address> loadIpV4ListByRange(int from, int count)
-	    throws BlackListServiceException {
+	@Override
+	public Collection<IpV4Address> loadIpV4List()
+			throws BlackListServiceException {
 
-	try {
-	    return ipV4AddressDao.getBlackList(from, count);
+		try {
+			return ipV4AddressDao.getBlackList();
 
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new BlackListServiceException("Entity manager Exception", e);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new BlackListServiceException(
+					"Could not load list of ip version 4", e);
+		}
 	}
-    }
 
-    @Override
-    public Collection<IpV6Address> loadIpV6ListByRange(int from, int count)
-	    throws BlackListServiceException {
+	@Override
+	public Collection<IpV6Address> loadIpV6List()
+			throws BlackListServiceException {
 
-	try {
-	    return ipV6AddressDao.getBlackList(from, count);
+		try {
+			return ipV6AddressDao.getBlackList();
 
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new BlackListServiceException("Entity manager Exception", e);
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new BlackListServiceException(
+					"Could not load list of ip version 6", e);
+		}
 	}
-    }
+
+	@Override
+	public Collection<IpV4Address> loadIpV4ListByRange(int from, int count)
+			throws BlackListServiceException {
+
+		try {
+			return ipV4AddressDao.getBlackList(from, count);
+
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new BlackListServiceException(
+					"Could not load list of ip version 4 by range", e);
+		}
+	}
+
+	@Override
+	public Collection<IpV6Address> loadIpV6ListByRange(int from, int count)
+			throws BlackListServiceException {
+
+		try {
+			return ipV6AddressDao.getBlackList(from, count);
+
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new BlackListServiceException(
+					"Could not load list of ip version 6 by range", e);
+		}
+	}
 }
