@@ -33,7 +33,7 @@
 		<form class="Add-IP" id="addIpToWL" method="post" name="ipToWL">
 			<div align="left">Enter the IP that you want add to WhiteList:</div>
 
-			<input id="IP" type="text" name="addIp" size="20" maxlength="50">
+			<input id="IP" type="text" name="addIp" size="20" maxlength="50 ">
 
 			<br>
 		</form>
@@ -44,12 +44,6 @@
 	
 	
 	<div id="Info" style="color: green;"></div>
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			validateIpAddress();
-		});
-	</script>
 	
 </body>
 </html>
