@@ -10,43 +10,36 @@ import tc.lv.domain.Role;
 import tc.lv.domain.UserEntity;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends Dao implements UserDao {
 
-	@PersistenceContext(name = "primary")
-	private EntityManager entityManager;
+    @PersistenceContext(name = "primary")
+    private EntityManager entityManager;
 
-	@Override
-	public UserEntity findByName(String name) {
+    @Override
+    public UserEntity findByName(String name) {
+        Query query = entityManager.createNamedQuery(UserEntity.FIND_BY_NAME).setParameter(1, name);
+        return (UserEntity) find(query);
+    }
 
-		Query query = entityManager.createNamedQuery(UserEntity.FIND_BY_NAME)
-				.setParameter(1, name);
-		return (UserEntity) Dao.find(query);
-	}
+    @Override
+    public Role findRoleByName(String roleName) {
+        Query query = entityManager.createNamedQuery(Role.FIND_BY_NAME).setParameter(1, roleName);
+        return (Role) find(query);
+    }
 
-	@Override
-	public Role findRoleByName(String roleName) {
+    @Override
+    public void remove(UserEntity user) {
+        user.getRoleSet().clear();
+        entityManager.remove(user);
+    }
 
-		Query query = entityManager.createNamedQuery(Role.FIND_BY_NAME)
-				.setParameter(1, roleName);
-		return (Role) Dao.find(query);
-	}
+    @Override
+    public void save(UserEntity user) {
+        entityManager.persist(user);
+    }
 
-	@Override
-	public void remove(UserEntity user) {
-
-		user.getRoleSet().clear();
-		entityManager.remove(user);
-	}
-
-	@Override
-	public void save(UserEntity user) {
-
-		entityManager.persist(user);
-	}
-
-	@Override
-	public UserEntity update(UserEntity user) {
-
-		return entityManager.merge(user);
-	}
+    @Override
+    public UserEntity update(UserEntity user) {
+        return entityManager.merge(user);
+    }
 }

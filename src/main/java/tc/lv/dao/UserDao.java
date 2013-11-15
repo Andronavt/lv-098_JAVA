@@ -5,14 +5,14 @@ import tc.lv.domain.UserEntity;
 
 public interface UserDao {
 
-	UserEntity findByName(String name);
+    UserEntity findByName(String name);
 
-	void save(UserEntity user);
+    void save(UserEntity user);
 
-	Role findRoleByName(String roleName);
+    Role findRoleByName(String roleName);
 
-	void remove(UserEntity user);
+    void remove(UserEntity user);
 
-	UserEntity update(UserEntity user);
+    UserEntity update(UserEntity user);
 
 }

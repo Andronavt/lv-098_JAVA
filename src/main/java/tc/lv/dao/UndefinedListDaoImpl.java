@@ -13,21 +13,17 @@ import tc.lv.domain.IpV6Address;
 @Repository
 public class UndefinedListDaoImpl implements UndefinedListDao {
 
-	@PersistenceContext(name = "primary")
-	private EntityManager entityManager;
+    @PersistenceContext(name = "primary")
+    private EntityManager entityManager;
 
-	@Override
-	public List<IpV4Address> getIpV4List() {
+    @Override
+    public List<IpV4Address> getIpV4List() {
+        return entityManager.createNamedQuery(IpV4Address.FIND_UNDEFINEDLIST, IpV4Address.class).getResultList();
+    }
 
-		return entityManager.createNamedQuery(IpV4Address.GET_UNDEFINEDLIST,
-				IpV4Address.class).getResultList();
-	}
-
-	@Override
-	public List<IpV6Address> getIpV6List() {
-
-		return entityManager.createNamedQuery(IpV6Address.GET_UNDEFINEDLIST,
-				IpV6Address.class).getResultList();
-	}
+    @Override
+    public List<IpV6Address> getIpV6List() {
+        return entityManager.createNamedQuery(IpV6Address.GET_UNDEFINEDLIST, IpV6Address.class).getResultList();
+    }
 
 }
