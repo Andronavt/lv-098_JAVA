@@ -14,15 +14,28 @@
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
 	rel="stylesheet" type="text/css" />
 
-<div id="content" class="content">WHAT?</div>
-<div id="demo1" class="demo1">Pagination goes here</div>
+<div id="content" class="content"></div>
+<div id="demo1" class="demo1"></div>
 <script>
 	// init bootpag
+	function test(page, value) {
+		$.ajax({
+			type : "POST",
+			url : "showIpListFromWL",
+			data : "page=" + page + "&value=" + value,
+			success : function(response) {
+				$("#content").html(response);
+			},
+			error : function(e) {
+				alert('Error: ' + e + page + value);
+			}
+		});
+	}
 	$(document).ready(function() {
-		$('.demo1').bootpag({
-			total : 15
+		$('#demo1').bootpag({
+			total : 5
 		}).on("page", function(event, num) {
-			$(".content").html("Page " + num); // or some ajax content loading...
+			test(num, 10);
 		});
 	});
 </script>
