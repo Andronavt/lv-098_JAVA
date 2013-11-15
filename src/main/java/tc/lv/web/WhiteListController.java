@@ -1,5 +1,7 @@
 package tc.lv.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import tc.lv.domain.IpV4Address;
 import tc.lv.exceptions.WhiteListServiceException;
 import tc.lv.service.WhiteListService;
 import tc.lv.utils.ExceptionUtil;
@@ -136,9 +139,10 @@ public class WhiteListController {
 	    @ModelAttribute("value") String value, Map<String, Object> map) {
 
 	try {
-	    wlService.loadIpV4ListByRange(
-		    Integer.parseInt(page) * Integer.parseInt(value),
-		    Integer.parseInt(value));
+	    List<IpV4Address> list = new ArrayList<>();
+	    list.addAll(wlService.loadIpV4ListByRange(Integer.parseInt(page)
+		    * Integer.parseInt(value), Integer.parseInt(value)));
+	    map.put("ipList", list);
 
 	} catch (WhiteListServiceException e) {
 	    map.put("errorList", ExceptionUtil.createErrorList(e));
