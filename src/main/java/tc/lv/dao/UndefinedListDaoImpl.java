@@ -29,4 +29,5 @@ public class UndefinedListDaoImpl implements UndefinedListDao {
 		return entityManager.createNamedQuery(IpV6Address.GET_UNDEFINEDLIST,
 				IpV6Address.class).getResultList();
 	}
+
 }

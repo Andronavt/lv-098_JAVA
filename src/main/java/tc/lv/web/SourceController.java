@@ -16,7 +16,7 @@ import tc.lv.utils.ExceptionUtil;
 @Controller
 public class SourceController {
 
-	private static final Logger logger = Logger
+	private static final Logger LOGGER = Logger
 			.getLogger(SourceController.class);
 
 	@Autowired
@@ -60,7 +60,7 @@ public class SourceController {
 	@RequestMapping(value = "/deleteSource", method = RequestMethod.POST)
 	public String deleteSource(@ModelAttribute(value = "source") String source,
 			Map<String, Object> map) {
-		logger.info("Source delete.");
+		LOGGER.info("Source delete.");
 		try {
 			souService.deleteFeed(source);
 			map.put("successMsg", "Source " + source + " successfuly deletead!");

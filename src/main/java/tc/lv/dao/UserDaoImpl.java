@@ -7,7 +7,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import tc.lv.domain.Role;
-import tc.lv.domain.UserEntity;
+import tc.lv.domain.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -16,11 +16,11 @@ public class UserDaoImpl implements UserDao {
 	private EntityManager entityManager;
 
 	@Override
-	public UserEntity findByName(String name) {
+	public User findByName(String name) {
 
-		Query query = entityManager.createNamedQuery(UserEntity.FIND_BY_NAME)
+		Query query = entityManager.createNamedQuery(User.FIND_BY_NAME)
 				.setParameter(1, name);
-		return (UserEntity) Dao.find(query);
+		return (User) Dao.find(query);
 	}
 
 	@Override
@@ -32,15 +32,21 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void remove(UserEntity user) {
+	public void remove(User user) {
 
 		user.getRoleSet().clear();
 		entityManager.remove(user);
 	}
 
 	@Override
-	public void save(UserEntity user) {
+	public void save(User user) {
 
 		entityManager.persist(user);
+	}
+
+	@Override
+	public User update(User user) {
+
+		return entityManager.merge(user);
 	}
 }
