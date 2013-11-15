@@ -45,8 +45,8 @@
 		<put-attribute name="body" value="/views/admin/AddNewFeed.jsp" />
 	</definition>
 
-	<definition name="listOfSource" extends="base.definition">
-		<put-attribute name="body" value="/views/admin/listOfSource.jsp" />
+	<definition name="deleteSource" extends="base.definition">
+		<put-attribute name="body" value="/views/admin/deleteSource.jsp" />
 	</definition>
 
 	<definition name="deleteIpFromWL" extends="base.definition">
@@ -57,25 +57,8 @@
 		<put-attribute name="body" value="/views/admin/updateSources.jsp" />
 	</definition>
 
-	<definition name="getIp4List" extends="base.definition">
-		<put-attribute name="body" value="/views/secure/GetIp4List.jsp" />
-	</definition>
-
-	<definition name="listIpv4" extends="base.definition">
-		<put-attribute name="body" value="/views/secure/listIpv4.jsp" />
-	</definition>
-
-
-
 	<!-- secure views -->
 
-	<definition name="getIpV4List" extends="base.definition">
-		<put-attribute name="body" value="/views/secure/GetIp4List.jsp" />
-	</definition>
-
-	<definition name="listIpV4" extends="base.definition">
-		<put-attribute name="body" value="/views/secure/listIpv4.jsp" />
-	</definition>
 
 	<definition name="showIpListFromWL" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/ShowIpListFromWL.jsp" />
@@ -84,6 +67,10 @@
 	<!-- Result page -->
 	<definition name="result" extends="result.definition">
 		<put-attribute name="body" value="/views/result/result.jsp" />
+	</definition>
+
+	<definition name="table" extends="result.definition">
+		<put-attribute name="body" value="/views/secure/table.jsp" />
 	</definition>
 
 

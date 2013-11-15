@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import tc.lv.exceptions.UserEntityServiceException;
-import tc.lv.service.UserEntityService;
+import tc.lv.service.UserService;
 import tc.lv.utils.ExceptionUtil;
 import tc.lv.utils.UserValidator;
 
@@ -17,7 +17,7 @@ import tc.lv.utils.UserValidator;
 public class RegistrationController {
 
     @Autowired
-    private UserEntityService userEntityService;
+    private UserService userService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration() {
@@ -39,10 +39,8 @@ public class RegistrationController {
 		    && UserValidator.isCorrectLastName(last_name)
 		    && UserValidator.isCorrectEmail(email)
 		    && UserValidator.isCorrectPassword(pass)) {
-		userEntityService.createUser(user_name, first_name, last_name,
-			email, pass);
-		map.put("successMsg", "User was registred");
-		return "result";
+		return addUserDB(userService.createUser(user_name,
+			first_name, last_name, email, pass), map);
 
 	    } else {
 		map.put("errorMsg", "Inccorect data for registration!");
@@ -54,5 +52,16 @@ public class RegistrationController {
 	    map.put("errorMsg", e.getMessage());
 	    return "result";
 	}
+    }
+
+    private String addUserDB(boolean flag, Map<String, Object> map)
+	    throws UserEntityServiceException {
+
+	if (flag) {
+	    map.put("successMsg", "User was registred");
+	    return "result";
+	}
+	map.put("incorrectMsg", "Current User exist");
+	return "result";
     }
 }

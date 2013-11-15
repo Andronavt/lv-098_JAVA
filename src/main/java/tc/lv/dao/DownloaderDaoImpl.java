@@ -13,7 +13,9 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
-import tc.lv.domain.IpAddressImpl;
+import tc.lv.domain.IpAddress;
+import tc.lv.domain.IpV4Address;
+import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 import tc.lv.domain.Source;
 import tc.lv.utils.ParserResults;
@@ -21,106 +23,177 @@ import tc.lv.utils.ParserResults;
 @Repository
 public class DownloaderDaoImpl implements DownloaderDao {
 
-	private static final Logger loggerInfo = Logger.getLogger("infoLog");
+    private static final Logger loggerInfo = Logger.getLogger("infoLog");
 
-	@PersistenceContext(name = "primary")
-	private EntityManager entityManager;
+    @PersistenceContext(name = "primary")
+    private EntityManager entityManager;
 
-	@Override
-	@Deprecated
-	public void save(ParserResults parser) {
-		loggerInfo.info("START UPDATE IpV4List (" + parser.getIpV4List().size()
-				+ " ip's)");
-		saveList(parser.getIpV4List(), parser.getSourceId());
-		loggerInfo.info("START UPDATE IpV6List (" + parser.getIpV6List().size()
-				+ " ip's)");
-		saveList(parser.getIpV6List(), parser.getSourceId());
-		loggerInfo.info("START UPDATE NotValidList ("
-				+ parser.getNotValidList().size() + " ip's)");
-		saveList(parser.getNotValidList(), parser.getSourceId());
-		loggerInfo.info("UPDATE ALL LISTS IN CURRENT SOURCE");
-	}
+    @Override
+    @Deprecated
+    public void save(ParserResults parser) {
+        loggerInfo.info("START UPDATE IpV4List (" + parser.getIpV4List().size() + " ip's)");
+        saveIpV4List(parser.getIpV4List(), parser.getSourceId());
+        loggerInfo.info("START UPDATE IpV6List (" + parser.getIpV6List().size() + " ip's)");
+        saveIpV6List(parser.getIpV6List(), parser.getSourceId());
+        loggerInfo.info("START UPDATE NotValidList (" + parser.getNotValidList().size() + " ip's)");
+        saveNotValList(parser.getNotValidList(), parser.getSourceId());
+        loggerInfo.info("UPDATE ALL LISTS IN CURRENT SOURCE");
+    }
 
-	@Override
-	@Deprecated
-	public void saveList(List<? extends IpAddressImpl> list, int sourceId) {
+    @Deprecated
+    @SuppressWarnings("unchecked")
+    public void saveIpV4List(List<IpV4Address> list, int sourceId) {
+        Source source = entityManager.find(Source.class, sourceId);
+        if (source == null) {
+            // We can't find source for this Id
+            // TODO
+        } else {
+            if (list.size() < 1) {
+                return;
+            }
 
-		Source source = entityManager.find(Source.class, sourceId);
-		if (source == null) {
-			// We can't find source for this Id
-			// TODO
-		} else {
-			if (list.size() < 1) {
-				return;
-			}
-			String queryName = list.get(0).getClass().getSimpleName();
-			Query query = entityManager.createNamedQuery(queryName + ".getAll");
-			Map<String, IpAddressImpl> map = new HashMap<String, IpAddressImpl>();
+            Query query = entityManager.createNamedQuery(IpV4Address.FIND_ALL);
+            Map<String, IpV4Address> map = new HashMap<String, IpV4Address>();
 
-			@SuppressWarnings("unchecked")
-			List<IpAddressImpl> listFromDB = query.getResultList();
-			for (IpAddressImpl ip : listFromDB) {
-				map.put(ip.getAddress(), ip);
-			}
+            List<IpV4Address> listFromDB = query.getResultList();
+            for (IpV4Address ip : listFromDB) {
+                map.put(ip.getAddress(), ip);
+            }
 
-			for (IpAddressImpl ip : list) {
+            for (IpV4Address ip : list) {
 
-				if (!map.containsKey(ip.getAddress())) {
-					ip.getSourceSet().add(source);
-					entityManager.persist(ip);
-					map.put(ip.getAddress(), ip);
-				} else {
-					IpAddressImpl temp = map.get(ip.getAddress());
-					temp.getSourceSet().add(source);
-					entityManager.persist(temp);
-				}
-			}
-		}
-	}
+                if (!map.containsKey(ip.getAddress())) {
 
-	@SuppressWarnings("unchecked")
-	@Deprecated
-	@Override
-	public void updateWhiteList(Class<? extends IpAddressImpl> ipClass)
-			throws InstantiationException, IllegalAccessException {
+                    ip.getSourceSet().add(source);
+                    entityManager.persist(ip);
+                    map.put(ip.getAddress(), ip);
+                } else {
 
-		if (ipClass.isAssignableFrom(NotValidIp.class)) {
-			return;
-		}
+                    IpV4Address temp = map.get(ip.getAddress());
+                    temp.getSourceSet().add(source);
+                    entityManager.persist(temp);
+                }
+            }
+        }
+    }
 
-		Query query = entityManager.createNamedQuery(ipClass.newInstance()
-				.getGetAll());
-		List<? extends IpAddressImpl> list = query.getResultList();
+    @Deprecated
+    @SuppressWarnings("unchecked")
+    public void saveIpV6List(List<IpV6Address> list, int sourceId) {
+        Source source = entityManager.find(Source.class, sourceId);
+        if (source == null) {
+            // We can't find source for this Id
+            // TODO
+        } else {
+            if (list.size() < 1) {
+                return;
+            }
 
-		for (IpAddressImpl ip : list) {
+            Query query = entityManager.createNamedQuery(IpV6Address.FIND_ALL);
+            Map<String, IpV6Address> map = new HashMap<String, IpV6Address>();
 
-			Set<Source> set = ip.getSourceSet();
-			if (set == null) {
-				continue;
-			}
+            List<IpV6Address> listFromDB = query.getResultList();
+            for (IpV6Address ip : listFromDB) {
 
-			Iterator<Source> it = set.iterator();
-			double blackRank = 0;
-			double whiteRank = 0;
-			while (it.hasNext()) {
-				Source source = it.next();
-				if (source.getListType().equals(Source.WHITE_LIST)) {
-					whiteRank += source.getRank();
-				} else if (source.getListType().equals(Source.BLACK_LIST)) {
-					blackRank += source.getRank();
-				} else {
-					// Maybe throw new
-					// MyException("Something wrong... Can't find whitelist neither blacklist mark")
-					// TODO
-				}
-			}
+                map.put(ip.getAddress(), ip);
+            }
 
-			if (whiteRank > blackRank) {
-				ip.setWhiteList(true);
-			} else {
-				ip.setWhiteList(false);
-			}
-			entityManager.persist(ip);
-		}
-	}
+            for (IpV6Address ip : list) {
+
+                if (!map.containsKey(ip.getAddress())) {
+
+                    ip.getSourceSet().add(source);
+                    entityManager.persist(ip);
+                    map.put(ip.getAddress(), ip);
+                } else {
+
+                    IpV6Address temp = map.get(ip.getAddress());
+                    temp.getSourceSet().add(source);
+                    entityManager.persist(temp);
+                }
+            }
+        }
+    }
+
+    @Deprecated
+    @SuppressWarnings("unchecked")
+    public void saveNotValList(List<NotValidIp> list, int sourceId) {
+        Source source = entityManager.find(Source.class, sourceId);
+        if (source == null) {
+            // We can't find source for this Id
+            // TODO
+        } else {
+            if (list.size() < 1) {
+                return;
+            }
+
+            Query query = entityManager.createNamedQuery(NotValidIp.FIND_ALL);
+            Map<String, NotValidIp> map = new HashMap<String, NotValidIp>();
+
+            List<NotValidIp> listFromDB = query.getResultList();
+            for (NotValidIp ip : listFromDB) {
+
+                map.put(ip.getAddress(), ip);
+            }
+
+            for (NotValidIp ip : list) {
+
+                if (!map.containsKey(ip.getAddress())) {
+
+                    ip.getSourceSet().add(source);
+                    entityManager.persist(ip);
+                    map.put(ip.getAddress(), ip);
+                } else {
+
+                    NotValidIp temp = map.get(ip.getAddress());
+                    temp.getSourceSet().add(source);
+                    entityManager.persist(temp);
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Deprecated
+    @Override
+    public void updateWhiteList() {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_ALL);
+        updateWhiteList(query.getResultList());
+
+        query = entityManager.createNamedQuery(IpV6Address.FIND_ALL);
+        updateWhiteList(query.getResultList());
+    }
+
+    private void updateWhiteList(List<? extends IpAddress> list) {
+        for (IpAddress ip : list) {
+
+            Set<Source> set = ip.getSourceSet();
+            if (set == null) {
+                continue;
+            }
+
+            Iterator<Source> it = set.iterator();
+            double blackRank = 0;
+            double whiteRank = 0;
+            while (it.hasNext()) {
+                Source source = it.next();
+                if (source.getListType().equals(Source.WHITE_LIST)) {
+                    whiteRank += source.getRank();
+                } else if (source.getListType().equals(Source.BLACK_LIST)) {
+                    blackRank += source.getRank();
+                } else {
+                    // Maybe throw new
+                    // MyException("Something wrong... Can't find whitelist neither blacklist mark")
+                    // TODO
+                }
+            }
+
+            if (whiteRank > blackRank) {
+                ip.setWhiteList(true);
+            } else {
+                ip.setWhiteList(false);
+            }
+            entityManager.persist(ip);
+        }
+    }
 }

@@ -5,21 +5,21 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import tc.lv.domain.IpAddressImpl;
+import tc.lv.domain.IpAddress;
 
-public class Dao {
+public abstract class Dao {
 
-	public static Object find(Query query) {
-		try {
-			return query.getSingleResult();
-		} catch (NoResultException e) {
-			return null;
-		}
-	}
+    public Object find(Query query) {
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
-	@SuppressWarnings("unchecked")
-	public static List<? extends IpAddressImpl> getRange(int from, int count,
-			Query query) {
-		return query.setFirstResult(from).setMaxResults(count).getResultList();
-	}
+    @SuppressWarnings("unchecked")
+    public List<? extends IpAddress> getRange(int from, int count, Query query) {
+        query = query.setFirstResult(from).setMaxResults(count);
+        return query.getResultList();
+    }
 }

@@ -11,82 +11,74 @@ import org.springframework.stereotype.Repository;
 import tc.lv.domain.IpV4Address;
 
 @Repository
-public class IpV4AddressDaoImpl implements IpV4AddressDao {
+public class IpV4AddressDaoImpl extends Dao implements IpV4AddressDao {
 
-	@PersistenceContext(name = "primary")
-	private EntityManager entityManager;
+    @PersistenceContext(name = "primary")
+    private EntityManager entityManager;
 
-	@Override
-	public IpV4Address findByAddress(String address) {
+    @Override
+    public IpV4Address findByAddress(String address) {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_BY_ADDRESS).setParameter(1, address);
+        return (IpV4Address) find(query);
+    }
 
-		Query query = entityManager.createNamedQuery(
-				IpV4Address.FIND_BY_ADDRESS).setParameter(1, address);
-		return (IpV4Address) Dao.find(query);
-	}
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<IpV4Address> getBlackList() {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITELIST).setParameter(1, false);
+        return query.getResultList();
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<IpV4Address> getBlackList() {
+    @Override
+    public List<IpV4Address> getBlackList(int from, int count) {
+        return getIpList(from, count, false);
+    }
 
-		Query query = entityManager.createNamedQuery(IpV4Address.GET_WHITELIST)
-				.setParameter(1, false);
-		return query.getResultList();
-	}
+    @SuppressWarnings("unchecked")
+    private List<IpV4Address> getIpList(int from, int count, boolean whiteList) {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITELIST).setParameter(1, whiteList)
+                .setFirstResult(from).setMaxResults(count);
+        return (List<IpV4Address>) getRange(from, count, query);
+    }
 
-	@Override
-	public List<IpV4Address> getBlackList(int from, int count) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<IpV4Address> getListBySource(int sourceId) {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_BY_SOURCE);
+        return query.setParameter(1, sourceId).getResultList();
+    }
 
-		return getColorList(from, count, false);
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<IpV4Address> getWhiteList() {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITELIST).setParameter(1, true);
+        return query.getResultList();
+    }
 
-	@SuppressWarnings("unchecked")
-	private List<IpV4Address> getColorList(int from, int count,
-			boolean whiteList) {
-		Query query = entityManager.createNamedQuery(IpV4Address.GET_WHITELIST)
-				.setParameter(1, whiteList).setFirstResult(from)
-				.setMaxResults(count);
-		return (List<IpV4Address>) Dao.getRange(from, count, query);
-	}
+    @Override
+    public List<IpV4Address> getWhiteList(int from, int count) {
+        return getIpList(from, count, true);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<IpV4Address> getListBySource(int sourceId) {
+    @Override
+    public void removeFromBlackList(IpV4Address address) {
+        address.setWhiteList(true);
+        entityManager.persist(address);
+    }
 
-		Query query = entityManager.createNamedQuery(IpV4Address.GET_BY_SOURCE);
-		return query.setParameter(1, sourceId).getResultList();
-	}
+    @Override
+    public void removeFromWhiteList(IpV4Address address) {
+        address.setWhiteList(false);
+        entityManager.persist(address);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<IpV4Address> getWhiteList() {
+    @Override
+    public void save(IpV4Address address) {
+        entityManager.persist(address);
+    }
 
-		Query query = entityManager.createNamedQuery(IpV4Address.GET_WHITELIST)
-				.setParameter(1, true);
-		return query.getResultList();
-	}
-
-	@Override
-	public List<IpV4Address> getWhiteList(int from, int count) {
-
-		return getColorList(from, count, true);
-	}
-
-	@Override
-	public void removeFromBlackList(IpV4Address address) {
-
-		address.setWhiteList(true);
-		entityManager.persist(address);
-	}
-
-	@Override
-	public void removeFromWhiteList(IpV4Address address) {
-		address.setWhiteList(false);
-		entityManager.persist(address);
-	}
-
-	@Override
-	public void save(IpV4Address address) {
-
-		entityManager.persist(address);
-	}
+    @Override
+    public IpV4Address update(IpV4Address address) {
+        return entityManager.merge(address);
+    }
 }
