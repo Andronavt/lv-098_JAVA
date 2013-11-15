@@ -11,16 +11,15 @@ import org.springframework.stereotype.Repository;
 import tc.lv.domain.NotValidIp;
 
 @Repository
-public class NotValidIpAddressDaoImpl implements NotValidIpAddressDao {
+public class NotValidIpAddressDaoImpl extends Dao implements NotValidIpAddressDao {
 
-	@PersistenceContext(name = "primary")
-	private EntityManager entityManager;
+    @PersistenceContext(name = "primary")
+    private EntityManager entityManager;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<NotValidIp> getListBySource(int sourceId) {
-
-		Query query = entityManager.createNamedQuery(NotValidIp.GET_BY_SOURCE);
-		return query.setParameter(1, sourceId).getResultList();
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<NotValidIp> getListBySource(int sourceId) {
+        Query query = entityManager.createNamedQuery(NotValidIp.GET_BY_SOURCE);
+        return query.setParameter(1, sourceId).getResultList();
+    }
 }

@@ -22,10 +22,10 @@ public class ParserChaosreignsWL implements Parser {
 	    .getLogger(ParserChaosreignsWL.class);
     private static final Pattern PATTERN = Pattern.compile(IP_ALL);
 
-    private ParserResults parserResults;
+    private ParserResults parserResults = new ParserResults();
 
     public ParserChaosreignsWL() {
-	parserResults = new ParserResults();
+	
     }
 
     @Override

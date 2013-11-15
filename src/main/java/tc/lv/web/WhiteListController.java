@@ -109,7 +109,7 @@ public class WhiteListController {
             Map<String, Object> map) {
         try {
             List<IpV4Address> list = new ArrayList<>();
-            list.addAll(wlService.loadIpV4ListByRange(Integer.parseInt(page) * Integer.parseInt(value),
+            list.addAll(wlService.loadIpV4ListByRange((Integer.parseInt(page)-1) * Integer.parseInt(value),
                     Integer.parseInt(value)));
             map.put("ipList", list);
 
@@ -118,6 +118,6 @@ public class WhiteListController {
             map.put("errorMsg", e.getMessage());
             return "result";
         }
-        return "showIpListFromWL";
+        return "table";
     }
 }

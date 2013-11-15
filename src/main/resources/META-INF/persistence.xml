@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 	<persistence-unit name="primary" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>tc.lv.domain.IpAddressImpl</class>
+		<class>tc.lv.domain.IpAddress</class>
 		<class>tc.lv.domain.IpV4Address</class>
 		<class>tc.lv.domain.IpV6Address</class>
 		<class>tc.lv.domain.NotValidIp</class>
@@ -16,8 +16,9 @@
 			<property name="hibernate.connection.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="never" />
 			<property name="hibernate.connection.driver_class" value="net.sourceforge.jtds.jdbc.Driver" />
-			<property name="hibernate.connection.username" value="bohdan" />
-			<property name="hibernate.connection.password" value="12024060" />
+			<property name="hibernate.jdbc.use_scrollable_resultset" value="false" />
+			<property name="hibernate.connection.username" value="andrew" />
+			<property name="hibernate.connection.password" value="1992" />
 			<property name="hibernate.connection.url"
 				value="jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=ip_addresses" />
 		</properties>
