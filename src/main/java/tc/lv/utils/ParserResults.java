@@ -8,10 +8,10 @@ import tc.lv.domain.NotValidIp;
 
 public class ParserResults {
 
-    public ArrayList<IpV4Address> ipV4List = new ArrayList<IpV4Address>();
-    public ArrayList<IpV6Address> ipV6List = new ArrayList<IpV6Address>();
-    public ArrayList<NotValidIp> notValidList = new ArrayList<NotValidIp>();
-    public int sourceId;
+    private ArrayList<IpV4Address> ipV4List = new ArrayList<IpV4Address>();
+    private ArrayList<IpV6Address> ipV6List = new ArrayList<IpV6Address>();
+    private ArrayList<NotValidIp> notValidList = new ArrayList<NotValidIp>();
+    private int sourceId;
 
     public void printLists() {
 	System.out.println("ipV4List size " + ipV4List.size());
@@ -48,4 +48,17 @@ public class ParserResults {
     public void setSourceId(int sourceId) {
 	this.sourceId = sourceId;
     }
+
+    public void AddToIpV4List(IpV4Address address) {
+	ipV4List.add(address);
+    }
+
+    public void AddToIpV6List(IpV6Address address) {
+	ipV6List.add(address);
+    }
+
+    public void AddToNotValidList(NotValidIp address) {
+	notValidList.add(address);
+    }
+
 }

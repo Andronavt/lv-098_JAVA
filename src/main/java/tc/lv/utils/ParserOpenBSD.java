@@ -46,13 +46,13 @@ public class ParserOpenBSD implements Parser {
 		    ipStr = matcher.group();
 
 		    if (IpValidator.isIpV4(ipStr)) {
-			System.out.println(parserResults.ipV4List
-				.add(new IpV4Address(ipStr, new Date())));
+			parserResults.AddToIpV4List(new IpV4Address(ipStr,
+				new Date()));
 		    } else if (IpValidator.isIpV6(ipStr)) {
-			parserResults.ipV6List.add(new IpV6Address(ipStr,
+			parserResults.AddToIpV6List(new IpV6Address(ipStr,
 				new Date()));
 		    } else {
-			parserResults.notValidList.add(new NotValidIp(ipStr,
+			parserResults.AddToNotValidList(new NotValidIp(ipStr,
 				new Date()));
 		    }
 		}

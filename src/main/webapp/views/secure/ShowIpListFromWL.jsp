@@ -2,19 +2,20 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-2.0.3.js"></script>
-<script type="text/javascript"
-	src="<c:url value="/resources/js/content.js" />"></script>
-<title>Insert title here</title>
 
-<center>
-	<h2>Get all Ip from White List</h2>
-	<br>
-	<div id=showIpListFromWhiteList></div>
-</center>
-<script type="text/javascript">
-	$(document).ready(function() {
-		ShowIpListFromWL();
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script
+	src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//raw.github.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.js"></script>
+
+<div id="content"></div>
+<div id="page-selection">Pagination goes here</div>
+<script>
+	// init bootpag
+	$('#page-selection').bootpag({
+		total : 10
+	}).on("page", function(event, /* page number here */num) {
+		$("#content").html("Test"); // some ajax content loading...
 	});
 </script>

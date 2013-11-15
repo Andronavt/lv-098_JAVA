@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
-<head>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/ajax.js" />"></script>
 
@@ -21,6 +20,7 @@
 
 <link href="<c:url value="/resources/css/validation.css" />"
 	rel="stylesheet" type="text/css" />
+
 <fieldset>
 	<legend style="color: green">Adding IP to WhiteList</legend>
 
@@ -44,3 +44,4 @@
 		validateIpAddress();
 	});
 </script>
+
