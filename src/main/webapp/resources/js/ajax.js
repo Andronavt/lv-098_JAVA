@@ -60,30 +60,12 @@ function doAjaxPostAddIpToWhiteList() {
 	});
 }
 
-function doAjaxPostAddIpV4() {
-	// get the form values
-	var ip = $('#ip').val();
-	var source = $('select[name=sources]').val();
-	$.ajax({
-		type : "POST",
-		url : "admin/AddIpv4",
-		data : "ip=" + ip + "&source=" + source,
-		success : function(response) {
-			// we have the response
-			$('#info').html(response);
-
-		},
-		error : function(e) {
-			alert('Error: ' + e);
-		}
-	});
-}
 
 function selectSource() {
 	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "listOfSource",
+		url : "deleteSource",
 		data : "source=" + source,
 		success : function(response) {
 			// we have the response
@@ -112,21 +94,6 @@ function doAjaxPostDeleteIp() {
 	return false;
 }
 
-function getIP4List() {
-	var source = $('select[name=sources]').val();
-	$.ajax({
-		type : "POST",
-		url : "secure/getList",
-		data : "source=" + source,
-		success : function(response) {
-			// we have the response
-			$('#divGetIp4List').html(response);
-		},
-		error : function(e) {
-			alert('Error: ' + e);
-		}
-	});
-}
 
 function doAjaxUpdateSource() {
 	var source = $('select[name=sources]').val();
