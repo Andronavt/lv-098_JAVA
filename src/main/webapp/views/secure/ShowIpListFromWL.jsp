@@ -35,7 +35,7 @@
 		$('#demo1').bootpag({
 			total : 5
 		}).on("page", function(event, num) {
-			test(num, 10);
+			test(num, 5);
 		});
 	});
 </script>
