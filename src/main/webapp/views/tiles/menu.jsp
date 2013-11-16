@@ -29,27 +29,27 @@
 		<h6>Statistics:</h6>
 		<div class="divmenu">
 			<p>
-				<a class="button" href="inProgres" title="Charts">Charts</a>
+				<a class="button" href="secure_inProgres" title="Charts">Charts</a>
 			</p>
 
 			<p>
-				<a class="button" href="showIpListFromWL"
+				<a class="button" href="secure_showIpListFromWL"
 					id="getContentShowIpListFromWl" title="Show Ip list from WList">Show
 					Ip list from WList</a>
 			</p>
 
 			<p>
-				<a class="button" href="inProgres" title="Blacklist map">Blacklist
+				<a class="button" href="secure_inProgres" title="Blacklist map">Blacklist
 					map</a>
 			</p>
 
 			<p>
-				<a class="button" href="inProgres" title="Whitelist map">Whitelist
+				<a class="button" href="secure_inProgres" title="Whitelist map">Whitelist
 					map</a>
 			</p>
 
 			<p>
-				<a class="button" href="inProgres" title="Top oldest IP">Top
+				<a class="button" href="secure_inProgres" title="Top oldest IP">Top
 					oldest IP</a>
 			</p>
 
@@ -59,54 +59,54 @@
 		<div class="divmenu">
 
 			<p>
-				<a class="button" href="inProgres" title="Black IP by city">Black
+				<a class="button" href="secure_inProgres" title="Black IP by city">Black
 					IP by city</a>
 			</p>
 
 			<p>
-				<a class="button" href="inProgres" title="Black IP by country">Black
+				<a class="button" href="secure_inProgres" title="Black IP by country">Black
 					IP by country</a>
 			</p>
 
 		</div>
 	</sec:authorize>
 
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<sec:authorize access="hasRole('ROLE_ADMIN')"> 
 		<h6>Feeds:</h6>
 		<div class="divmenu">
 
 			<p>
-				<a class="button" href="addNewFeed" id="getContentAddNewFeed"
+				<a class="button" href="admin_addNewFeed" id="getContentAddNewFeed"
 					title="Add new Feed">Add new Feed</a>
 			</p>
 
 			<p>
-				<a class="button" href="deleteSource" id="getContentDeleteFeed"
+				<a class="button" href="admin_deleteSource" id="getContentDeleteFeed"
 					title="Delete Feed">Delete Feed</a>
 			</p>
 
 			<p>
-				<a class="button" href="addIpToWL" id="getContentAddIpToWl"
+				<a class="button" href="admin_addIpToWL" id="getContentAddIpToWl"
 					title="Add to WList">Add to WList</a>
 			</p>
 
 			<p>
-				<a class="button" href="deleteIpFromWL" id="getContentDeleteWlIp"
+				<a class="button" href="admin_deleteIpFromWL" id="getContentDeleteWlIp"
 					title="Delete IP from WList">Delete IP from WList</a>
 			</p>
 
 			<p>
-				<a class="button" href="updateSources" title="updateSources">Update
+				<a class="button" href="admin_updateSources" title="updateSources">Update
 					Sources</a>
 			</p>
 
 			<p>
-				<a class="button" href="inProgres" title="List downloads">List
+				<a class="button" href="secure_inProgres" title="List downloads">List
 					downloads</a>
 			</p>
 
 		</div>
-	</sec:authorize>
+ 	</sec:authorize> 
 </div>
 
 <script>

@@ -23,13 +23,13 @@ public class WhiteListController {
     private WhiteListService wlService;
 
     // Delete IP-address from WhiteList
-    @RequestMapping(value = "/deleteIpFromWL", method = RequestMethod.GET)
+    @RequestMapping(value = "admin_deleteIpFromWL", method = RequestMethod.GET)
     public String deleteFromWL() {
-        return "deleteIpFromWL";
+        return "admin_deleteIpFromWL";
     }
 
     // Delete IP-address from WhiteList
-    @RequestMapping(value = "/deleteIpFromWL", method = RequestMethod.POST)
+    @RequestMapping(value = "admin_deleteIpFromWL", method = RequestMethod.POST)
     public String deleteFromWL(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
 
         try {
@@ -61,13 +61,13 @@ public class WhiteListController {
     }
 
     // Add IP-address to WhiteList
-    @RequestMapping(value = "/addIpToWL", method = RequestMethod.GET)
+    @RequestMapping(value = "admin_addIpToWL", method = RequestMethod.GET)
     public String addToWl() {
-        return "addIpToWL";
+        return "admin_addIpToWL";
     }
 
     // Add IP-address to WhiteList
-    @RequestMapping(value = "/addIpToWL", method = RequestMethod.POST)
+    @RequestMapping(value = "admin_addIpToWL", method = RequestMethod.POST)
     public String addToWl(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
 
         try {
@@ -99,12 +99,12 @@ public class WhiteListController {
     }
 
     // Show IP-address from WhiteList
-    @RequestMapping(value = "/showIpListFromWL", method = RequestMethod.GET)
+    @RequestMapping(value = "secure_showIpListFromWL", method = RequestMethod.GET)
     public String showIpListFromWl() {
-        return "showIpListFromWL";
+        return "secure_showIpListFromWL";
     }
 
-    @RequestMapping(value = "/showIpListFromWL", method = RequestMethod.POST)
+    @RequestMapping(value = "secure_showIpListFromWL", method = RequestMethod.POST)
     public String showIpListFromWl(@ModelAttribute("page") String page, @ModelAttribute("value") String value,
             Map<String, Object> map) {
         try {
@@ -118,6 +118,6 @@ public class WhiteListController {
             map.put("errorMsg", e.getMessage());
             return "result";
         }
-        return "table";
+        return "secure_table";
     }
 }

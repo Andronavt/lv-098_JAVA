@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class InProgressController {
 
-    @RequestMapping(value = "/inProgres")
+    @RequestMapping(value = "secure_inProgres")
     public String inProgress() {
-	return "inProgres";
+	return "secure_inProgres";
     }
 
 }

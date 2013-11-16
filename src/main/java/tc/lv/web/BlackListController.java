@@ -19,13 +19,13 @@ public class BlackListController {
     private BlackListService blService;
 
     // Delete IP-address from BlackList
-    @RequestMapping(value = "/deleteIpFromBL", method = RequestMethod.GET)
+    @RequestMapping(value = "admin_deleteIpFromBL", method = RequestMethod.GET)
     public String deleteFromBL() {
-        return "deleteIpFromBL";
+        return "admin_deleteIpFromBL";
     }
 
     // Delete IP-address from BlackList
-    @RequestMapping(value = "/deleteIpFromBL", method = RequestMethod.POST)
+    @RequestMapping(value = "admin_deleteIpFromBL", method = RequestMethod.POST)
     public String deleteFromBL(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
         try {
             if (IpValidator.isIpV4(ipAddress)) {
@@ -56,13 +56,13 @@ public class BlackListController {
     }
 
     // Add IP-address from BlackList
-    @RequestMapping(value = "/addIpToBL", method = RequestMethod.GET)
+    @RequestMapping(value = "admin_addIpToBL", method = RequestMethod.GET)
     public String addToBl() {
-        return "addIpToBL";
+        return "admin_addIpToBL";
     }
 
     // Add IP-address from BlackList
-    @RequestMapping(value = "/addIpToBL", method = RequestMethod.POST)
+    @RequestMapping(value = "admin_addIpToBL", method = RequestMethod.POST)
     public @ResponseBody
     String addToBl(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
         try {
@@ -94,18 +94,18 @@ public class BlackListController {
         return "result";
     }
 
-    // Add IP-address from BlackList
-    @RequestMapping(value = "/showIpListFromBL", method = RequestMethod.GET)
+    // Show IP-address from BlackList
+    @RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.GET)
     public String showIpListFromBl() {
-        return "showIpListFromBL";
+        return "secure_showIpListFromBL";
     }
 
-    // Add IP-address from BlackList
-    @RequestMapping(value = "/showIpListFromBL", method = RequestMethod.POST)
+    // Show IP-address from BlackList
+    @RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.POST)
     public String showIpListFromBl(Map<String, Object> map) {
         try {
             map.put("ipList", blService.loadIpV4List());
-            return "showIpListFromBL"; // Need create alone jsp-page
+            return "secure_showIpListFromBL"; // Need create alone jsp-page
 
         } catch (BlackListServiceException e) {
             map.put("errorList", ExceptionUtil.createErrorList(e));

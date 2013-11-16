@@ -30,7 +30,7 @@ function doAjaxAddNewFeed() {
 	var rank = $('#rank').val();
 	$.ajax({
 		type : "POST",
-		url : "addNewFeed",
+		url : "admin_addNewFeed",
 		data : "parser=" + parser + "&sourceName=" + sourceName + "&url=" + url
 				+ "&listType=" + listType + "&rank=" + rank,
 		success : function(response) {
@@ -48,7 +48,7 @@ function doAjaxPostAddIpToWhiteList() {
 	var ipAddress = $('#IP').val();
 	$.ajax({
 		type : "POST",
-		url : "addIpToWL",
+		url : "admin_addIpToWL",
 		data : "address=" + ipAddress,
 		success : function(response) {
 			$('#Info').html(response);
@@ -65,7 +65,7 @@ function selectSource() {
 	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "deleteSource",
+		url : "admin_deleteSource",
 		data : "source=" + source,
 		success : function(response) {
 			// we have the response
@@ -82,7 +82,7 @@ function doAjaxPostDeleteIp() {
 	var ipAddress = $('#ipForRemove').val();
 	$.ajax({
 		type : "POST",
-		url : "deleteIpFromWL",
+		url : "admin_deleteIpFromWL",
 		data : "address=" + ipAddress,
 		success : function(response) {
 			$('#Info').html(response);
@@ -99,7 +99,7 @@ function doAjaxUpdateSource() {
 	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "updateSourcesButton",
+		url : "admin_updateSourcesButton",
 		data : "source=" + source,
 		beforeSend: function() {
 //		    $('#upSource').html("<img src='/resources/images/ajax-loader.gif' />");

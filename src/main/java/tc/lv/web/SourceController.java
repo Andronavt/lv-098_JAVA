@@ -23,13 +23,13 @@ public class SourceController {
 	private SourceService souService;
 
 	// Add new sources
-	@RequestMapping(value = "addNewFeed", method = RequestMethod.GET)
+	@RequestMapping(value = "admin_addNewFeed", method = RequestMethod.GET)
 	public String addNewFeedPage() {
-		return "addNewFeed";
+		return "admin_addNewFeed";
 	}
 
 	// Add new sources
-	@RequestMapping(value = "/addNewFeed", method = RequestMethod.POST)
+	@RequestMapping(value = "admin_addNewFeed", method = RequestMethod.POST)
 	public String addNewFeed(@ModelAttribute(value = "parser") String parser,
 			@ModelAttribute(value = "sourceName") String sourceName,
 			@ModelAttribute(value = "url") String url,
@@ -49,15 +49,15 @@ public class SourceController {
 	}
 
 	// Delete new sources
-	@RequestMapping(value = "/deleteSource", method = RequestMethod.GET)
+	@RequestMapping(value = "admin_deleteSource", method = RequestMethod.GET)
 	public String deleteSourcePage(Map<String, Object> map)
 			throws SourceServiseException {
 		map.put("listSource", souService.getListOfSourcess());
-		return "deleteSource";
+		return "admin_deleteSource";
 	}
 
 	// Delete new sources
-	@RequestMapping(value = "/deleteSource", method = RequestMethod.POST)
+	@RequestMapping(value = "admin_deleteSource", method = RequestMethod.POST)
 	public String deleteSource(@ModelAttribute(value = "source") String source,
 			Map<String, Object> map) {
 		LOGGER.info("Source delete.");

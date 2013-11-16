@@ -32,7 +32,7 @@ public class SourceDownloadController {
     private ParserResultService parserResultService;
 
     // Getting updateSourcesPag.jsp
-    @RequestMapping("/updateSources")
+    @RequestMapping("admin_updateSources")
     public String getlistIpV4(Map<String, Object> map) {
         try {
             map.put("listSource", sourceDownloaderService.loadSourceList());
@@ -42,11 +42,11 @@ public class SourceDownloadController {
             map.put("errorMsg", e.getMessage());
             return "result";
         }
-        return "updateSources";
+        return "admin_updateSources";
     }
 
     // Updating Sources
-    @RequestMapping(value = "/updateSourcesButton", method = RequestMethod.POST)
+    @RequestMapping(value = "admin_updateSourcesButton", method = RequestMethod.POST)
     public String sourceDownloader(@ModelAttribute("source") String sourceName, Map<String, Object> map) {
         List<String> sourceNameList = new ArrayList<String>();
         LOGGER.info("SOURCE:" + sourceName);
