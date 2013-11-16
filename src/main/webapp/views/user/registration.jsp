@@ -40,15 +40,15 @@
 			<div align="left">Last name:</div> <input type="text" id="last_name" name="lastName" />
 			<div align="left">E-mail:</div><input type="text" id="e-mail" name="email" />
 			<div align="left">Password: </div><input type="password" id="pass" name="password" />
-			<div id="info" style="color: green;"></div>
 			</div>
-			
+		<input id="btn" type="button" name="registration" value="Registration" />	
 		</fieldset>
-		<input id="btn" type="button" name="registration" value="Registration" />
+		
+		<div id="info" style="color: green;"></div>
 	</form>
 	
 <script type="text/javascript">
-$(document).ready(function() {validateRegForm();});
+	$(document).ready(function() {validateRegForm();});
 </script>
 
 </body>

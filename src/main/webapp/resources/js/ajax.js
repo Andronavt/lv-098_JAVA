@@ -38,7 +38,7 @@ function doAjaxAddNewFeed() {
 			$('#Info').html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + parser + sourceName + url + listType + rank, e);
+			alert('Error: ' + e);
 		}
 	});
 }
@@ -54,7 +54,6 @@ function doAjaxPostAddIpToWhiteList() {
 			$('#Info').html(response);
 		},
 		error : function(e) {
-			alert('address' + ipAddress);
 			alert('Error: ' + e);
 		}
 	});
