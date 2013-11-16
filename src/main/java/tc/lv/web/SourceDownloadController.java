@@ -63,7 +63,7 @@ public class SourceDownloadController {
 
             LOGGER.info("Start downloading, parsing and updating Data Base");
 
-            parserResultList = sourceDownloaderService.downloadParseData(sourceNameList, parserMap);
+            parserResultList = sourceDownloaderService.downloadParseAndUpdateData(sourceNameList, parserMap);
 
             parserResultService.saveAllSources(parserResultList);
 

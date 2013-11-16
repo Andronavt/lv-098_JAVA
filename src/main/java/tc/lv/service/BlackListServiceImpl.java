@@ -27,7 +27,7 @@ public class BlackListServiceImpl implements BlackListService {
     private SourceDao sourceDao;
 
     @Override
-    public boolean deleteIpV4(String address) throws BlackListServiceException {
+    public boolean deleteIpV4ByName(String address) throws BlackListServiceException {
         try {
             IpV4Address tempObject = ipV4AddressDao.findByAddress(address);
 
@@ -44,7 +44,7 @@ public class BlackListServiceImpl implements BlackListService {
     }
 
     @Override
-    public boolean deleteIpV6(String address) throws BlackListServiceException {
+    public boolean deleteIpV6ByName(String address) throws BlackListServiceException {
         try {
             IpV6Address tempObject = ipV6AddressDao.findByAddress(address);
 
@@ -61,7 +61,7 @@ public class BlackListServiceImpl implements BlackListService {
     }
 
     @Override
-    public boolean saveIpV4(String address) throws BlackListServiceException {
+    public boolean saveIpV4ByName(String address) throws BlackListServiceException {
         try {
             IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
             if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != false)) {
@@ -89,7 +89,7 @@ public class BlackListServiceImpl implements BlackListService {
     }
 
     @Override
-    public boolean saveIpV6(String address) throws BlackListServiceException {
+    public boolean saveIpV6ByName(String address) throws BlackListServiceException {
         try {
             IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
             if ((tempIpV6 == null) || (tempIpV6.getWhiteList() != false)) {

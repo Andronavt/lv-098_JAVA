@@ -16,60 +16,62 @@ import tc.lv.utils.ExceptionUtil;
 @Controller
 public class SourceController {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(SourceController.class);
+    private static final Logger LOGGER = Logger.getLogger(SourceController.class);
 
-	@Autowired
-	private SourceService souService;
+    @Autowired
+    private SourceService sourceService;
 
-	// Add new sources
-	@RequestMapping(value = "admin_addNewFeed", method = RequestMethod.GET)
-	public String addNewFeedPage() {
-		return "admin_addNewFeed";
-	}
+    // Add new sources
+    @RequestMapping(value = "admin_addNewFeed", method = RequestMethod.GET)
+    public String addNewFeedPage() {
+        return "admin_addNewFeed";
+    }
 
-	// Add new sources
-	@RequestMapping(value = "admin_addNewFeed", method = RequestMethod.POST)
-	public String addNewFeed(@ModelAttribute(value = "parser") String parser,
-			@ModelAttribute(value = "sourceName") String sourceName,
-			@ModelAttribute(value = "url") String url,
-			@ModelAttribute(value = "listType") String listType,
-			@ModelAttribute(value = "rank") String rank, Map<String, Object> map) {
-		try {
-			souService.addNewFeed(parser, sourceName, url, listType,
-					Double.parseDouble(rank));
-			map.put("successMsg", "Source " + sourceName
-					+ " succesfuly addeed!");
-			return "result";
-		} catch (SourceServiseException e) {
-			map.put("errorList", ExceptionUtil.createErrorList(e));
-			map.put("errorMsg", e.getMessage());
-			return "result";
-		}
-	}
+    // Add new sources
+    @RequestMapping(value = "admin_addNewFeed", method = RequestMethod.POST)
+    public String addNewFeed(@ModelAttribute(value = "parser") String parser,
+            @ModelAttribute(value = "sourceName") String sourceName, @ModelAttribute(value = "url") String url,
+            @ModelAttribute(value = "listType") String listType, @ModelAttribute(value = "rank") String rank,
+            Map<String, Object> map) {
+        try {
+            if (sourceService.addNewFeed(parser, sourceName, url, listType, Double.parseDouble(rank))) {
+                map.put("successMsg", "Source " + sourceName + " succesfuly addeed!");
+                return "result";
+            }
+            map.put("incorrectMsg", "Current Feed exist!");
+            return "result";
 
-	// Delete new sources
-	@RequestMapping(value = "admin_deleteSource", method = RequestMethod.GET)
-	public String deleteSourcePage(Map<String, Object> map)
-			throws SourceServiseException {
-		map.put("listSource", souService.getListOfSourcess());
-		return "admin_deleteSource";
-	}
+        } catch (SourceServiseException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+    }
 
-	// Delete new sources
-	@RequestMapping(value = "admin_deleteSource", method = RequestMethod.POST)
-	public String deleteSource(@ModelAttribute(value = "source") String source,
-			Map<String, Object> map) {
-		LOGGER.info("Source delete.");
-		try {
-			souService.deleteFeed(source);
-			map.put("successMsg", "Source " + source + " successfuly deletead!");
-			return "result";
-		} catch (SourceServiseException e) {
-			map.put("errorList", ExceptionUtil.createErrorList(e));
-			map.put("errorMsg", e.getMessage());
-			return "result";
-		}
-	}
+    // Delete new sources
+    @RequestMapping(value = "admin_deleteSource", method = RequestMethod.GET)
+    public String deleteSourcePage(Map<String, Object> map) throws SourceServiseException {
+        map.put("listSource", sourceService.getListOfSourcess());
+        return "admin_deleteSource";
+    }
+
+    // Delete new sources
+    @RequestMapping(value = "admin_deleteSource", method = RequestMethod.POST)
+    public String deleteSource(@ModelAttribute(value = "source") String source, Map<String, Object> map) {
+        LOGGER.info("Source delete.");
+        try {
+            if (sourceService.deleteFeedByName(source)) {
+                map.put("successMsg", "Source " + source + " successfuly deletead!");
+                return "result";
+            }
+            map.put("incorrectMsg", "Could not found this feed for delete!");
+            return "result";
+
+        } catch (SourceServiseException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+    }
 
 }

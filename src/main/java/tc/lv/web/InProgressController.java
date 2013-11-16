@@ -8,7 +8,7 @@ public class InProgressController {
 
     @RequestMapping(value = "secure_inProgres")
     public String inProgress() {
-	return "secure_inProgres";
+        return "secure_inProgres";
     }
 
 }

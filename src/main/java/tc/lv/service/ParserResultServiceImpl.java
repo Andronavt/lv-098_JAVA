@@ -14,44 +14,40 @@ import tc.lv.utils.ParserResults;
 @Service
 public class ParserResultServiceImpl implements ParserResultService {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(ParserResultServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(ParserResultServiceImpl.class);
 
-	@Autowired
-	private DownloaderDao downloaderDao;
+    @Autowired
+    private DownloaderDao downloaderDao;
 
-	// Update source in DataBAse
-	@Transactional
-	@Override
-	public void save(ParserResults result) throws ParserResultServiceException {
+    // Update source in DataBAse
+    @Transactional
+    @Override
+    public void save(ParserResults result) throws ParserResultServiceException {
 
-		LOGGER.info("Start updating Data Base");
-		try {
-			downloaderDao.save(result);
-			LOGGER.info("Finish updating Data Base");
+        LOGGER.info("Start updating Data Base");
+        try {
+            downloaderDao.save(result);
+            LOGGER.info("Finish updating Data Base");
 
-		} catch (Exception e) {
-			LOGGER.error(e);
-			throw new ParserResultServiceException(
-					"Could not save results of parser", e);
-		}
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new ParserResultServiceException("Could not save results of parser", e);
+        }
+    }
 
-	@Transactional
-	@Override
-	public void saveAllSources(List<ParserResults> resultList)
-			throws ParserResultServiceException {
+    @Transactional
+    @Override
+    public void saveAllSources(List<ParserResults> resultList) throws ParserResultServiceException {
 
-		try {
+        try {
 
-			for (ParserResults result : resultList) {
-				this.save(result);
-			}
+            for (ParserResults result : resultList) {
+                this.save(result);
+            }
 
-		} catch (Exception e) {
-			LOGGER.error(e);
-			throw new ParserResultServiceException(
-					"Could not save results of all sources", e);
-		}
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new ParserResultServiceException("Could not save results of all sources", e);
+        }
+    }
 }

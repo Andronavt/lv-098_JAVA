@@ -16,23 +16,23 @@ import tc.lv.utils.IpValidator;
 public class BlackListController {
 
     @Autowired
-    private BlackListService blService;
+    private BlackListService blackListService;
 
     // Delete IP-address from BlackList
     @RequestMapping(value = "admin_deleteIpFromBL", method = RequestMethod.GET)
-    public String deleteFromBL() {
+    public String deleteIpFromBlackList() {
         return "admin_deleteIpFromBL";
     }
 
     // Delete IP-address from BlackList
     @RequestMapping(value = "admin_deleteIpFromBL", method = RequestMethod.POST)
-    public String deleteFromBL(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
+    public String deleteIpFromBlackList(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
         try {
             if (IpValidator.isIpV4(ipAddress)) {
-                return deleteIpFromDB(blService.deleteIpV4(ipAddress), ipAddress, map);
+                return deleteIpFromDataBase(blackListService.deleteIpV4ByName(ipAddress), ipAddress, map);
             }
             if (IpValidator.isIpV6(ipAddress)) {
-                return deleteIpFromDB(blService.deleteIpV6(ipAddress), ipAddress, map);
+                return deleteIpFromDataBase(blackListService.deleteIpV6ByName(ipAddress), ipAddress, map);
             }
             map.put("incorrectMsg", "Incorrect IP-address!");
             return "result";
@@ -45,7 +45,7 @@ public class BlackListController {
     }
 
     // delete IP from DB
-    private String deleteIpFromDB(boolean flag, String ipAddress, Map<String, Object> map)
+    private String deleteIpFromDataBase(boolean flag, String ipAddress, Map<String, Object> map)
             throws BlackListServiceException {
         if (flag) {
             map.put("successMsg", "IP-address: " + ipAddress + " has been successfully deleted.");
@@ -57,20 +57,20 @@ public class BlackListController {
 
     // Add IP-address from BlackList
     @RequestMapping(value = "admin_addIpToBL", method = RequestMethod.GET)
-    public String addToBl() {
+    public String addIpToBlackList() {
         return "admin_addIpToBL";
     }
 
     // Add IP-address from BlackList
     @RequestMapping(value = "admin_addIpToBL", method = RequestMethod.POST)
     public @ResponseBody
-    String addToBl(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
+    String addIpToBlackList(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
         try {
             if (IpValidator.isIpV4(ipAddress)) {
-                return addIpFromDB(blService.saveIpV4(ipAddress), ipAddress, map);
+                return addIpToDataBase(blackListService.saveIpV4ByName(ipAddress), ipAddress, map);
             }
             if (IpValidator.isIpV6(ipAddress)) {
-                return addIpFromDB(blService.saveIpV6(ipAddress), ipAddress, map);
+                return addIpToDataBase(blackListService.saveIpV6ByName(ipAddress), ipAddress, map);
             }
             map.put("incorrectMsg", "Incorrect IP-address!");
             return "result";
@@ -84,7 +84,7 @@ public class BlackListController {
     }
 
     // add IP to DB
-    private String addIpFromDB(boolean flag, String ipAddress, Map<String, Object> map)
+    private String addIpToDataBase(boolean flag, String ipAddress, Map<String, Object> map)
             throws BlackListServiceException {
         if (flag) {
             map.put("successMsg", "IP-address: " + ipAddress + " has been successfully added to BlackList.");
@@ -96,15 +96,15 @@ public class BlackListController {
 
     // Show IP-address from BlackList
     @RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.GET)
-    public String showIpListFromBl() {
+    public String showIpListFromBlackList() {
         return "secure_showIpListFromBL";
     }
 
     // Show IP-address from BlackList
     @RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.POST)
-    public String showIpListFromBl(Map<String, Object> map) {
+    public String showIpListFromBlackList(Map<String, Object> map) {
         try {
-            map.put("ipList", blService.loadIpV4List());
+            map.put("ipList", blackListService.loadIpV4List());
             return "secure_showIpListFromBL"; // Need create alone jsp-page
 
         } catch (BlackListServiceException e) {
