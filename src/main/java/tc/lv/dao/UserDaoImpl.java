@@ -1,55 +1,50 @@
 package tc.lv.dao;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
 import tc.lv.domain.Role;
-import tc.lv.domain.UserEntity;
+import tc.lv.domain.User;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends Dao implements UserDao {
 
-	@PersistenceContext(name = "primary")
-	private EntityManager entityManager;
+    @PersistenceContext(name = "primary")
+    private EntityManager entityManager;
 
-	@Override
-	public UserEntity findByName(String name) {
-		Query query = entityManager.createNamedQuery("UserEntity.findByName",
-				UserEntity.class).setParameter("username", name);
-		UserEntity foundUser;
-		try {
-			foundUser = (UserEntity) query.getSingleResult();
-			return foundUser;
-		} catch (NoResultException e) {
-			return null;
-		}
-	}
+    @Override
+    public User findByName(String name) {
 
-	@Override
-	public void save(UserEntity user) {
-		entityManager.persist(user);
-	}
+        Query query = entityManager.createNamedQuery(User.FIND_BY_NAME).setParameter(1, name);
+        return (User) find(query);
+    }
 
-	@Override
-	public void remove(UserEntity user) {
-		user.getRoleSet().clear();
-		entityManager.remove(user);
-	}
+    @Override
+    public Role findRoleByName(String roleName) {
 
-	@Override
-	public Role findRoleByName(String roleName) {
-		Query query = entityManager.createNamedQuery("Role.findByName")
-				.setParameter("roleName", roleName);
-		Role role;
-		try {
-			role = (Role) query.getSingleResult();
-			return role;
-		} catch (NoResultException e) {
-			return null;
-		}
-	}
+        Query query = entityManager.createNamedQuery(Role.FIND_BY_NAME).setParameter(1, roleName);
+        return (Role) find(query);
+    }
+
+    @Override
+    public void remove(User user) {
+
+        user.getRoleSet().clear();
+        entityManager.remove(user);
+    }
+
+    @Override
+    public void save(User user) {
+
+        entityManager.persist(user);
+    }
+
+    @Override
+    public User update(User user) {
+
+        return entityManager.merge(user);
+    }
 }

@@ -1,21 +1,19 @@
 package tc.lv.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import tc.lv.domain.Source;
-import tc.lv.utils.ParserInterface;
 
 public interface SourceDao {
 
-	void save(Source source);
+    Source findByName(String sourceName);
 
-	Source findByName(String sourceName);
+    List<Source> getAll();
 
-	Map<Source, ParserInterface> getMapOfParsers();
+    void save(Source source);
 
-	List<Source> getAll();
+    Source update(Source source);
 
-	void delete(Source source);
+    void delete(Source source);
 
 }

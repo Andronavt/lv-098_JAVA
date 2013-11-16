@@ -16,8 +16,9 @@ import tc.lv.utils.ExceptionUtil;
 @Controller
 public class SourceController {
 
-    private static final Logger logger = Logger.getLogger(SourceController.class);
-    
+	private static final Logger LOGGER = Logger
+			.getLogger(SourceController.class);
+
 	@Autowired
 	private SourceService souService;
 
@@ -33,13 +34,13 @@ public class SourceController {
 			@ModelAttribute(value = "sourceName") String sourceName,
 			@ModelAttribute(value = "url") String url,
 			@ModelAttribute(value = "listType") String listType,
-			@ModelAttribute(value = "rank") String rank, 
-			Map<String,Object> map) {
+			@ModelAttribute(value = "rank") String rank, Map<String, Object> map) {
 		try {
 			souService.addNewFeed(parser, sourceName, url, listType,
 					Double.parseDouble(rank));
-			map.put("successMsg", "Source " + sourceName + " succesfuly addeed!");
-			    return "result";
+			map.put("successMsg", "Source " + sourceName
+					+ " succesfuly addeed!");
+			return "result";
 		} catch (SourceServiseException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));
 			map.put("errorMsg", e.getMessage());
@@ -48,21 +49,21 @@ public class SourceController {
 	}
 
 	// Delete new sources
-	@RequestMapping(value = "/listOfSource", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteSource", method = RequestMethod.GET)
 	public String deleteSourcePage(Map<String, Object> map)
 			throws SourceServiseException {
 		map.put("listSource", souService.getListOfSourcess());
-		return "listOfSource";
+		return "deleteSource";
 	}
 
 	// Delete new sources
-	@RequestMapping(value = "/listOfSource", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteSource", method = RequestMethod.POST)
 	public String deleteSource(@ModelAttribute(value = "source") String source,
 			Map<String, Object> map) {
-	    logger.info("Source delete.");
+		LOGGER.info("Source delete.");
 		try {
 			souService.deleteFeed(source);
-			map.put("successMsg", "Source " + source + " successfuly deletead!" );
+			map.put("successMsg", "Source " + source + " successfuly deletead!");
 			return "result";
 		} catch (SourceServiseException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));

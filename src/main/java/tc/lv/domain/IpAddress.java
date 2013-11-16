@@ -1,6 +1,5 @@
 package tc.lv.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,87 +27,127 @@ import org.hibernate.annotations.FetchMode;
 @Table(name = "ip_addresses")
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-		@NamedQuery(name = "IpAddress.getAllNotValidIp", query = "SELECT ip FROM IpAddress ip, NotValidIp nv WHERE ip.id = nv.id"),
-		@NamedQuery(name = "IpAddress.getAllValidIp", query = "SELECT ipO FROM IpAddress ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpAddress ipI, NotValidIp nv WHERE ipI.id = nv.id)") })
-public class IpAddress implements Serializable {
+        @NamedQuery(name = IpAddress.FIND_ALL_NOT_VALID, query = IpAddress.FIND_ALL_NOT_VALID_QUERY),
+        @NamedQuery(name = IpAddress.FIND_ALL_VALID, query = IpAddress.FIND_ALL_VALID_QUERY),
+        // ----------------------------------------------------------
+        @NamedQuery(name = IpAddress.FIND_ALL, query = IpAddress.FIND_ALL_QUERY),
+        @NamedQuery(name = IpAddress.FIND_BY_SOURCE, query = IpAddress.FIND_BY_SOURCE_QUERY),
+        @NamedQuery(name = IpAddress.FIND_BY_ADDRESS, query = IpAddress.FIND_BY_ADDRESS_QUERY),
+        @NamedQuery(name = IpAddress.FIND_WHITELIST, query = IpAddress.FIND_WHITELIST_QUERY),
+        @NamedQuery(name = IpAddress.FIND_UNDEFINEDLIST, query = IpAddress.FIND_UNDEFINEDLIST_QUERY),
+        @NamedQuery(name = IpAddress.FIND_WHITE_IP_BY_NAME, query = IpAddress.FIND_WHITE_IP_BY_NAME_QUERY),
+        @NamedQuery(name = IpAddress.FIND_BLACK_IP_BY_NAME, query = IpAddress.FIND_BLACK_IP_BY_NAME_QUERY)
+// ----------------------------------------------------------
+})
+public class IpAddress {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", unique = true)
-	protected int id;
+    public static final String FIND_ALL_NOT_VALID = "IpAddress.getAllNotValidIp";
+    public static final String FIND_ALL_NOT_VALID_QUERY = "SELECT ip FROM IpAddress ip, NotValidIp nv WHERE ip.id = nv.id";
 
-	@Column(name = "address", updatable = true, nullable = false, unique = true)
-	protected String address;
+    public static final String FIND_ALL_VALID = "IpAddress.getAllValidIp";
+    public static final String FIND_ALL_VALID_QUERY = "SELECT ipO FROM IpAddress ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpAddress ipI, NotValidIp nv WHERE ipI.id = nv.id)";
 
-	@Column(name = "date_added")
-	protected Date dateAdded;
+    // ----------------------------------------------------------
+    public static final String FIND_ALL = "IpAddress.getAll";
+    public static final String FIND_ALL_QUERY = "SELECT ip from IpAddress ip";
 
-	@Column(name = "white_list")
-	protected Boolean whiteList;
+    public static final String FIND_BY_SOURCE = "IpAddress.getBySource";
+    public static final String FIND_BY_SOURCE_QUERY = "SELECT ip from IpAddress ip join ip.sourceSet s where s.sourceId = ?1";
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "sources_to_addresses", joinColumns = { @JoinColumn(name = "ip_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "source_id", updatable = true, nullable = true) })
-	@Fetch(FetchMode.JOIN)
-	private Set<Source> sourceSet = new HashSet<Source>();
+    public static final String FIND_BY_ADDRESS = "IpAddress.findByAddress";
+    public static final String FIND_BY_ADDRESS_QUERY = "SELECT ip from IpAddress ip WHERE ip.address= ?1";
 
-	public IpAddress() {
-	}
+    public static final String FIND_WHITELIST = "IpAddress.getWhiteList";
+    public static final String FIND_WHITELIST_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1";
 
-	public int getId() {
-		return id;
-	}
+    public static final String FIND_UNDEFINEDLIST = "IpAddress.getUndefinedList";
+    public static final String FIND_UNDEFINEDLIST_QUERY = "SELECT ip from IpAddress ip where ip.whiteList is null";
 
-	public Boolean getWhiteList() {
-		return this.whiteList;
-	}
+    public static final String FIND_WHITE_IP_BY_NAME = "IpAddress.findWhiteIpByName";
+    public static final String FIND_WHITE_IP_BY_NAME_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = TRUE and ip.address = ?1";
 
-	public void setWhiteList(Boolean whiteList) {
-		this.whiteList = whiteList;
-	}
+    public static final String FIND_BLACK_IP_BY_NAME = "IpAddress.findBlackIpByName";
+    public static final String FIND_BLACK_IP_BY_NAME_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = FALSE and ip.address = ?1";
+    // ------------------------------------------------------------
 
-	private void setId(int id) {
-		this.id = id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true)
+    protected int id;
 
-	public String getAddress() {
-		return address;
-	}
+    @Column(name = "address", updatable = true, nullable = false, unique = true)
+    protected String address;
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    @Column(name = "date_added")
+    protected Date dateAdded;
 
-	public String getIp() {
-		return address;
-	}
+    @Column(name = "white_list")
+    protected Boolean whiteList;
 
-	@Override
-	public int hashCode() {
-		return address.hashCode();
-	}
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "sources_to_addresses", joinColumns = { @JoinColumn(name = "ip_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "source_id", updatable = true, nullable = true) })
+    @Fetch(FetchMode.JOIN)
+    private Set<Source> sourceSet = new HashSet<Source>();
 
-	@Override
-	public boolean equals(Object obj) {
-		return this.getAddress().equals(((IpAddress) obj).getAddress());
-	}
+    public IpAddress() {
+    }
 
-	public Date getDateAdded() {
-		return dateAdded;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setDateAdded(Date dateAdded) {
-		this.dateAdded = dateAdded;
-	}
+    public Boolean getWhiteList() {
+        return this.whiteList;
+    }
 
-	public Set<Source> getSourceSet() {
-		return sourceSet;
-	}
+    public void setWhiteList(Boolean whiteList) {
+        this.whiteList = whiteList;
+    }
 
-	public void setSourceSet(Set<Source> sourceSet) {
-		this.sourceSet = sourceSet;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void addElementToSourceSet(Source source) {
-		sourceSet.add(source);
-	}
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getIp() {
+        return address;
+    }
+
+    @Override
+    public int hashCode() {
+        return address.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getAddress().equals(((IpAddress) obj).getAddress());
+    }
+
+    public Date getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(Date dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public Set<Source> getSourceSet() {
+        return sourceSet;
+    }
+
+    public void setSourceSet(Set<Source> sourceSet) {
+        this.sourceSet = sourceSet;
+    }
+
+    public void addElementToSourceSet(Source source) {
+        sourceSet.add(source);
+    }
+
 }

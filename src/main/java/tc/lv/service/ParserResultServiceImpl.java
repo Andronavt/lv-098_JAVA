@@ -13,38 +13,45 @@ import tc.lv.utils.ParserResults;
 
 @Service
 public class ParserResultServiceImpl implements ParserResultService {
-    private static final Logger logger = Logger
-	    .getLogger(ParserResultServiceImpl.class);
-    @Autowired
-    private DownloaderDao downloaderDao;
 
-    // Update source in DataBAse
-    @Transactional
-    @Override
-    public void save(ParserResults result) throws ParserResultServiceException {
-	logger.info("Start updating Data Base");
-	try {
-	    downloaderDao.save(result);
-	    logger.info("Finish updating Data Base");
-	} catch (Exception e) {
-	    logger.error(e);
-	    throw new ParserResultServiceException("Entity manager Exception",
-		    e);
-	}
-    }
+	private static final Logger LOGGER = Logger
+			.getLogger(ParserResultServiceImpl.class);
 
-    @Transactional
-    @Override
-    public void saveAllSources(List<ParserResults> resultList)
-	    throws ParserResultServiceException {
-	try {
-	    for (ParserResults result : resultList) {
-		this.save(result);
-	    }
-	} catch (Exception e) {
-	    logger.error(e);
-	    throw new ParserResultServiceException("Entity manager Exception",
-		    e);
+	@Autowired
+	private DownloaderDao downloaderDao;
+
+	// Update source in DataBAse
+	@Transactional
+	@Override
+	public void save(ParserResults result) throws ParserResultServiceException {
+
+		LOGGER.info("Start updating Data Base");
+		try {
+			downloaderDao.save(result);
+			LOGGER.info("Finish updating Data Base");
+
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new ParserResultServiceException(
+					"Could not save results of parser", e);
+		}
 	}
-    }
+
+	@Transactional
+	@Override
+	public void saveAllSources(List<ParserResults> resultList)
+			throws ParserResultServiceException {
+
+		try {
+
+			for (ParserResults result : resultList) {
+				this.save(result);
+			}
+
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new ParserResultServiceException(
+					"Could not save results of all sources", e);
+		}
+	}
 }

@@ -15,9 +15,10 @@ import tc.lv.exceptions.DownloadException;
 
 public class Downloader {
 
-    long timeStamp = new Date().getTime();
-    String fileName = Long.toString(timeStamp);
-    private static final Logger logger = Logger.getLogger(Downloader.class);
+    private static final Logger LOGGER = Logger.getLogger(Downloader.class);
+
+    private long timeStamp = new Date().getTime();
+    private String fileName = Long.toString(timeStamp);
 
     public Downloader() {
 
@@ -25,10 +26,11 @@ public class Downloader {
 
     public File downloadFile(String urlString, String dir)
 	    throws DownloadException {
-	logger.info("START DOWNLOADING");
+
+	LOGGER.info("START DOWNLOADING");
+
 	BufferedInputStream inputStream = null;
 	GZIPInputStream gInputStream = null;
-
 	FileOutputStream outputFile = null;
 	GZIPOutputStream gZipFile = null;
 	File file = null;
@@ -36,10 +38,14 @@ public class Downloader {
 
 	if (urlString.contains(".gz")) {
 	    try {
+
 		file = new File(dir + fileName + ".gz");
+
 		inputStream = new BufferedInputStream(
 			new URL(urlString).openStream());
+
 		gInputStream = new GZIPInputStream(inputStream);
+
 		gZipFile = new GZIPOutputStream(new FileOutputStream(file));
 
 		byte data[] = new byte[1024];
@@ -48,39 +54,45 @@ public class Downloader {
 		while ((count = gInputStream.read(data, 0, 1024)) != -1) {
 		    gZipFile.write(data, 0, count);
 		}
+
 	    } catch (Exception e) {
-		logger.error(e);
+
+		LOGGER.error(e);
 		throw new DownloadException(
 			"no legal protocol could be found in a specification string or the string could not be parsed",
 			e);
 	    } finally {
+
 		if (gInputStream != null) {
+
 		    try {
 			gInputStream.close();
 		    } catch (Exception e) {
-			logger.error(e);
+			LOGGER.error(e);
 			throw new DownloadException(
 				"Can't close gInputStream!", e);
 		    }
 		}
+
 		if (gZipFile != null) {
+
 		    try {
 			gZipFile.flush();
 			gZipFile.close();
 		    } catch (Exception e) {
-			logger.error(e);
+			LOGGER.error(e);
 			throw new DownloadException("Can't close gZipFile!", e);
 		    }
 		}
 	    }
-	    System.out.println("UNZIPPING");
 
 	    fileOut = unZip(file);
-	    System.out.println("DOWNLOADING AND UNZIPPING COMPLETED");
 	    return fileOut;
 
 	} else {
+
 	    try {
+
 		file = new File(dir + fileName + ".txt");
 		inputStream = new BufferedInputStream(
 			new URL(urlString).openStream());
@@ -92,34 +104,39 @@ public class Downloader {
 		while ((count = inputStream.read(data, 0, 1024)) != -1) {
 		    outputFile.write(data, 0, count);
 		}
+
 		fileOut = file;
+
 	    } catch (Exception e) {
-		logger.error(e);
+		LOGGER.error(e);
 		throw new DownloadException(
 			"no legal protocol could be found in a specification string or the string could not be parsed",
 			e);
 	    } finally {
+
 		if (inputStream != null) {
 		    try {
 			inputStream.close();
 		    } catch (Exception e) {
-			logger.error(e);
+			LOGGER.error(e);
 			throw new DownloadException("Can't close inputStream!",
 				e);
 		    }
 		}
+
 		if (outputFile != null) {
 		    try {
 			outputFile.close();
 		    } catch (Exception e) {
-			logger.error(e);
+			LOGGER.error(e);
 			throw new DownloadException("Can't close outputFile!",
 				e);
 		    }
 		}
 	    }
 	}
-	logger.info("FINISH DOWNLOADING");
+
+	LOGGER.info("FINISH DOWNLOADING");
 	return fileOut;
     }
 
@@ -130,6 +147,7 @@ public class Downloader {
 	FileOutputStream fileOutput = null;
 
 	try {
+
 	    File outputFileName = new File(file.getAbsolutePath() + ".txt");
 	    fileInput = new FileInputStream(file);
 	    gzInput = new GZIPInputStream(fileInput);
@@ -145,14 +163,14 @@ public class Downloader {
 	    return outputFileName;
 
 	} catch (Exception e) {
-	    logger.error(e);
+	    LOGGER.error(e);
 	    throw new DownloadException("Can't find file for unzip!", e);
 	} finally {
 	    if (gzInput != null) {
 		try {
 		    gzInput.close();
 		} catch (Exception e) {
-		    logger.error(e);
+		    LOGGER.error(e);
 		    throw new DownloadException("Can't close gzInput!", e);
 		}
 	    }
@@ -160,7 +178,7 @@ public class Downloader {
 		try {
 		    fileOutput.close();
 		} catch (Exception e) {
-		    logger.error(e);
+		    LOGGER.error(e);
 		    throw new DownloadException("Can't close fileOutput!", e);
 		}
 	    }

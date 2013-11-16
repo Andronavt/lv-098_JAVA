@@ -18,176 +18,187 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sources")
-@NamedQueries({
-		@NamedQuery(name = "Source.getAll", query = "SELECT s FROM Source s"),
-		@NamedQuery(name = "Source.findByName", query = "SELECT s FROM Source s WHERE s.sourceName  = :sourceName") })
+@NamedQueries({ @NamedQuery(name = Source.GET_ALL, query = Source.GET_ALL_QUERY),
+        @NamedQuery(name = Source.FIND_BY_NAME, query = Source.FIND_BY_NAME_QUERY),
+        // ------
+        @NamedQuery(name = Source.DELETE, query = Source.DELETE_QUERY) })
 public class Source {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "source_id", nullable = false)
-	private int sourceId;
 
-	@Column(name = "source_name", nullable = false)
-	private String sourceName;
+    public static final String FIND_BY_NAME = "Source.findByName";
+    public static final String FIND_BY_NAME_QUERY = "SELECT s FROM Source s WHERE s.sourceName  = ?1";
 
-	@Column(name = "url", unique = true, nullable = true)
-	private String url;
+    public static final String GET_ALL = "Source.getAll";
+    public static final String GET_ALL_QUERY = "SELECT s FROM Source s";
 
-	@Column(name = "source_date_added", nullable = false)
-	private Date sourceDateAdded;
+    public static final String DELETE = "Source.delete";
+    public static final String DELETE_QUERY = "DELETE FROM Source s where s.sourceName  = ?1";
 
-	@Column(name = "rank", nullable = false)
-	private Double rank;
+    public static final String WHITE_LIST = "whitelist";
+    public static final String BLACK_LIST = "blacklist";
 
-	@Column(name = "dirname", nullable = false)
-	private String dirname;
+    @Column(name = "dirname", nullable = false)
+    private String dirname;
 
-	@Column(name = "list_type", nullable = false)
-	private String listType;
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.LAZY)
+    private Collection<IpAddress> ipSet = new HashSet<IpAddress>();
 
-	@Column(name = "updated", nullable = true)
-	private Date updated;
+    @Column(name = "list_type", nullable = false)
+    private String listType;
 
-	@Column(name = "parser", nullable = true)
-	private String parser;
+    @Column(name = "parser", nullable = true)
+    private String parser;
 
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.LAZY)
-	private Collection<IpAddress> ipSet = new HashSet<IpAddress>();
+    @Column(name = "rank", nullable = false)
+    private Double rank;
 
-	public Source() {
+    @Column(name = "source_date_added", nullable = false)
+    private Date sourceDateAdded;
 
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "source_id", nullable = false)
+    private int sourceId;
 
-	public Source(String parser, String sourceName, String url,
-			String listType, Double rank) {
-		super();
-		this.parser = parser;
-		this.sourceName = sourceName;
-		this.sourceDateAdded = new Date();
-		this.rank = rank;
-		this.dirname = "d://lv-098_JAVA//sources//" + sourceName + "//";
-		this.listType = listType;
-	}
+    @Column(name = "source_name", nullable = false)
+    private String sourceName;
 
-	public Source(String sourceName, String url, Date sourceDateAdded,
-			Double rank, String dirname, String listType, Date updated,
-			String parser, Collection<IpAddress> ipSet) {
-		super();
-		this.sourceName = sourceName;
-		this.url = url;
-		this.sourceDateAdded = sourceDateAdded;
-		this.rank = rank;
-		this.dirname = dirname;
-		this.listType = listType;
-		this.updated = updated;
-		this.parser = parser;
+    @Column(name = "updated", nullable = true)
+    private Date updated;
 
-		this.ipSet = ipSet;
-	}
+    @Column(name = "url", unique = true, nullable = true)
+    private String url;
 
-	public int getSourceId() {
-		return sourceId;
-	}
+    public Source() {
 
-	public void setSourceId(int sourceId) {
-		this.sourceId = sourceId;
-	}
+    }
 
-	public String getSourceName() {
-		return sourceName;
-	}
+    public Source(String sourceName, String url, Date sourceDateAdded, Double rank, String dirname,
+            String listType, Date updated, String parser, Collection<IpAddress> ipSet) {
+        super();
+        this.sourceName = sourceName;
+        this.url = url;
+        this.sourceDateAdded = sourceDateAdded;
+        this.rank = rank;
+        this.dirname = dirname;
+        this.listType = listType;
+        this.updated = updated;
+        this.parser = parser;
 
-	public void setSourceName(String sourceName) {
-		this.sourceName = sourceName;
-	}
+        this.ipSet = ipSet;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public Source(String parser, String sourceName, String url, String listType, Double rank) {
+        super();
+        this.parser = parser;
+        this.sourceName = sourceName;
+        this.sourceDateAdded = new Date();
+        this.rank = rank;
+        this.dirname = "d://lv-098_JAVA//sources//" + sourceName + "//";
+        this.listType = listType;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Source other = (Source) obj;
+        if (sourceName == null) {
+            if (other.sourceName != null)
+                return false;
+        } else if (!sourceName.equals(other.sourceName))
+            return false;
+        return true;
+    }
 
-	public Date getSourceDateAdded() {
-		return sourceDateAdded;
-	}
+    public String getDirname() {
+        return dirname;
+    }
 
-	public void setSourceDateAdded(Date sourceDateAdded) {
-		this.sourceDateAdded = sourceDateAdded;
-	}
+    public Collection<IpAddress> getIpSet() {
+        return ipSet;
+    }
 
-	public Double getRank() {
-		return rank;
-	}
+    public String getListType() {
+        return listType;
+    }
 
-	public void setRank(Double rank) {
-		this.rank = rank;
-	}
+    public String getParser() {
+        return parser;
+    }
 
-	public String getDirname() {
-		return dirname;
-	}
+    public Double getRank() {
+        return rank;
+    }
 
-	public void setDirname(String dirname) {
-		this.dirname = dirname;
-	}
+    public Date getSourceDateAdded() {
+        return sourceDateAdded;
+    }
 
-	public String getListType() {
-		return listType;
-	}
+    public int getSourceId() {
+        return sourceId;
+    }
 
-	public void setListType(String listType) {
-		this.listType = listType;
-	}
+    public String getSourceName() {
+        return sourceName;
+    }
 
-	public Date getUpdated() {
-		return updated;
-	}
+    public Date getUpdated() {
+        return updated;
+    }
 
-	public void setUpdated(Date updated) {
-		this.updated = updated;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public String getParser() {
-		return parser;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((sourceName == null) ? 0 : sourceName.hashCode());
+        return result;
+    }
 
-	public void setParser(String parser) {
-		this.parser = parser;
-	}
+    public void setDirname(String dirname) {
+        this.dirname = dirname;
+    }
 
-	public Collection<IpAddress> getIpSet() {
-		return ipSet;
-	}
+    public void setIpSet(Collection<IpAddress> ipSet) {
+        this.ipSet = ipSet;
+    }
 
-	public void setIpSet(Collection<IpAddress> ipSet) {
-		this.ipSet = ipSet;
-	}
+    public void setListType(String listType) {
+        this.listType = listType;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((sourceName == null) ? 0 : sourceName.hashCode());
-		return result;
-	}
+    public void setParser(String parser) {
+        this.parser = parser;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Source other = (Source) obj;
-		if (sourceName == null) {
-			if (other.sourceName != null)
-				return false;
-		} else if (!sourceName.equals(other.sourceName))
-			return false;
-		return true;
-	}
+    public void setRank(Double rank) {
+        this.rank = rank;
+    }
+
+    public void setSourceDateAdded(Date sourceDateAdded) {
+        this.sourceDateAdded = sourceDateAdded;
+    }
+
+    public void setSourceId(int sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

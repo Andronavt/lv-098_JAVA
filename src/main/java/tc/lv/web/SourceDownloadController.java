@@ -17,14 +17,13 @@ import tc.lv.exceptions.SourceDownloaderServiceException;
 import tc.lv.service.ParserResultService;
 import tc.lv.service.SourceDownloaderService;
 import tc.lv.utils.ExceptionUtil;
-import tc.lv.utils.ParserInterface;
+import tc.lv.utils.Parser;
 import tc.lv.utils.ParserResults;
 
 @Controller
 public class SourceDownloadController {
 
-    private static final Logger logger = Logger
-	    .getLogger(SourceDownloadController.class);
+    private static final Logger LOGGER = Logger.getLogger(SourceDownloadController.class);
 
     @Autowired
     private SourceDownloaderService sourceDownloaderService;
@@ -35,47 +34,49 @@ public class SourceDownloadController {
     // Getting updateSourcesPag.jsp
     @RequestMapping("/updateSources")
     public String getlistIpV4(Map<String, Object> map) {
-	try {
-	    map.put("listSource", sourceDownloaderService.loadSourceList());
-	} catch (SourceDownloaderServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
-	return "updateSources";
+        try {
+            map.put("listSource", sourceDownloaderService.loadSourceList());
+
+        } catch (SourceDownloaderServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+        return "updateSources";
     }
 
     // Updating Sources
     @RequestMapping(value = "/updateSourcesButton", method = RequestMethod.POST)
-    public String sourceDownloader(@ModelAttribute("source") String sourceName,
-	    Map<String, Object> map) {
-	// ----!!!Test block!!!------
-	// String name1 = "OpenBSD traplist";
-	// String name2 = "Nixspam list";
-	// String name3 = "Chaosreigns Whitelist";
-	List<String> sourceNameList = new ArrayList<String>();
-	logger.info("SOURCE:" + sourceName);
-	sourceNameList.add(sourceName);
+    public String sourceDownloader(@ModelAttribute("source") String sourceName, Map<String, Object> map) {
+        List<String> sourceNameList = new ArrayList<String>();
+        LOGGER.info("SOURCE:" + sourceName);
+        sourceNameList.add(sourceName);
 
-	try {
-	    logger.info("Create MAP of sources and Parsers");
-	    List<Source> sourceList = sourceDownloaderService.loadSourceList();
-	    Map<Source, ParserInterface> parserMap = sourceDownloaderService
-		    .createParserMap(sourceList);
-	    List<ParserResults> parserResultList = null;
-	    logger.info("Start downloading, parsing and updating Data Base");
-	    parserResultList = sourceDownloaderService.downloadParseData(
-		    sourceNameList, parserMap);
-	    parserResultService.saveAllSources(parserResultList);
-	    logger.info("Finish downloading, parsing and updating Data Base");
-	    map.put("successMsg", "Sourc " + sourceName + " UPDATED!!!");
-	    return "result";
-	} catch (SourceDownloaderServiceException
-		| ParserResultServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
+        try {
+            LOGGER.info("Create MAP of sources and Parsers");
+
+            List<Source> sourceList = sourceDownloaderService.loadSourceList();
+
+            Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
+
+            List<ParserResults> parserResultList = null;
+
+            LOGGER.info("Start downloading, parsing and updating Data Base");
+
+            parserResultList = sourceDownloaderService.downloadParseData(sourceNameList, parserMap);
+
+            parserResultService.saveAllSources(parserResultList);
+
+            LOGGER.info("Finish downloading, parsing and updating Data Base");
+
+            map.put("successMsg", "Sourc " + sourceName + " UPDATED!!!");
+            return "result";
+
+        } catch (SourceDownloaderServiceException | ParserResultServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
 
     }
 }

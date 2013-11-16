@@ -11,22 +11,26 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "not_valid_ip")
 @PrimaryKeyJoinColumn(name = "id")
-@NamedQueries({
-		@NamedQuery(name = "NotValidIp.findByAddress", query = "SELECT ip from NotValidIp ip WHERE ip.address= :address"),
-		@NamedQuery(name = "NotValidIp.getBySource", query = "SELECT ip from NotValidIp ip join ip.sourceSet s where s.sourceId= :id") })
+@NamedQueries({ @NamedQuery(name = NotValidIp.GET_ALL, query = NotValidIp.GET_ALL_QUERY),
+        @NamedQuery(name = NotValidIp.GET_BY_SOURCE, query = NotValidIp.GET_BY_SOURCE_QUERY) })
 public class NotValidIp extends IpAddress {
 
-	public NotValidIp() {
+    public static final String GET_ALL = "NotValidIp.findByAddress";
+    public static final String GET_ALL_QUERY = "SELECT ip from NotValidIp ip WHERE ip.address= ?1";
 
-	}
+    public static final String GET_BY_SOURCE = "NotValidIp.getBySource";
+    public static final String GET_BY_SOURCE_QUERY = "SELECT ip from NotValidIp ip join ip.sourceSet s where s.sourceId= ?1";
 
-	public NotValidIp(String address) {
-		this.address = address;
-	}
+    public NotValidIp() {
 
-	public NotValidIp(String address, Date dateAdded) {
-		this.address = address;
-		this.dateAdded = dateAdded;
-	}
+    }
 
+    public NotValidIp(String address) {
+        this.address = address;
+    }
+
+    public NotValidIp(String address, Date dateAdded) {
+        this.address = address;
+        this.dateAdded = dateAdded;
+    }
 }

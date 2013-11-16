@@ -6,22 +6,24 @@ import tc.lv.domain.IpV4Address;
 
 public interface IpV4AddressDao {
 
-	List<IpV4Address> getWhiteList(int from, int count);
+    IpV4Address findByAddress(String address);
 
-	List<IpV4Address> getListBySource(int sourceId);
+    List<IpV4Address> getBlackList();
 
-	List<IpV4Address> getWhiteList();
+    List<IpV4Address> getBlackList(int from, int count);
 
-	IpV4Address findByAddress(String address);
+    List<IpV4Address> getListBySource(int sourceId);
 
-	void save(IpV4Address address);
+    List<IpV4Address> getWhiteList();
 
-	void removeFromWhiteList(IpV4Address address);
+    List<IpV4Address> getWhiteList(int from, int count);
 
-	List<IpV4Address> getBlackList(int from, int count);
+    void removeFromBlackList(IpV4Address address);
 
-	List<IpV4Address> getBlackList();
+    void removeFromWhiteList(IpV4Address address);
 
-	void removeFromBlackList(IpV4Address address);
+    void save(IpV4Address address);
+
+    IpV4Address update(IpV4Address address);
 
 }

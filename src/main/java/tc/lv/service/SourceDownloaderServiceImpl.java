@@ -16,102 +16,107 @@ import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.SourceDownloaderServiceException;
 import tc.lv.utils.Downloader;
-import tc.lv.utils.ParserInterface;
+import tc.lv.utils.Parser;
 import tc.lv.utils.ParserResults;
 
 @Service
 public class SourceDownloaderServiceImpl implements SourceDownloaderService {
-    private static final Logger logger = Logger
-	    .getLogger(SourceDownloaderServiceImpl.class);
-    @Autowired
-    private SourceDao sourceDao;
+	private static final Logger LOGGER = Logger
+			.getLogger(SourceDownloaderServiceImpl.class);
 
-    @Transactional
-    @Override
-    public List<ParserResults> downloadParseData(List<String> sourceNameList,
-	    Map<Source, ParserInterface> parserMap)
-	    throws SourceDownloaderServiceException {
-	try {
-	    Downloader downloader = new Downloader();
-	    List<ParserResults> resultList = new ArrayList<ParserResults>();
-	    File file;
-	    Set<Source> sourceSet = parserMap.keySet();
-	    for (String sourceName : sourceNameList) {
-		for (Source source : sourceSet) {
-		    if (source.getSourceName().equals(sourceName)) {
-			file = downloader.downloadFile(source.getUrl(),
-				source.getDirname());
-			ParserResults tmp = parserMap.get(source).parse(file);
-			tmp.setSourceId(source.getSourceId());
-			tmp.printLists();
-			System.out.println(resultList.add(tmp));
-		    }
-		}
-	    }
-	    return resultList;
-	} catch (Exception e) {
-	    logger.error(e);
-	    throw new SourceDownloaderServiceException(
-		    "Data havent been downloaded ", e);
-	}
-    }
+	@Autowired
+	private SourceDao sourceDao;
 
-    @Transactional
-    @Override
-    public List<Source> loadSourceList()
-	    throws SourceDownloaderServiceException {
-	try {
-	    return sourceDao.getAll();
-	} catch (Exception e) {
-	    logger.error(e);
-	    throw new SourceDownloaderServiceException(
-		    "Entity manager Exception", e);
-	}
-    }
+	@Transactional
+	@Override
+	public List<ParserResults> downloadParseData(List<String> sourceNameList,
+			Map<Source, Parser> parserMap)
+			throws SourceDownloaderServiceException {
 
-    @Transactional
-    @Override
-    public Map<Source, ParserInterface> createParserMap(List<Source> sourceList)
-	    throws SourceDownloaderServiceException {
-	Map<Source, ParserInterface> parserMap = new HashMap<Source, ParserInterface>();
-	for (Source source : sourceList) {
-	    if (source.getParser() != null) {
-		Class parserClass;
 		try {
-		    parserClass = Class.forName(source.getParser());
-		} catch (Exception e) {
-		    logger.error(e);
-		    throw new SourceDownloaderServiceException(
-			    "Can't find Class of Parser!", e);
-		}
-		ParserInterface parser = null;
-		try {
-		    parser = (ParserInterface) parserClass.newInstance();
-		} catch (Exception e) {
-		    logger.error(e);
-		    throw new SourceDownloaderServiceException(
-			    "class of Parser cannot be instantiated!", e);
-		}
-		parserMap.put(source, parser);
-	    }
-	}
-	return parserMap;
-    }
+			Downloader downloader = new Downloader();
 
-    // Don't use now
-    @Transactional
-    @Override
-    public Map<Source, ParserInterface> getMapOfParsers()
-	    throws SourceDownloaderServiceException {
-	Map<Source, ParserInterface> mapOfParsers;
-	try {
-	    mapOfParsers = sourceDao.getMapOfParsers();
-	} catch (Exception e) {
-	    logger.error(e);
-	    throw new SourceDownloaderServiceException(
-		    "Entity manager Exception", e);
+			List<ParserResults> resultList = new ArrayList<ParserResults>();
+
+			File file;
+
+			Set<Source> sourceSet = parserMap.keySet();
+
+			for (String sourceName : sourceNameList) {
+
+				for (Source source : sourceSet) {
+
+					if (source.getSourceName().equals(sourceName)) {
+						file = downloader.downloadFile(source.getUrl(),
+								source.getDirname());
+						ParserResults tmp = parserMap.get(source).parse(file);
+						tmp.setSourceId(source.getSourceId());
+						resultList.add(tmp);
+					}
+				}
+			}
+			return resultList;
+
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new SourceDownloaderServiceException(
+					"Data didn't downloaded ", e);
+		}
 	}
-	return mapOfParsers;
-    }
+
+	@Transactional
+	@Override
+	public List<Source> loadSourceList()
+			throws SourceDownloaderServiceException {
+
+		try {
+			return sourceDao.getAll();
+
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new SourceDownloaderServiceException(
+					"Could not load list of sources", e);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	@Override
+	public Map<Source, Parser> createParserMap(List<Source> sourceList)
+			throws SourceDownloaderServiceException {
+
+		Map<Source, Parser> parserMap = new HashMap<Source, Parser>();
+
+		for (Source source : sourceList) {
+
+			if (source.getParser() != null) {
+				Class<Parser> parserClass;
+
+				try {
+					parserClass = (Class<Parser>) Class.forName(source
+							.getParser());
+
+				} catch (Exception e) {
+					LOGGER.error(e);
+					throw new SourceDownloaderServiceException(
+							"Can't find Class of Parser!", e);
+				}
+
+				Parser parser = null;
+
+				try {
+					parser = (Parser) parserClass.newInstance();
+
+				} catch (Exception e) {
+					LOGGER.error(e);
+					throw new SourceDownloaderServiceException(
+							"class of Parser cannot be instantiated!", e);
+				}
+
+				parserMap.put(source, parser);
+			}
+		}
+		return parserMap;
+	}
 
 }

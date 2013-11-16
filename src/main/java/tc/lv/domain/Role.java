@@ -3,7 +3,6 @@ package tc.lv.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,45 +13,47 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
-@NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.role = :roleName")
+@NamedQuery(name = Role.FIND_BY_NAME, query = Role.FIND_BY_NAME_QUERY)
 public class Role {
 
-	@Id
-	@Column(name = "role_id", nullable = false)
-	private int id;
+    public static final String FIND_BY_NAME = "Role.findByName";
+    public static final String FIND_BY_NAME_QUERY = "SELECT r FROM Role r WHERE r.role = ?1";
 
-	@Column(name = "role", nullable = false)
-	private String role;
+    @Id
+    @Column(name = "role_id", nullable = false)
+    private int id;
 
-	@ManyToMany(mappedBy = "roleSet", fetch = FetchType.EAGER)
-	private Set<UserEntity> userSet = new HashSet<UserEntity>();
+    @Column(name = "role", nullable = false)
+    private String role;
 
-	public Role() {
+    @ManyToMany(mappedBy = "roleSet", fetch = FetchType.EAGER)
+    private Set<User> userSet = new HashSet<User>();
 
-	}
+    public Role() {
 
-	public int getId() {
-		return id;
-	}
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public Set<User> getUserSet() {
+        return userSet;
+    }
 
-	public Set<UserEntity> getUserSet() {
-		return userSet;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setUserSet(Set<UserEntity> userSet) {
-		this.userSet = userSet;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
+    public void setUserSet(Set<User> userSet) {
+        this.userSet = userSet;
+    }
 }
