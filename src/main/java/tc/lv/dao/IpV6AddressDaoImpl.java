@@ -22,10 +22,10 @@ public class IpV6AddressDaoImpl extends Dao implements IpV6AddressDao {
         return (IpV6Address) find(query);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<IpV6Address> getBlackList() {
-        Query query = entityManager.createNamedQuery(IpV6Address.GET_WHITELIST).setParameter(1, false);
+        Query query = entityManager.createNamedQuery(IpV6Address.FIND_WHITELIST).setParameter(1, false);
         return query.getResultList();
     }
 
@@ -34,18 +34,18 @@ public class IpV6AddressDaoImpl extends Dao implements IpV6AddressDao {
         return getColorList(from, count, false);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<IpV6Address> getListBySource(int sourceId) {
-        Query query = entityManager.createNamedQuery(IpV6Address.GET_BY_SOURCE);
+        Query query = entityManager.createNamedQuery(IpV6Address.FIND_BY_SOURCE);
         query.setParameter(1, sourceId);
         return query.getResultList();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<IpV6Address> getWhiteList() {
-        Query query = entityManager.createNamedQuery(IpV6Address.GET_WHITELIST).setParameter(1, true);
+        Query query = entityManager.createNamedQuery(IpV6Address.FIND_WHITELIST).setParameter(1, true);
         return query.getResultList();
     }
 
@@ -56,7 +56,7 @@ public class IpV6AddressDaoImpl extends Dao implements IpV6AddressDao {
 
     @SuppressWarnings("unchecked")
     private List<IpV6Address> getColorList(int from, int count, boolean whiteList) {
-        Query query = entityManager.createNamedQuery(IpV6Address.GET_WHITELIST).setParameter(1, whiteList)
+        Query query = entityManager.createNamedQuery(IpV6Address.FIND_WHITELIST).setParameter(1, whiteList)
                 .setFirstResult(from).setMaxResults(count);
         return (List<IpV6Address>) getRange(from, count, query);
     }

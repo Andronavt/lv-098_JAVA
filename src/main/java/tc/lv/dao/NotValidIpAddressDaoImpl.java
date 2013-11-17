@@ -16,10 +16,10 @@ public class NotValidIpAddressDaoImpl extends Dao implements NotValidIpAddressDa
     @PersistenceContext(name = "primary")
     private EntityManager entityManager;
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<NotValidIp> getListBySource(int sourceId) {
-        Query query = entityManager.createNamedQuery(NotValidIp.GET_BY_SOURCE);
+        Query query = entityManager.createNamedQuery(NotValidIp.FIND_BY_SOURCE);
         return query.setParameter(1, sourceId).getResultList();
     }
 }

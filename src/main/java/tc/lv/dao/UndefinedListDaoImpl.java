@@ -23,7 +23,7 @@ public class UndefinedListDaoImpl implements UndefinedListDao {
 
     @Override
     public List<IpV6Address> getIpV6List() {
-        return entityManager.createNamedQuery(IpV6Address.GET_UNDEFINEDLIST, IpV6Address.class).getResultList();
+        return entityManager.createNamedQuery(IpV6Address.FIND_UNDEFINEDLIST, IpV6Address.class).getResultList();
     }
 
 }

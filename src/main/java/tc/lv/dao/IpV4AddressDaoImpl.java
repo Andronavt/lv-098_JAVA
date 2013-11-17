@@ -41,17 +41,17 @@ public class IpV4AddressDaoImpl extends Dao implements IpV4AddressDao {
         return (List<IpV4Address>) getRange(from, count, query);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<IpV4Address> getListBySource(int sourceId) {
         Query query = entityManager.createNamedQuery(IpV4Address.FIND_BY_SOURCE);
         return query.setParameter(1, sourceId).getResultList();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<IpV4Address> getWhiteList() {
-        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITELIST).setParameter(1, true);
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITELIST, IpV4Address.class).setParameter(1, true);
         return query.getResultList();
     }
 
