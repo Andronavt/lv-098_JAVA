@@ -22,19 +22,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username)
-	    throws UsernameNotFoundException, DataAccessException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
 
-	UserDetails userDetails = null;
+        UserDetails userDetails = null;
 
-	User userEntity = userDao.findByName(username);
+        User userEntity = userDao.findByName(username);
 
-	if (userEntity == null) {
-	    throw new UsernameNotFoundException("user not found");
-	}
+        if (userEntity == null) {
+            throw new UsernameNotFoundException("user not found");
+        }
 
-	userDetails = assembler.buildUserFromUserEntity(userEntity);
+        userDetails = assembler.buildUserFromUserEntity(userEntity);
 
-	return userDetails;
+        return userDetails;
     }
 }

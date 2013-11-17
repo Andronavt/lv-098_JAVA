@@ -21,49 +21,45 @@ public class ParserOpenBSD implements Parser {
     private static final Logger LOGGER = Logger.getLogger(ParserOpenBSD.class);
     private static final Pattern PATTERN = Pattern.compile(IP_ALL);
 
-    private ParserResults parserResults;
+    private ParserResults parserResults = new ParserResults();
 
     public ParserOpenBSD() {
-	parserResults = new ParserResults();
     }
 
     @Override
     public ParserResults parse(File file) throws DownloadException {
 
-	LOGGER.info("START PARSING OpenBSD");
+        LOGGER.info("START PARSING OpenBSD");
 
-	Matcher matcher;
-	Scanner scanner;
+        Matcher matcher;
+        Scanner scanner;
 
-	try {
-	    scanner = new Scanner(new BufferedReader(new FileReader(file)));
+        try {
+            scanner = new Scanner(new BufferedReader(new FileReader(file)));
 
-	    while (scanner.hasNext()) {
-		String ipStr = "";
-		matcher = PATTERN.matcher(scanner.nextLine());
+            while (scanner.hasNext()) {
+                String ipStr = "";
+                matcher = PATTERN.matcher(scanner.nextLine());
 
-		if (matcher.find()) {
-		    ipStr = matcher.group();
+                if (matcher.find()) {
+                    ipStr = matcher.group();
 
-		    if (IpValidator.isIpV4(ipStr)) {
-			parserResults.AddToIpV4List(new IpV4Address(ipStr,
-				new Date()));
-		    } else if (IpValidator.isIpV6(ipStr)) {
-			parserResults.AddToIpV6List(new IpV6Address(ipStr,
-				new Date()));
-		    } else {
-			parserResults.AddToNotValidList(new NotValidIp(ipStr,
-				new Date()));
-		    }
-		}
-	    }
-	    scanner.close();
+                    if (IpValidator.isIpV4(ipStr)) {
+                        parserResults.addToIpV4List(new IpV4Address(ipStr, new Date()));
+                    } else if (IpValidator.isIpV6(ipStr)) {
+                        parserResults.addToIpV6List(new IpV6Address(ipStr, new Date()));
+                    } else {
+                        parserResults.addToNotValidList(new NotValidIp(ipStr, new Date()));
+                    }
+                }
+            }
+            scanner.close();
 
-	} catch (Exception e) {
-	    LOGGER.error("File not found!", e);
-	    throw new DownloadException("File not found", e);
-	}
-	LOGGER.info("FINISH PARSING OpenBSD");
-	return parserResults;
+        } catch (Exception e) {
+            LOGGER.error("File not found!", e);
+            throw new DownloadException("File not found", e);
+        }
+        LOGGER.info("FINISH PARSING OpenBSD");
+        return parserResults;
     }
 }

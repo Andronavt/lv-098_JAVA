@@ -21,167 +21,160 @@ public class Downloader {
     private String fileName = Long.toString(timeStamp);
 
     public Downloader() {
-
     }
 
-    public File downloadFile(String urlString, String dir)
-	    throws DownloadException {
+    public File downloadFile(String urlString, String dir) throws DownloadException {
 
-	LOGGER.info("START DOWNLOADING");
+        LOGGER.info("START DOWNLOADING");
 
-	BufferedInputStream inputStream = null;
-	GZIPInputStream gInputStream = null;
-	FileOutputStream outputFile = null;
-	GZIPOutputStream gZipFile = null;
-	File file = null;
-	File fileOut = null;
+        BufferedInputStream inputStream = null;
+        GZIPInputStream gInputStream = null;
+        FileOutputStream outputFile = null;
+        GZIPOutputStream gZipFile = null;
+        File file = null;
+        File fileOut = null;
 
-	if (urlString.contains(".gz")) {
-	    try {
+        if (urlString.contains(".gz")) {
+            try {
 
-		file = new File(dir + fileName + ".gz");
+                file = new File(dir + fileName + ".gz");
 
-		inputStream = new BufferedInputStream(
-			new URL(urlString).openStream());
+                inputStream = new BufferedInputStream(new URL(urlString).openStream());
 
-		gInputStream = new GZIPInputStream(inputStream);
+                gInputStream = new GZIPInputStream(inputStream);
 
-		gZipFile = new GZIPOutputStream(new FileOutputStream(file));
+                gZipFile = new GZIPOutputStream(new FileOutputStream(file));
 
-		byte data[] = new byte[1024];
-		int count;
+                byte data[] = new byte[1024];
+                int count;
 
-		while ((count = gInputStream.read(data, 0, 1024)) != -1) {
-		    gZipFile.write(data, 0, count);
-		}
+                while ((count = gInputStream.read(data, 0, 1024)) != -1) {
+                    gZipFile.write(data, 0, count);
+                }
 
-	    } catch (Exception e) {
+            } catch (Exception e) {
 
-		LOGGER.error(e);
-		throw new DownloadException(
-			"no legal protocol could be found in a specification string or the string could not be parsed",
-			e);
-	    } finally {
+                LOGGER.error(e);
+                throw new DownloadException(
+                        "no legal protocol could be found in a specification string or the string could not be parsed",
+                        e);
+            } finally {
 
-		if (gInputStream != null) {
+                if (gInputStream != null) {
 
-		    try {
-			gInputStream.close();
-		    } catch (Exception e) {
-			LOGGER.error(e);
-			throw new DownloadException(
-				"Can't close gInputStream!", e);
-		    }
-		}
+                    try {
+                        gInputStream.close();
+                    } catch (Exception e) {
+                        LOGGER.error(e);
+                        throw new DownloadException("Can't close gInputStream!", e);
+                    }
+                }
 
-		if (gZipFile != null) {
+                if (gZipFile != null) {
 
-		    try {
-			gZipFile.flush();
-			gZipFile.close();
-		    } catch (Exception e) {
-			LOGGER.error(e);
-			throw new DownloadException("Can't close gZipFile!", e);
-		    }
-		}
-	    }
+                    try {
+                        gZipFile.flush();
+                        gZipFile.close();
+                    } catch (Exception e) {
+                        LOGGER.error(e);
+                        throw new DownloadException("Can't close gZipFile!", e);
+                    }
+                }
+            }
 
-	    fileOut = unZip(file);
-	    return fileOut;
+            fileOut = unZip(file);
+            return fileOut;
 
-	} else {
+        } else {
 
-	    try {
+            try {
 
-		file = new File(dir + fileName + ".txt");
-		inputStream = new BufferedInputStream(
-			new URL(urlString).openStream());
-		outputFile = new FileOutputStream(file);
+                file = new File(dir + fileName + ".txt");
+                inputStream = new BufferedInputStream(new URL(urlString).openStream());
+                outputFile = new FileOutputStream(file);
 
-		byte data[] = new byte[1024];
-		int count;
+                byte data[] = new byte[1024];
+                int count;
 
-		while ((count = inputStream.read(data, 0, 1024)) != -1) {
-		    outputFile.write(data, 0, count);
-		}
+                while ((count = inputStream.read(data, 0, 1024)) != -1) {
+                    outputFile.write(data, 0, count);
+                }
 
-		fileOut = file;
+                fileOut = file;
 
-	    } catch (Exception e) {
-		LOGGER.error(e);
-		throw new DownloadException(
-			"no legal protocol could be found in a specification string or the string could not be parsed",
-			e);
-	    } finally {
+            } catch (Exception e) {
+                LOGGER.error(e);
+                throw new DownloadException(
+                        "no legal protocol could be found in a specification string or the string could not be parsed",
+                        e);
+            } finally {
 
-		if (inputStream != null) {
-		    try {
-			inputStream.close();
-		    } catch (Exception e) {
-			LOGGER.error(e);
-			throw new DownloadException("Can't close inputStream!",
-				e);
-		    }
-		}
+                if (inputStream != null) {
+                    try {
+                        inputStream.close();
+                    } catch (Exception e) {
+                        LOGGER.error(e);
+                        throw new DownloadException("Can't close inputStream!", e);
+                    }
+                }
 
-		if (outputFile != null) {
-		    try {
-			outputFile.close();
-		    } catch (Exception e) {
-			LOGGER.error(e);
-			throw new DownloadException("Can't close outputFile!",
-				e);
-		    }
-		}
-	    }
-	}
+                if (outputFile != null) {
+                    try {
+                        outputFile.close();
+                    } catch (Exception e) {
+                        LOGGER.error(e);
+                        throw new DownloadException("Can't close outputFile!", e);
+                    }
+                }
+            }
+        }
 
-	LOGGER.info("FINISH DOWNLOADING");
-	return fileOut;
+        LOGGER.info("FINISH DOWNLOADING");
+        return fileOut;
     }
 
     public File unZip(File file) throws DownloadException {
 
-	FileInputStream fileInput = null;
-	GZIPInputStream gzInput = null;
-	FileOutputStream fileOutput = null;
+        FileInputStream fileInput = null;
+        GZIPInputStream gzInput = null;
+        FileOutputStream fileOutput = null;
 
-	try {
+        try {
 
-	    File outputFileName = new File(file.getAbsolutePath() + ".txt");
-	    fileInput = new FileInputStream(file);
-	    gzInput = new GZIPInputStream(fileInput);
+            File outputFileName = new File(file.getAbsolutePath() + ".txt");
+            fileInput = new FileInputStream(file);
+            gzInput = new GZIPInputStream(fileInput);
 
-	    fileOutput = new FileOutputStream(outputFileName);
+            fileOutput = new FileOutputStream(outputFileName);
 
-	    byte[] buffer = new byte[1024];
-	    int count;
+            byte[] buffer = new byte[1024];
+            int count;
 
-	    while ((count = gzInput.read(buffer, 0, 1024)) != -1) {
-		fileOutput.write(buffer, 0, count);
-	    }
-	    return outputFileName;
+            while ((count = gzInput.read(buffer, 0, 1024)) != -1) {
+                fileOutput.write(buffer, 0, count);
+            }
+            return outputFileName;
 
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new DownloadException("Can't find file for unzip!", e);
-	} finally {
-	    if (gzInput != null) {
-		try {
-		    gzInput.close();
-		} catch (Exception e) {
-		    LOGGER.error(e);
-		    throw new DownloadException("Can't close gzInput!", e);
-		}
-	    }
-	    if (fileOutput != null) {
-		try {
-		    fileOutput.close();
-		} catch (Exception e) {
-		    LOGGER.error(e);
-		    throw new DownloadException("Can't close fileOutput!", e);
-		}
-	    }
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new DownloadException("Can't find file for unzip!", e);
+        } finally {
+            if (gzInput != null) {
+                try {
+                    gzInput.close();
+                } catch (Exception e) {
+                    LOGGER.error(e);
+                    throw new DownloadException("Can't close gzInput!", e);
+                }
+            }
+            if (fileOutput != null) {
+                try {
+                    fileOutput.close();
+                } catch (Exception e) {
+                    LOGGER.error(e);
+                    throw new DownloadException("Can't close fileOutput!", e);
+                }
+            }
+        }
     }
 }

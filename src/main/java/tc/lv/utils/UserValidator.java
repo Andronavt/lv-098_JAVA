@@ -13,26 +13,23 @@ public class UserValidator {
     private static final Pattern PATTERN_EMAIL = Pattern.compile(EMAIL);
 
     public static boolean isCorrectName(String userName) {
-	return (userName.length() >= MIN_LENGHT_USERNAME)
-		&& (userName.length() <= MAX_LENGHT_USERNAME);
+        return (userName.length() >= MIN_LENGHT_USERNAME) && (userName.length() <= MAX_LENGHT_USERNAME);
     }
 
     public static boolean isCorrectFirstName(String firstName) {
-	return (firstName.length() >= MIN_LENGHT_USER)
-		&& (firstName.length() <= MAX_LENGHT_USER);
+        return (firstName.length() >= MIN_LENGHT_USER) && (firstName.length() <= MAX_LENGHT_USER);
     }
 
     public static boolean isCorrectLastName(String lastName) {
-	return (lastName.length() >= MIN_LENGHT_USER)
-		&& (lastName.length() <= MAX_LENGHT_USER);
+        return (lastName.length() >= MIN_LENGHT_USER) && (lastName.length() <= MAX_LENGHT_USER);
     }
 
     public static boolean isCorrectEmail(String userEmail) {
-	return PATTERN_EMAIL.matcher(userEmail).find();
+        return PATTERN_EMAIL.matcher(userEmail).find();
     }
 
     public static boolean isCorrectPassword(String password) {
-	return (password.length() >= MIN_LENGHT_PASS);
+        return (password.length() >= MIN_LENGHT_PASS);
     }
 
 }
