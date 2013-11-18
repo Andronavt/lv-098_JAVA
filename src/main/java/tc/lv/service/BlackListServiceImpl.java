@@ -11,6 +11,7 @@ import tc.lv.dao.IpV6AddressDao;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
+import tc.lv.domain.Location;
 import tc.lv.exceptions.BlackListServiceException;
 
 public class BlackListServiceImpl implements BlackListService {
@@ -67,7 +68,7 @@ public class BlackListServiceImpl implements BlackListService {
             if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != false)) {
 
                 if (tempIpV4 == null) {
-                    tempIpV4 = new IpV4Address(address, new Date());
+                    tempIpV4 = new IpV4Address(address, new Date(), new Location("Ukrain", "UA", "Lviv"));
                     tempIpV4.getSourceSet().add(sourceDao.findByName(ADMIN_BLACK_LIST));
                     tempIpV4.setWhiteList(false);
                     ipV4AddressDao.save(tempIpV4);

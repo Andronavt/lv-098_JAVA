@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import tc.lv.dao.Dao;
 import tc.lv.dao.IpV4AddressDao;
 import tc.lv.domain.IpV4Address;
+import tc.lv.domain.Location;
 
 @Repository
 public class IpV4AddressDaoImpl extends Dao implements IpV4AddressDao {
@@ -82,5 +83,49 @@ public class IpV4AddressDaoImpl extends Dao implements IpV4AddressDao {
     @Override
     public IpV4Address update(IpV4Address address) {
         return entityManager.merge(address);
+    }
+
+    public List<IpV4Address> findWhiteListByCountyName(String contryName) {
+        return findWhiteOrBlackListByCountyName(contryName, true);
+    }
+
+    public List<IpV4Address> findBlackListByCountyName(String contryName) {
+        return findWhiteOrBlackListByCountyName(contryName, false);
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<IpV4Address> findWhiteOrBlackListByCountyName(String contryName, boolean whiteList) {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY);
+        query = query.setParameter(1, whiteList).setParameter(2, contryName);
+        return query.getResultList();
+    }
+
+    public List<IpV4Address> findWhiteListByCityName(String cityName) {
+        return findWhiteOrBlackListByCityName(cityName, true);
+    }
+
+    public List<IpV4Address> findBlackListByCityName(String cityName) {
+        return findWhiteOrBlackListByCityName(cityName, false);
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<IpV4Address> findWhiteOrBlackListByCityName(String cityName, boolean whiteList) {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_CITY);
+        query = query.setParameter(1, whiteList).setParameter(2, cityName);
+        return query.getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Location> findLocationWhiteList() {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_LOCATION_WHITE_OR_BLACK_LIST).setParameter(
+                1, true);
+        return query.getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Location> findLocationBlackList() {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_LOCATION_WHITE_OR_BLACK_LIST);
+        query = query.setParameter(1, false);
+        return query.getResultList();
     }
 }

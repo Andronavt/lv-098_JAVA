@@ -5,34 +5,47 @@ import javax.persistence.JoinColumn;
 
 @Embeddable
 public class Location {
-    
-    @JoinColumn(name = "country")
-    private String country;
-    
-    @JoinColumn(name = "city")
-    private String city;
+
+    @JoinColumn(name = "country_name")
+    private String countryName;
+
+    @JoinColumn(name = "country_code")
+    private String countryCode;
+
+    @JoinColumn(name = "city_name")
+    private String cityName;
 
     public Location() {
     }
 
-    public Location(String country, String city) {
-	this.country = country;
-	this.city = city;
+    public Location(String countryName, String countryCode, String cityName) {
+        this.countryName = countryName;
+        this.countryCode = countryCode;
+        this.cityName = cityName;
     }
 
-    public String getCountry() {
-	return this.country;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public void setCountry(String country) {
-	this.country = country;
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
-    public String getCity() {
-	return this.city;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setCity(String city) {
-	this.city = city;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
 }

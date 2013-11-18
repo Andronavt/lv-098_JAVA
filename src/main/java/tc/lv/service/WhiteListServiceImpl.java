@@ -13,6 +13,7 @@ import tc.lv.dao.IpV6AddressDao;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
+import tc.lv.domain.Location;
 import tc.lv.exceptions.WhiteListServiceException;
 
 @Service
@@ -74,7 +75,7 @@ public class WhiteListServiceImpl implements WhiteListService {
             if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != true)) {
 
                 if (tempIpV4 == null) {
-                    tempIpV4 = new IpV4Address(address, new Date());
+                    tempIpV4 = new IpV4Address(address, new Date(), new Location("Ukrain", "UA", "Lviv"));
                     tempIpV4.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
                     tempIpV4.setWhiteList(true);
                     ipV4AddressDao.save(tempIpV4);
