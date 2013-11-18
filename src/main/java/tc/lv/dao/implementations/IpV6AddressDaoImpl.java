@@ -1,4 +1,4 @@
-package tc.lv.dao.interImpl;
+package tc.lv.dao.implementations;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import tc.lv.domain.IpV6Address;
 @Repository
 public class IpV6AddressDaoImpl extends Dao implements IpV6AddressDao {
 
-    @PersistenceContext(name = PERSISTENCE_CONTEXT)
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override
