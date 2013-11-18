@@ -109,7 +109,7 @@ public class WhiteListController {
     public String showIpListFromWhiteList(@ModelAttribute("page") String page,
             @ModelAttribute("value") String value, Map<String, Object> map) {
         try {
-            List<IpV4Address> list = new ArrayList<>();
+            List<IpV4Address> list = new ArrayList<IpV4Address>();
             list.addAll(whiteListService.loadIpV4ListByRange(
                     (Integer.parseInt(page) - 1) * Integer.parseInt(value), Integer.parseInt(value)));
             map.put("ipList", list);

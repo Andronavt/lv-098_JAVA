@@ -42,4 +42,3 @@ $('#world-map').vectorMap({
 	  }
 	});
 </script>
-

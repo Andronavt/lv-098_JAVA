@@ -55,6 +55,13 @@
 
 	<!-- secure views -->
 
+	<definition name="secure_blackListMap" extends="base.definition">
+		<put-attribute name="body" value="/views/secure/blackListMap.jsp" />
+	</definition>
+
+	<definition name="secure_whiteListMap" extends="base.definition">
+		<put-attribute name="body" value="/views/secure/whiteListMap.jsp" />
+	</definition>
 
 	<definition name="secure_showIpListFromWL" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/ShowIpListFromWL.jsp" />
