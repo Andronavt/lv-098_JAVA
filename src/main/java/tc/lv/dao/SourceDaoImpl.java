@@ -5,8 +5,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
@@ -41,7 +43,7 @@ public class SourceDaoImpl extends Dao implements SourceDao {
     @Override
     public void delete(Source source) {
         // deleteSourceWithoutIp(source);
-        deleteSourceWithoutIp(source);
+        deleteSourceWithIp(source);
     }
 
     // deleteSourceWithIp
@@ -62,6 +64,6 @@ public class SourceDaoImpl extends Dao implements SourceDao {
     // deleteSourceWithoutIp
     public void deleteSourceWithoutIp(Source source) {
         entityManager.createNamedQuery(Source.DELETE).setParameter(1, source.getSourceName()).executeUpdate();
-
+       
     }
 }
