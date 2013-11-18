@@ -19,6 +19,8 @@ import javax.persistence.Table;
         @NamedQuery(name = IpV4Address.FIND_WHITE_OR_BLACK_LIST, query = IpV4Address.FIND_WHITE_OR_BLACK_LIST_QUERY),
         @NamedQuery(name = IpV4Address.FIND_UNDEFINEDLIST, query = IpV4Address.FIND_UNDEFINEDLIST_QUERY),
         @NamedQuery(name = IpV4Address.FIND_WHITE_OR_BLACK_IP_BY_NAME, query = IpV4Address.FIND_WHITE_OR_BLACK_IP_BY_NAME_QUERY),
+        @NamedQuery(name = IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_CITY, query = IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY),
+        @NamedQuery(name = IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY, query = IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY),
 // @NamedQuery(name = IpV4Address.FIND_BLACK_IP_BY_NAME, query =
 // IpV4Address.FIND_BLACK_IP_BY_NAME_QUERY)
 // ---
@@ -48,6 +50,13 @@ public class IpV4Address extends IpAddress {
     public static final String FIND_WHITE_OR_BLACK_LIST = "IpV4Address.findWhiteOrBlackList";
     public static final String FIND_WHITE_OR_BLACK_LIST_QUERY = "SELECT ip from IpV4Address ip where ip.whiteList = ?1";
 
+    public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY = "IpV4Address.findWhiteOrBlackListByCity";
+    public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY = "SELECT ip from IpV4Address ip where ip.whiteList = ?1 and ip.location.city = ?2";
+    
+    public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY = "IpV4Address.findWhiteOrBlackListByCountry";
+    public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpV4Address ip where ip.whiteList = ?1 and ip.location.country = ?2";
+    
+    
     public IpV4Address() {
 
     }

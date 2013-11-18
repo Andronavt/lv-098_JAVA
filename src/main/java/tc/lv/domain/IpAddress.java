@@ -31,6 +31,8 @@ import org.hibernate.annotations.FetchMode;
         // --------
         @NamedQuery(name = IpAddress.FIND_ALL_NOT_VALID, query = IpAddress.FIND_ALL_NOT_VALID_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_VALID, query = IpAddress.FIND_ALL_VALID_QUERY),
+        @NamedQuery(name = IpAddress.FIND_IP_BY_CITY, query = IpAddress.FIND__IP_BY_CITY_QUERY),
+        @NamedQuery(name = IpAddress.FIND_IP_BY_COUNTRY, query = IpAddress.FIND__IP_BY_COUNTRY_QUERY),
 // ---
 })
 public class IpAddress {
@@ -40,6 +42,12 @@ public class IpAddress {
 
     public static final String FIND_ALL_VALID = "IpAddress.findAllValidIp";
     public static final String FIND_ALL_VALID_QUERY = "SELECT ipO FROM IpAddress ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpAddress ipI, NotValidIp nv WHERE ipI.id = nv.id)";
+    
+    public static final String FIND_IP_BY_CITY = "IpAddress.findIpByCity";
+    public static final String FIND__IP_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.location.city = ?1";
+    
+    public static final String FIND_IP_BY_COUNTRY = "IpAddress.findIpByCountry";
+    public static final String FIND__IP_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.location.country = ?1";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
