@@ -118,7 +118,7 @@ public class BlackListServiceImpl implements BlackListService {
     @Override
     public Collection<IpV4Address> loadIpV4List() throws BlackListServiceException {
         try {
-            return ipV4AddressDao.getBlackList();
+            return ipV4AddressDao.findBlackList();
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -140,7 +140,7 @@ public class BlackListServiceImpl implements BlackListService {
     @Override
     public Collection<IpV4Address> loadIpV4ListByRange(int from, int count) throws BlackListServiceException {
         try {
-            return ipV4AddressDao.getBlackList(from, count);
+            return ipV4AddressDao.findBlackList(from, count);
 
         } catch (Exception e) {
             LOGGER.error(e);

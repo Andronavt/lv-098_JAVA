@@ -49,7 +49,7 @@ public class SourceServiceImpl implements SourceService {
     @Override
     public List<Source> getListOfSourcess() throws SourceServiseException {
         try {
-            return sourceDao.getAll();
+            return sourceDao.findAll();
 
         } catch (Exception e) {
             LOGGER.error(e);

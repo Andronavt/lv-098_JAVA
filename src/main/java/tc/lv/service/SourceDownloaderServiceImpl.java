@@ -65,7 +65,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     public List<Source> loadSourceList() throws SourceDownloaderServiceException {
 
         try {
-            return sourceDao.getAll();
+            return sourceDao.findAll();
 
         } catch (Exception e) {
             LOGGER.error(e);
