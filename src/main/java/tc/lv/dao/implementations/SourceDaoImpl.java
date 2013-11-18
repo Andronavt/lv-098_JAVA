@@ -1,4 +1,4 @@
-package tc.lv.dao;
+package tc.lv.dao.implementations;
 
 import java.util.List;
 
@@ -8,13 +8,15 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import tc.lv.dao.Dao;
+import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
 
 @Repository
 public class SourceDaoImpl extends Dao implements SourceDao {
 
-    @PersistenceContext(name = "primary")
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override
@@ -24,8 +26,8 @@ public class SourceDaoImpl extends Dao implements SourceDao {
     }
 
     @Override
-    public List<Source> getAll() {
-        return entityManager.createNamedQuery(Source.GET_ALL, Source.class).getResultList();
+    public List<Source> findAll() {
+        return entityManager.createNamedQuery(Source.FIND_ALL, Source.class).getResultList();
     }
 
     @Override
@@ -47,7 +49,6 @@ public class SourceDaoImpl extends Dao implements SourceDao {
     // deleteSourceWithIp
     public void deleteSourceWithIp(Source source) {
         for (IpAddress ip : source.getIpSet()) {
-
             ip.getSourceSet().remove(source);
 
             if (ip.getSourceSet().size() == 0) {

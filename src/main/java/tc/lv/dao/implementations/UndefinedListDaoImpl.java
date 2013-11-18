@@ -1,4 +1,4 @@
-package tc.lv.dao;
+package tc.lv.dao.implementations;
 
 import java.util.List;
 
@@ -7,13 +7,15 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
+import tc.lv.dao.Dao;
+import tc.lv.dao.UndefinedListDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 
 @Repository
-public class UndefinedListDaoImpl implements UndefinedListDao {
+public class UndefinedListDaoImpl extends Dao implements UndefinedListDao {
 
-    @PersistenceContext(name = "primary")
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override
@@ -23,7 +25,7 @@ public class UndefinedListDaoImpl implements UndefinedListDao {
 
     @Override
     public List<IpV6Address> getIpV6List() {
-        return entityManager.createNamedQuery(IpV6Address.GET_UNDEFINEDLIST, IpV6Address.class).getResultList();
+        return entityManager.createNamedQuery(IpV6Address.FIND_UNDEFINEDLIST, IpV6Address.class).getResultList();
     }
 
 }

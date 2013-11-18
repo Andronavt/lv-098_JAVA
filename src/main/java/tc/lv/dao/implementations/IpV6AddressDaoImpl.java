@@ -1,4 +1,4 @@
-package tc.lv.dao;
+package tc.lv.dao.implementations;
 
 import java.util.List;
 
@@ -8,12 +8,14 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import tc.lv.dao.Dao;
+import tc.lv.dao.IpV6AddressDao;
 import tc.lv.domain.IpV6Address;
 
 @Repository
 public class IpV6AddressDaoImpl extends Dao implements IpV6AddressDao {
 
-    @PersistenceContext(name = "primary")
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override
@@ -22,42 +24,42 @@ public class IpV6AddressDaoImpl extends Dao implements IpV6AddressDao {
         return (IpV6Address) find(query);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<IpV6Address> getBlackList() {
-        Query query = entityManager.createNamedQuery(IpV6Address.GET_WHITELIST).setParameter(1, false);
+        Query query = entityManager.createNamedQuery(IpV6Address.FIND_WHITE_OR_BLACK_LIST).setParameter(1, false);
         return query.getResultList();
     }
 
     @Override
     public List<IpV6Address> getBlackList(int from, int count) {
-        return getColorList(from, count, false);
+        return findWhiteOrBlackList(from, count, false);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<IpV6Address> getListBySource(int sourceId) {
-        Query query = entityManager.createNamedQuery(IpV6Address.GET_BY_SOURCE);
+        Query query = entityManager.createNamedQuery(IpV6Address.FIND_BY_SOURCE);
         query.setParameter(1, sourceId);
         return query.getResultList();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<IpV6Address> getWhiteList() {
-        Query query = entityManager.createNamedQuery(IpV6Address.GET_WHITELIST).setParameter(1, true);
+        Query query = entityManager.createNamedQuery(IpV6Address.FIND_WHITE_OR_BLACK_LIST).setParameter(1, true);
         return query.getResultList();
     }
 
     @Override
     public List<IpV6Address> getWhiteList(int from, int count) {
-        return getColorList(from, count, true);
+        return findWhiteOrBlackList(from, count, true);
     }
 
     @SuppressWarnings("unchecked")
-    private List<IpV6Address> getColorList(int from, int count, boolean whiteList) {
-        Query query = entityManager.createNamedQuery(IpV6Address.GET_WHITELIST).setParameter(1, whiteList)
-                .setFirstResult(from).setMaxResults(count);
+    private List<IpV6Address> findWhiteOrBlackList(int from, int count, boolean whiteList) {
+        Query query = entityManager.createNamedQuery(IpV6Address.FIND_WHITE_OR_BLACK_LIST);
+        query = query.setParameter(1, whiteList).setFirstResult(from).setMaxResults(count);
         return (List<IpV6Address>) getRange(from, count, query);
     }
 

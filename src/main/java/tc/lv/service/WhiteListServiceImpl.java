@@ -126,7 +126,7 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Override
     public Collection<IpV4Address> loadIpV4List() throws WhiteListServiceException {
         try {
-            return ipV4AddressDao.getWhiteList();
+            return ipV4AddressDao.findWhiteList();
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -150,7 +150,7 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Override
     public Collection<IpV4Address> loadIpV4ListByRange(int from, int count) throws WhiteListServiceException {
         try {
-            return ipV4AddressDao.getWhiteList(from, count);
+            return ipV4AddressDao.findWhiteList(from, count);
 
         } catch (Exception e) {
             LOGGER.error(e);

@@ -1,4 +1,4 @@
-package tc.lv.dao;
+package tc.lv.dao.implementations;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,6 +13,8 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
+import tc.lv.dao.Dao;
+import tc.lv.dao.DownloaderDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
@@ -21,15 +23,14 @@ import tc.lv.domain.Source;
 import tc.lv.utils.ParserResults;
 
 @Repository
-public class DownloaderDaoImpl implements DownloaderDao {
+public class DownloaderDaoImpl extends Dao implements DownloaderDao {
 
     private static final Logger loggerInfo = Logger.getLogger("infoLog");
 
-    @PersistenceContext(name = "primary")
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override
-    @Deprecated
     public void save(ParserResults parser) {
         loggerInfo.info("START UPDATE IpV4List (" + parser.getIpV4List().size() + " ip's)");
         saveIpV4List(parser.getIpV4List(), parser.getSourceId());
@@ -40,7 +41,6 @@ public class DownloaderDaoImpl implements DownloaderDao {
         loggerInfo.info("UPDATE ALL LISTS IN CURRENT SOURCE");
     }
 
-    @Deprecated
     @SuppressWarnings("unchecked")
     public void saveIpV4List(List<IpV4Address> list, int sourceId) {
         Source source = entityManager.find(Source.class, sourceId);
@@ -77,7 +77,6 @@ public class DownloaderDaoImpl implements DownloaderDao {
         }
     }
 
-    @Deprecated
     @SuppressWarnings("unchecked")
     public void saveIpV6List(List<IpV6Address> list, int sourceId) {
         Source source = entityManager.find(Source.class, sourceId);
@@ -115,7 +114,6 @@ public class DownloaderDaoImpl implements DownloaderDao {
         }
     }
 
-    @Deprecated
     @SuppressWarnings("unchecked")
     public void saveNotValList(List<NotValidIp> list, int sourceId) {
         Source source = entityManager.find(Source.class, sourceId);
@@ -153,9 +151,8 @@ public class DownloaderDaoImpl implements DownloaderDao {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    @Deprecated
     @Override
+    @SuppressWarnings("unchecked")
     public void updateWhiteList() {
         Query query = entityManager.createNamedQuery(IpV4Address.FIND_ALL);
         updateWhiteList(query.getResultList());

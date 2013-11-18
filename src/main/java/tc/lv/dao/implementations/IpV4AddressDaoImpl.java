@@ -1,4 +1,4 @@
-package tc.lv.dao;
+package tc.lv.dao.implementations;
 
 import java.util.List;
 
@@ -8,12 +8,14 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
+import tc.lv.dao.Dao;
+import tc.lv.dao.IpV4AddressDao;
 import tc.lv.domain.IpV4Address;
 
 @Repository
 public class IpV4AddressDaoImpl extends Dao implements IpV4AddressDao {
 
-    @PersistenceContext(name = "primary")
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override
@@ -24,40 +26,40 @@ public class IpV4AddressDaoImpl extends Dao implements IpV4AddressDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<IpV4Address> getBlackList() {
-        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITELIST).setParameter(1, false);
+    public List<IpV4Address> findBlackList() {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITE_OR_BLACK_LIST).setParameter(1, false);
         return query.getResultList();
     }
 
     @Override
-    public List<IpV4Address> getBlackList(int from, int count) {
-        return getIpList(from, count, false);
+    public List<IpV4Address> findBlackList(int from, int count) {
+        return findWhiteOrBlackList(from, count, false);
     }
 
     @SuppressWarnings("unchecked")
-    private List<IpV4Address> getIpList(int from, int count, boolean whiteList) {
-        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITELIST).setParameter(1, whiteList)
-                .setFirstResult(from).setMaxResults(count);
+    private List<IpV4Address> findWhiteOrBlackList(int from, int count, boolean whiteList) {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITE_OR_BLACK_LIST);
+        query = query.setParameter(1, whiteList).setFirstResult(from).setMaxResults(count);
         return (List<IpV4Address>) getRange(from, count, query);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public List<IpV4Address> getListBySource(int sourceId) {
+    @SuppressWarnings("unchecked")
+    public List<IpV4Address> findListBySource(int sourceId) {
         Query query = entityManager.createNamedQuery(IpV4Address.FIND_BY_SOURCE);
         return query.setParameter(1, sourceId).getResultList();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public List<IpV4Address> getWhiteList() {
-        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITELIST).setParameter(1, true);
+    @SuppressWarnings("unchecked")
+    public List<IpV4Address> findWhiteList() {
+        Query query = entityManager.createNamedQuery(IpV4Address.FIND_WHITE_OR_BLACK_LIST).setParameter(1, true);
         return query.getResultList();
     }
 
     @Override
-    public List<IpV4Address> getWhiteList(int from, int count) {
-        return getIpList(from, count, true);
+    public List<IpV4Address> findWhiteList(int from, int count) {
+        return findWhiteOrBlackList(from, count, true);
     }
 
     @Override
