@@ -1,4 +1,4 @@
-package tc.lv.service;
+package tc.lv.service.implementation;
 
 import java.util.Collection;
 import java.util.Date;
@@ -14,6 +14,7 @@ import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.exceptions.WhiteListServiceException;
+import tc.lv.service.WhiteListService;
 
 @Service
 public class WhiteListServiceImpl implements WhiteListService {

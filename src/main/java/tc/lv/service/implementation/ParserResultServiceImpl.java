@@ -1,4 +1,4 @@
-package tc.lv.service;
+package tc.lv.service.implementation;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.DownloaderDao;
 import tc.lv.exceptions.ParserResultServiceException;
+import tc.lv.service.ParserResultService;
 import tc.lv.utils.ParserResults;
 
 @Service

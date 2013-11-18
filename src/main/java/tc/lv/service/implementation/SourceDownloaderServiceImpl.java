@@ -1,4 +1,4 @@
-package tc.lv.service;
+package tc.lv.service.implementation;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.SourceDownloaderServiceException;
+import tc.lv.service.SourceDownloaderService;
 import tc.lv.utils.Downloader;
 import tc.lv.utils.Parser;
 import tc.lv.utils.ParserResults;

@@ -1,10 +1,11 @@
-package tc.lv.service;
+package tc.lv.service.implementation;
 
 import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.GeoIpServiceException;
+import tc.lv.service.GeoIpService;
 import tc.lv.utils.IpValidator;
 
 import com.maxmind.geoip.LookupService;

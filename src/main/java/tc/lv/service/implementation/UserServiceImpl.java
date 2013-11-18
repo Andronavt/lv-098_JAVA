@@ -1,4 +1,4 @@
-package tc.lv.service;
+package tc.lv.service.implementation;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import tc.lv.dao.UserDao;
 import tc.lv.domain.Role;
 import tc.lv.domain.User;
 import tc.lv.exceptions.UserEntityServiceException;
+import tc.lv.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {

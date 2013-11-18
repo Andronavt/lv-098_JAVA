@@ -1,4 +1,4 @@
-package tc.lv.service;
+package tc.lv.service.implementation;
 
 import java.util.Collection;
 import java.util.Date;
@@ -12,6 +12,7 @@ import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.exceptions.BlackListServiceException;
+import tc.lv.service.BlackListService;
 
 public class BlackListServiceImpl implements BlackListService {
     private static final Logger LOGGER = Logger.getLogger(BlackListServiceImpl.class);
