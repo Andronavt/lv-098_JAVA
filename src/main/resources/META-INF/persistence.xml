@@ -16,8 +16,7 @@
 			<property name="hibernate.connection.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="never" />
 			<property name="hibernate.connection.driver_class" value="net.sourceforge.jtds.jdbc.Driver" />
-			<property name="hibernate.jdbc.use_scrollable_resultset"
-				value="false" />
+			<property name="hibernate.jdbc.use_scrollable_resultset" value="false" />
 			<property name="hibernate.connection.username" value="bohdan" />
 			<property name="hibernate.connection.password" value="12024060" />
 			<property name="hibernate.connection.url"

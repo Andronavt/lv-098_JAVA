@@ -5,15 +5,17 @@ import java.io.FileWriter;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.service.JsonService;
 
+
 public class JsonServiceImpl implements JsonService {
     private static final Logger LOGGER = Logger.getLogger(BlackListServiceImpl.class);
 
-    @Autowired
+  
     GeoIpDao geoIpDao;
 
     @Override
@@ -21,7 +23,7 @@ public class JsonServiceImpl implements JsonService {
     public void createJsonCountryWhiteList(String path) throws JsonServiceException {
         JSONObject json = new JSONObject();
 
-        for (String country : geoIpDao.loadCountryWhiteList) {
+        for (String country : geoIpDao.loadCountryWhiteList()) {
             json.put(country, geoIpDao.loadIpWhiteListByCountry(country).size());
         }
 
@@ -45,7 +47,7 @@ public class JsonServiceImpl implements JsonService {
     public void createJsonCountryBlackList(String path) throws JsonServiceException {
         JSONObject json = new JSONObject();
 
-        for (String country : geoIpDao.loadCountryBlackList) {
+        for (String country : geoIpDao.loadCountryBlackList()) {
             json.put(country, geoIpDao.loadIpBlackListByCountry(country).size());
         }
 

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,17 +29,29 @@ import org.hibernate.annotations.FetchMode;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
         // --------
+        @NamedQuery(name = IpAddress.COUNT_ALL, query = IpAddress.COUNT_ALL_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_NOT_VALID, query = IpAddress.FIND_ALL_NOT_VALID_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_VALID, query = IpAddress.FIND_ALL_VALID_QUERY),
+        @NamedQuery(name = IpAddress.FIND_IP_BY_CITY, query = IpAddress.FIND__IP_BY_CITY_QUERY),
+        @NamedQuery(name = IpAddress.FIND_IP_BY_COUNTRY, query = IpAddress.FIND__IP_BY_COUNTRY_QUERY),
 // ---
 })
 public class IpAddress {
 
+    public static final String COUNT_ALL = "IpAddress.countAll";
+    public static final String COUNT_ALL_QUERY = "SELECT count(ip) from IpAddress ip";
+    
     public static final String FIND_ALL_NOT_VALID = "IpAddress.findAllNotValidIp";
     public static final String FIND_ALL_NOT_VALID_QUERY = "SELECT ip FROM IpAddress ip, NotValidIp nv WHERE ip.id = nv.id";
 
     public static final String FIND_ALL_VALID = "IpAddress.findAllValidIp";
     public static final String FIND_ALL_VALID_QUERY = "SELECT ipO FROM IpAddress ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpAddress ipI, NotValidIp nv WHERE ipI.id = nv.id)";
+    
+    public static final String FIND_IP_BY_CITY = "IpAddress.findIpByCity";
+    public static final String FIND__IP_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.location.city = ?1";
+    
+    public static final String FIND_IP_BY_COUNTRY = "IpAddress.findIpByCountry";
+    public static final String FIND__IP_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.location.country = ?1";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +66,9 @@ public class IpAddress {
 
     @Column(name = "white_list")
     protected Boolean whiteList;
+    
+    @Embedded
+    private Location location;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "sources_to_addresses", joinColumns = { @JoinColumn(name = "ip_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "source_id", updatable = true, nullable = true) })
@@ -116,8 +132,5 @@ public class IpAddress {
         this.sourceSet = sourceSet;
     }
 
-    public void addElementToSourceSet(Source source) {
-        sourceSet.add(source);
-    }
 
 }

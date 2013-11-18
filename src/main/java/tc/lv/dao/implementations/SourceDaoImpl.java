@@ -1,4 +1,4 @@
-package tc.lv.dao.interImpl;
+package tc.lv.dao.implementations;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import tc.lv.domain.Source;
 @Repository
 public class SourceDaoImpl extends Dao implements SourceDao {
 
-    @PersistenceContext(name = PERSISTENCE_CONTEXT)
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override

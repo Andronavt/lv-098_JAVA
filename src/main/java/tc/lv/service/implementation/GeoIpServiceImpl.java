@@ -63,5 +63,4 @@ public class GeoIpServiceImpl implements GeoIpService {
         }
         return result;
     }
-
 }
