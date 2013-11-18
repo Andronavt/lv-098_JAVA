@@ -23,60 +23,63 @@ import tc.lv.utils.ParserResults;
 @Controller
 public class SourceDownloadController {
 
-    private static final Logger LOGGER = Logger.getLogger(SourceDownloadController.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(SourceDownloadController.class);
+	@Autowired
+	private SourceDownloaderService sourceDownloaderService;
 
-    @Autowired
-    private SourceDownloaderService sourceDownloaderService;
+	@Autowired
+	private ParserResultService parserResultService;
 
-    @Autowired
-    private ParserResultService parserResultService;
+	// Getting updateSourcesPag.jsp
+	@RequestMapping("admin_updateSources")
+	public String getlistIpV4(Map<String, Object> map) {
+		try {
+			map.put("listSource", sourceDownloaderService.loadSourceList());
 
-    // Getting updateSourcesPag.jsp
-    @RequestMapping("admin_updateSources")
-    public String getlistIpV4(Map<String, Object> map) {
-        try {
-            map.put("listSource", sourceDownloaderService.loadSourceList());
+		} catch (SourceDownloaderServiceException e) {
+			map.put("errorList", ExceptionUtil.createErrorList(e));
+			map.put("errorMsg", e.getMessage());
+			return "result";
+		}
+		return "admin_updateSources";
+	}
 
-        } catch (SourceDownloaderServiceException e) {
-            map.put("errorList", ExceptionUtil.createErrorList(e));
-            map.put("errorMsg", e.getMessage());
-            return "result";
-        }
-        return "admin_updateSources";
-    }
+	// Updating Sources
+	@RequestMapping(value = "admin_updateSourcesButton", method = RequestMethod.POST)
+	public String sourceDownloader(@ModelAttribute("source") String sourceName,
+			Map<String, Object> map) {
+		List<String> sourceNameList = new ArrayList<String>();
+		LOGGER.info("SOURCE:" + sourceName);
+		sourceNameList.add(sourceName);
+		try {
+			LOGGER.info("Create MAP of sources and Parsers");
 
-    // Updating Sources
-    @RequestMapping(value = "admin_updateSourcesButton", method = RequestMethod.POST)
-    public String sourceDownloader(@ModelAttribute("source") String sourceName, Map<String, Object> map) {
-        List<String> sourceNameList = new ArrayList<String>();
-        LOGGER.info("SOURCE:" + sourceName);
-        sourceNameList.add(sourceName);
+			List<Source> sourceList = sourceDownloaderService.loadSourceList();
 
-        try {
-            LOGGER.info("Create MAP of sources and Parsers");
+			Map<Source, Parser> parserMap = sourceDownloaderService
+					.createParserMap(sourceList);
 
-            List<Source> sourceList = sourceDownloaderService.loadSourceList();
+			List<ParserResults> parserResultList = null;
 
-            Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
+			LOGGER.info("Start downloading, parsing and updating Data Base");
 
-            List<ParserResults> parserResultList = null;
+			parserResultList = sourceDownloaderService
+					.downloadParseAndUpdateData(sourceNameList, parserMap);
 
-            LOGGER.info("Start downloading, parsing and updating Data Base");
+			parserResultService.saveAllSources(parserResultList);
 
-            parserResultList = sourceDownloaderService.downloadParseAndUpdateData(sourceNameList, parserMap);
+			LOGGER.info("Finish downloading, parsing and updating Data Base");
 
-            parserResultService.saveAllSources(parserResultList);
+			map.put("successMsg", "Sourc " + sourceName + " UPDATED!!!");
+			return "result";
 
-            LOGGER.info("Finish downloading, parsing and updating Data Base");
+		} catch (SourceDownloaderServiceException
+				| ParserResultServiceException e) {
+			map.put("errorList", ExceptionUtil.createErrorList(e));
+			map.put("errorMsg", e.getMessage());
+			return "result";
+		}
 
-            map.put("successMsg", "Sourc " + sourceName + " UPDATED!!!");
-            return "result";
-
-        } catch (SourceDownloaderServiceException | ParserResultServiceException e) {
-            map.put("errorList", ExceptionUtil.createErrorList(e));
-            map.put("errorMsg", e.getMessage());
-            return "result";
-        }
-
-    }
+	}
 }

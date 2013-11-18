@@ -27,7 +27,7 @@
 </div>
 <script>
 	// init bootpag
-	function test(page) {
+	function doAjaxPaginationWL(page) {
 		$.ajax({
 			type : "POST",
 			url : "secure_showIpListFromWL",
@@ -44,7 +44,8 @@
 		$('#demo1').bootpag({
 			total : 5
 		}).on("page", function(event, num) {
-			test(num);
+			doAjaxPaginationWL(num);
 		});
+		doAjaxPaginationWL(1);
 	});
 </script>
