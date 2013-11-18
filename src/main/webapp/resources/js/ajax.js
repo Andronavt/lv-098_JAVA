@@ -1,4 +1,3 @@
-
 function doAjaxPostRegistration() {
 	// get the form values
 	var user_name = $('#user_name').val();
@@ -103,6 +102,7 @@ function doAjaxUpdateSource() {
 		url : "admin_updateSourcesButton",
 		data : "source=" + source,
 		beforeSend: function() {
+//		    $('#upSource').html("<img src='/resources/images/ajax-loader.gif' />");
 			$('#upSource').html("Please wait. Source updating");
 		  },
 		success : function(response) {

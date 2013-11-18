@@ -71,11 +71,11 @@ public class WhiteListController {
     public String addIpToWhiteList(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
         try {
             if (IpValidator.isIpV4(ipAddress)) {
-                return addIpFromDataBase(whiteListService.saveIpV4ByName(ipAddress), ipAddress, map);
+                return addIpToDataBase(whiteListService.saveIpV4ByName(ipAddress), ipAddress, map);
             }
 
             if (IpValidator.isIpV6(ipAddress)) {
-                return addIpFromDataBase(whiteListService.saveIpV6ByName(ipAddress), ipAddress, map);
+                return addIpToDataBase(whiteListService.saveIpV6ByName(ipAddress), ipAddress, map);
             }
 
             map.put("incorrectMsg", "Incorrect IP-address!");
@@ -89,7 +89,7 @@ public class WhiteListController {
     }
 
     // add IP to DB
-    private String addIpFromDataBase(boolean flag, String ipAddress, Map<String, Object> map)
+    private String addIpToDataBase(boolean flag, String ipAddress, Map<String, Object> map)
             throws WhiteListServiceException {
         if (flag) {
             map.put("successMsg", "IP-address: " + ipAddress + " has been successfully added to WhiteList.");
@@ -109,7 +109,7 @@ public class WhiteListController {
     public String showIpListFromWhiteList(@ModelAttribute("page") String page,
             @ModelAttribute("value") String value, Map<String, Object> map) {
         try {
-            List<IpV4Address> list = new ArrayList<IpV4Address>();
+            List<IpV4Address> list = new ArrayList<>();
             list.addAll(whiteListService.loadIpV4ListByRange(
                     (Integer.parseInt(page) - 1) * Integer.parseInt(value), Integer.parseInt(value)));
             map.put("ipList", list);

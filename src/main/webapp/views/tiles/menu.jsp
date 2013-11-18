@@ -43,7 +43,7 @@
 			</p>
 
 			<p>
-				<a class="button" href="secure_whiteListMap" title="Whitelist map">Whitelist
+				<a class="button" href="secure_inProgres" title="Whitelist map">Whitelist
 					map</a>
 			</p>
 
