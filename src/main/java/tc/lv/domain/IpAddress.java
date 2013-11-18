@@ -29,6 +29,7 @@ import org.hibernate.annotations.FetchMode;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
         // --------
+        @NamedQuery(name = IpAddress.COUNT_ALL, query = IpAddress.COUNT_ALL_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_NOT_VALID, query = IpAddress.FIND_ALL_NOT_VALID_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_VALID, query = IpAddress.FIND_ALL_VALID_QUERY),
         @NamedQuery(name = IpAddress.FIND_IP_BY_CITY, query = IpAddress.FIND__IP_BY_CITY_QUERY),
@@ -37,6 +38,9 @@ import org.hibernate.annotations.FetchMode;
 })
 public class IpAddress {
 
+    public static final String COUNT_ALL = "IpAddress.countAll";
+    public static final String COUNT_ALL_QUERY = "SELECT count(ip) from IpAddress ip";
+    
     public static final String FIND_ALL_NOT_VALID = "IpAddress.findAllNotValidIp";
     public static final String FIND_ALL_NOT_VALID_QUERY = "SELECT ip FROM IpAddress ip, NotValidIp nv WHERE ip.id = nv.id";
 
@@ -128,8 +132,5 @@ public class IpAddress {
         this.sourceSet = sourceSet;
     }
 
-    public void addElementToSourceSet(Source source) {
-        sourceSet.add(source);
-    }
 
 }

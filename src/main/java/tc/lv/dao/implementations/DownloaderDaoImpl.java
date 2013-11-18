@@ -1,4 +1,4 @@
-package tc.lv.dao.interImpl;
+package tc.lv.dao.implementations;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,7 +27,7 @@ public class DownloaderDaoImpl extends Dao implements DownloaderDao {
 
     private static final Logger loggerInfo = Logger.getLogger("infoLog");
 
-    @PersistenceContext(name = PERSISTENCE_CONTEXT)
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override

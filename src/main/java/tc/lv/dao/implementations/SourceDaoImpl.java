@@ -1,14 +1,12 @@
-package tc.lv.dao.interImpl;
+package tc.lv.dao.implementations;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.RollbackException;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.Dao;
 import tc.lv.dao.SourceDao;
@@ -18,7 +16,7 @@ import tc.lv.domain.Source;
 @Repository
 public class SourceDaoImpl extends Dao implements SourceDao {
 
-    @PersistenceContext(name = PERSISTENCE_CONTEXT)
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override
@@ -45,7 +43,7 @@ public class SourceDaoImpl extends Dao implements SourceDao {
     @Override
     public void delete(Source source) {
         // deleteSourceWithoutIp(source);
-        deleteSourceWithIp(source);
+        deleteSourceWithoutIp(source);
     }
 
     // deleteSourceWithIp
@@ -65,6 +63,6 @@ public class SourceDaoImpl extends Dao implements SourceDao {
     // deleteSourceWithoutIp
     public void deleteSourceWithoutIp(Source source) {
         entityManager.createNamedQuery(Source.DELETE).setParameter(1, source.getSourceName()).executeUpdate();
-       
+
     }
 }

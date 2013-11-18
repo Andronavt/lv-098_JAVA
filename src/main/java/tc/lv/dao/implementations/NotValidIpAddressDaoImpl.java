@@ -1,4 +1,4 @@
-package tc.lv.dao.interImpl;
+package tc.lv.dao.implementations;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import tc.lv.domain.NotValidIp;
 @Repository
 public class NotValidIpAddressDaoImpl extends Dao implements NotValidIpAddressDao {
 
-    @PersistenceContext(name = PERSISTENCE_CONTEXT)
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override

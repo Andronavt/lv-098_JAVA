@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "id")
 @NamedQueries({
         // ---
+        @NamedQuery(name = IpV4Address.COUNT_ALL, query = IpV4Address.COUNT_ALL_QUERY),
         @NamedQuery(name = IpV4Address.FIND_ALL, query = IpV4Address.FIND_ALL_QUERY),
         @NamedQuery(name = IpV4Address.FIND_BY_SOURCE, query = IpV4Address.FIND_BY_SOURCE_QUERY),
         @NamedQuery(name = IpV4Address.FIND_BY_ADDRESS, query = IpV4Address.FIND_BY_ADDRESS_QUERY),
@@ -27,6 +28,9 @@ import javax.persistence.Table;
 })
 public class IpV4Address extends IpAddress {
 
+    public static final String COUNT_ALL = "IpV4Address.countAll";
+    public static final String COUNT_ALL_QUERY = "SELECT count(ip) from IpV4Address ip";
+    
     public static final String FIND_WHITE_OR_BLACK_IP_BY_NAME = "IpV4Address.findWhiteOrBlackIpByName";
     public static final String FIND_WHITE_OR_BLACK_IP_BY_NAME_QUERY = "SELECT ip from IpV4Address ip where ip.whiteList = ?1 and ip.address = ?2";
 
