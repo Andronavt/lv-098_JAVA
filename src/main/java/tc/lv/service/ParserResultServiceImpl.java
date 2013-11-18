@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tc.lv.dao.DownloaderDao;
+import tc.lv.dao.IpAddressDao;
+import tc.lv.dao.implementations.IpQueryEnum;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.utils.ParserResults;
 
@@ -17,7 +18,7 @@ public class ParserResultServiceImpl implements ParserResultService {
     private static final Logger LOGGER = Logger.getLogger(ParserResultServiceImpl.class);
 
     @Autowired
-    private DownloaderDao downloaderDao;
+    private IpAddressDao ipAddressDao;
 
     // Update source in DataBAse
     @Transactional
@@ -26,7 +27,9 @@ public class ParserResultServiceImpl implements ParserResultService {
 
         LOGGER.info("Start updating Data Base");
         try {
-            downloaderDao.save(result);
+            ipAddressDao.saveList(result.getIpV4List(), result.getSourceId(), IpQueryEnum.IP_V4);
+            ipAddressDao.saveList(result.getIpV6List(), result.getSourceId(), IpQueryEnum.IP_V6);
+            ipAddressDao.saveList(result.getNotValidList(), result.getSourceId(), IpQueryEnum.IP_NOT_VALID);
             LOGGER.info("Finish updating Data Base");
 
         } catch (Exception e) {
@@ -44,6 +47,9 @@ public class ParserResultServiceImpl implements ParserResultService {
             for (ParserResults result : resultList) {
                 this.save(result);
             }
+            LOGGER.info("Start update WhiteList");
+            ipAddressDao.updateWhiteList(IpQueryEnum.IP);
+            LOGGER.info("Finish update WhiteList");
 
         } catch (Exception e) {
             LOGGER.error(e);

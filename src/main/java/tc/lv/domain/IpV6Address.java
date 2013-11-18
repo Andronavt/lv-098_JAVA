@@ -22,6 +22,7 @@ import javax.persistence.Table;
         @NamedQuery(name = IpV6Address.FIND_WHITE_OR_BLACK_IP_BY_NAME, query = IpV6Address.FIND_WHITE_OR_BLACK_IP_BY_NAME_QUERY),
         @NamedQuery(name = IpV6Address.FIND_WHITE_OR_BLACK_LIST_BY_CITY, query = IpV6Address.FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY),
         @NamedQuery(name = IpV6Address.FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY, query = IpV6Address.FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_LOCATION_WHITE_OR_BLACK_LIST, query = IpV6Address.FIND_LOCATION_WHITE_OR_BLACK_LIST_QUERY)
 // @NamedQuery(name = IpV6Address.FIND_BLACK_IP_BY_NAME, query =
 // IpV6Address.FIND_BLACK_IP_BY_NAME_QUERY)
 // ---
@@ -35,7 +36,7 @@ public class IpV6Address extends IpAddress {
 
     public static final String COUNT_ALL = "IpV6Address.countAll";
     public static final String COUNT_ALL_QUERY = "SELECT count(ip) from IpV6Address ip";
-    
+
     public static final String FIND_BY_ADDRESS = "IpV6Address.findByAddress";
     public static final String FIND_BY_ADDRESS_QUERY = "SELECT ip from IpV6Address ip WHERE ip.address= ?1";
 
@@ -53,12 +54,15 @@ public class IpV6Address extends IpAddress {
 
     public static final String FIND_WHITE_OR_BLACK_LIST = "IpV6Address.findWhiteOrBlackList";
     public static final String FIND_WHITE_OR_BLACK_LIST_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = ?1";
-    
+
     public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY = "IpV6Address.findWhiteOrBlackListByCity";
     public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = ?1 and ip.location.cityName= ?2";
-    
+
     public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY = "IpV6Address.findWhiteOrBlackListByCountry";
     public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = ?1 and ip.location.countryName = ?2";
+
+    public static final String FIND_LOCATION_WHITE_OR_BLACK_LIST = "IpV6Address.findLocationWhiteList";
+    public static final String FIND_LOCATION_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.location) from IpV6Address ip where ip.whiteList = ?1";
 
     public IpV6Address() {
 

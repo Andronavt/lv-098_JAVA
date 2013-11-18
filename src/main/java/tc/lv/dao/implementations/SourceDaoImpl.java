@@ -8,13 +8,13 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import tc.lv.dao.Dao;
+import tc.lv.dao.DaoAbstract;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
 
 @Repository
-public class SourceDaoImpl extends Dao implements SourceDao {
+public class SourceDaoImpl extends DaoAbstract implements SourceDao {
 
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;

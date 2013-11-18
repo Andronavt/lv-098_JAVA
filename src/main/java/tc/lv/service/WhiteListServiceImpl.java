@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tc.lv.dao.IpV4AddressDao;
-import tc.lv.dao.IpV6AddressDao;
+import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.SourceDao;
+import tc.lv.dao.implementations.IpQueryEnum;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.Location;
@@ -23,10 +23,7 @@ public class WhiteListServiceImpl implements WhiteListService {
     private static final String ADMIN_WHITE_LIST = "Admin Whitelist";
 
     @Autowired
-    private IpV4AddressDao ipV4AddressDao;
-
-    @Autowired
-    private IpV6AddressDao ipV6AddressDao;
+    private IpAddressDao ipAddressDao;
 
     @Autowired
     private SourceDao sourceDao;
@@ -35,10 +32,10 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Override
     public boolean deleteIpV4ByName(String address) throws WhiteListServiceException {
         try {
-            IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
+            IpV4Address tempIpV4 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V4);
 
             if (tempIpV4 != null) {
-                ipV4AddressDao.removeFromWhiteList(tempIpV4);
+                ipAddressDao.removeFromWhiteList(tempIpV4, IpQueryEnum.IP_V4);
                 return true;
             }
             return false;
@@ -53,10 +50,10 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Override
     public boolean deleteIpV6ByName(String address) throws WhiteListServiceException {
         try {
-            IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
+            IpV6Address tempIpV6 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V6);
 
             if (tempIpV6 != null) {
-                ipV6AddressDao.removeFromWhiteList(tempIpV6);
+                ipAddressDao.removeFromWhiteList(tempIpV6, IpQueryEnum.IP_V6);
                 return true;
             }
             return false;
@@ -71,19 +68,19 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Override
     public boolean saveIpV4ByName(String address) throws WhiteListServiceException {
         try {
-            IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
+            IpV4Address tempIpV4 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V4);
             if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != true)) {
 
                 if (tempIpV4 == null) {
                     tempIpV4 = new IpV4Address(address, new Date(), new Location("Ukrain", "UA", "Lviv"));
                     tempIpV4.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
                     tempIpV4.setWhiteList(true);
-                    ipV4AddressDao.save(tempIpV4);
+                    ipAddressDao.save(tempIpV4);
 
                 } else {
                     tempIpV4.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
                     tempIpV4.setWhiteList(true);
-                    ipV4AddressDao.save(tempIpV4);
+                    ipAddressDao.save(tempIpV4);
                 }
                 return true;
             }
@@ -99,19 +96,19 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Override
     public boolean saveIpV6ByName(String address) throws WhiteListServiceException {
         try {
-            IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
+            IpV6Address tempIpV6 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V6);
             if ((tempIpV6 == null) || (tempIpV6.getWhiteList() != true)) {
 
                 if (tempIpV6 == null) {
                     tempIpV6 = new IpV6Address(address, new Date());
                     tempIpV6.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
                     tempIpV6.setWhiteList(true);
-                    ipV6AddressDao.save(tempIpV6);
+                    ipAddressDao.save(tempIpV6);
 
                 } else {
                     tempIpV6.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
                     tempIpV6.setWhiteList(true);
-                    ipV6AddressDao.save(tempIpV6);
+                    ipAddressDao.save(tempIpV6);
                 }
                 return true;
             }
@@ -125,9 +122,10 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
+    @SuppressWarnings("unchecked")
     public Collection<IpV4Address> loadIpV4List() throws WhiteListServiceException {
         try {
-            return ipV4AddressDao.findWhiteList();
+            return (Collection<IpV4Address>) ipAddressDao.findWhiteList(IpQueryEnum.IP_V4);
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -137,9 +135,10 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
+    @SuppressWarnings("unchecked")
     public Collection<IpV6Address> loadIpV6List() throws WhiteListServiceException {
         try {
-            return ipV6AddressDao.getWhiteList();
+            return (Collection<IpV6Address>) ipAddressDao.findWhiteList(IpQueryEnum.IP_V6);
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -149,9 +148,10 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
+    @SuppressWarnings("unchecked")
     public Collection<IpV4Address> loadIpV4ListByRange(int from, int count) throws WhiteListServiceException {
         try {
-            return ipV4AddressDao.findWhiteList(from, count);
+            return (Collection<IpV4Address>) ipAddressDao.findWhiteList(from, count, IpQueryEnum.IP_V4);
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -161,9 +161,10 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
+    @SuppressWarnings("unchecked")
     public Collection<IpV6Address> loadIpV6ListByRange(int from, int count) throws WhiteListServiceException {
         try {
-            return ipV6AddressDao.getWhiteList(from, count);
+            return (Collection<IpV6Address>) ipAddressDao.findWhiteList(from, count, IpQueryEnum.IP_V6);
 
         } catch (Exception e) {
             LOGGER.error(e);
