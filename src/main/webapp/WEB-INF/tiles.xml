@@ -34,15 +34,11 @@
 
 	<!-- admin views -->
 	<definition name="admin_addIpToWL" extends="base.definition">
-		<put-attribute name="body" value="/views/admin/AddIpToWL.jsp" />
-	</definition>
-
-	<definition name="admin_addIpv4" extends="base.definition">
-		<put-attribute name="body" value="/views/admin/AddIpv4.jsp" />
+		<put-attribute name="body" value="/views/admin/addIpToWL.jsp" />
 	</definition>
 
 	<definition name="admin_addNewFeed" extends="base.definition">
-		<put-attribute name="body" value="/views/admin/AddNewFeed.jsp" />
+		<put-attribute name="body" value="/views/admin/addNewSource.jsp" />
 	</definition>
 
 	<definition name="admin_deleteSource" extends="base.definition">

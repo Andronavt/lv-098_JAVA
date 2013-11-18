@@ -71,11 +71,11 @@ public class WhiteListController {
     public String addIpToWhiteList(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
         try {
             if (IpValidator.isIpV4(ipAddress)) {
-                return addIpFromDataBase(whiteListService.saveIpV4ByName(ipAddress), ipAddress, map);
+                return addIpToDataBase(whiteListService.saveIpV4ByName(ipAddress), ipAddress, map);
             }
 
             if (IpValidator.isIpV6(ipAddress)) {
-                return addIpFromDataBase(whiteListService.saveIpV6ByName(ipAddress), ipAddress, map);
+                return addIpToDataBase(whiteListService.saveIpV6ByName(ipAddress), ipAddress, map);
             }
 
             map.put("incorrectMsg", "Incorrect IP-address!");
@@ -89,7 +89,7 @@ public class WhiteListController {
     }
 
     // add IP to DB
-    private String addIpFromDataBase(boolean flag, String ipAddress, Map<String, Object> map)
+    private String addIpToDataBase(boolean flag, String ipAddress, Map<String, Object> map)
             throws WhiteListServiceException {
         if (flag) {
             map.put("successMsg", "IP-address: " + ipAddress + " has been successfully added to WhiteList.");

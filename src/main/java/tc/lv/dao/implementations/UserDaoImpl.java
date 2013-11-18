@@ -1,4 +1,4 @@
-package tc.lv.dao.interImpl;
+package tc.lv.dao.implementations;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import tc.lv.domain.User;
 @Repository
 public class UserDaoImpl extends Dao implements UserDao {
 
-    @PersistenceContext(name = PERSISTENCE_CONTEXT)
+    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
     @Override

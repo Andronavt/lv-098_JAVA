@@ -1,4 +1,3 @@
-
 function doAjaxPostRegistration() {
 	// get the form values
 	var user_name = $('#user_name').val();

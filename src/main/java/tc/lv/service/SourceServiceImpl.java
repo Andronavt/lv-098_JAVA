@@ -45,7 +45,7 @@ public class SourceServiceImpl implements SourceService {
         }
     }
 
-    @Transactional
+    @Transactional()
     @Override
     public List<Source> getListOfSourcess() throws SourceServiseException {
         try {
@@ -57,7 +57,7 @@ public class SourceServiceImpl implements SourceService {
         }
     }
 
-    @Transactional
+    @Transactional()
     @Override
     public boolean deleteFeedByName(String sourceName) throws SourceServiseException {
         try {
