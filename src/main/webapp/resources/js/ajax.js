@@ -103,7 +103,6 @@ function doAjaxUpdateSource() {
 		url : "admin_updateSourcesButton",
 		data : "source=" + source,
 		beforeSend: function() {
-//		    $('#upSource').html("<img src='/resources/images/ajax-loader.gif' />");
 			$('#upSource').html("Please wait. Source updating");
 		  },
 		success : function(response) {
