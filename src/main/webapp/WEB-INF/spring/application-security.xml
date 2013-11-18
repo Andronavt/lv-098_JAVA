@@ -9,8 +9,8 @@
 	<http pattern="/css/**" security="none" />
 
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/secure/**" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/secure_**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/admin_**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<form-login login-page="/signin"
 			authentication-failure-url="/signin-failure" default-target-url="/" />

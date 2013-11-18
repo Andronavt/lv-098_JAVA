@@ -33,34 +33,34 @@
 	</definition>
 
 	<!-- admin views -->
-	<definition name="addIpToWL" extends="base.definition">
+	<definition name="admin_addIpToWL" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/AddIpToWL.jsp" />
 	</definition>
 
-	<definition name="addIpv4" extends="base.definition">
+	<definition name="admin_addIpv4" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/AddIpv4.jsp" />
 	</definition>
 
-	<definition name="addNewFeed" extends="base.definition">
+	<definition name="admin_addNewFeed" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/AddNewFeed.jsp" />
 	</definition>
 
-	<definition name="deleteSource" extends="base.definition">
+	<definition name="admin_deleteSource" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/deleteSource.jsp" />
 	</definition>
 
-	<definition name="deleteIpFromWL" extends="base.definition">
+	<definition name="admin_deleteIpFromWL" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/deleteIpFromWL.jsp" />
 	</definition>
 
-	<definition name="updateSources" extends="base.definition">
+	<definition name="admin_updateSources" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/updateSources.jsp" />
 	</definition>
 
 	<!-- secure views -->
 
 
-	<definition name="showIpListFromWL" extends="base.definition">
+	<definition name="secure_showIpListFromWL" extends="base.definition">
 		<put-attribute name="body" value="/views/secure/ShowIpListFromWL.jsp" />
 	</definition>
 
@@ -69,13 +69,13 @@
 		<put-attribute name="body" value="/views/result/result.jsp" />
 	</definition>
 
-	<definition name="table" extends="result.definition">
+	<definition name="secure_table" extends="result.definition">
 		<put-attribute name="body" value="/views/secure/table.jsp" />
 	</definition>
 
 
 	<!-- Page is under construction -->
-	<definition name="inProgres" extends="base.definition">
+	<definition name="secure_inProgres" extends="base.definition">
 		<put-attribute name="body" value="/views/tiles/inProgres.jsp" />
 	</definition>
 

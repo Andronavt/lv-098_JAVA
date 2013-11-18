@@ -21,7 +21,7 @@
 	function test(page, value) {
 		$.ajax({
 			type : "POST",
-			url : "showIpListFromWL",
+			url : "secure_showIpListFromWL",
 			data : "page=" + page + "&value=" + value,
 			success : function(response) {
 				$("#content").html(response);

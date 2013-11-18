@@ -20,24 +20,24 @@ import tc.lv.utils.IpValidator;
 public class WhiteListController {
 
     @Autowired
-    private WhiteListService wlService;
+    private WhiteListService whiteListService;
 
     // Delete IP-address from WhiteList
-    @RequestMapping(value = "/deleteIpFromWL", method = RequestMethod.GET)
-    public String deleteFromWL() {
-        return "deleteIpFromWL";
+    @RequestMapping(value = "admin_deleteIpFromWL", method = RequestMethod.GET)
+    public String deleteIpFromWhiteList() {
+        return "admin_deleteIpFromWL";
     }
 
     // Delete IP-address from WhiteList
-    @RequestMapping(value = "/deleteIpFromWL", method = RequestMethod.POST)
-    public String deleteFromWL(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
+    @RequestMapping(value = "admin_deleteIpFromWL", method = RequestMethod.POST)
+    public String deleteIpFromWhiteList(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
 
         try {
             if (IpValidator.isIpV4(ipAddress)) {
-                return deleteIpFromDB(wlService.deleteIpV4(ipAddress), ipAddress, map);
+                return deleteIpFromDataBase(whiteListService.deleteIpV4ByName(ipAddress), ipAddress, map);
             }
             if (IpValidator.isIpV6(ipAddress)) {
-                return deleteIpFromDB(wlService.deleteIpV6(ipAddress), ipAddress, map);
+                return deleteIpFromDataBase(whiteListService.deleteIpV6ByName(ipAddress), ipAddress, map);
             }
             map.put("incorrectMsg", "Incorrect IP-address!");
             return "result";
@@ -50,7 +50,7 @@ public class WhiteListController {
     }
 
     // delete IP from DB
-    private String deleteIpFromDB(boolean flag, String ipAddress, Map<String, Object> map)
+    private String deleteIpFromDataBase(boolean flag, String ipAddress, Map<String, Object> map)
             throws WhiteListServiceException {
         if (flag) {
             map.put("successMsg", "IP-address: " + ipAddress + " has been successfully deleted.");
@@ -61,22 +61,23 @@ public class WhiteListController {
     }
 
     // Add IP-address to WhiteList
-    @RequestMapping(value = "/addIpToWL", method = RequestMethod.GET)
-    public String addToWl() {
-        return "addIpToWL";
+    @RequestMapping(value = "admin_addIpToWL", method = RequestMethod.GET)
+    public String addIpToWhiteList() {
+        return "admin_addIpToWL";
     }
 
     // Add IP-address to WhiteList
-    @RequestMapping(value = "/addIpToWL", method = RequestMethod.POST)
-    public String addToWl(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
-
+    @RequestMapping(value = "admin_addIpToWL", method = RequestMethod.POST)
+    public String addIpToWhiteList(@ModelAttribute("address") String ipAddress, Map<String, Object> map) {
         try {
             if (IpValidator.isIpV4(ipAddress)) {
-                return addIpFromDB(wlService.saveIpV4(ipAddress), ipAddress, map);
+                return addIpFromDataBase(whiteListService.saveIpV4ByName(ipAddress), ipAddress, map);
             }
+
             if (IpValidator.isIpV6(ipAddress)) {
-                return addIpFromDB(wlService.saveIpV6(ipAddress), ipAddress, map);
+                return addIpFromDataBase(whiteListService.saveIpV6ByName(ipAddress), ipAddress, map);
             }
+
             map.put("incorrectMsg", "Incorrect IP-address!");
             return "result";
 
@@ -88,7 +89,7 @@ public class WhiteListController {
     }
 
     // add IP to DB
-    private String addIpFromDB(boolean flag, String ipAddress, Map<String, Object> map)
+    private String addIpFromDataBase(boolean flag, String ipAddress, Map<String, Object> map)
             throws WhiteListServiceException {
         if (flag) {
             map.put("successMsg", "IP-address: " + ipAddress + " has been successfully added to WhiteList.");
@@ -99,18 +100,18 @@ public class WhiteListController {
     }
 
     // Show IP-address from WhiteList
-    @RequestMapping(value = "/showIpListFromWL", method = RequestMethod.GET)
-    public String showIpListFromWl() {
-        return "showIpListFromWL";
+    @RequestMapping(value = "secure_showIpListFromWL", method = RequestMethod.GET)
+    public String showIpListFromWhiteList() {
+        return "secure_showIpListFromWL";
     }
 
-    @RequestMapping(value = "/showIpListFromWL", method = RequestMethod.POST)
-    public String showIpListFromWl(@ModelAttribute("page") String page, @ModelAttribute("value") String value,
-            Map<String, Object> map) {
+    @RequestMapping(value = "secure_showIpListFromWL", method = RequestMethod.POST)
+    public String showIpListFromWhiteList(@ModelAttribute("page") String page,
+            @ModelAttribute("value") String value, Map<String, Object> map) {
         try {
             List<IpV4Address> list = new ArrayList<>();
-            list.addAll(wlService.loadIpV4ListByRange((Integer.parseInt(page)-1) * Integer.parseInt(value),
-                    Integer.parseInt(value)));
+            list.addAll(whiteListService.loadIpV4ListByRange(
+                    (Integer.parseInt(page) - 1) * Integer.parseInt(value), Integer.parseInt(value)));
             map.put("ipList", list);
 
         } catch (WhiteListServiceException e) {
@@ -118,6 +119,6 @@ public class WhiteListController {
             map.put("errorMsg", e.getMessage());
             return "result";
         }
-        return "table";
+        return "secure_table";
     }
 }
