@@ -8,15 +8,15 @@ public interface IpV4AddressDao {
 
     IpV4Address findByAddress(String address);
 
-    List<IpV4Address> getBlackList();
+    List<IpV4Address> findBlackList();
 
-    List<IpV4Address> getBlackList(int from, int count);
+    List<IpV4Address> findBlackList(int from, int count);
 
-    List<IpV4Address> getListBySource(int sourceId);
+    List<IpV4Address> findListBySource(int sourceId);
 
-    List<IpV4Address> getWhiteList();
+    List<IpV4Address> findWhiteList();
 
-    List<IpV4Address> getWhiteList(int from, int count);
+    List<IpV4Address> findWhiteList(int from, int count);
 
     void removeFromBlackList(IpV4Address address);
 

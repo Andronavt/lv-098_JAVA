@@ -5,13 +5,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.IpV4AddressDao;
 import tc.lv.dao.IpV6AddressDao;
 import tc.lv.dao.SourceDao;
-import tc.lv.dao.SourceDaoImpl;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.SourceServiseException;
 
@@ -51,7 +49,7 @@ public class SourceServiceImpl implements SourceService {
     @Override
     public List<Source> getListOfSourcess() throws SourceServiseException {
         try {
-            return sourceDao.getAll();
+            return sourceDao.findAll();
 
         } catch (Exception e) {
             LOGGER.error(e);

@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import tc.lv.domain.IpAddress;
 
 public abstract class Dao {
+    public static final String PERSISTENCE_CONTEXT = "primary";
 
     public Object find(Query query) {
         try {
@@ -22,4 +23,5 @@ public abstract class Dao {
         query = query.setFirstResult(from).setMaxResults(count);
         return query.getResultList();
     }
+
 }

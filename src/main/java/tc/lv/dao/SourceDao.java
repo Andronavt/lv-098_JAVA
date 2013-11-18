@@ -8,7 +8,7 @@ public interface SourceDao {
 
     Source findByName(String sourceName);
 
-    List<Source> getAll();
+    List<Source> findAll();
 
     void save(Source source);
 
