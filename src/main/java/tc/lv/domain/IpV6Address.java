@@ -16,22 +16,25 @@ import javax.persistence.Table;
         @NamedQuery(name = IpV6Address.FIND_ALL, query = IpV6Address.FIND_ALL_QUERY),
         @NamedQuery(name = IpV6Address.FIND_BY_SOURCE, query = IpV6Address.FIND_BY_SOURCE_QUERY),
         @NamedQuery(name = IpV6Address.FIND_BY_ADDRESS, query = IpV6Address.FIND_BY_ADDRESS_QUERY),
-        @NamedQuery(name = IpV6Address.FIND_WHITELIST, query = IpV6Address.FIND_WHITELIST_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_WHITE_OR_BLACK_LIST, query = IpV6Address.FIND_WHITE_OR_BLACK_LIST_QUERY),
         @NamedQuery(name = IpV6Address.FIND_UNDEFINEDLIST, query = IpV6Address.FIND_UNDEFINEDLIST_QUERY),
-        @NamedQuery(name = IpV6Address.FIND_WHITE_IP_BY_NAME, query = IpV6Address.FIND_WHITE_IP_BY_NAME_QUERY),
-        @NamedQuery(name = IpV6Address.FIND_BLACK_IP_BY_NAME, query = IpV6Address.FIND_BLACK_IP_BY_NAME_QUERY)
+        @NamedQuery(name = IpV6Address.FIND_WHITE_OR_BLACK_IP_BY_NAME, query = IpV6Address.FIND_WHITE_OR_BLACK_IP_BY_NAME_QUERY),
+// @NamedQuery(name = IpV6Address.FIND_BLACK_IP_BY_NAME, query =
+// IpV6Address.FIND_BLACK_IP_BY_NAME_QUERY)
 // ---
 })
 public class IpV6Address extends IpAddress {
 
-    public static final String FIND_BLACK_IP_BY_NAME = "IpV6Address.findBlackIpByName";
-    public static final String FIND_BLACK_IP_BY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = FALSE and ip.address = ?1";
+    // public static final String FIND_BLACK_IP_BY_NAME =
+    // "IpV6Address.findBlackIpByName";
+    // public static final String FIND_BLACK_IP_BY_NAME_QUERY =
+    // "SELECT ip from IpV6Address ip where ip.whiteList = FALSE and ip.address = ?1";
 
     public static final String FIND_BY_ADDRESS = "IpV6Address.findByAddress";
     public static final String FIND_BY_ADDRESS_QUERY = "SELECT ip from IpV6Address ip WHERE ip.address= ?1";
 
-    public static final String FIND_WHITE_IP_BY_NAME = "IpV6Address.findWhiteIpByName";
-    public static final String FIND_WHITE_IP_BY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = TRUE and ip.address = ?1";
+    public static final String FIND_WHITE_OR_BLACK_IP_BY_NAME = "IpV6Address.findWhiteOrBlackIpByName";
+    public static final String FIND_WHITE_OR_BLACK_IP_BY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = ?1 and ip.address = ?2";
 
     public static final String FIND_ALL = "IpV6Address.findAll";
     public static final String FIND_ALL_QUERY = "SELECT ip from IpV6Address ip";
@@ -42,8 +45,8 @@ public class IpV6Address extends IpAddress {
     public static final String FIND_UNDEFINEDLIST = "IpV6Address.findUndefinedList";
     public static final String FIND_UNDEFINEDLIST_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList is null";
 
-    public static final String FIND_WHITELIST = "IpV6Address.findWhiteList";
-    public static final String FIND_WHITELIST_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = ?1";
+    public static final String FIND_WHITE_OR_BLACK_LIST = "IpV6Address.findWhiteOrBlackList";
+    public static final String FIND_WHITE_OR_BLACK_LIST_QUERY = "SELECT ip from IpV6Address ip where ip.whiteList = ?1";
 
     public IpV6Address() {
 

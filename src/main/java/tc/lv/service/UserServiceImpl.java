@@ -12,63 +12,58 @@ import tc.lv.exceptions.UserEntityServiceException;
 
 @Service
 public class UserServiceImpl implements UserService {
-	private static final Logger LOGGER = Logger
-			.getLogger(UserServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
+    private static final String ROLE_USER = "ROLE_USER";
+    private static final String ROLE_ADMIN = "ROLE_ADMIN";
 
-	@Autowired
-	private UserDao userDao;
+    @Autowired
+    private UserDao userDao;
 
-	@Transactional
-	@Override
-	public boolean createUser(String username, String firstname,
-			String lastname, String email, String password)
-			throws UserEntityServiceException {
+    @Transactional
+    @Override
+    public boolean createUser(String username, String firstname, String lastname, String email, String password)
+            throws UserEntityServiceException {
+        try {
 
-		try {
+            User tempUser = new User(username, firstname, lastname, email, password);
 
-			User tempUser = new User(username, firstname, lastname, email,
-					password);
+            if (userDao.findByName(username) == null) {
+                Role role = userDao.findRoleByName(ROLE_USER);
+                tempUser.addRoleToUser(role);
+                userDao.save(tempUser);
+                return true;
 
-			if (userDao.findByName(username) == null) {
-				Role role = userDao.findRoleByName("ROLE_USER");
-				tempUser.addRoleToUser(role);
-				userDao.save(tempUser);
-				return true;
+            } else {
+                return false;
+            }
 
-			} else {
-				return false;
-			}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new UserEntityServiceException("Could not create User", e);
+        }
 
-		} catch (Exception e) {
-			LOGGER.error(e);
-			throw new UserEntityServiceException("Could not create User", e);
-		}
+    }
 
-	}
+    @Transactional
+    @Override
+    public boolean makeUserAdminByName(String username) throws UserEntityServiceException {
+        User user = userDao.findByName(username);
 
-	@Transactional
-	@Override
-	public boolean makeUserAdmin(String username)
-			throws UserEntityServiceException {
+        try {
 
-		User user = userDao.findByName(username);
+            if (user != null) {
+                Role role = userDao.findRoleByName(ROLE_ADMIN);
+                user.addRoleToUser(role);
+                userDao.save(user);
+                return true;
 
-		try {
+            } else {
+                return false;
+            }
 
-			if (user != null) {
-				Role role = userDao.findRoleByName("ROLE_ADMIN");
-				user.addRoleToUser(role);
-				userDao.save(user);
-				return true;
-
-			} else {
-				return false;
-			}
-
-		} catch (Exception e) {
-			LOGGER.error(e);
-			throw new UserEntityServiceException(
-					"Could not give admin rights to user", e);
-		}
-	}
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new UserEntityServiceException("Could not give admin rights to user", e);
+        }
+    }
 }

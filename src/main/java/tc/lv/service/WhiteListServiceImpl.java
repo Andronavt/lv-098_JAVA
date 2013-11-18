@@ -32,7 +32,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
-    public boolean deleteIpV4(String address) throws WhiteListServiceException {
+    public boolean deleteIpV4ByName(String address) throws WhiteListServiceException {
         try {
             IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
 
@@ -50,7 +50,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
-    public boolean deleteIpV6(String address) throws WhiteListServiceException {
+    public boolean deleteIpV6ByName(String address) throws WhiteListServiceException {
         try {
             IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
 
@@ -68,7 +68,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
-    public boolean saveIpV4(String address) throws WhiteListServiceException {
+    public boolean saveIpV4ByName(String address) throws WhiteListServiceException {
         try {
             IpV4Address tempIpV4 = ipV4AddressDao.findByAddress(address);
             if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != true)) {
@@ -96,7 +96,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Transactional
     @Override
-    public boolean saveIpV6(String address) throws WhiteListServiceException {
+    public boolean saveIpV6ByName(String address) throws WhiteListServiceException {
         try {
             IpV6Address tempIpV6 = ipV6AddressDao.findByAddress(address);
             if ((tempIpV6 == null) || (tempIpV6.getWhiteList() != true)) {
@@ -126,7 +126,7 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Override
     public Collection<IpV4Address> loadIpV4List() throws WhiteListServiceException {
         try {
-            return ipV4AddressDao.getWhiteList();
+            return ipV4AddressDao.findWhiteList();
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -150,7 +150,7 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Override
     public Collection<IpV4Address> loadIpV4ListByRange(int from, int count) throws WhiteListServiceException {
         try {
-            return ipV4AddressDao.getWhiteList(from, count);
+            return ipV4AddressDao.findWhiteList(from, count);
 
         } catch (Exception e) {
             LOGGER.error(e);

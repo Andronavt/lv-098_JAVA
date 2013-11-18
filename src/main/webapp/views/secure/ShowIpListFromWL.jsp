@@ -21,7 +21,7 @@
 	function test(page, value) {
 		$.ajax({
 			type : "POST",
-			url : "showIpListFromWL",
+			url : "secure_showIpListFromWL",
 			data : "page=" + page + "&value=" + value,
 			success : function(response) {
 				$("#content").html(response);
@@ -35,7 +35,7 @@
 		$('#demo1').bootpag({
 			total : 5
 		}).on("page", function(event, num) {
-			test(num, 10);
+			test(num, 5);
 		});
 	});
 </script>
