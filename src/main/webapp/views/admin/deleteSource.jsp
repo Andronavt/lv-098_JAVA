@@ -7,19 +7,26 @@
 
 <script type="text/javascript"
 	src="<c:url value="/resources/js/ajax.js" />"></script>
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+	
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
 
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />	
 
 <fieldset>
-	<legend style="color: green" align="center">List of sources</legend>
+	<legend style="color: green" align="center"><strong>List of sources</strong></legend>
 	<br>
-
 	<div id="1">
 		<center>
 			<select name="sources" size="1">
 				<c:forEach var="Source" items="${listSource}">
 					<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
 				</c:forEach>
-			</select> <br> <br> <input type="button" value="Delete source"
+			</select> <br> <br> <input class="btn btn-primary" type="button" value="Delete source"
 				onclick="selectSource()">
 		</center>
 		<br> <br>

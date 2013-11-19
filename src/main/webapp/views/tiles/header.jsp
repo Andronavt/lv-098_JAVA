@@ -8,23 +8,30 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ page session="false"%>
 
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+	
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />	
 
 <p align="right">
 
 	<sec:authorize access="isAnonymous()">
-    Welcome! Guest
+   <em> <strong> <font color="#600000">Welcome! Guest</font></strong></em>
    </sec:authorize>
 	<sec:authorize access="isAuthenticated()">
-   Welcome! <sec:authentication property="principal.username" />
+   <em><strong> <font color="#600000">Welcome! <sec:authentication property="principal.username" /> </font></strong></em>
 	</sec:authorize>
 
 	<sec:authorize access="isAnonymous()">
-		<a href="signin" id="getContentLogin">Login/Registration</a>
+		<a class="btn btn-success" href="signin" id="getContentLogin">Login/Registration</a>
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
-		<a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
+		<a class="btn btn-success" href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 	</sec:authorize>
 
 </p>
-
-
