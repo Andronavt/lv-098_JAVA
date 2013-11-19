@@ -36,7 +36,7 @@ public class WhiteListServiceImpl implements WhiteListService {
             IpV4Address tempIpV4 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V4);
 
             if (tempIpV4 != null) {
-                ipAddressDao.removeFromWhiteList(tempIpV4);
+                ipAddressDao.deleteIp(tempIpV4);
                 return true;
             }
             return false;
@@ -54,7 +54,7 @@ public class WhiteListServiceImpl implements WhiteListService {
             IpV6Address tempIpV6 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V6);
 
             if (tempIpV6 != null) {
-                ipAddressDao.removeFromWhiteList(tempIpV6);
+                ipAddressDao.deleteIp(tempIpV6);
                 return true;
             }
             return false;
