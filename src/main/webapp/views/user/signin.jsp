@@ -16,23 +16,30 @@
 
 <link href="<c:url value="/resources/css/validation.css" />"
 	rel="stylesheet" type="text/css" />
+	
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />	
 
 <fieldset>
-	<legend style="color: green" align="left"> Login </legend>
+	<legend style="color: green" align="left"><strong>Login</strong> </legend>
 	<form id="singinForm" class="login-form"
 		action="j_spring_security_check" method="post"
 		style="text-align: left">
-		<label for="j_username">Username: </label> <input id="j_username"
+		<label class="control-label" for="j_username">Username: </label> <input id="j_username"
 			name="j_username" size="20" maxlength="50" type="text" /> <br>
 
 		<label for="j_password">Password: </label> <input id="j_password"
 			name="j_password" size="20" maxlength="50" type="password" /><br>
 
-		<input type="submit" value="Login" />
+		<input  class="btn btn-primary" type="submit" value="Login" />
 	</form>
 </fieldset>
-
-<br>
 <form action="">
-	<a href="registration" id="registration">Registration</a>
+	<a class="btn btn-link" href="registration" id="registration">Registration</a>
 </form>

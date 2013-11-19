@@ -23,7 +23,16 @@
 <link href="<c:url value="/resources/css/validation.css" />"
 	rel="stylesheet" type="text/css" />
 
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+	
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
 
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />	
+	
 <form action="newFeed" id="addNewFeed" method="post" name="input_feed">
 	<fieldset>
 
@@ -48,16 +57,13 @@
 		</div>
 
 		<input id="url" type="text" name="urlIn" size="30" maxlength="50" />
-		<br> <br>
 		<div>
-			<b>Chose type of list:</b> <b><select id="list" name="typeList"
-				size="1">
-					<option>black list</option>
+			<div><b>Chose type of list:</b></div>
+			 <b><select id="list" name="typeList" size="1">
+					<option style="">black list</option>
 					<option>white list</option>
 			</select></b>
 		</div>
-
-		<br>
 		<div>
 			<b>Add rank of source:</b>
 		</div>
@@ -65,13 +71,12 @@
 		<input id="rank" type="text" name="rankIn" size="30" maxlength="50" />
 
 		<div>
-			<input id="btnAddNewFeed" type="button" name="addNewFeed"
+			<input class="btn btn-primary" id="btnAddNewFeed" type="button" name="addNewFeed"
 				value="Add new feed" />
 		</div>
 
 	</fieldset>
-
-
+	
 </form>
 
 <div id="Info" style="color: green;"></div>
