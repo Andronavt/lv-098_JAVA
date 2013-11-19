@@ -22,9 +22,11 @@ public interface IpAddressDao {
 
     <T extends IpAddress> List<? extends IpAddress> findWhiteList(IpQueryEnum myType);
 
-    void removeFromBlackList(IpAddress address, IpQueryEnum myType);
+    void removeFromBlackList(IpAddress address);
 
-    void removeFromWhiteList(IpAddress address, IpQueryEnum myType);
+    void removeFromWhiteList(IpAddress address);
+    
+    void removeIp(IpAddress address);
 
     void save(IpAddress address);
 

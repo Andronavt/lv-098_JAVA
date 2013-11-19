@@ -79,15 +79,21 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public void removeFromBlackList(IpAddress address, IpQueryEnum myType) {
+    public void removeFromBlackList(IpAddress address) {
         address.setWhiteList(true);
         entityManager.persist(address);
     }
 
     @Override
-    public void removeFromWhiteList(IpAddress address, IpQueryEnum myType) {
+    public void removeFromWhiteList(IpAddress address) {
         address.setWhiteList(false);
         entityManager.persist(address);
+    }
+
+    @Override
+    public void removeIp(IpAddress address) {
+	entityManager.remove(address);
+	
     }
 
     @Override

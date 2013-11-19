@@ -39,7 +39,7 @@ public class Source {
     @Column(name = "dirname", nullable = false)
     private String dirname;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "sourceSet", fetch = FetchType.LAZY)
     private Collection<IpAddress> ipSet = new HashSet<IpAddress>();
 
     @Column(name = "list_type", nullable = false)
