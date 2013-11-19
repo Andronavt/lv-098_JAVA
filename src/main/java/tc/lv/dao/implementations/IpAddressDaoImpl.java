@@ -81,20 +81,19 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public void removeFromBlackList(IpAddress address, IpQueryEnum myType) {
+    public void removeFromBlackList(IpAddress address) {
         address.setWhiteList(true);
         entityManager.persist(address);
     }
 
     @Override
-    public void removeFromWhiteList(IpAddress address, IpQueryEnum myType) {
+    public void removeFromWhiteList(IpAddress address) {
         address.setWhiteList(false);
         entityManager.persist(address);
     }
 
     @Override
     public void save(IpAddress address) {
-
         entityManager.persist(address);
     }
 
@@ -137,7 +136,6 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     @Override
     @SuppressWarnings("unchecked")
     public void updateWhiteList(IpQueryEnum myType) {
-
         if (myType.equals(IpQueryEnum.IP_NOT_VALID)) {
             return;
         }
@@ -236,6 +234,11 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
         List<Location> list = query.getResultList();
         LOGGER.info("findLocationBlackList 444444");
         return list;
+    }
+
+    @Override
+    public void deleteIp(IpAddress address) {
+        entityManager.remove(address);
     }
 
 }

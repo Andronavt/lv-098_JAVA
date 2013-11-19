@@ -6,7 +6,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/jquery.bootpag.js" />"></script>
-	
+
 <script type="text/javascript"
 	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
 <script type="text/javascript"
@@ -28,10 +28,10 @@
 </div>
 <script>
 	// init bootpag
-	function doAjaxPaginationWL(page) {
+	function doAjaxPaginationBL(page) {
 		$.ajax({
 			type : "POST",
-			url : "secure_showIpListFromWL",
+			url : "secure_showIpListFromBL",
 			data : "page=" + page + "&value=" + $('select[name=count]').val(),
 			success : function(response) {
 				$("#content").html(response);
@@ -41,12 +41,12 @@
 			}
 		});
 	}
-	$(document).ready(function() {		
+	$(document).ready(function() {
 		$('#demo1').bootpag({
 			total : 5
 		}).on("page", function(event, num) {
-			doAjaxPaginationWL(num);
+			doAjaxPaginationBL(num);
 		});
-		doAjaxPaginationWL(1);
+		doAjaxPaginationBL(1);
 	});
 </script>

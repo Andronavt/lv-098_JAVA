@@ -23,26 +23,36 @@
 <link href="<c:url value="/resources/css/validation.css" />"
 	rel="stylesheet" type="text/css" />
 
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+	
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />	
+
 <form method="post" id="loginform" action="" name="login-form">
 	<fieldset>
-		<legend style="color: green" align="left"> Registration </legend>
+		<legend style="color: green" align="left"><strong>Registration</strong></legend>
 
 		<div align="left">
 			<div align="left">User name:</div>
-			<input type="text" id="user_name" name="userName" />
+			<input class="input-large" type="text" id="user_name" name="userName" />
 			<div align="left">First name:</div>
-			<input type="text" id="first_name" name="firstName" />
+			<input class="input-large" type="text" id="first_name" name="firstName" />
 			<div align="left">Last name:</div>
-			<input type="text" id="last_name" name="lastName" />
+			<input class="input-large" type="text" id="last_name" name="lastName" />
 			<div align="left">E-mail:</div>
-			<input type="text" id="e-mail" name="email" />
+			<input class="input-large" type="text" id="e-mail" name="email" />
 			<div align="left">Password:</div>
-			<input type="password" id="pass" name="password" />
+			<input class="input-large" type="password" id="pass" name="password" />
 			<div id="info" style="color: green;"></div>
 		</div>
 
 	</fieldset>
-	<input id="btn" type="button" name="registration" value="Registration" />
+	<input class="btn btn-primary" type="button" name="registration" value="Registration" />
 </form>
 
 <script type="text/javascript">

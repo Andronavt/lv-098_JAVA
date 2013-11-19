@@ -21,17 +21,29 @@
 
 <link href="<c:url value="/resources/css/validation.css" />"
 	rel="stylesheet" type="text/css" />
+	
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />	
+	
 <fieldset>
 
-	<legend style="color: green">Delete IP from WhiteList</legend>
+	<legend style="color: green">Delete IP from list</legend>
 
 	<form class="Delete-IP" id="deleteIp" method="post" name="deleteFromWL">
 
 		<div>Insert ip for deleting:</div>
-		<input id="ipForRemove" type="text" name="deleteIpIn" size="20"
+		<br>
+		<input class="input-large" id="ipForRemove" type="text" name="deleteIpIn" size="20"
 			maxlength="50">
+		
 	</form>
-	<input id="btnDeleteIp" type="button" name="deleteIp" value="DELETE">
+	<input class="btn btn-primary" id="btnDeleteIp" type="button" name="deleteIp" value="DELETE">
 </fieldset>
 <br>
 

@@ -15,6 +15,16 @@
 <link href="<c:url value="/resources/css/menu.css" />" rel="stylesheet"
 	type="text/css" />
 
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+	
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />	
+
 <div id="accordion" align="left">
 
 	<h6>Home</h6>
@@ -33,8 +43,14 @@
 
 			<p>
 				<a class="button" href="secure_showIpListFromWL"
-					id="getContentShowIpListFromWl" title="Show Ip list from WList">Show
-					Ip list from WList</a>
+					title="Show Ip list from White List">Show Ip list from White
+					List</a>
+			</p>
+
+			<p>
+				<a class="button" href="secure_showIpListFromBL"
+					title="Show Ip list from Black List">Show Ip list from Black
+					List</a>
 			</p>
 
 			<p>
@@ -63,14 +79,25 @@
 			</p>
 
 			<p>
-				<a class="button" href="secure_inProgres" title="Black IP by country">Black
-					IP by country</a>
+				<a class="button" href="secure_inProgres"
+					title="Black IP by country">Black IP by country</a>
+			</p>
+
+
+			<p>
+				<a class="button" href="secure_whiteIpByCity"
+					title="White Ip by city">White Ip by city</a>
+			</p>
+
+			<p>
+				<a class="button" href="secure_whiteIpByCountry"
+					title="White Ip by country">White Ip by country</a>
 			</p>
 
 		</div>
 	</sec:authorize>
 
-	<sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<h6>Feeds:</h6>
 		<div class="divmenu">
 
@@ -80,18 +107,19 @@
 			</p>
 
 			<p>
-				<a class="button" href="admin_deleteSource" id="getContentDeleteFeed"
-					title="Delete Feed">Delete Feed</a>
+				<a class="button" href="admin_deleteSource"
+					id="getContentDeleteFeed" title="Delete Feed">Delete Feed</a>
 			</p>
 
 			<p>
-				<a class="button" href="admin_addIpToWL" id="getContentAddIpToWl"
-					title="Add to WList">Add to WList</a>
+				<a class="button" href="admin_addIpToList" id="getContentAddIpToWl"
+					title="Add Ip to list">Add Ip to list</a>
 			</p>
 
 			<p>
-				<a class="button" href="admin_deleteIpFromWL" id="getContentDeleteWlIp"
-					title="Delete IP from WList">Delete IP from WList</a>
+				<a class="button" href="admin_deleteIpFromList"
+					id="getContentDeleteWlIp" title="Delete IP from list">Delete IP
+					from list</a>
 			</p>
 
 			<p>
@@ -99,13 +127,8 @@
 					Sources</a>
 			</p>
 
-			<p>
-				<a class="button" href="secure_inProgres" title="List downloads">List
-					downloads</a>
-			</p>
-
 		</div>
- 	</sec:authorize> 
+	</sec:authorize>
 </div>
 
 <script>

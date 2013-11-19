@@ -22,9 +22,11 @@ public interface IpAddressDao {
 
     <T extends IpAddress> List<? extends IpAddress> findWhiteList(IpQueryEnum myType);
 
-    void removeFromBlackList(IpAddress address, IpQueryEnum myType);
+    void removeFromBlackList(IpAddress address);
 
-    void removeFromWhiteList(IpAddress address, IpQueryEnum myType);
+    void removeFromWhiteList(IpAddress address);
+    
+    void deleteIp(IpAddress address);
 
     void save(IpAddress address);
 
@@ -40,8 +42,8 @@ public interface IpAddressDao {
 
     <T extends IpAddress> List<T> findBlackListByCityName(String cityName, IpQueryEnum myType);
 
-    List<Location> findLocationWhiteList(IpQueryEnum myType);
+    <T> List<Location> findLocationWhiteList(IpQueryEnum myType);
 
-    List<Location> findLocationBlackList(IpQueryEnum myType);
+    <T> List<Location> findLocationBlackList(IpQueryEnum myType);
 
 }
