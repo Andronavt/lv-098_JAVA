@@ -102,12 +102,12 @@
 			</p>
 
 			<p>
-				<a class="button" href="admin_addIpToWL" id="getContentAddIpToWl"
+				<a class="button" href="admin_addIpToList" id="getContentAddIpToWl"
 					title="Add Ip to list">Add Ip to list</a>
 			</p>
 
 			<p>
-				<a class="button" href="admin_deleteIpFromWL"
+				<a class="button" href="admin_deleteIpFromList"
 					id="getContentDeleteWlIp" title="Delete IP from list">Delete IP
 					from list</a>
 			</p>

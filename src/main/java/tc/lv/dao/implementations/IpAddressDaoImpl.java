@@ -92,7 +92,6 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
     @Override
     public void save(IpAddress address) {
-
         entityManager.persist(address);
     }
 

@@ -30,14 +30,6 @@
 		<div>Insert ip for deleting:</div>
 		<input id="ipForRemove" type="text" name="deleteIpIn" size="20"
 			maxlength="50">
-			
-		<div>
-			<b>Chose type of list:</b> <b><select id="list" name="typeList"
-				size="1">
-					<option value="1">black list</option>
-					<option value="0">white list</option>
-			</select></b>
-		</div>
 		
 	</form>
 	<input id="btnDeleteIp" type="button" name="deleteIp" value="DELETE">

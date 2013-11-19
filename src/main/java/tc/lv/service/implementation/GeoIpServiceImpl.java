@@ -10,7 +10,7 @@ import tc.lv.utils.IpValidator;
 import com.maxmind.geoip.LookupService;
 
 public class GeoIpServiceImpl implements GeoIpService {
-    private static final String DIR = "d:/main/lv-098_JAVA/src/main/resources/geoIP/";
+    private static final String DIR = "C://Users//Oleg//workspace//lv-098_JAVA//src//main//resources//geoIP//";
     private static final String GEO_IPV4_DB_COUNTRY = "GeoIP.dat";
     private static final String GEO_IPV6_DB_COUNTRY = "GeoIPv6.dat";
     private static final String GEO_IPV4_DB_CITY = "GeoLiteCity.dat";
