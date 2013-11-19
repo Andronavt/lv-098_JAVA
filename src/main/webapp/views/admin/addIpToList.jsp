@@ -33,8 +33,8 @@
 		<div>
 			<b>Chose type of list:</b> <b><select id="list" name="typeList"
 				size="1">
-					<option value="1">black list</option>
-					<option value="0">white list</option>
+					<option value="0">black list</option>
+					<option value="1">white list</option>
 			</select></b>
 		</div>
 		<br>

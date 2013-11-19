@@ -21,7 +21,7 @@ import tc.lv.service.WhiteListService;
 public class WhiteListServiceImpl implements WhiteListService {
 
     private static final Logger LOGGER = Logger.getLogger(WhiteListServiceImpl.class);
-    private static final String ADMIN_WHITE_LIST = "Admin Whitelist";
+    private static final String ADMIN_WHITE_LIST = "Admin WhiteList";
 
     @Autowired
     private IpAddressDao ipAddressDao;
