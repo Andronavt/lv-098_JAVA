@@ -19,7 +19,7 @@ import tc.lv.utils.ExceptionUtil;
 import tc.lv.utils.IpValidator;
 
 @Controller
-public class WhiteListController {
+public class ListController {
 
 	@Autowired
 	private WhiteListService whiteListService;
@@ -130,8 +130,7 @@ public class WhiteListController {
 		System.out.println(flag+" FLAGGGG");
 		if (flag) {
 			map.put("successMsg", "IP-address: " + ipAddress
-					+ " has been successfully added to WhiteList."
-					+ " listtype is - " + listType);
+					+ " has been successfully added.");
 			return "result";
 		}
 		map.put("incorrectMsg", "Current IP-address exist");
