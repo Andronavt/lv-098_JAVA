@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tc.lv.dao.IpV4AddressDao;
-import tc.lv.dao.IpV6AddressDao;
+import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.SourceServiseException;
@@ -23,10 +22,7 @@ public class SourceServiceImpl implements SourceService {
     private SourceDao sourceDao;
 
     @Autowired
-    private IpV4AddressDao ipV4AddressDao;
-
-    @Autowired
-    private IpV6AddressDao ipV6AddressDao;
+    private IpAddressDao ipAddressDao;
 
     @Transactional
     @Override
@@ -46,7 +42,7 @@ public class SourceServiceImpl implements SourceService {
         }
     }
 
-    @Transactional
+    @Transactional()
     @Override
     public List<Source> getListOfSourcess() throws SourceServiseException {
         try {
@@ -58,7 +54,7 @@ public class SourceServiceImpl implements SourceService {
         }
     }
 
-    @Transactional
+    @Transactional()
     @Override
     public boolean deleteFeedByName(String sourceName) throws SourceServiseException {
         try {
@@ -75,3 +71,4 @@ public class SourceServiceImpl implements SourceService {
         }
     }
 }
+

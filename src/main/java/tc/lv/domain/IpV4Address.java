@@ -22,6 +22,7 @@ import javax.persistence.Table;
         @NamedQuery(name = IpV4Address.FIND_WHITE_OR_BLACK_IP_BY_NAME, query = IpV4Address.FIND_WHITE_OR_BLACK_IP_BY_NAME_QUERY),
         @NamedQuery(name = IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_CITY, query = IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY),
         @NamedQuery(name = IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY, query = IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY),
+        @NamedQuery(name = IpV4Address.FIND_LOCATION_WHITE_OR_BLACK_LIST, query = IpV4Address.FIND_LOCATION_WHITE_OR_BLACK_LIST_QUERY)
 // @NamedQuery(name = IpV4Address.FIND_BLACK_IP_BY_NAME, query =
 // IpV4Address.FIND_BLACK_IP_BY_NAME_QUERY)
 // ---
@@ -30,7 +31,7 @@ public class IpV4Address extends IpAddress {
 
     public static final String COUNT_ALL = "IpV4Address.countAll";
     public static final String COUNT_ALL_QUERY = "SELECT count(ip) from IpV4Address ip";
-    
+
     public static final String FIND_WHITE_OR_BLACK_IP_BY_NAME = "IpV4Address.findWhiteOrBlackIpByName";
     public static final String FIND_WHITE_OR_BLACK_IP_BY_NAME_QUERY = "SELECT ip from IpV4Address ip where ip.whiteList = ?1 and ip.address = ?2";
 
@@ -55,12 +56,14 @@ public class IpV4Address extends IpAddress {
     public static final String FIND_WHITE_OR_BLACK_LIST_QUERY = "SELECT ip from IpV4Address ip where ip.whiteList = ?1";
 
     public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY = "IpV4Address.findWhiteOrBlackListByCity";
-    public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY = "SELECT ip from IpV4Address ip where ip.whiteList = ?1 and ip.location.city = ?2";
-    
+    public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY = "SELECT ip from IpV4Address ip where ip.whiteList = ?1 and ip.location.cityName = ?2";
+
     public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY = "IpV4Address.findWhiteOrBlackListByCountry";
-    public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpV4Address ip where ip.whiteList = ?1 and ip.location.country = ?2";
-    
-    
+    public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpV4Address ip where ip.whiteList = ?1 and ip.location.countryName = ?2";
+
+    public static final String FIND_LOCATION_WHITE_OR_BLACK_LIST = "IpV4Address.findLocationWhiteList";
+    public static final String FIND_LOCATION_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.location) from IpV4Address ip where ip.whiteList = ?1";
+
     public IpV4Address() {
 
     }
@@ -69,8 +72,9 @@ public class IpV4Address extends IpAddress {
         this.address = address;
     }
 
-    public IpV4Address(String address, Date dateAdded) {
+    public IpV4Address(String address, Date dateAdded, Location location) {
         this.address = address;
         this.dateAdded = dateAdded;
+        this.location = location;
     }
 }
