@@ -1,7 +1,6 @@
 package tc.lv.service.implementation;
 
 import java.io.FileWriter;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -59,10 +58,11 @@ public class JsonServiceImpl implements JsonService {
         FileWriter file;
         LOGGER.info("!!!!!!!!!!!!#######33333333333333333333333!!");
         try {
-            LOGGER.info("!!!!!!!!!!!!#######$$$44444444444444444444!!");
-            List<Location> loc = ipAddressDao.findLocationWhiteList(IpQueryEnum.IP_V4);
-            LOGGER.info("!!!!!!!!!!!!!5555555555555555555555555555!" + loc.size());
             for (Location country : ipAddressDao.findLocationBlackList(IpQueryEnum.IP)) {
+                LOGGER.info("!!!!!!!!!!!!!!!!!SIZE: " + ipAddressDao.findLocationWhiteList(IpQueryEnum.IP).size());
+                LOGGER.info("!!!!!!!!!!!!!!!!!COUNTRY NAME: " + country.getCountryCode());
+                LOGGER.info("!!!!!!!!!!!!!!!!!COUNTRY IP: "
+                        + ipAddressDao.findWhiteListByCountyName(country.getCountryName(), IpQueryEnum.IP).size());
                 json.put(country.getCountryCode(),
                         ipAddressDao.findBlackListByCountyName(country.getCountryName(), IpQueryEnum.IP).size());
             }
@@ -79,4 +79,3 @@ public class JsonServiceImpl implements JsonService {
 
     }
 }
-
