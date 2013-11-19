@@ -5,12 +5,10 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import tc.lv.domain.IpAddress;
+public abstract class DaoAbstract {
+    public static final String PERSISTENCE_UNIT_NAME = "primary";
 
-public abstract class Dao {
-    protected static final String PERSISTENCE_UNIT_NAME = "primary";
-
-    public Object find(Query query) {
+    public static Object find(Query query) {
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
@@ -19,7 +17,7 @@ public abstract class Dao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<? extends IpAddress> getRange(int from, int count, Query query) {
+    public static <T> List<T> findRange(int from, int count, Query query) {
         query = query.setFirstResult(from).setMaxResults(count);
         return query.getResultList();
     }

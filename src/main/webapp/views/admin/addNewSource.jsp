@@ -65,7 +65,12 @@
 		<input id="rank" type="text" name="rankIn" size="30" maxlength="50" />
 
 		<div>
+<<<<<<< HEAD
 			<input id="btnAddNewFeed" type="button" name="addNewFeed" value="Add new feed" />
+=======
+			<input id="btnAddNewFeed" type="button" name="addNewFeed"
+				value="Add new feed" />
+>>>>>>> b5ef312b4c1a734acd7422f91169cc5386ac494c
 		</div>
 
 	</fieldset>
@@ -79,6 +84,7 @@
 	$(document).ready(function() {
 		validateAddNewFeed();
 	});
+<<<<<<< HEAD
 </script>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -162,4 +168,6 @@
 	$(document).ready(function() {
 		validateAddNewFeed();
 	});
+=======
+>>>>>>> b5ef312b4c1a734acd7422f91169cc5386ac494c
 </script>

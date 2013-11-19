@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
+import tc.lv.domain.Location;
 import tc.lv.domain.NotValidIp;
 import tc.lv.exceptions.DownloadException;
 
@@ -47,7 +48,8 @@ public class ParserChaosreignsWL implements Parser {
                     ipStr = matcher.group();
 
                     if (IpValidator.isIpV4(ipStr)) {
-                        parserResults.addToIpV4List(new IpV4Address(ipStr, new Date()));
+                        parserResults.addToIpV4List(new IpV4Address(ipStr, new Date(), new Location("Ukrain",
+                                "UA", "Lviv")));
                     } else if (IpValidator.isIpV6(ipStr)) {
                         parserResults.addToIpV6List(new IpV6Address(ipStr, new Date()));
                     } else {
@@ -64,5 +66,5 @@ public class ParserChaosreignsWL implements Parser {
         LOGGER.info("FINISH PARSING ChaosreignsWL");
         return parserResults;
     }
-
 }
+
