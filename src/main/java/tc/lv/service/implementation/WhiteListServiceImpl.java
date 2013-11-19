@@ -28,6 +28,7 @@ public class WhiteListServiceImpl implements WhiteListService {
 
     @Autowired
     private SourceDao sourceDao;
+    
 
     @Transactional
     @Override
@@ -68,7 +69,7 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Transactional
     @Override
     public boolean saveIpV4ByName(String address) throws WhiteListServiceException {
-        GeoIpServiceImpl geo = new GeoIpServiceImpl();
+        
         try {
             IpV4Address tempIpV4 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V4);
             if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != true)) {
@@ -99,12 +100,15 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Transactional
     @Override
     public boolean saveIpV6ByName(String address) throws WhiteListServiceException {
+        
         try {
             IpV6Address tempIpV6 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V6);
             if ((tempIpV6 == null) || (tempIpV6.getWhiteList() != true)) {
 
                 if (tempIpV6 == null) {
-                    tempIpV6 = new IpV6Address(address, new Date());
+                    tempIpV6 = new IpV6Address(address, new Date(),new Location(geo
+                            .findCountryByIpAddress(address), geo.findCountryCodeByIpAddress(address), geo
+                            .findCityByIpAddress(address)));
                     tempIpV6.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
                     tempIpV6.setWhiteList(true);
                     ipAddressDao.save(tempIpV6);

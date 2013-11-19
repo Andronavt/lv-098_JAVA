@@ -5,23 +5,23 @@ import java.io.StringWriter;
 
 import org.apache.log4j.Logger;
 
-public class GeoIpServiceException extends IPException {
+public class GeoIpException extends IPException {
     /**
      * 
      */
     private static final long serialVersionUID = 7817826313491770076L;
 
-    private static final Logger logger = Logger.getLogger(GeoIpServiceException.class);
+    private static final Logger logger = Logger.getLogger(GeoIpException.class);
 
     private String msg;
 
-    public GeoIpServiceException() {
+    public GeoIpException() {
         StringWriter trace = new StringWriter();
         printStackTrace(new PrintWriter(trace));
         logger.error(trace.toString());
     }
 
-    public GeoIpServiceException(String msg) {
+    public GeoIpException(String msg) {
         super(msg);
         StringWriter trace = new StringWriter();
         printStackTrace(new PrintWriter(trace));
@@ -29,7 +29,7 @@ public class GeoIpServiceException extends IPException {
         this.msg = msg;
     }
 
-    public GeoIpServiceException(String msg, Exception e) {
+    public GeoIpException(String msg, Exception e) {
         super(msg, e);
         StringWriter trace = new StringWriter();
         printStackTrace(new PrintWriter(trace));

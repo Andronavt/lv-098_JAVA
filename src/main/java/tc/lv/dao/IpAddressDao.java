@@ -40,8 +40,8 @@ public interface IpAddressDao {
 
     <T extends IpAddress> List<T> findBlackListByCityName(String cityName, IpQueryEnum myType);
 
-    <T> List<Location> findLocationWhiteList(IpQueryEnum myType);
+    List<Location> findLocationWhiteList(IpQueryEnum myType);
 
-    <T> List<Location> findLocationBlackList(IpQueryEnum myType);
+    List<Location> findLocationBlackList(IpQueryEnum myType);
 
 }

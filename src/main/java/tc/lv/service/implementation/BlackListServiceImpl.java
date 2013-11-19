@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.SourceDao;
@@ -15,6 +16,7 @@ import tc.lv.domain.Location;
 import tc.lv.exceptions.BlackListServiceException;
 import tc.lv.service.BlackListService;
 
+@Service
 public class BlackListServiceImpl implements BlackListService {
     private static final Logger LOGGER = Logger.getLogger(BlackListServiceImpl.class);
     private static final String ADMIN_BLACK_LIST = "Admin Blacklist";
@@ -24,6 +26,7 @@ public class BlackListServiceImpl implements BlackListService {
 
     @Autowired
     private SourceDao sourceDao;
+    
 
     @Override
     public boolean deleteIpV4ByName(String address) throws BlackListServiceException {
@@ -66,7 +69,9 @@ public class BlackListServiceImpl implements BlackListService {
             if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != false)) {
 
                 if (tempIpV4 == null) {
-                    tempIpV4 = new IpV4Address(address, new Date(), new Location("Ukrain", "UA", "Lviv"));
+                    tempIpV4 = new IpV4Address(address, new Date(), new Location(
+                            geo.findCountryByIpAddress(address), geo.findCountryCodeByIpAddress(address),
+                            geo.findCityByIpAddress(address)));
                     tempIpV4.getSourceSet().add(sourceDao.findByName(ADMIN_BLACK_LIST));
                     tempIpV4.setWhiteList(false);
                     ipAddressDao.save(tempIpV4);
@@ -89,12 +94,15 @@ public class BlackListServiceImpl implements BlackListService {
 
     @Override
     public boolean saveIpV6ByName(String address) throws BlackListServiceException {
+       
         try {
             IpV6Address tempIpV6 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V6);
             if ((tempIpV6 == null) || (tempIpV6.getWhiteList() != false)) {
 
                 if (tempIpV6 == null) {
-                    tempIpV6 = new IpV6Address(address, new Date());
+                    tempIpV6 = new IpV6Address(address, new Date(), new Location(
+                            geo.findCountryByIpAddress(address), geo.findCountryCodeByIpAddress(address),
+                            geo.findCityByIpAddress(address)));
                     tempIpV6.getSourceSet().add(sourceDao.findByName(ADMIN_BLACK_LIST));
                     tempIpV6.setWhiteList(false);
                     ipAddressDao.save(tempIpV6);
