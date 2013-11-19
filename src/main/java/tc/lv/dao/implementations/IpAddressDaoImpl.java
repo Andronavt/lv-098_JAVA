@@ -91,7 +91,7 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public void removeIp(IpAddress address) {
+    public void deleteIp(IpAddress address) {
 	entityManager.remove(address);
 	
     }

@@ -26,7 +26,7 @@ public interface IpAddressDao {
 
     void removeFromWhiteList(IpAddress address);
     
-    void removeIp(IpAddress address);
+    void deleteIp(IpAddress address);
 
     void save(IpAddress address);
 
