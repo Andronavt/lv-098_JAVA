@@ -7,7 +7,7 @@ import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 
 public enum IpQueryEnum implements IpInterface {
-    IP(IpAddress.class) {
+    IP {
 
         @Override
         public String findAll() {
@@ -69,7 +69,7 @@ public enum IpQueryEnum implements IpInterface {
             return IpAddress.FIND_LOCATION_WHITE_OR_BLACK_LIST;
         }
     },
-    IP_NOT_VALID(NotValidIp.class) {
+    IP_NOT_VALID {
 
         @Override
         public String findAll() {
@@ -93,7 +93,7 @@ public enum IpQueryEnum implements IpInterface {
 
         @Override
         public String findByAddress() {
-            return null;
+            return NotValidIp.FIND_BY_ADDRESS;
         }
 
         @Override
@@ -131,7 +131,7 @@ public enum IpQueryEnum implements IpInterface {
             throw new IllegalArgumentException("This method didn't supported");
         }
     },
-    IP_V4(IpV4Address.class) {
+    IP_V4 {
 
         @Override
         public String findAll() {
@@ -193,7 +193,7 @@ public enum IpQueryEnum implements IpInterface {
             return IpV4Address.FIND_LOCATION_WHITE_OR_BLACK_LIST;
         }
     },
-    IP_V6(IpV6Address.class) {
+    IP_V6 {
         @Override
         public String findAll() {
             return IpV6Address.FIND_ALL;
@@ -254,15 +254,5 @@ public enum IpQueryEnum implements IpInterface {
             return IpV6Address.FIND_LOCATION_WHITE_OR_BLACK_LIST;
         }
     };
-
-    Class<? extends IpAddress> clazz;
-
-    IpQueryEnum(Class<? extends IpAddress> clazz) {
-        this.clazz = clazz;
-    }
-
-    public Class<? extends IpAddress> getClazz() {
-        return clazz;
-    }
 
 }

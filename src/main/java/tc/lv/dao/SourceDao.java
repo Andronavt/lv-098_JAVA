@@ -14,6 +14,6 @@ public interface SourceDao {
 
     Source update(Source source);
 
-    void delete(Source source);
+    void remove(Source source);
 
 }

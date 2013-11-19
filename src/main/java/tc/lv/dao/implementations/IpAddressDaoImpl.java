@@ -92,7 +92,6 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
     @Override
     public void save(IpAddress address) {
-
         entityManager.persist(address);
     }
 
@@ -136,7 +135,6 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     @Override
     @SuppressWarnings("unchecked")
     public void updateWhiteList(IpQueryEnum myType) {
-
         if (myType.equals(IpQueryEnum.IP_NOT_VALID)) {
             return;
         }
