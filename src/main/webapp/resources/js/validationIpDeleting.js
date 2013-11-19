@@ -4,7 +4,7 @@ function validateIpDeleting() {
 
 	$('#btnDeleteIp').click(function() {
 		if ($("#ipForRemove").valid()) {
-			doAjaxPostDeleteIp();
+			doAjaxPostDeleteIpFromList();
 		}
 	});
 }

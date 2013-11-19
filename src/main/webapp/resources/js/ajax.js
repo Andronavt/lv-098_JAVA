@@ -43,13 +43,14 @@ function doAjaxAddNewFeed() {
 	});
 }
 
-function doAjaxPostAddIpToWhiteList() {
+function doAjaxPostAddIpToList() {
 	// get the form values
 	var ipAddress = $('#IP').val();
+	var listType = $('select[name=typeList]').val();
 	$.ajax({
 		type : "POST",
-		url : "admin_addIpToWL",
-		data : "address=" + ipAddress,
+		url : "admin_addIpToList",
+		data : "address=" + ipAddress + "&listType=" + listType,
 		success : function(response) {
 			$('#Info').html(response);
 		},
@@ -77,13 +78,14 @@ function selectSource() {
 	});
 }
 
-function doAjaxPostDeleteIp() {
+function doAjaxPostDeleteIpFromList() {
 	// get the form values
 	var ipAddress = $('#ipForRemove').val();
+	var listType = $('select[name=typeList]').val();
 	$.ajax({
 		type : "POST",
-		url : "admin_deleteIpFromWL",
-		data : "address=" + ipAddress,
+		url : "admin_deleteIpFromList",
+		data : "address=" + ipAddress + "&listType=" + listType,
 		success : function(response) {
 			$('#Info').html(response);
 		},
