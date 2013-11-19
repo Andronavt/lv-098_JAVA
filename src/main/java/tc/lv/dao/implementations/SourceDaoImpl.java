@@ -43,7 +43,7 @@ public class SourceDaoImpl extends DaoAbstract implements SourceDao {
     @Override
     public void delete(Source source) {
         // deleteSourceWithoutIp(source);
-        deleteSourceWithoutIp(source);
+        entityManager.remove(source);
     }
 
     // deleteSourceWithIp

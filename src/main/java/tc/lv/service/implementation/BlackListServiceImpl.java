@@ -38,7 +38,7 @@ public class BlackListServiceImpl implements BlackListService {
 					IpQueryEnum.IP_V4);
 
 			if (tempObject != null) {
-				ipAddressDao.removeFromBlackList(tempObject, IpQueryEnum.IP_V4);
+				ipAddressDao.removeFromBlackList(tempObject);
 				return true;
 			}
 			return false;
@@ -59,7 +59,7 @@ public class BlackListServiceImpl implements BlackListService {
 					IpQueryEnum.IP_V6);
 
 			if (tempObject != null) {
-				ipAddressDao.removeFromBlackList(tempObject, IpQueryEnum.IP_V6);
+				ipAddressDao.removeFromBlackList(tempObject);
 				return true;
 			}
 			return false;

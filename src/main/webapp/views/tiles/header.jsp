@@ -35,5 +35,3 @@
 	</sec:authorize>
 
 </p>
-
-
