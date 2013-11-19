@@ -81,11 +81,10 @@ function selectSource() {
 function doAjaxPostDeleteIpFromList() {
 	// get the form values
 	var ipAddress = $('#ipForRemove').val();
-	var listType = $('select[name=typeList]').val();
 	$.ajax({
 		type : "POST",
 		url : "admin_deleteIpFromList",
-		data : "address=" + ipAddress + "&listType=" + listType,
+		data : "address=" + ipAddress,
 		success : function(response) {
 			$('#Info').html(response);
 		},

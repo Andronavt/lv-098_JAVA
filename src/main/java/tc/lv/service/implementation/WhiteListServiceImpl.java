@@ -21,7 +21,7 @@ import tc.lv.service.WhiteListService;
 public class WhiteListServiceImpl implements WhiteListService {
 
     private static final Logger LOGGER = Logger.getLogger(WhiteListServiceImpl.class);
-    private static final String ADMIN_WHITE_LIST = "Admin Whitelist";
+    private static final String ADMIN_WHITE_LIST = "Admin WhiteList";
 
     @Autowired
     private IpAddressDao ipAddressDao;
@@ -36,7 +36,7 @@ public class WhiteListServiceImpl implements WhiteListService {
             IpV4Address tempIpV4 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V4);
 
             if (tempIpV4 != null) {
-                ipAddressDao.removeFromWhiteList(tempIpV4, IpQueryEnum.IP_V4);
+                ipAddressDao.deleteIp(tempIpV4);
                 return true;
             }
             return false;
@@ -54,7 +54,7 @@ public class WhiteListServiceImpl implements WhiteListService {
             IpV6Address tempIpV6 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V6);
 
             if (tempIpV6 != null) {
-                ipAddressDao.removeFromWhiteList(tempIpV6, IpQueryEnum.IP_V6);
+                ipAddressDao.deleteIp(tempIpV6);
                 return true;
             }
             return false;
