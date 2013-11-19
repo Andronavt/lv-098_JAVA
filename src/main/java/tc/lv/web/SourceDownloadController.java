@@ -75,16 +75,16 @@ public class SourceDownloadController {
 
             LOGGER.info("Start creating JSON for VectorMap");
 
-            // jsonService.createJsonCountryBlackList(PATH);
+            jsonService.createJsonCountryBlackList(PATH);
             //
-            // jsonService.createJsonCountryWhiteList(PATH);
+            jsonService.createJsonCountryWhiteList(PATH);
 
             LOGGER.info("Start creating JSON for VectorMap");
 
             map.put("successMsg", "Sourc " + sourceName + " UPDATED!!!");
             return "result";
 
-        } catch (SourceDownloaderServiceException | ParserResultServiceException e) {
+        } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonException e) {
             map.put("errorList", ExceptionUtil.createErrorList(e));
             map.put("errorMsg", e.getMessage());
             return "result";
