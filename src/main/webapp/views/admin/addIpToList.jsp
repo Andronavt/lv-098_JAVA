@@ -29,7 +29,14 @@
 		<div align="left">Enter the IP that you want add to WhiteList:</div>
 
 		<input id="IP" type="text" name="addIp" size="20" maxlength="50">
-
+		
+		<div>
+			<b>Chose type of list:</b> <b><select id="list" name="typeList"
+				size="1">
+					<option value="1">black list</option>
+					<option value="0">white list</option>
+			</select></b>
+		</div>
 		<br>
 	</form>
 

@@ -46,10 +46,11 @@ function doAjaxAddNewFeed() {
 function doAjaxPostAddIpToList() {
 	// get the form values
 	var ipAddress = $('#IP').val();
+	var listType = $('select[name=typeList]').val();
 	$.ajax({
 		type : "POST",
 		url : "admin_addIpToList",
-		data : "address=" + ipAddress,
+		data : "address=" + ipAddress + "&listType=" + listType,
 		success : function(response) {
 			$('#Info').html(response);
 		},
@@ -80,10 +81,11 @@ function selectSource() {
 function doAjaxPostDeleteIpFromList() {
 	// get the form values
 	var ipAddress = $('#ipForRemove').val();
+	var listType = $('select[name=typeList]').val();
 	$.ajax({
 		type : "POST",
 		url : "admin_deleteIpFromList",
-		data : "address=" + ipAddress,
+		data : "address=" + ipAddress + "&listType=" + listType,
 		success : function(response) {
 			$('#Info').html(response);
 		},
