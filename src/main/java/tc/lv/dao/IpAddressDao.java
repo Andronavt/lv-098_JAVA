@@ -62,4 +62,8 @@ public interface IpAddressDao {
     Integer countWhiteIp(IpQueryEnum myType);
 
     Integer countBlackIp(IpQueryEnum myType);
+
+    Integer countWhiteListByCountyName(String contryName, IpQueryEnum myType);
+
+    Integer countBlackListByCountyName(String contryName, IpQueryEnum myType);
 }

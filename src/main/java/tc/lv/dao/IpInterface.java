@@ -36,4 +36,6 @@ public interface IpInterface {
 
     String countWhiteOrBlackList();
 
+    String countWhiteOrBlackListByCountry();
+
 }

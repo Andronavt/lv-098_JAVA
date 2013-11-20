@@ -26,6 +26,7 @@ import javax.persistence.Table;
 
         @NamedQuery(name = IpV6Address.COUNT_ALL, query = IpV6Address.COUNT_ALL_QUERY),
         @NamedQuery(name = IpV6Address.COUNT_WHITE_OR_BLACK_LIST, query = IpV6Address.COUNT_WHITE_OR_BLACK_LIST_QUERY),
+        @NamedQuery(name = IpV6Address.COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY, query = IpV6Address.COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY),
         @NamedQuery(name = IpV6Address.FIND_ALL_NOT_VALID, query = IpV6Address.FIND_ALL_NOT_VALID_QUERY),
         @NamedQuery(name = IpV6Address.FIND_ALL_VALID, query = IpV6Address.FIND_ALL_VALID_QUERY),
         @NamedQuery(name = IpV6Address.FIND_IPLIST_BY_CITY, query = IpV6Address.FIND_IPLIST_BY_CITY_QUERY),
@@ -39,6 +40,9 @@ public class IpV6Address extends IpAddress {
 
     public static final String COUNT_WHITE_OR_BLACK_LIST = "IpV6Address.countWhiteOrBlackList";
     public static final String COUNT_WHITE_OR_BLACK_LIST_QUERY = "SELECT count(ip) from IpV6Address ip where ip.whiteList = ?1";
+
+    public static final String COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY = "IpV6Address.countWhiteOrBlackListByCountry";
+    public static final String COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT count(ip) from IpV6Address ip where ip.whiteList = ?1 and ip.city.country.countryName = ?2";
 
     public static final String FIND_ALL = "IpV6Address.findAll";
     public static final String FIND_ALL_QUERY = "SELECT ip from IpV6Address ip";

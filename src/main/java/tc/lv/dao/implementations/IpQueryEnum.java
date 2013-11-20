@@ -93,6 +93,11 @@ public enum IpQueryEnum implements IpInterface {
         public String findIpListByCountry() {
             return IpAddress.FIND_IPLIST_BY_COUNTRY;
         }
+
+        @Override
+        public String countWhiteOrBlackListByCountry() {
+            return IpAddress.COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY;
+        }
     },
     IP_NOT_VALID {
 
@@ -178,6 +183,11 @@ public enum IpQueryEnum implements IpInterface {
 
         @Override
         public String findIpListByCountry() {
+            throw new IllegalArgumentException("This method didn't supported");
+        }
+
+        @Override
+        public String countWhiteOrBlackListByCountry() {
             throw new IllegalArgumentException("This method didn't supported");
         }
     },
@@ -267,6 +277,11 @@ public enum IpQueryEnum implements IpInterface {
         public String findIpListByCountry() {
             return IpV4Address.FIND_IPLIST_BY_COUNTRY;
         }
+
+        @Override
+        public String countWhiteOrBlackListByCountry() {
+            return IpV4Address.COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY;
+        }
     },
     IP_V6 {
         @Override
@@ -352,6 +367,11 @@ public enum IpQueryEnum implements IpInterface {
         @Override
         public String findIpListByCountry() {
             return IpV6Address.FIND_IPLIST_BY_COUNTRY;
+        }
+
+        @Override
+        public String countWhiteOrBlackListByCountry() {
+            return IpV6Address.COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY;
         }
     };
 
