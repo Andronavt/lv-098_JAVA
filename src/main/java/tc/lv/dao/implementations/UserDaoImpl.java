@@ -4,12 +4,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
+
 import tc.lv.dao.DaoAbstract;
 import tc.lv.dao.UserDao;
 import tc.lv.domain.Role;
 import tc.lv.domain.User;
 
-//@Repository
+@Repository
 public class UserDaoImpl extends DaoAbstract implements UserDao {
 
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)

@@ -11,13 +11,14 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import tc.lv.dao.DaoAbstract;
 import tc.lv.dao.IpAddressDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
 
-//@Repository
+@Repository
 public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     private static final Logger LOGGER = Logger.getLogger(IpAddressDaoImpl.class);
 
@@ -27,6 +28,10 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     @Deprecated
     public IpAddressDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
+    }
+    public IpAddressDaoImpl()
+    {
+    
     }
 
     @Override
