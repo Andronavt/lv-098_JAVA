@@ -41,7 +41,7 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
     @Override
     public Integer countBlackListByCountyName(String contryName, IpQueryEnum myType) {
-        Query query = entityManager.createNamedQuery(myType.countWhiteOrBlackList());
+        Query query = entityManager.createNamedQuery(myType.countWhiteOrBlackListByCountry());
         query = query.setParameter(1, false).setParameter(2, contryName);
         return (Integer) query.getSingleResult();
     }
@@ -54,7 +54,7 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
     @Override
     public Integer countWhiteListByCountyName(String contryName, IpQueryEnum myType) {
-        Query query = entityManager.createNamedQuery(myType.countWhiteOrBlackList());
+        Query query = entityManager.createNamedQuery(myType.countWhiteOrBlackListByCountry());
         query = query.setParameter(1, true).setParameter(2, contryName);
         return (Integer) query.getSingleResult();
     }
