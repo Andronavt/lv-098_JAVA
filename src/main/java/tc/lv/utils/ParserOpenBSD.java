@@ -24,7 +24,8 @@ public class ParserOpenBSD implements Parser {
     private static final Pattern PATTERN = Pattern.compile(IP_ALL);
 
     private ParserResults parserResults = new ParserResults();
-
+    private GeoIpUtil geoIpUtil = new GeoIpUtil();
+    
     public ParserOpenBSD() {
     }
 
@@ -35,10 +36,12 @@ public class ParserOpenBSD implements Parser {
 
         Matcher matcher;
         Scanner scanner;
-
+        
         try {
+            
             scanner = new Scanner(new BufferedReader(new FileReader(file)));
-
+            geoIpUtil.init();
+            
             while (scanner.hasNext()) {
                 String ipStr = "";
                 matcher = PATTERN.matcher(scanner.nextLine());
@@ -47,15 +50,15 @@ public class ParserOpenBSD implements Parser {
                     ipStr = matcher.group();
 
                     if (IpValidator.isIpV4(ipStr)) {
-                        parserResults.addToIpV4List(new IpV4Address(ipStr, new Date(), new City("Lviv",
-                                new Country("Ukrain", "UA"))));
+                        parserResults.addToIpV4List(new IpV4Address(ipStr, new Date(), geoIpUtil.findLocationByIpAddress(ipStr)));
                     } else if (IpValidator.isIpV6(ipStr)) {
-                        parserResults.addToIpV6List(new IpV6Address(ipStr, new Date()));
+                        parserResults.addToIpV6List(new IpV6Address(ipStr, new Date(), geoIpUtil.findLocationByIpAddress(ipStr)));
                     } else {
                         parserResults.addToNotValidList(new NotValidIp(ipStr, new Date()));
                     }
                 }
             }
+            geoIpUtil.close();
             scanner.close();
 
         } catch (Exception e) {

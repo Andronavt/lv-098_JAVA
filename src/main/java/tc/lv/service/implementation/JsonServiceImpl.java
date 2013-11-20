@@ -16,7 +16,7 @@ import tc.lv.service.JsonService;
 
 @Service
 public class JsonServiceImpl implements JsonService {
-    private static final Logger LOGGER = Logger.getLogger(BlackListServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(JsonServiceImpl.class);
 
     @Autowired
     IpAddressDao ipAddressDao;
@@ -28,12 +28,15 @@ public class JsonServiceImpl implements JsonService {
         FileWriter file;
 
         try {
+            LOGGER.info("SSTART JSON IN TRY!!!!!!!!!!!!!!!!!!!");
+            LOGGER.info("SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP).size());
+            LOGGER.info(path);
+            file = new FileWriter(path + "countryJsonWhiteList.txt");
             for (Country country : ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP)) {
+                LOGGER.info("JSON IN FOR!!!!!!!!!!!!!!!!!!!");
                 json.put(country.getCountryCode(),
                         ipAddressDao.findWhiteListByCountyName(country.getCountryName(), IpQueryEnum.IP).size());
             }
-
-            file = new FileWriter(path + "countryJsonWhiteList.txt");
             file.write(json.toString());
             file.flush();
             file.close();
