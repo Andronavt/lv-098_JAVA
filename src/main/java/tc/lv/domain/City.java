@@ -75,4 +75,41 @@ public class City {
         this.ipAddresses = ipAddresses;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((cityName == null) ? 0 : cityName.hashCode());
+        result = prime * result + ((country == null) ? 0 : country.hashCode());
+        result = prime * result + ((ipAddresses == null) ? 0 : ipAddresses.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        City other = (City) obj;
+        if (cityName == null) {
+            if (other.cityName != null)
+                return false;
+        } else if (!cityName.equals(other.cityName))
+            return false;
+        if (country == null) {
+            if (other.country != null)
+                return false;
+        } else if (!country.equals(other.country))
+            return false;
+        if (ipAddresses == null) {
+            if (other.ipAddresses != null)
+                return false;
+        } else if (!ipAddresses.equals(other.ipAddresses))
+            return false;
+        return true;
+    }
+
 }

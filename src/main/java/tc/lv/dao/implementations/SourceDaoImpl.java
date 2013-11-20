@@ -6,13 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.stereotype.Repository;
-
 import tc.lv.dao.DaoAbstract;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.Source;
 
-@Repository
+//@Repository
 public class SourceDaoImpl extends DaoAbstract implements SourceDao {
 
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
