@@ -29,7 +29,8 @@ public class JsonServiceImpl implements JsonService {
 
         try {
             LOGGER.info("SSTART JSON IN TRY!!!!!!!!!!!!!!!!!!!");
-            LOGGER.info("SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP).size());
+            LOGGER.info("SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                    + ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP).size());
             LOGGER.info(path);
             file = new FileWriter(path + "countryJsonWhiteList.txt");
             for (Country country : ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP)) {
@@ -37,8 +38,9 @@ public class JsonServiceImpl implements JsonService {
                 json.put(country.getCountryCode(),
                         ipAddressDao.findWhiteListByCountyName(country.getCountryName(), IpQueryEnum.IP).size());
             }
+            LOGGER.info("BEFORE STOP !!!!!!!!!!!!!!!!!!!");
             file.write(json.toString());
-            file.flush();
+            LOGGER.info("STOP !!!!!!!!!!!!!!!!!!!");
             file.close();
 
         } catch (Exception e) {
@@ -54,14 +56,18 @@ public class JsonServiceImpl implements JsonService {
         JSONObject json = new JSONObject();
         FileWriter file;
         try {
+            LOGGER.info("SSTART JSON IN TRY!!!!!!!!!!!!!!!!!!!");
+            LOGGER.info("SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                    + ipAddressDao.findCountriesBlackList(IpQueryEnum.IP).size());
+            LOGGER.info(path);
+            file = new FileWriter(path + "countryJsonBlackList.txt");
             for (Country country : ipAddressDao.findCountriesBlackList(IpQueryEnum.IP)) {
                 json.put(country.getCountryCode(),
                         ipAddressDao.findBlackListByCountryName(country.getCountryName(), IpQueryEnum.IP).size());
             }
-
-            file = new FileWriter(path + "countryJsonBlackList.txt");
+            LOGGER.info("BEFORE STOP !!!!!!!!!!!!!!!!!!!");
             file.write(json.toString());
-            file.flush();
+            LOGGER.info("STOP !!!!!!!!!!!!!!!!!!!");
             file.close();
 
         } catch (Exception e) {
