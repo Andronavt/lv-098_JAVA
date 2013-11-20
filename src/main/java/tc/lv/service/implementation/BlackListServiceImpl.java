@@ -33,7 +33,7 @@ public class BlackListServiceImpl implements BlackListService {
     public boolean deleteIpV4ByName(String address) throws BlackListServiceException {
         try {
             IpV4Address tempObject = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V4);
-
+            
             if (tempObject != null) {
                 ipAddressDao.removeFromBlackList(tempObject);
                 return true;

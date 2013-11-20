@@ -11,7 +11,7 @@
 		</layout>
 	</appender>
 	<appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="file" value="d:/lv-098_JAVA/logs/log.log" />
+		<param name="file" value="${LV098_JAVA}/src/main/resources/logs/log.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d [%t] %-5p (%F:%L:%M)  %c{1}  - %m%n" />

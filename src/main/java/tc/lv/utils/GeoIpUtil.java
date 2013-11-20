@@ -8,7 +8,8 @@ import tc.lv.exceptions.GeoIpException;
 import com.maxmind.geoip.LookupService;
 
 public class GeoIpUtil {
-    private static final String DIR = "d:/SDevel/1_JAVA/1_workspace/ITAcademy/lv-098_JAVA/src/main/resources/geoIP/";
+    private static final String DIR = System.getenv("LV098_JAVA") + "/src/main/resources/geoIP/";
+    
     private static final String GEO_IPV4_DB_COUNTRY = "GeoIP.dat";
     private static final String GEO_IPV6_DB_COUNTRY = "GeoIPv6.dat";
     private static final String GEO_IPV4_DB_CITY = "GeoLiteCity.dat";
