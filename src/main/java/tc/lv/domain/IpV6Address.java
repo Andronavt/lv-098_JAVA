@@ -93,6 +93,6 @@ public class IpV6Address extends IpAddress {
     public IpV6Address(String address, Date dateAdded, City city) {
         this.address = address;
         this.dateAdded = dateAdded;
-        this.city=city;
+        this.city = city;
     }
 }

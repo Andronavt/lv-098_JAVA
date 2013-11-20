@@ -101,7 +101,7 @@ public class IpAddress {
     @Column(name = "address", updatable = true, nullable = false, unique = true)
     protected String address;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "city")
     protected City city = new City();
 
