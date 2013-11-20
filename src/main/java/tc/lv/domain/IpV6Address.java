@@ -90,8 +90,9 @@ public class IpV6Address extends IpAddress {
         this.address = address;
     }
 
-    public IpV6Address(String address, Date dateAdded) {
+    public IpV6Address(String address, Date dateAdded, City city) {
         this.address = address;
         this.dateAdded = dateAdded;
+        this.city=city;
     }
 }
