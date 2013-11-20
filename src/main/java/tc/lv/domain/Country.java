@@ -20,8 +20,7 @@ public class Country {
     @Column(name = "id", unique = true)
     int id;
 
-    @OneToMany
-    @JoinColumn(name = "cities")
+    @OneToMany(mappedBy = "country")
     Set<City> cities;
 
     @Column(name = "country_code")
