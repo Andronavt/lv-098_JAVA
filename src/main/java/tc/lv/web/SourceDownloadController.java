@@ -24,7 +24,7 @@ import tc.lv.utils.ParserResults;
 
 @Controller
 public class SourceDownloadController {
-    private static final String PATH = "d:/lv-098_JAVA/JSON/";
+    private static final String PATH = System.getenv("LV098_JAVA") + "/src/main/resources/json/";
     private static final Logger LOGGER = Logger.getLogger(SourceDownloadController.class);
 
     @Autowired

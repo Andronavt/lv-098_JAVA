@@ -4,6 +4,8 @@ import java.io.FileWriter;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.IpAddressDao;
@@ -12,9 +14,11 @@ import tc.lv.domain.Country;
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.service.JsonService;
 
+@Service
 public class JsonServiceImpl implements JsonService {
     private static final Logger LOGGER = Logger.getLogger(BlackListServiceImpl.class);
 
+    @Autowired
     IpAddressDao ipAddressDao;
 
     @Override

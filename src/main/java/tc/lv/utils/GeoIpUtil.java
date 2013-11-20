@@ -2,14 +2,15 @@ package tc.lv.utils;
 
 import org.apache.log4j.Logger;
 
-import tc.lv.domain.Location;
+import tc.lv.domain.City;
+import tc.lv.domain.Country;
 import tc.lv.exceptions.GeoIpException;
 
 import com.maxmind.geoip.LookupService;
 
 public class GeoIpUtil {
     private static final String DIR = System.getenv("LV098_JAVA") + "/src/main/resources/geoIP/";
-    
+
     private static final String GEO_IPV4_DB_COUNTRY = "GeoIP.dat";
     private static final String GEO_IPV6_DB_COUNTRY = "GeoIPv6.dat";
     private static final String GEO_IPV4_DB_CITY = "GeoLiteCity.dat";
@@ -33,53 +34,55 @@ public class GeoIpUtil {
             lookupServiceIpV4City = new LookupService(DIR + GEO_IPV4_DB_CITY, LookupService.GEOIP_MEMORY_CACHE);
             lookupServiceIpV6City = new LookupService(DIR + GEO_IPV6_DB_CITY, LookupService.GEOIP_MEMORY_CACHE);
         } catch (Exception e) {
-            LOGGER.error("Could not find GeoIP Data Base file!", e);
-            throw new GeoIpException("Could not find GeoIP Data Base file!", e);
+            LOGGER.error("Problem with GeoIp", e);
+            throw new GeoIpException("Problem with GeoIp", e);
         }
     }
 
-    public Location findLocationIpV4Address(String ipAddress) throws GeoIpException {
-        Location loc = null;
-        String cName, cCode, cCity;
+    public City findLocationIpV4Address(String ipAddress) throws GeoIpException {
+        City city = null;
+        Country country = null;
+        String countryName, countryCode, cityName;
         try {
-            cName = lookupServiceIpV4Country.getCountry(ipAddress).getName();
-            cCode = lookupServiceIpV4Country.getCountry(ipAddress).getCode();
+            countryName = lookupServiceIpV4Country.getCountry(ipAddress).getName();
+            countryCode = lookupServiceIpV4Country.getCountry(ipAddress).getCode();
             if (lookupServiceIpV4City.getLocation(ipAddress) != null) {
-                cCity = lookupServiceIpV4City.getLocation(ipAddress).city;
+                cityName = lookupServiceIpV4City.getLocation(ipAddress).city;
             } else {
-                cCity = "None";
+                cityName = "None";
             }
-            loc = new Location(cName, cCode, cCity);
+            country = new Country(countryName, countryCode);
+            city = new City(cityName, country);
 
         } catch (Exception e) {
-            LOGGER.error("Could not find GeoIP Data Base file!", e);
-            throw new GeoIpException("Could not find GeoIP Data Base file!", e);
-        } finally {
+            LOGGER.error("Problem with GeoIp!", e);
             close();
+            throw new GeoIpException("Problem with GeoIp!", e);
         }
-        return loc;
+        return city;
     }
 
-    public Location findLocationIpV6Address(String ipAddress) throws GeoIpException {
-        Location loc = null;
-        String cName, cCode, cCity;
+    public City findLocationIpV6Address(String ipAddress) throws GeoIpException {
+        City city = null;
+        Country country = null;
+        String countryName, countryCode, cityName;
         try {
-            cName = lookupServiceIpV6Country.getCountry(ipAddress).getName();
-            cCode = lookupServiceIpV6Country.getCountry(ipAddress).getCode();
+            countryName = lookupServiceIpV6Country.getCountry(ipAddress).getName();
+            countryCode = lookupServiceIpV6Country.getCountry(ipAddress).getCode();
             if (lookupServiceIpV6City.getLocation(ipAddress) != null) {
-                cCity = lookupServiceIpV6City.getLocation(ipAddress).city;
+                cityName = lookupServiceIpV6City.getLocation(ipAddress).city;
             } else {
-                cCity = "None";
+                cityName = "None";
             }
-            loc = new Location(cName, cCode, cCity);
 
+            country = new Country(countryName, countryCode);
+            city = new City(cityName, country);
         } catch (Exception e) {
-            LOGGER.error("Could not find GeoIP Data Base file!", e);
-            throw new GeoIpException("Could not find GeoIP Data Base file!", e);
-        } finally {
+            LOGGER.error("Problem with GeoIp!", e);
             close();
+            throw new GeoIpException("Problem with GeoIp!", e);
         }
-        return loc;
+        return city;
     }
 
     public void close() {
