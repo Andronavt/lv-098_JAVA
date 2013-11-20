@@ -75,7 +75,7 @@ public class IpAddress {
     public static final String FIND_CITIES_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.city.cityName) from IpAddress ip where ip.whiteList = ?1";
 
     public static final String FIND_COUNTRIES_WHITE_OR_BLACK_LIST = "IpAddress.findCountryWhiteList";
-    public static final String FIND_COUNTRIES_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.city.country.countryName) from IpAddress ip where ip.whiteList = ?1";
+    public static final String FIND_COUNTRIES_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.whiteList = ?1";
 
     public static final String FIND_IPLIST_BY_CITY = "IpAddress.findIpByCity";
     public static final String FIND_IPLIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.city.cityName = ?1";
@@ -96,7 +96,7 @@ public class IpAddress {
     public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1 and ip.city.cityName = ?2";
 
     public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY = "IpAddress.findWhiteOrBlackListByCountry";
-    public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1 and ip.city.country.countryName = ?2";
+    public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1 and ip.city.country.countryCode = ?2";
 
     @Column(name = "address", updatable = true, nullable = false, unique = true)
     protected String address;

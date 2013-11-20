@@ -1,0 +1,1 @@
+var array ={"AU":1}

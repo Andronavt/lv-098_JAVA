@@ -13,9 +13,9 @@
 
 <script type="text/javascript"
 	src="<c:url value="/resources/js/jVectorMap/jquery-jvectormap-world-mill-en.js" />"></script>
-	
+
 <script type="text/javascript"
-	src="<c:url value="/resources/js/jVectorMap/gdp-data.js" />"></script>
+	src="<c:url value="/resources/js/jVectorMap/countryJsonBlackList.js" />"></script>
 
 <link
 	href="<c:url value="/resources/css/jVectorMap/jquery-jvectormap-1.2.2.css" />"
@@ -23,22 +23,23 @@
 
 <fieldset>
 
-<div id="world-map" style="width: 600px; height: 400px"></div>
+	<div id="world-map" style="width: 600px; height: 400px"></div>
 
 </fieldset>
 
+
 <script>
-$('#world-map').vectorMap({
-	  map: 'world_mill_en',
-	  series: {
-	    regions: [{
-	      values: gdpData,
-	      scale: ['#C8EEFF', '#0071A4'],
-	      normalizeFunction: 'polynomial'
-	    }]
-	  },
-	  onRegionLabelShow: function(e, el, code){
-	    el.html(el.html()+' - '+gdpData[code]);
-	  }
+	$('#world-map').vectorMap({
+		map : 'world_mill_en',
+		series : {
+			regions : [ {
+				values : array,
+				scale : [ '#C8EEFF', '#0071A4' ],
+				normalizeFunction : 'polynomial'
+			} ]
+		},
+		onRegionLabelShow : function(e, el, code) {
+			el.html(el.html() + ' - ' + array[code]);
+		}
 	});
 </script>
