@@ -16,13 +16,24 @@ public interface IpInterface {
 
     String findUndefinedlist();
 
-    String findWhiteIpByName();
+    String findWhiteOrBlackIpByName();
 
-    String findWhitelist();
+    String findWhiteOrBlackList();
 
     String findWhiteOrBlackListByCity();
 
+    String findIpListByCity();
+
     String findWhiteOrBlackListByCountry();
 
-    String findLocationWhiteOrBlackList();
+    String findIpListByCountry();
+
+    String findCitiesWhiteOrBlackList();
+
+    String findCountriesWhiteOrBlackList();
+
+    String countAll();
+
+    String countWhiteOrBlackList();
+
 }

@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.SourceDao;
 import tc.lv.dao.implementations.IpQueryEnum;
+import tc.lv.domain.City;
+import tc.lv.domain.Country;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
-import tc.lv.domain.Location;
 import tc.lv.exceptions.WhiteListServiceException;
 import tc.lv.service.WhiteListService;
 
@@ -74,9 +75,9 @@ public class WhiteListServiceImpl implements WhiteListService {
             if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != true)) {
 
                 if (tempIpV4 == null) {
-                    tempIpV4 = new IpV4Address(address, new Date(), new Location(
-                            geo.findCountryByIpAddress(address), geo.findCountryCodeByIpAddress(address),
-                            geo.findCityByIpAddress(address)));
+                    tempIpV4 = new IpV4Address(address, new Date(), new City(geo.findCityByIpAddress(address),
+                            new Country(geo.findCountryByIpAddress(address),
+                                    geo.findCountryCodeByIpAddress(address))));
                     tempIpV4.getSourceSet().add(sourceDao.findByName(ADMIN_WHITE_LIST));
                     tempIpV4.setWhiteList(true);
                     ipAddressDao.save(tempIpV4);
