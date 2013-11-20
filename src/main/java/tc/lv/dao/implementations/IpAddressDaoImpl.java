@@ -29,9 +29,9 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     public IpAddressDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    public IpAddressDaoImpl()
-    {
-    
+
+    public IpAddressDaoImpl() {
+
     }
 
     @Override
@@ -221,22 +221,18 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     @Override
     @SuppressWarnings("unchecked")
     public <T extends String> List<T> findCountriesWhiteList(IpQueryEnum myType) {
-        LOGGER.info("findLocationBlackList 111111");
         Query query = entityManager.createNamedQuery(myType.findCountriesWhiteOrBlackList());
         query = query.setParameter(1, true);
         List<String> list = query.getResultList();
-        LOGGER.info("findLocationBlackList 444444" + list.size());
         return (List<T>) list;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends String> List<T> findCountriesBlackList(IpQueryEnum myType) {
-        LOGGER.info("findLocationBlackList 111111");
         Query query = entityManager.createNamedQuery(myType.findCountriesWhiteOrBlackList());
         query = query.setParameter(1, false);
         List<String> list = query.getResultList();
-        LOGGER.info("findLocationBlackList 444444");
         return (List<T>) list;
     }
 

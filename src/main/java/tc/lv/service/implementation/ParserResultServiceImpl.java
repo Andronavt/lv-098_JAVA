@@ -31,7 +31,12 @@ public class ParserResultServiceImpl implements ParserResultService {
             ipAddressDao.saveList(result.getIpV4List(), result.getSourceId(), IpQueryEnum.IP_V4);
             ipAddressDao.saveList(result.getIpV6List(), result.getSourceId(), IpQueryEnum.IP_V6);
             ipAddressDao.saveList(result.getNotValidList(), result.getSourceId(), IpQueryEnum.IP_NOT_VALID);
+
+            LOGGER.info("Start update WhiteList");
+            ipAddressDao.updateWhiteList(IpQueryEnum.IP);
             LOGGER.info("Finish updating Data Base");
+
+            LOGGER.info("Finish update WhiteList");
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -48,9 +53,6 @@ public class ParserResultServiceImpl implements ParserResultService {
             for (ParserResults result : resultList) {
                 this.save(result);
             }
-            LOGGER.info("Start update WhiteList");
-            ipAddressDao.updateWhiteList(IpQueryEnum.IP);
-            LOGGER.info("Finish update WhiteList");
 
         } catch (Exception e) {
             LOGGER.error(e);
