@@ -103,7 +103,7 @@ public class IpAddress {
 
     @ManyToOne
     @JoinColumn(name = "city")
-    City city = new City();
+    protected City city = new City();
 
     @Column(name = "date_added")
     protected Date dateAdded;

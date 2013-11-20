@@ -26,8 +26,7 @@ public class City {
     @JoinColumn(name = "country")
     Country country = new Country();
 
-    @OneToMany
-    @JoinColumn(name = "ip_addresses")
+    @OneToMany(mappedBy = "city")
     Set<IpAddress> ipAddresses = new HashSet<IpAddress>();
 
     @Column(name = "city_name")
