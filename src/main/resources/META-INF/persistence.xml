@@ -12,6 +12,7 @@
 		<class>tc.lv.domain.Role</class>
 		<class>tc.lv.domain.Source</class>
 		<class>tc.lv.domain.User</class>
+		<class>tc.lv.domain.City</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
 			<property name="hibernate.connection.show_sql" value="true" />
