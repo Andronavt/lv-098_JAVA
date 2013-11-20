@@ -42,6 +42,7 @@ import org.hibernate.annotations.FetchMode;
 
         @NamedQuery(name = IpAddress.COUNT_ALL, query = IpAddress.COUNT_ALL_QUERY),
         @NamedQuery(name = IpAddress.COUNT_WHITE_OR_BLACK_LIST, query = IpAddress.COUNT_WHITE_OR_BLACK_LIST_QUERY),
+        @NamedQuery(name = IpAddress.COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY, query = IpAddress.COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_NOT_VALID, query = IpAddress.FIND_ALL_NOT_VALID_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_VALID, query = IpAddress.FIND_ALL_VALID_QUERY),
         @NamedQuery(name = IpAddress.FIND_IPLIST_BY_CITY, query = IpAddress.FIND_IPLIST_BY_CITY_QUERY),
@@ -55,6 +56,9 @@ public class IpAddress {
 
     public static final String COUNT_WHITE_OR_BLACK_LIST = "IpAddress.countWhiteOrBlackList";
     public static final String COUNT_WHITE_OR_BLACK_LIST_QUERY = "SELECT count(ip) from IpAddress ip where ip.whiteList = ?1";
+    
+    public static final String COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY = "IpAddress.countWhiteOrBlackListByCountry";
+    public static final String COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT count(ip) from IpAddress ip where ip.whiteList = ?1 and ip.city.country.countryName = ?2";
 
     public static final String FIND_ALL = "IpAddress.findAll";
     public static final String FIND_ALL_QUERY = "SELECT ip from IpAddress ip";
