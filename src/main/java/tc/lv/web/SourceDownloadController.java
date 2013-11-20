@@ -57,7 +57,7 @@ public class SourceDownloadController {
         LOGGER.info("SOURCE:" + sourceName);
         sourceNameList.add(sourceName);
         try {
-            LOGGER.info("Create MAP of sources and Parsers");
+            LOGGER.info("Start updating Sources.");
 
             List<Source> sourceList = sourceDownloaderService.loadSourceList();
 
@@ -65,24 +65,16 @@ public class SourceDownloadController {
 
             List<ParserResults> parserResultList = null;
 
-            LOGGER.info("Start downloading, parsing and updating Data Base");
-
             parserResultList = sourceDownloaderService.downloadParseAndUpdateData(sourceNameList, parserMap);
 
             parserResultService.saveAllSources(parserResultList);
 
-            LOGGER.info("Finish downloading, parsing and updating Data Base");
-
-            LOGGER.info("Start creating JSON for VectorMap");
-            
             jsonService.createJsonCountryWhiteList(PATH);
             jsonService.createJsonCountryBlackList(PATH);
-            //
-            
 
-            LOGGER.info("Start creating JSON for VectorMap");
+            LOGGER.info("Finish updating Sources.");
 
-            map.put("successMsg", "Sourc " + sourceName + " UPDATED!!!");
+            map.put("successMsg", "Source " + sourceName + " updated.");
             return "result";
 
         } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonServiceException e) {

@@ -31,7 +31,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     @Override
     public List<ParserResults> downloadParseAndUpdateData(List<String> sourceNameList,
             Map<Source, Parser> parserMap) throws SourceDownloaderServiceException {
-
+        LOGGER.info("Start downloading, parsing and updating sources.");
         try {
             Downloader downloader = new Downloader();
 
@@ -53,6 +53,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
                     }
                 }
             }
+            LOGGER.info("Finish downloading, parsing and updating sources.");
             return resultList;
 
         } catch (Exception e) {
@@ -64,7 +65,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     @Transactional
     @Override
     public List<Source> loadSourceList() throws SourceDownloaderServiceException {
-
+        LOGGER.info("Load List of Sources from base.");
         try {
             return sourceDao.findAll();
 
@@ -78,7 +79,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     @Transactional
     @Override
     public Map<Source, Parser> createParserMap(List<Source> sourceList) throws SourceDownloaderServiceException {
-
+        LOGGER.info("Start creating Map of Sources and Parsers.");
         Map<Source, Parser> parserMap = new HashMap<Source, Parser>();
 
         for (Source source : sourceList) {
@@ -107,6 +108,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
                 parserMap.put(source, parser);
             }
         }
+        LOGGER.info("Finish creating Map of Sources and Parsers.");
         return parserMap;
     }
 
