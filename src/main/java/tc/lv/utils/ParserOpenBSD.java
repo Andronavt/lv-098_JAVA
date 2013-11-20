@@ -10,8 +10,6 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
-import tc.lv.domain.City;
-import tc.lv.domain.Country;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
