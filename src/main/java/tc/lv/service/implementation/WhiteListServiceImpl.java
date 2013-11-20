@@ -69,7 +69,7 @@ public class WhiteListServiceImpl implements WhiteListService {
     @Transactional
     @Override
     public boolean saveIpV4ByName(String address) throws WhiteListServiceException {
-        GeoIpServiceImpl geo = new GeoIpServiceImpl();
+       
         try {
             IpV4Address tempIpV4 = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V4);
             if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != true)) {

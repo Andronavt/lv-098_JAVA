@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import tc.lv.domain.Source;
-import tc.lv.exceptions.JsonException;
+import tc.lv.exceptions.JsonServiceException;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.exceptions.SourceDownloaderServiceException;
 import tc.lv.service.JsonService;
@@ -24,7 +24,7 @@ import tc.lv.utils.ParserResults;
 
 @Controller
 public class SourceDownloadController {
-    private static final String PATH = "d:/lv-098_JAVA/JSON/";
+    private static final String PATH = System.getenv("LV098_JAVA") + "/src/main/resources/json/";
     private static final Logger LOGGER = Logger.getLogger(SourceDownloadController.class);
 
     @Autowired
@@ -84,7 +84,7 @@ public class SourceDownloadController {
             map.put("successMsg", "Sourc " + sourceName + " UPDATED!!!");
             return "result";
 
-        } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonException e) {
+        } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonServiceException e) {
             map.put("errorList", ExceptionUtil.createErrorList(e));
             map.put("errorMsg", e.getMessage());
             return "result";
