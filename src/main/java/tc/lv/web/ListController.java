@@ -1,4 +1,3 @@
-
 package tc.lv.web;
 
 import java.util.ArrayList;
@@ -128,7 +127,7 @@ public class ListController {
 	private String addIpToDataBase(boolean flag, String ipAddress,
 			int listType, Map<String, Object> map)
 			throws WhiteListServiceException {
-		System.out.println(flag+" FLAGGGG");
+		System.out.println(flag + " FLAGGGG");
 		if (flag) {
 			map.put("successMsg", "IP-address: " + ipAddress
 					+ " has been successfully added.");
@@ -155,6 +154,30 @@ public class ListController {
 			map.put("ipList", list);
 
 		} catch (WhiteListServiceException e) {
+			map.put("errorList", ExceptionUtil.createErrorList(e));
+			map.put("errorMsg", e.getMessage());
+			return "result";
+		}
+		return "secure_table";
+	}
+
+	// test Black List
+	@RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.GET)
+	public String showIpListFromBlackList() {				
+		return "secure_showIpListFromBL";
+	}
+
+	@RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.POST)
+	public String showIpListFromBlackList(@ModelAttribute("page") String page,
+			@ModelAttribute("value") String value, Map<String, Object> map) {
+		try {
+			List<IpV4Address> list = new ArrayList<IpV4Address>();
+			list.addAll(blackListService.loadIpV4ListByRange(
+					(Integer.parseInt(page) - 1) * Integer.parseInt(value),
+					Integer.parseInt(value)));
+			map.put("ipList", list);
+
+		} catch (BlackListServiceException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));
 			map.put("errorMsg", e.getMessage());
 			return "result";
