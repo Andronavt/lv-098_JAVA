@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import tc.lv.dao.DaoAbstract;
@@ -20,6 +21,7 @@ import tc.lv.domain.Source;
 
 @Repository
 public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
+    private static final Logger LOGGER = Logger.getLogger(IpAddressDaoImpl.class);
 
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
@@ -119,7 +121,6 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
             for (IpAddress ip : list) {
                 if (!map.containsKey(ip.getAddress())) {
 
-                    ip.getSourceSet().add(source);
                     entityManager.persist(ip);
                     map.put(ip.getAddress(), ip);
                 } else {
@@ -212,17 +213,27 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Country> List<T> findCountriesWhiteList(IpQueryEnum myType) {
+        LOGGER.info("findLocationBlackList 111111");
         Query query = entityManager.createNamedQuery(myType.findCountriesWhiteOrBlackList());
+        LOGGER.info("findLocationBlackList 222222");
         query = query.setParameter(1, true);
-        return query.getResultList();
+        LOGGER.info("findLocationBlackList 333333");
+        List<Country> list = query.getResultList();
+        LOGGER.info("findLocationBlackList 444444" + list.size());
+        return (List<T>) list;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Country> List<T> findCountriesBlackList(IpQueryEnum myType) {
+        LOGGER.info("findLocationBlackList 111111");
         Query query = entityManager.createNamedQuery(myType.findCountriesWhiteOrBlackList());
+        LOGGER.info("findLocationBlackList 222222");
         query = query.setParameter(1, false);
-        return query.getResultList();
+        LOGGER.info("findLocationBlackList 333333");
+        List<Country> list = query.getResultList();
+        LOGGER.info("findLocationBlackList 444444");
+        return (List<T>) list;
     }
 
     @Override

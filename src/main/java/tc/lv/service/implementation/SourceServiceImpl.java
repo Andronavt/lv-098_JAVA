@@ -60,7 +60,7 @@ public class SourceServiceImpl implements SourceService {
         try {
             if (sourceDao.findByName(sourceName) != null) {
                 Source source = sourceDao.findByName(sourceName);
-                sourceDao.remove(source);
+                sourceDao.delete(source);
                 return true;
             }
             return false;
