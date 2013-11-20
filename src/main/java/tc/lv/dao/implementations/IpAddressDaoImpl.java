@@ -15,8 +15,8 @@ import org.springframework.stereotype.Repository;
 
 import tc.lv.dao.DaoAbstract;
 import tc.lv.dao.IpAddressDao;
+import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
-import tc.lv.domain.Location;
 import tc.lv.domain.Source;
 
 @Repository
@@ -45,13 +45,13 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
     @SuppressWarnings("unchecked")
     private <T extends IpAddress> List<T> findIpList(boolean whiteList, IpQueryEnum myType) {
-        Query query = entityManager.createNamedQuery(myType.findWhitelist()).setParameter(1, whiteList);
+        Query query = entityManager.createNamedQuery(myType.findWhiteOrBlackList()).setParameter(1, whiteList);
         return query.getResultList();
     }
 
     private <T extends IpAddress> List<T> findIpListByRange(int from, int count, boolean whiteList,
             IpQueryEnum myType) {
-        Query query = entityManager.createNamedQuery(myType.findWhitelist()).setParameter(1, whiteList);
+        Query query = entityManager.createNamedQuery(myType.findWhiteOrBlackList()).setParameter(1, whiteList);
         return findRange(from, count, query);
     }
 
@@ -180,7 +180,7 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public <T extends IpAddress> List<T> findBlackListByCountyName(String contryName, IpQueryEnum myType) {
+    public <T extends IpAddress> List<T> findBlackListByCountryName(String contryName, IpQueryEnum myType) {
         return findWhiteOrBlackListByCountyName(contryName, false, myType);
     }
 
@@ -212,28 +212,28 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Location> findLocationWhiteList(IpQueryEnum myType) {
+    public <T extends Country> List<T> findCountriesWhiteList(IpQueryEnum myType) {
         LOGGER.info("findLocationBlackList 111111");
-        Query query = entityManager.createNamedQuery(myType.findLocationWhiteOrBlackList());
+        Query query = entityManager.createNamedQuery(myType.findCountriesWhiteOrBlackList());
         LOGGER.info("findLocationBlackList 222222");
         query = query.setParameter(1, true);
         LOGGER.info("findLocationBlackList 333333");
-        List<Location> list = query.getResultList();
+        List<Country> list = query.getResultList();
         LOGGER.info("findLocationBlackList 444444" + list.size());
-        return list;
+        return (List<T>) list;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Location> findLocationBlackList(IpQueryEnum myType) {
+    public <T extends Country> List<T> findCountriesBlackList(IpQueryEnum myType) {
         LOGGER.info("findLocationBlackList 111111");
-        Query query = entityManager.createNamedQuery(myType.findLocationWhiteOrBlackList());
+        Query query = entityManager.createNamedQuery(myType.findCountriesWhiteOrBlackList());
         LOGGER.info("findLocationBlackList 222222");
         query = query.setParameter(1, false);
         LOGGER.info("findLocationBlackList 333333");
-        List<Location> list = query.getResultList();
+        List<Country> list = query.getResultList();
         LOGGER.info("findLocationBlackList 444444");
-        return list;
+        return (List<T>) list;
     }
 
     @Override

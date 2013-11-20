@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import tc.lv.domain.City;
+import tc.lv.domain.Country;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
@@ -24,8 +26,6 @@ public class ParserUceprotect implements Parser {
 
     private ParserResults parserResults = new ParserResults();
 
-    private GeoIpUtil geo = new GeoIpUtil();
-
     public ParserUceprotect() {
     }
 
@@ -38,7 +38,7 @@ public class ParserUceprotect implements Parser {
 
         try {
             scanner = new Scanner(new BufferedReader(new FileReader(file)));
-            geo.init();
+
             while (scanner.hasNext()) {
                 String ipStr = "";
                 matcher = PATTERN.matcher(scanner.nextLine());
@@ -47,17 +47,15 @@ public class ParserUceprotect implements Parser {
                     ipStr = matcher.group();
 
                     if (IpValidator.isIpV4(ipStr)) {
-                        parserResults.addToIpV4List(new IpV4Address(ipStr, new Date(), geo
-                                .findLocationIpV4Address(ipStr)));
+                        parserResults.addToIpV4List(new IpV4Address(ipStr, new Date(), new City("Lviv",
+                                new Country("Ukrain", "UA"))));
                     } else if (IpValidator.isIpV6(ipStr)) {
-                        parserResults.addToIpV6List(new IpV6Address(ipStr, new Date(), geo
-                                .findLocationIpV6Address(ipStr)));
+                        parserResults.addToIpV6List(new IpV6Address(ipStr, new Date()));
                     } else {
                         parserResults.addToNotValidList(new NotValidIp(ipStr, new Date()));
                     }
                 }
             }
-            geo.close();
             scanner.close();
 
         } catch (Exception e) {
@@ -67,4 +65,5 @@ public class ParserUceprotect implements Parser {
         LOGGER.info("FINISH PARSING Uceprotect");
         return parserResults;
     }
+
 }

@@ -3,8 +3,8 @@ package tc.lv.dao;
 import java.util.List;
 
 import tc.lv.dao.implementations.IpQueryEnum;
+import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
-import tc.lv.domain.Location;
 
 public interface IpAddressDao {
 
@@ -25,7 +25,7 @@ public interface IpAddressDao {
     void removeFromBlackList(IpAddress address);
 
     void removeFromWhiteList(IpAddress address);
-    
+
     void deleteIp(IpAddress address);
 
     void save(IpAddress address);
@@ -36,14 +36,14 @@ public interface IpAddressDao {
 
     <T extends IpAddress> List<T> findWhiteListByCountyName(String contryName, IpQueryEnum myType);
 
-    <T extends IpAddress> List<T> findBlackListByCountyName(String contryName, IpQueryEnum myType);
+    <T extends IpAddress> List<T> findBlackListByCountryName(String contryName, IpQueryEnum myType);
 
     <T extends IpAddress> List<T> findWhiteListByCityName(String cityName, IpQueryEnum myType);
 
     <T extends IpAddress> List<T> findBlackListByCityName(String cityName, IpQueryEnum myType);
 
-    <T> List<Location> findLocationWhiteList(IpQueryEnum myType);
+    <T extends Country> List<T> findCountriesWhiteList(IpQueryEnum myType);
 
-    <T> List<Location> findLocationBlackList(IpQueryEnum myType);
+    <T extends Country> List<T> findCountriesBlackList(IpQueryEnum myType);
 
 }

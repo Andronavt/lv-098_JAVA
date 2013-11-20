@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.SourceDao;
 import tc.lv.dao.implementations.IpQueryEnum;
+import tc.lv.domain.City;
+import tc.lv.domain.Country;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
-import tc.lv.domain.Location;
 import tc.lv.exceptions.BlackListServiceException;
 import tc.lv.service.BlackListService;
 
@@ -33,7 +34,7 @@ public class BlackListServiceImpl implements BlackListService {
     public boolean deleteIpV4ByName(String address) throws BlackListServiceException {
         try {
             IpV4Address tempObject = ipAddressDao.findByAddress(address, IpQueryEnum.IP_V4);
-            
+
             if (tempObject != null) {
                 ipAddressDao.removeFromBlackList(tempObject);
                 return true;
@@ -72,7 +73,7 @@ public class BlackListServiceImpl implements BlackListService {
 
             if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != false)) {
                 if (tempIpV4 == null) {
-                    tempIpV4 = new IpV4Address(address, new Date(), new Location("Ukraine", "UA", "Lviv"));
+                    tempIpV4 = new IpV4Address(address, new Date(), new City("Lviv", new Country("Ukrain", "UA")));
                     tempIpV4.getSourceSet().add(sourceDao.findByName(ADMIN_BLACK_LIST));
                     tempIpV4.setWhiteList(false);
                     ipAddressDao.save(tempIpV4);
