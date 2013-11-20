@@ -72,10 +72,10 @@ public class IpAddress {
     public static final String FIND_BY_SOURCE_QUERY = "SELECT ip from IpAddress ip join ip.sourceSet s where s.sourceId = ?1";
 
     public static final String FIND_CITIES_WHITE_OR_BLACK_LIST = "IpAddress.findCityWhiteList";
-    public static final String FIND_CITIES_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.city) from IpAddress ip where ip.whiteList = ?1";
+    public static final String FIND_CITIES_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.city.cityName) from IpAddress ip where ip.whiteList = ?1";
 
     public static final String FIND_COUNTRIES_WHITE_OR_BLACK_LIST = "IpAddress.findCountryWhiteList";
-    public static final String FIND_COUNTRIES_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.city.country) from IpAddress ip where ip.whiteList = ?1";
+    public static final String FIND_COUNTRIES_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.city.country.countryName) from IpAddress ip where ip.whiteList = ?1";
 
     public static final String FIND_IPLIST_BY_CITY = "IpAddress.findIpByCity";
     public static final String FIND_IPLIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.city.cityName = ?1";

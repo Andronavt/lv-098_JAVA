@@ -3,7 +3,6 @@ package tc.lv.dao;
 import java.util.List;
 
 import tc.lv.dao.implementations.IpQueryEnum;
-import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
 
 public interface IpAddressDao {
@@ -42,8 +41,8 @@ public interface IpAddressDao {
 
     <T extends IpAddress> List<T> findBlackListByCityName(String cityName, IpQueryEnum myType);
 
-    <T extends Country> List<T> findCountriesWhiteList(IpQueryEnum myType);
+    <T extends String> List<T> findCountriesWhiteList(IpQueryEnum myType);
 
-    <T extends Country> List<T> findCountriesBlackList(IpQueryEnum myType);
+    <T extends String> List<T> findCountriesBlackList(IpQueryEnum myType);
 
 }
