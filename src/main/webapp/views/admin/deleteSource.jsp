@@ -26,12 +26,11 @@
 				<c:forEach var="Source" items="${listSource}">
 					<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
 				</c:forEach>
-			</select> <br> <br> <input class="btn btn-primary" type="button" value="Delete source"
-				onclick="selectSource()">
+			</select>
+			 <div><input class="btn btn-primary" type="button" value="Delete source" onclick="selectSource()"></div>
 		</center>
-		<br> <br>
 	</div>
 
 </fieldset>
 
-<div id="Info" style="color: green;"></div>
+<div align="center" id="Info" style="color: green;"></div>
