@@ -4,17 +4,21 @@ import java.io.FileWriter;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.implementations.IpQueryEnum;
-import tc.lv.domain.Location;
+import tc.lv.domain.Country;
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.service.JsonService;
 
+@Service
 public class JsonServiceImpl implements JsonService {
-    private static final Logger LOGGER = Logger.getLogger(BlackListServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(JsonServiceImpl.class);
 
+    @Autowired
     IpAddressDao ipAddressDao;
 
     @Override
@@ -24,12 +28,15 @@ public class JsonServiceImpl implements JsonService {
         FileWriter file;
 
         try {
-            for (Location country : ipAddressDao.findLocationWhiteList(IpQueryEnum.IP)) {
+            LOGGER.info("SSTART JSON IN TRY!!!!!!!!!!!!!!!!!!!");
+            LOGGER.info("SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP).size());
+            LOGGER.info(path);
+            file = new FileWriter(path + "countryJsonWhiteList.txt");
+            for (Country country : ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP)) {
+                LOGGER.info("JSON IN FOR!!!!!!!!!!!!!!!!!!!");
                 json.put(country.getCountryCode(),
                         ipAddressDao.findWhiteListByCountyName(country.getCountryName(), IpQueryEnum.IP).size());
             }
-
-            file = new FileWriter(path + "countryJsonWhiteList.txt");
             file.write(json.toString());
             file.flush();
             file.close();
@@ -47,9 +54,9 @@ public class JsonServiceImpl implements JsonService {
         JSONObject json = new JSONObject();
         FileWriter file;
         try {
-            for (Location country : ipAddressDao.findLocationBlackList(IpQueryEnum.IP)) {
+            for (Country country : ipAddressDao.findCountriesBlackList(IpQueryEnum.IP)) {
                 json.put(country.getCountryCode(),
-                        ipAddressDao.findBlackListByCountyName(country.getCountryName(), IpQueryEnum.IP).size());
+                        ipAddressDao.findBlackListByCountryName(country.getCountryName(), IpQueryEnum.IP).size());
             }
 
             file = new FileWriter(path + "countryJsonBlackList.txt");

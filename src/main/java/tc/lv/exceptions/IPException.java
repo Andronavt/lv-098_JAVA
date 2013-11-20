@@ -11,7 +11,7 @@ public class IPException extends Exception {
      */
 
     private static final long serialVersionUID = -3873888718676301070L;
-    private static final Logger LOGGER = Logger.getLogger("errorLog");
+    private static final Logger LOGGER = Logger.getLogger(IPException.class);
 
     private String msg;
 

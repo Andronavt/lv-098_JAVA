@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
@@ -97,5 +98,4 @@
 	<definition name="secure_inProgres" extends="base.definition">
 		<put-attribute name="body" value="/views/tiles/inProgres.jsp" />
 	</definition>
-
 </tiles-definitions>

@@ -13,9 +13,9 @@ import tc.lv.dao.SourceDao;
 import tc.lv.dao.implementations.IpQueryEnum;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
-import tc.lv.domain.Location;
 import tc.lv.exceptions.BlackListServiceException;
 import tc.lv.service.BlackListService;
+import tc.lv.utils.GeoIpUtil;
 
 @Service
 public class BlackListServiceImpl implements BlackListService {
@@ -28,6 +28,8 @@ public class BlackListServiceImpl implements BlackListService {
 
 	@Autowired
 	private SourceDao sourceDao;
+
+	private GeoIpUtil geoIpUtil = new GeoIpUtil();
 
 	@Transactional
 	@Override
@@ -80,9 +82,10 @@ public class BlackListServiceImpl implements BlackListService {
 					IpQueryEnum.IP_V4);
 
 			if ((tempIpV4 == null) || (tempIpV4.getWhiteList() != false)) {
+				geoIpUtil.init();
 				if (tempIpV4 == null) {
 					tempIpV4 = new IpV4Address(address, new Date(),
-							new Location("Ukraine", "UA", "Lviv"));
+							geoIpUtil.findLocationByIpAddress(address));
 					tempIpV4.getSourceSet().add(
 							sourceDao.findByName(ADMIN_BLACK_LIST));
 					tempIpV4.setWhiteList(false);
@@ -94,6 +97,7 @@ public class BlackListServiceImpl implements BlackListService {
 					tempIpV4.setWhiteList(false);
 					ipAddressDao.save(tempIpV4);
 				}
+				geoIpUtil.close();
 				return true;
 			}
 			return false;
@@ -115,9 +119,10 @@ public class BlackListServiceImpl implements BlackListService {
 			IpV6Address tempIpV6 = ipAddressDao.findByAddress(address,
 					IpQueryEnum.IP_V6);
 			if ((tempIpV6 == null) || (tempIpV6.getWhiteList() != false)) {
-
+				geoIpUtil.init();
 				if (tempIpV6 == null) {
-					tempIpV6 = new IpV6Address(address, new Date());
+					tempIpV6 = new IpV6Address(address, new Date(),
+							geoIpUtil.findLocationByIpAddress(address));
 					tempIpV6.getSourceSet().add(
 							sourceDao.findByName(ADMIN_BLACK_LIST));
 					tempIpV6.setWhiteList(false);
@@ -129,6 +134,7 @@ public class BlackListServiceImpl implements BlackListService {
 					tempIpV6.setWhiteList(false);
 					ipAddressDao.save(tempIpV6);
 				}
+				geoIpUtil.close();
 				return true;
 			}
 			return false;
