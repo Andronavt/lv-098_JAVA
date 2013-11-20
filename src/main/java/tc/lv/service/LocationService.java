@@ -4,7 +4,7 @@ import java.util.List;
 
 import tc.lv.domain.IpAddress;
 
-public interface MapService {
+public interface LocationService {
 
     public List<IpAddress> loadWhiteListOfCityByRange(int i1, int i2);
 

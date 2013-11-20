@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.domain.IpAddress;
-import tc.lv.service.MapService;
+import tc.lv.service.LocationService;
 
-public class MapServiceImpl implements MapService {
+public class MapServiceImpl implements LocationService {
 
     @Override
     @Transactional

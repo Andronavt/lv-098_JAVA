@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import tc.lv.dao.DaoAbstract;
@@ -20,18 +19,35 @@ import tc.lv.domain.Source;
 
 @Repository
 public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
-    private static final Logger LOGGER = Logger.getLogger(IpAddressDaoImpl.class);
 
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
-    @Deprecated
-    public IpAddressDaoImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
     public IpAddressDaoImpl() {
 
+    }
+
+    @Override
+    public Integer countAll(IpQueryEnum myType) {
+        Query query = entityManager.createNamedQuery(myType.countAll());
+        return (Integer) query.getSingleResult();
+    }
+
+    @Override
+    public Integer countBlackIp(IpQueryEnum myType) {
+        Query query = entityManager.createNamedQuery(myType.countWhiteOrBlackList()).setParameter(1, false);
+        return (Integer) query.getSingleResult();
+    }
+
+    @Override
+    public Integer countWhiteIp(IpQueryEnum myType) {
+        Query query = entityManager.createNamedQuery(myType.countWhiteOrBlackList()).setParameter(1, true);
+        return (Integer) query.getSingleResult();
+    }
+
+    @Override
+    public void deleteIp(IpAddress address) {
+        entityManager.remove(address);
     }
 
     @Override
@@ -45,10 +61,48 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
+    public <T extends IpAddress> List<T> findBlackListByCityName(int from, int count, String cityName,
+            IpQueryEnum myType) {
+        return findWhiteOrBlackListByCityName(from, count, cityName, false, myType);
+    }
+
+    @Override
+    public <T extends IpAddress> List<T> findBlackListByCityName(String cityName, IpQueryEnum myType) {
+        return findWhiteOrBlackListByCityName(cityName, false, myType);
+    }
+
+    @Override
+    public <T extends IpAddress> List<T> findBlackListByCountryName(int from, int count, String contryName,
+            IpQueryEnum myType) {
+        return findWhiteOrBlackListByCountyName(from, count, contryName, false, myType);
+    }
+
+    @Override
+    public <T extends IpAddress> List<T> findBlackListByCountryName(String contryName, IpQueryEnum myType) {
+        return findWhiteOrBlackListByCountyName(contryName, false, myType);
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public <T extends IpAddress> T findByAddress(String address, IpQueryEnum myType) {
         Query query = entityManager.createNamedQuery(myType.findByAddress()).setParameter(1, address);
         return (T) find(query);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<String> findCountriesBlackList(IpQueryEnum myType) {
+        Query query = entityManager.createNamedQuery(myType.findCountriesWhiteOrBlackList());
+        query = query.setParameter(1, false);
+        return query.getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<String> findCountriesWhiteList(IpQueryEnum myType) {
+        Query query = entityManager.createNamedQuery(myType.findCountriesWhiteOrBlackList());
+        query = query.setParameter(1, true);
+        return query.getResultList();
     }
 
     @SuppressWarnings("unchecked")
@@ -86,6 +140,58 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     @Override
     public <T extends IpAddress> List<T> findWhiteList(IpQueryEnum myType) {
         return findIpList(true, myType);
+    }
+
+    @Override
+    public <T extends IpAddress> List<T> findWhiteListByCityName(int from, int count, String cityName,
+            IpQueryEnum myType) {
+        return findWhiteOrBlackListByCityName(from, count, cityName, true, myType);
+    }
+
+    @Override
+    public <T extends IpAddress> List<T> findWhiteListByCityName(String cityName, IpQueryEnum myType) {
+        return findWhiteOrBlackListByCityName(cityName, true, myType);
+    }
+
+    @Override
+    public <T extends IpAddress> List<T> findWhiteListByCountryName(int from, int count, String contryName,
+            IpQueryEnum myType) {
+        return findWhiteOrBlackListByCountyName(from, count, contryName, true, myType);
+    }
+
+    @Override
+    public <T extends IpAddress> List<T> findWhiteListByCountyName(String contryName, IpQueryEnum myType) {
+        return findWhiteOrBlackListByCountyName(contryName, true, myType);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T extends IpAddress> List<T> findWhiteOrBlackListByCityName(String cityName, boolean whiteList,
+            IpQueryEnum myType) {
+        Query query = entityManager.createNamedQuery(myType.findWhiteOrBlackListByCity());
+        query = query.setParameter(1, whiteList).setParameter(2, cityName);
+        return query.getResultList();
+    }
+
+    private <T extends IpAddress> List<T> findWhiteOrBlackListByCityName(int from, int count, String cityName,
+            boolean whiteList, IpQueryEnum myType) {
+        Query query = entityManager.createNamedQuery(myType.findWhiteOrBlackListByCity());
+        query = query.setParameter(1, whiteList).setParameter(2, cityName);
+        return findRange(from, count, query);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T extends IpAddress> List<T> findWhiteOrBlackListByCountyName(String contryName, boolean whiteList,
+            IpQueryEnum myType) {
+        Query query = entityManager.createNamedQuery(myType.findWhiteOrBlackListByCountry());
+        query = query.setParameter(1, whiteList).setParameter(2, contryName);
+        return query.getResultList();
+    }
+
+    private <T extends IpAddress> List<T> findWhiteOrBlackListByCountyName(int from, int count, String contryName,
+            boolean whiteList, IpQueryEnum myType) {
+        Query query = entityManager.createNamedQuery(myType.findWhiteOrBlackListByCountry());
+        query = query.setParameter(1, whiteList).setParameter(2, contryName);
+        return findRange(from, count, query);
     }
 
     @Override
@@ -180,65 +286,6 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
             }
             entityManager.persist(ip);
         }
-    }
-
-    @Override
-    public <T extends IpAddress> List<T> findWhiteListByCountyName(String contryName, IpQueryEnum myType) {
-        return findWhiteOrBlackListByCountyName(contryName, true, myType);
-    }
-
-    @Override
-    public <T extends IpAddress> List<T> findBlackListByCountryName(String contryName, IpQueryEnum myType) {
-        return findWhiteOrBlackListByCountyName(contryName, false, myType);
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T extends IpAddress> List<T> findWhiteOrBlackListByCountyName(String contryName, boolean whiteList,
-            IpQueryEnum myType) {
-        Query query = entityManager.createNamedQuery(myType.findWhiteOrBlackListByCountry());
-        query = query.setParameter(1, whiteList).setParameter(2, contryName);
-        return query.getResultList();
-    }
-
-    @Override
-    public <T extends IpAddress> List<T> findWhiteListByCityName(String cityName, IpQueryEnum myType) {
-        return findWhiteOrBlackListByCityName(cityName, true, myType);
-    }
-
-    @Override
-    public <T extends IpAddress> List<T> findBlackListByCityName(String cityName, IpQueryEnum myType) {
-        return findWhiteOrBlackListByCityName(cityName, false, myType);
-    }
-
-    @SuppressWarnings("unchecked")
-    private <T extends IpAddress> List<T> findWhiteOrBlackListByCityName(String cityName, boolean whiteList,
-            IpQueryEnum myType) {
-        Query query = entityManager.createNamedQuery(myType.findWhiteOrBlackListByCity());
-        query = query.setParameter(1, whiteList).setParameter(2, cityName);
-        return query.getResultList();
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends String> List<T> findCountriesWhiteList(IpQueryEnum myType) {
-        Query query = entityManager.createNamedQuery(myType.findCountriesWhiteOrBlackList());
-        query = query.setParameter(1, true);
-        List<String> list = query.getResultList();
-        return (List<T>) list;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends String> List<T> findCountriesBlackList(IpQueryEnum myType) {
-        Query query = entityManager.createNamedQuery(myType.findCountriesWhiteOrBlackList());
-        query = query.setParameter(1, false);
-        List<String> list = query.getResultList();
-        return (List<T>) list;
-    }
-
-    @Override
-    public void deleteIp(IpAddress address) {
-        entityManager.remove(address);
     }
 
 }
