@@ -27,12 +27,14 @@ public class JsonServiceImpl implements JsonService {
         FileWriter file;
 
         try {
-            LOGGER.info("SSTART JSON IN TRY!!!!!!!!!!!!!!!!!!!");
+            LOGGER.info("START JSON IN TRY!!!!!!!!!!!!!!!!!!!");
             LOGGER.info("SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                     + ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP).size());
             LOGGER.info(path);
             file = new FileWriter(path + "countryJsonWhiteList.txt");
             for (String country : ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP)) {
+                LOGGER.info("COUNTRY COUNT IP"
+                        + ipAddressDao.findWhiteListByCountyName(country, IpQueryEnum.IP).size());
                 json.put(country, ipAddressDao.findWhiteListByCountyName(country, IpQueryEnum.IP).size());
             }
             LOGGER.info("BEFORE STOP !!!!!!!!!!!!!!!!!!!");
@@ -53,12 +55,14 @@ public class JsonServiceImpl implements JsonService {
         JSONObject json = new JSONObject();
         FileWriter file;
         try {
-            LOGGER.info("SSTART JSON IN TRY!!!!!!!!!!!!!!!!!!!");
+            LOGGER.info("START JSON IN TRY!!!!!!!!!!!!!!!!!!!");
             LOGGER.info("SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                     + ipAddressDao.findCountriesBlackList(IpQueryEnum.IP).size());
             LOGGER.info(path);
             file = new FileWriter(path + "countryJsonBlackList.txt");
             for (String country : ipAddressDao.findCountriesBlackList(IpQueryEnum.IP)) {
+                LOGGER.info("COUNTRY COUNT IP"
+                        + ipAddressDao.findBlackListByCountryName(country, IpQueryEnum.IP).size());
                 json.put(country, ipAddressDao.findBlackListByCountryName(country, IpQueryEnum.IP).size());
             }
             LOGGER.info("BEFORE STOP !!!!!!!!!!!!!!!!!!!");
