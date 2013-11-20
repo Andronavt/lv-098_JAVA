@@ -21,17 +21,17 @@
 <p align="right">
 
 	<sec:authorize access="isAnonymous()">
-   <em> <strong> <font color="#600000">Welcome! Guest</font></strong></em>
+ 	<em><strong> <font size="3" color="#FFFFFF">Welcome! Guest&#09;</font></strong></em>
    </sec:authorize>
 	<sec:authorize access="isAuthenticated()">
-   <em><strong> <font color="#600000">Welcome! <sec:authentication property="principal.username" /> </font></strong></em>
+   <em><strong> <font size="3" color="#FFFFFF">Welcome!	<sec:authentication property="principal.username" />&#09; </font></strong></em>
 	</sec:authorize>
-
+	
 	<sec:authorize access="isAnonymous()">
-		<a class="btn btn-success" href="signin" id="getContentLogin">Login/Registration</a>
+		<a class="btn" href="signin" id="getContentLogin">Login/Registration</a>
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
-		<a class="btn btn-success" href="<c:url value="/j_spring_security_logout"/>">Logout</a>
+		<a class="btn" href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 	</sec:authorize>
 
 </p>

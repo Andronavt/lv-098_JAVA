@@ -1,6 +1,6 @@
 body {
 	font: 10pt Arial, Helvetica, sans-serif;
-	background: #e1dfb9;
+	background: #FFFFFF;
 }
 
 h2 {
@@ -13,7 +13,7 @@ h2 {
 	font-size: 1.4em;
 	text-align: right;
 	padding: 5px;
-	background-color: #6f95ad;
+	background-color: #343434;
 	background-image: url(IP-banner.jpg);
 }
 
@@ -33,13 +33,13 @@ h2 {
 #body {
 	margin-left: 220px;
 	padding: 10px;
-	background: #fff;
+	background: #FFFFFF;
 	margin-bottom: 40px;
 }
 
 #footer {
-	background: #6f95ad;
-	color: #fff;
+	background: #A8A8A8;
+	color: #0C0404;
 	padding: 5px;
 	position: fixed;
 	height: 40px;
