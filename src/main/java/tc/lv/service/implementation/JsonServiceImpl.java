@@ -25,14 +25,16 @@ public class JsonServiceImpl implements JsonService {
     public void createJsonCountryWhiteList(String path) throws JsonServiceException {
         JSONObject json = new JSONObject();
         FileWriter file;
-
         try {
-            LOGGER.info("SSTART JSON IN TRY!!!!!!!!!!!!!!!!!!!");
+            LOGGER.info("START JSON IN TRY!!!!!!!!!!!!!!!!!!!");
             LOGGER.info("SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                     + ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP).size());
             LOGGER.info(path);
-            file = new FileWriter(path + "countryJsonWhiteList.txt");
+            file = new FileWriter(path + "countryJsonWhiteList.js");
+            file.write("var array =");
             for (String country : ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP)) {
+                LOGGER.info("COUNTRY COUNT IP"
+                        + ipAddressDao.findWhiteListByCountyName(country, IpQueryEnum.IP).size());
                 json.put(country, ipAddressDao.findWhiteListByCountyName(country, IpQueryEnum.IP).size());
             }
             LOGGER.info("BEFORE STOP !!!!!!!!!!!!!!!!!!!");
@@ -53,12 +55,15 @@ public class JsonServiceImpl implements JsonService {
         JSONObject json = new JSONObject();
         FileWriter file;
         try {
-            LOGGER.info("SSTART JSON IN TRY!!!!!!!!!!!!!!!!!!!");
+            LOGGER.info("START JSON IN TRY!!!!!!!!!!!!!!!!!!!");
             LOGGER.info("SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                     + ipAddressDao.findCountriesBlackList(IpQueryEnum.IP).size());
             LOGGER.info(path);
-            file = new FileWriter(path + "countryJsonBlackList.txt");
+            file = new FileWriter(path + "countryJsonBlackList.js");
+            file.write("var array =");
             for (String country : ipAddressDao.findCountriesBlackList(IpQueryEnum.IP)) {
+                LOGGER.info("COUNTRY COUNT IP"
+                        + ipAddressDao.findBlackListByCountryName(country, IpQueryEnum.IP).size());
                 json.put(country, ipAddressDao.findBlackListByCountryName(country, IpQueryEnum.IP).size());
             }
             LOGGER.info("BEFORE STOP !!!!!!!!!!!!!!!!!!!");

@@ -96,7 +96,7 @@ public class IpAddress {
     public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1 and ip.city.cityName = ?2";
 
     public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY = "IpAddress.findWhiteOrBlackListByCountry";
-    public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1 and ip.city.country.countryName = ?2";
+    public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1 and ip.city.country.countryCode = ?2";
 
     @Column(name = "address", updatable = true, nullable = false, unique = true)
     protected String address;
