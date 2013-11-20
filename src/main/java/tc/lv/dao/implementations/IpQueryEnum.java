@@ -7,7 +7,7 @@ import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
 
 public enum IpQueryEnum implements IpInterface {
-    IP(IpAddress.class) {
+    IP {
 
         @Override
         public String findAll() {
@@ -45,12 +45,12 @@ public enum IpQueryEnum implements IpInterface {
         }
 
         @Override
-        public String findWhiteIpByName() {
+        public String findWhiteOrBlackIpByName() {
             return IpAddress.FIND_WHITE_OR_BLACK_IP_BY_NAME;
         }
 
         @Override
-        public String findWhitelist() {
+        public String findWhiteOrBlackList() {
             return IpAddress.FIND_WHITE_OR_BLACK_LIST;
         }
 
@@ -65,11 +65,36 @@ public enum IpQueryEnum implements IpInterface {
         }
 
         @Override
-        public String findLocationWhiteOrBlackList() {
-            return IpAddress.FIND_LOCATION_WHITE_OR_BLACK_LIST;
+        public String countAll() {
+            return IpAddress.COUNT_ALL;
+        }
+
+        @Override
+        public String countWhiteOrBlackList() {
+            return IpAddress.COUNT_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String findCitiesWhiteOrBlackList() {
+            return IpAddress.FIND_CITIES_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String findCountriesWhiteOrBlackList() {
+            return IpAddress.FIND_COUNTRIES_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String findIpListByCity() {
+            return IpAddress.FIND_IPLIST_BY_CITY;
+        }
+
+        @Override
+        public String findIpListByCountry() {
+            return IpAddress.FIND_IPLIST_BY_COUNTRY;
         }
     },
-    IP_NOT_VALID(NotValidIp.class) {
+    IP_NOT_VALID {
 
         @Override
         public String findAll() {
@@ -93,7 +118,7 @@ public enum IpQueryEnum implements IpInterface {
 
         @Override
         public String findByAddress() {
-            return null;
+            return NotValidIp.FIND_BY_ADDRESS;
         }
 
         @Override
@@ -103,16 +128,6 @@ public enum IpQueryEnum implements IpInterface {
 
         @Override
         public String findUndefinedlist() {
-            throw new IllegalArgumentException("This method didn't supported");
-        }
-
-        @Override
-        public String findWhiteIpByName() {
-            throw new IllegalArgumentException("This method didn't supported");
-        }
-
-        @Override
-        public String findWhitelist() {
             throw new IllegalArgumentException("This method didn't supported");
         }
 
@@ -127,11 +142,46 @@ public enum IpQueryEnum implements IpInterface {
         }
 
         @Override
-        public String findLocationWhiteOrBlackList() {
+        public String findWhiteOrBlackIpByName() {
+            throw new IllegalArgumentException("This method didn't supported");
+        }
+
+        @Override
+        public String findWhiteOrBlackList() {
+            throw new IllegalArgumentException("This method didn't supported");
+        }
+
+        @Override
+        public String findCitiesWhiteOrBlackList() {
+            throw new IllegalArgumentException("This method didn't supported");
+        }
+
+        @Override
+        public String findCountriesWhiteOrBlackList() {
+            throw new IllegalArgumentException("This method didn't supported");
+        }
+
+        @Override
+        public String countAll() {
+            return NotValidIp.COUNT_ALL;
+        }
+
+        @Override
+        public String countWhiteOrBlackList() {
+            throw new IllegalArgumentException("This method didn't supported");
+        }
+
+        @Override
+        public String findIpListByCity() {
+            throw new IllegalArgumentException("This method didn't supported");
+        }
+
+        @Override
+        public String findIpListByCountry() {
             throw new IllegalArgumentException("This method didn't supported");
         }
     },
-    IP_V4(IpV4Address.class) {
+    IP_V4 {
 
         @Override
         public String findAll() {
@@ -169,16 +219,6 @@ public enum IpQueryEnum implements IpInterface {
         }
 
         @Override
-        public String findWhiteIpByName() {
-            return IpV4Address.FIND_WHITE_OR_BLACK_IP_BY_NAME;
-        }
-
-        @Override
-        public String findWhitelist() {
-            return IpV4Address.FIND_WHITE_OR_BLACK_LIST;
-        }
-
-        @Override
         public String findWhiteOrBlackListByCity() {
             return IpV4Address.FIND_WHITE_OR_BLACK_LIST_BY_CITY;
         }
@@ -189,11 +229,46 @@ public enum IpQueryEnum implements IpInterface {
         }
 
         @Override
-        public String findLocationWhiteOrBlackList() {
-            return IpV4Address.FIND_LOCATION_WHITE_OR_BLACK_LIST;
+        public String findWhiteOrBlackIpByName() {
+            return IpV4Address.FIND_WHITE_OR_BLACK_IP_BY_NAME;
+        }
+
+        @Override
+        public String findWhiteOrBlackList() {
+            return IpV4Address.FIND_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String findCitiesWhiteOrBlackList() {
+            return IpV4Address.FIND_CITIES_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String findCountriesWhiteOrBlackList() {
+            return IpV4Address.FIND_COUNTRIES_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String countAll() {
+            return IpV4Address.COUNT_ALL;
+        }
+
+        @Override
+        public String countWhiteOrBlackList() {
+            return IpV4Address.COUNT_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String findIpListByCity() {
+            return IpV4Address.FIND_IPLIST_BY_CITY;
+        }
+
+        @Override
+        public String findIpListByCountry() {
+            return IpV4Address.FIND_IPLIST_BY_COUNTRY;
         }
     },
-    IP_V6(IpV6Address.class) {
+    IP_V6 {
         @Override
         public String findAll() {
             return IpV6Address.FIND_ALL;
@@ -230,16 +305,6 @@ public enum IpQueryEnum implements IpInterface {
         }
 
         @Override
-        public String findWhiteIpByName() {
-            return IpV6Address.FIND_WHITE_OR_BLACK_IP_BY_NAME;
-        }
-
-        @Override
-        public String findWhitelist() {
-            return IpV6Address.FIND_WHITE_OR_BLACK_LIST;
-        }
-
-        @Override
         public String findWhiteOrBlackListByCity() {
             return IpV6Address.FIND_WHITE_OR_BLACK_LIST_BY_CITY;
         }
@@ -250,19 +315,44 @@ public enum IpQueryEnum implements IpInterface {
         }
 
         @Override
-        public String findLocationWhiteOrBlackList() {
-            return IpV6Address.FIND_LOCATION_WHITE_OR_BLACK_LIST;
+        public String findWhiteOrBlackIpByName() {
+            return IpV6Address.FIND_WHITE_OR_BLACK_IP_BY_NAME;
+        }
+
+        @Override
+        public String findWhiteOrBlackList() {
+            return IpV6Address.FIND_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String findCitiesWhiteOrBlackList() {
+            return IpV6Address.FIND_CITIES_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String findCountriesWhiteOrBlackList() {
+            return IpV6Address.FIND_COUNTRIES_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String countAll() {
+            return IpV6Address.COUNT_ALL;
+        }
+
+        @Override
+        public String countWhiteOrBlackList() {
+            return IpV6Address.COUNT_WHITE_OR_BLACK_LIST;
+        }
+
+        @Override
+        public String findIpListByCity() {
+            return IpV6Address.FIND_IPLIST_BY_CITY;
+        }
+
+        @Override
+        public String findIpListByCountry() {
+            return IpV6Address.FIND_IPLIST_BY_COUNTRY;
         }
     };
-
-    Class<? extends IpAddress> clazz;
-
-    IpQueryEnum(Class<? extends IpAddress> clazz) {
-        this.clazz = clazz;
-    }
-
-    public Class<? extends IpAddress> getClazz() {
-        return clazz;
-    }
 
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import tc.lv.dao.DaoAbstract;
 import tc.lv.dao.SourceDao;
-import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
 
 @Repository
@@ -42,27 +41,6 @@ public class SourceDaoImpl extends DaoAbstract implements SourceDao {
 
     @Override
     public void delete(Source source) {
-        // deleteSourceWithoutIp(source);
         entityManager.remove(source);
-    }
-
-    // deleteSourceWithIp
-    public void deleteSourceWithIp(Source source) {
-        for (IpAddress ip : source.getIpSet()) {
-            ip.getSourceSet().remove(source);
-
-            if (ip.getSourceSet().size() == 0) {
-                entityManager.remove(ip);
-            }
-        }
-        source.getIpSet().clear();
-
-        entityManager.remove(source);
-    }
-
-    // deleteSourceWithoutIp
-    public void deleteSourceWithoutIp(Source source) {
-        entityManager.createNamedQuery(Source.DELETE).setParameter(1, source.getSourceName()).executeUpdate();
-
     }
 }

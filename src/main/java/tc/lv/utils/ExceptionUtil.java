@@ -7,18 +7,16 @@ public class ExceptionUtil {
 
     public static List<String> createErrorList(Exception e) {
         ArrayList<String> errorList = new ArrayList<String>();
+        Exception cause = e;
 
-        if (e.getCause() != null) {
-            Exception cause = (Exception) e.getCause();
-            for (StackTraceElement ste : cause.getStackTrace()) {
-                errorList.add(ste.toString());
-            }
-
-        } else {
-            for (StackTraceElement ste : e.getStackTrace()) {
-                errorList.add(ste.toString());
-            }
+        while (cause.getCause() != null) {
+            cause = (Exception) cause.getCause();
         }
+
+        for (StackTraceElement ste : cause.getStackTrace()) {
+            errorList.add(ste.toString());
+        }
+
         return errorList;
     }
 }
