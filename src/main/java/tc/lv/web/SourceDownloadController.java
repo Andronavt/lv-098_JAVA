@@ -74,10 +74,11 @@ public class SourceDownloadController {
             LOGGER.info("Finish downloading, parsing and updating Data Base");
 
             LOGGER.info("Start creating JSON for VectorMap");
-
+            
+            jsonService.createJsonCountryWhiteList(PATH);
             jsonService.createJsonCountryBlackList(PATH);
             //
-            jsonService.createJsonCountryWhiteList(PATH);
+            
 
             LOGGER.info("Start creating JSON for VectorMap");
 
