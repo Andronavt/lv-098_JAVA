@@ -73,14 +73,14 @@
 			value="/views/secure/paginationWhiteListAndBlackList.jsp" />
 	</definition>
 
-	<definition name="secure_whiteIpByCity" extends="base.definition">
+	<definition name="secure_showIpListByCountry" extends="base.definition">
 		<put-attribute name="body"
-			value="/views/secure/paginationIpByCityAndByCountry.jsp" />
+			value="/views/secure/paginationIpListByCountryAndCity.jsp" />
 	</definition>
 
-	<definition name="secure_whiteIpByCountry" extends="base.definition">
+	<definition name="secure_showIpListByCity" extends="base.definition">
 		<put-attribute name="body"
-			value="/views/secure/paginationIpByCityAndByCountry.jsp" />
+			value="/views/secure/paginationIpListByCountryAndCity.jsp" />
 	</definition>
 
 	<!-- Result page -->

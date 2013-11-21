@@ -30,6 +30,7 @@
 		<option value="-1">All Ip</option>
 		<option value="0">Ip v4</option>
 		<option value="1">Ip v6</option>
+	</select> <select name="location">
 	</select>
 </div>
 <script>
@@ -38,8 +39,10 @@
 		$.ajax({
 			type : "POST",
 			url : location.href,
-			data : "pageNumber=" + page + "&countIpPerPage=" + $('select[name=count]').val()
-					+ "&ipType" + $('select[name=ipType]').val(),
+			data : "pageNumber=" + page + "&countIpPerPage="
+					+ $('select[name=count]').val() + "&ipType"
+					+ $('select[name=ipType]').val() + "&location"
+					+ $('select[name=location]').val(),
 			success : function(response) {
 				$("#content").html(response);
 			},
