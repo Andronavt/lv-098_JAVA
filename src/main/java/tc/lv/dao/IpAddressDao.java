@@ -33,24 +33,24 @@ public interface IpAddressDao {
 
     void updateWhiteList(IpQueryEnum myType);
 
-    <T extends IpAddress> List<T> findWhiteListByCountyName(String contryName, IpQueryEnum myType);
+    <T extends IpAddress> List<T> findWhiteListByCountyName(String countryName, IpQueryEnum myType);
 
-    <T extends IpAddress> List<T> findBlackListByCountryName(String contryName, IpQueryEnum myType);
+    <T extends IpAddress> List<T> findBlackListByCountryName(String countryName, IpQueryEnum myType);
 
     <T extends IpAddress> List<T> findWhiteListByCityName(String cityName, IpQueryEnum myType);
 
     <T extends IpAddress> List<T> findBlackListByCityName(String cityName, IpQueryEnum myType);
 
-    <T extends IpAddress> List<T> findWhiteListByCountryName(int from, int count, String contryName,
+    <T extends IpAddress> List<T> findWhiteListByCountryName(int from, int count, String countryName,
             IpQueryEnum myType);
 
-    <T extends IpAddress> List<T> findBlackListByCountryName(int from, int count, String contryName,
+    <T extends IpAddress> List<T> findBlackListByCountryName(int from, int count, String countryName,
             IpQueryEnum myType);
 
-    <T extends IpAddress> List<T> findWhiteListByCityName(int from, int count, String contryName,
+    <T extends IpAddress> List<T> findWhiteListByCityName(int from, int count, String countryName,
             IpQueryEnum myType);
 
-    <T extends IpAddress> List<T> findBlackListByCityName(int from, int count, String contryName,
+    <T extends IpAddress> List<T> findBlackListByCityName(int from, int count, String countryName,
             IpQueryEnum myType);
 
     List<String> findCountriesWhiteList(IpQueryEnum myType);
@@ -63,7 +63,7 @@ public interface IpAddressDao {
 
     Integer countBlackIp(IpQueryEnum myType);
 
-    Integer countWhiteListByCountyName(String contryName, IpQueryEnum myType);
+    Integer countWhiteListByCountyName(String countryName, IpQueryEnum myType);
 
-    Integer countBlackListByCountyName(String contryName, IpQueryEnum myType);
+    Integer countBlackListByCountyName(String countryName, IpQueryEnum myType);
 }
