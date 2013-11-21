@@ -48,15 +48,14 @@
 					<option value="1">white list</option>
 			</select></b>
 		</div>
-		<br>
 	</form>
 
 	<input class="btn btn-primary" id="btnAddIp" type="button" name="addIp" value="ADD">
+	
+	<div id="Info" style="color: green;"></div>
 </fieldset>
 
 
-
-<div id="Info" style="color: green;"></div>
 
 <script type="text/javascript">
 	$(document).ready(function() {

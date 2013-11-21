@@ -11,7 +11,6 @@
 		<class>tc.lv.domain.IpV6Address</class>
 		<class>tc.lv.domain.NotValidIp</class>
 		<class>tc.lv.domain.Role</class>
-		<class>tc.lv.domain.SettingsForPagination</class>
 		<class>tc.lv.domain.Source</class>
 		<class>tc.lv.domain.User</class>
 		<properties>
