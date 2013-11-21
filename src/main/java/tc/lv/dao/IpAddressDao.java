@@ -33,16 +33,37 @@ public interface IpAddressDao {
 
     void updateWhiteList(IpQueryEnum myType);
 
-    <T extends IpAddress> List<T> findWhiteListByCountyName(String contryName, IpQueryEnum myType);
+    <T extends IpAddress> List<T> findWhiteListByCountyName(String countryName, IpQueryEnum myType);
 
-    <T extends IpAddress> List<T> findBlackListByCountryName(String contryName, IpQueryEnum myType);
+    <T extends IpAddress> List<T> findBlackListByCountryName(String countryName, IpQueryEnum myType);
 
     <T extends IpAddress> List<T> findWhiteListByCityName(String cityName, IpQueryEnum myType);
 
     <T extends IpAddress> List<T> findBlackListByCityName(String cityName, IpQueryEnum myType);
 
-    <T extends String> List<T> findCountriesWhiteList(IpQueryEnum myType);
+    <T extends IpAddress> List<T> findWhiteListByCountryName(int from, int count, String countryName,
+            IpQueryEnum myType);
 
-    <T extends String> List<T> findCountriesBlackList(IpQueryEnum myType);
+    <T extends IpAddress> List<T> findBlackListByCountryName(int from, int count, String countryName,
+            IpQueryEnum myType);
 
+    <T extends IpAddress> List<T> findWhiteListByCityName(int from, int count, String countryName,
+            IpQueryEnum myType);
+
+    <T extends IpAddress> List<T> findBlackListByCityName(int from, int count, String countryName,
+            IpQueryEnum myType);
+
+    List<String> findCountriesWhiteList(IpQueryEnum myType);
+
+    List<String> findCountriesBlackList(IpQueryEnum myType);
+
+    Integer countAll(IpQueryEnum myType);
+
+    Integer countWhiteIp(IpQueryEnum myType);
+
+    Integer countBlackIp(IpQueryEnum myType);
+
+    Long countWhiteListByCountyName(String countryName, IpQueryEnum myType);
+
+    Long countBlackListByCountyName(String countryName, IpQueryEnum myType);
 }
