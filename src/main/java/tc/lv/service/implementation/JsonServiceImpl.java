@@ -29,7 +29,7 @@ public class JsonServiceImpl implements JsonService {
             LOGGER.info("Start creating JSON-file for WhiteList Map.");
 
             for (String country : ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP)) {
-                json.put(country, ipAddressDao.countWhiteListByCountyName(country, IpQueryEnum.IP));
+                json.put(country, ipAddressDao.findWhiteListByCountyName(country, IpQueryEnum.IP).size());
             }
 
             file = new FileWriter(path + "countryJsonWhiteList.js");
@@ -55,7 +55,7 @@ public class JsonServiceImpl implements JsonService {
             LOGGER.info("Start creating JSON-file for BlackList Map.");
 
             for (String country : ipAddressDao.findCountriesBlackList(IpQueryEnum.IP)) {
-                json.put(country, ipAddressDao.countBlackListByCountyName(country, IpQueryEnum.IP));
+                json.put(country, ipAddressDao.findBlackListByCountryName(country, IpQueryEnum.IP).size());
             }
 
             file = new FileWriter(path + "countryJsonBlackList.js");

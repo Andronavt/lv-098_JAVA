@@ -1,1 +1,1 @@
-var array ={}
+var array ={"CY":1,"US":4,"BY":1,"JO":1,"BR":2,"IN":3,"VN":2,"TH":1,"AU":2,"IR":1,"RO":3,"CA":4,"PL":2,"VE":1,"UA":4,"RS":2,"RU":5,"PH":1,"GR":1,"ES":2,"NL":1,"ID":1,"PE":1,"CM":1,"CN":2,"TW":1,"MA":1}
