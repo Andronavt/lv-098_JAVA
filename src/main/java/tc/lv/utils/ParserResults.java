@@ -13,10 +13,6 @@ public class ParserResults {
     private ArrayList<NotValidIp> notValidList = new ArrayList<NotValidIp>();
     private int sourceId;
 
-    public void printLists() {
-        System.out.println("ipV4List size " + ipV4List.size());
-    }
-
     public ArrayList<IpV4Address> getIpV4List() {
         return ipV4List;
     }

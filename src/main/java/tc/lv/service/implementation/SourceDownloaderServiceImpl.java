@@ -23,7 +23,8 @@ import tc.lv.utils.ParserResults;
 @Service
 public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     private static final Logger LOGGER = Logger.getLogger(SourceDownloaderServiceImpl.class);
-
+    private static final String PROJECT_DIR = System.getenv("LV098_JAVA");
+    
     @Autowired
     private SourceDao sourceDao;
 
@@ -46,7 +47,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
                 for (Source source : sourceSet) {
 
                     if (source.getSourceName().equals(sourceName)) {
-                        file = downloader.downloadFile(source.getUrl(), source.getDirname());
+                        file = downloader.downloadFile(source.getUrl(), PROJECT_DIR + source.getDirname());
                         ParserResults tmp = parserMap.get(source).parse(file);
                         tmp.setSourceId(source.getSourceId());
                         resultList.add(tmp);

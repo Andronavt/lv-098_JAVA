@@ -31,7 +31,6 @@ public class ParserUceprotect implements Parser {
     @Override
     public ParserResults parse(File file) throws DownloadException {
         LOGGER.info("START PARSING Uceprotect");
-
         Matcher matcher;
         Scanner scanner;
 
@@ -40,20 +39,20 @@ public class ParserUceprotect implements Parser {
             geoIpUtil.init();
 
             while (scanner.hasNext()) {
-                String ipStr = "";
+                String tmpIpAddress = "";
                 matcher = PATTERN.matcher(scanner.nextLine());
 
                 if (matcher.find()) {
-                    ipStr = matcher.group();
+                    tmpIpAddress = matcher.group();
 
-                    if (IpValidator.isIpV4(ipStr)) {
-                        parserResults.addToIpV4List(new IpV4Address(ipStr, new Date(), geoIpUtil
-                                .findLocationByIpAddress(ipStr)));
-                    } else if (IpValidator.isIpV6(ipStr)) {
-                        parserResults.addToIpV6List(new IpV6Address(ipStr, new Date(), geoIpUtil
-                                .findLocationByIpAddress(ipStr)));
+                    if (IpValidator.isIpV4(tmpIpAddress)) {
+                        parserResults.addToIpV4List(new IpV4Address(tmpIpAddress, new Date(), geoIpUtil
+                                .findLocationByIpAddress(tmpIpAddress)));
+                    } else if (IpValidator.isIpV6(tmpIpAddress)) {
+                        parserResults.addToIpV6List(new IpV6Address(tmpIpAddress, new Date(), geoIpUtil
+                                .findLocationByIpAddress(tmpIpAddress)));
                     } else {
-                        parserResults.addToNotValidList(new NotValidIp(ipStr, new Date()));
+                        parserResults.addToNotValidList(new NotValidIp(tmpIpAddress, new Date()));
                     }
                 }
             }
