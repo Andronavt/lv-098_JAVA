@@ -163,7 +163,7 @@ public class ListController {
 
 	// test Black List
 	@RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.GET)
-	public String showIpListFromBlackList() {
+	public String showIpListFromBlackList() {				
 		return "secure_showIpListFromBL";
 	}
 
