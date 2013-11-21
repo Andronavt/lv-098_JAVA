@@ -19,6 +19,50 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     @Transactional
+    public List<String> findCountriesBlackList() throws LocationServiceException {
+        try {
+            return ipAddressDao.findCountriesBlackList(IpQueryEnum.IP);
+
+        } catch (Exception e) {
+            throw new LocationServiceException("Could not load location list.", e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<String> findCountriesWhiteList() throws LocationServiceException {
+        try {
+            return ipAddressDao.findCountriesWhiteList(IpQueryEnum.IP);
+
+        } catch (Exception e) {
+            throw new LocationServiceException("Could not load location list.", e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public Long countBlackListByCountyName(String countryName) throws LocationServiceException {
+        try {
+            return ipAddressDao.countBlackListByCountyName(countryName, IpQueryEnum.IP);
+
+        } catch (Exception e) {
+            throw new LocationServiceException("Could not load location list.", e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public Long countWhiteListByCountyName(String countryName) throws LocationServiceException {
+        try {
+            return ipAddressDao.countWhiteListByCountyName(countryName, IpQueryEnum.IP);
+
+        } catch (Exception e) {
+            throw new LocationServiceException("Could not load location list.", e);
+        }
+    }
+
+    @Override
+    @Transactional
     public List<IpAddress> loadBlackListOfCityByRange(int from, int count, String cityName)
             throws LocationServiceException {
         try {

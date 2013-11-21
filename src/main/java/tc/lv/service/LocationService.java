@@ -7,8 +7,14 @@ import tc.lv.exceptions.LocationServiceException;
 
 public interface LocationService {
 
-    public List<String> 
+    public List<String> findCountriesWhiteList() throws LocationServiceException;
+
+    public List<String> findCountriesBlackList() throws LocationServiceException;
     
+    public Long countWhiteListByCountyName(String countryName) throws LocationServiceException;
+
+    public Long countBlackListByCountyName(String countryName) throws LocationServiceException;
+
     public List<IpAddress> loadWhiteListOfCityByRange(int from, int count, String cityName)
             throws LocationServiceException;
 
