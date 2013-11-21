@@ -23,7 +23,7 @@
 
 <fieldset>
 
-<div id="world-map" style="width: 600px; height: 400px"></div>
+<div id="world-map" style="width: 800px; height: 500px"></div>
 
 </fieldset>
 
