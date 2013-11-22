@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.IpAddressDao;
-import tc.lv.dao.implementations.IpQueryEnum;
+import tc.lv.domain.IpAddress;
+import tc.lv.domain.IpV4Address;
+import tc.lv.domain.IpV6Address;
+import tc.lv.domain.NotValidIp;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.service.ParserResultService;
 import tc.lv.utils.ParserResults;
@@ -29,12 +32,12 @@ public class ParserResultServiceImpl implements ParserResultService {
         LOGGER.info("Start updating Data Base");
         try {
 
-            ipAddressDao.saveList(result.getIpV4List(), result.getSourceId(), IpQueryEnum.IP_V4);
-            ipAddressDao.saveList(result.getIpV6List(), result.getSourceId(), IpQueryEnum.IP_V6);
-            ipAddressDao.saveList(result.getNotValidList(), result.getSourceId(), IpQueryEnum.IP_NOT_VALID);
+            ipAddressDao.saveList(result.getIpV4List(), result.getSourceId(), IpV4Address.class);
+            ipAddressDao.saveList(result.getIpV6List(), result.getSourceId(), IpV6Address.class);
+            ipAddressDao.saveList(result.getNotValidList(), result.getSourceId(), NotValidIp.class);
 
             LOGGER.info("Start update WhiteList");
-            ipAddressDao.updateWhiteList(IpQueryEnum.IP);
+            ipAddressDao.updateStatusList(IpAddress.class);
             LOGGER.info("Finish updating Data Base");
 
             LOGGER.info("Finish update WhiteList");
