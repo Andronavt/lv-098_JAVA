@@ -146,12 +146,12 @@ public class ListController {
 			@ModelAttribute("pageNumber") int page,
 			@ModelAttribute("countIpPerPage") int value,
 			@ModelAttribute("ipType") int ipType, Map<String, Object> map) {
-		System.out.println("PAGE "+page+ " COUNT "+value+ "Iptype "+ipType);
+		System.out.println("PAGE "+page+ " COUNT "+value+ "Iptype "+ipType+" ");
 		try {
 			
 			List<IpAddress> list = new ArrayList<IpAddress>();
 			list.addAll(ipStatusListService.findIpList((page - 1) * value,
-					value, ipType, 0));
+					value,ipType, 0));
 			map.put("ipList", list);
 
 		} catch (IpStatusListServiceException e) {

@@ -35,16 +35,17 @@
 <script>
 	// init bootpag
 	function doAjaxPagination(page) {
+		alert("AJAX");
 		$.ajax({
 			type : "POST",
 			url : location.href,
 			data : "pageNumber=" + page + "&countIpPerPage=" + $('select[name=count]').val()
-					+ "&ipType" + $('select[name=ipType]').val(),
+					+ "&ipType=" + $('select[name=ipType]').val(),
 			success : function(response) {
 				$("#content").html(response);
 			},
 			error : function(e) {
-				alert('Error: ' + e + page + value);
+				alert(e+pageNumber+countIpPerPage+ipType);
 			}
 		});
 	}
