@@ -2,40 +2,39 @@ package tc.lv.dao;
 
 public interface IpInterface {
 
-    String findAll();
+    String countAll();
 
-    String findAllNotValid();
+    String countStatusList();
 
-    String findAllValid();
+    String countStatusIpByCity();
 
-    String findBlackIpByName();
+    String countStatusIpByCountry();
+
+    String findAll();// not used
+
+    String findAllNotValid();// not used
+
+    String findAllValid();// not used
 
     String findByAddress();
 
-    String findBySource();
+    String findIpListBySource();
 
-    String findUndefinedlist();
+    String findCityListByStatus();
 
-    String findWhiteOrBlackIpByName();
+    String findCountryListByStatus();
 
-    String findWhiteOrBlackList();
+    String findIpListByCity();// ??????????
 
-    String findWhiteOrBlackListByCity();
+    String findIpListByCountry();// ???????????
 
-    String findIpListByCity();
+    String findIpByName();// ???????????
 
-    String findWhiteOrBlackListByCountry();
+    String findStatusList();
 
-    String findIpListByCountry();
+    String findStatusListByCity();
 
-    String findCitiesWhiteOrBlackList();
+    String findStatusListByCountry();
 
-    String findCountriesWhiteOrBlackList();
-
-    String countAll();
-
-    String countWhiteOrBlackList();
-
-    String countWhiteOrBlackListByCountry();
-
+    String findUndefinedList();
 }

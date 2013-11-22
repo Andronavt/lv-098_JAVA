@@ -24,41 +24,47 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import tc.lv.dao.IpInterface;
+
 @Entity
 @Table(name = "ip_addresses")
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
         // --------
         @NamedQuery(name = IpAddress.FIND_ALL, query = IpAddress.FIND_ALL_QUERY),
-        @NamedQuery(name = IpAddress.FIND_BY_SOURCE, query = IpAddress.FIND_BY_SOURCE_QUERY),
-        @NamedQuery(name = IpAddress.FIND_BY_ADDRESS, query = IpAddress.FIND_BY_ADDRESS_QUERY),
-        @NamedQuery(name = IpAddress.FIND_WHITE_OR_BLACK_LIST, query = IpAddress.FIND_WHITE_OR_BLACK_LIST_QUERY),
-        @NamedQuery(name = IpAddress.FIND_UNDEFINEDLIST, query = IpAddress.FIND_UNDEFINEDLIST_QUERY),
-        @NamedQuery(name = IpAddress.FIND_WHITE_OR_BLACK_IP_BY_NAME, query = IpAddress.FIND_WHITE_OR_BLACK_IP_BY_NAME_QUERY),
-        @NamedQuery(name = IpAddress.FIND_WHITE_OR_BLACK_LIST_BY_CITY, query = IpAddress.FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY),
-        @NamedQuery(name = IpAddress.FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY, query = IpAddress.FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY),
-        @NamedQuery(name = IpAddress.FIND_CITIES_WHITE_OR_BLACK_LIST, query = IpAddress.FIND_CITIES_WHITE_OR_BLACK_LIST_QUERY),
-        @NamedQuery(name = IpAddress.FIND_COUNTRIES_WHITE_OR_BLACK_LIST, query = IpAddress.FIND_COUNTRIES_WHITE_OR_BLACK_LIST_QUERY),
+        @NamedQuery(name = IpAddress.FIND_IP_LIST_BY_SOURCE, query = IpAddress.FIND_IP_LIST_BY_SOURCE_QUERY),
+        @NamedQuery(name = IpAddress.FIND_IP_LIST_BY_ADDRESS, query = IpAddress.FIND_IP_LIST_BY_ADDRESS_QUERY),
+        @NamedQuery(name = IpAddress.FIND_STATUS_LIST, query = IpAddress.FIND_STATUS_LIST_QUERY),
+        @NamedQuery(name = IpAddress.FIND_UNDEFINED_LIST, query = IpAddress.FIND_UNDEFINEDLIST_QUERY),
+        @NamedQuery(name = IpAddress.FIND_IP_BY_NAME, query = IpAddress.FIND_IP_BY_NAME_QUERY),
+        @NamedQuery(name = IpAddress.FIND_STATUS_LIST_BY_CITY, query = IpAddress.FIND_STATUS_LIST_BY_CITY_QUERY),
+        @NamedQuery(name = IpAddress.FIND_STATUS_LIST_BY_COUNTRY, query = IpAddress.FIND_STATUS_LIST_BY_COUNTRY_QUERY),
+        @NamedQuery(name = IpAddress.FIND_CITY_LIST_BY_STATUS, query = IpAddress.FIND_CITY_LIST_BY_STATUS_QUERY),
+        @NamedQuery(name = IpAddress.FIND_COUNTRY_LIST_BY_STATUS, query = IpAddress.FIND_COUNTRY_LIST_BY_STATUS_QUERY),
 
         @NamedQuery(name = IpAddress.COUNT_ALL, query = IpAddress.COUNT_ALL_QUERY),
-        @NamedQuery(name = IpAddress.COUNT_WHITE_OR_BLACK_LIST, query = IpAddress.COUNT_WHITE_OR_BLACK_LIST_QUERY),
-        @NamedQuery(name = IpAddress.COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY, query = IpAddress.COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY),
+        @NamedQuery(name = IpAddress.COUNT_STATUS_LIST, query = IpAddress.COUNT_STATUS_LIST_QUERY),
+        @NamedQuery(name = IpAddress.COUNT_STATUS_IP_BY_COUNTRY, query = IpAddress.COUNT_STATUS_IP_BY_COUNTRY_QUERY),
+        @NamedQuery(name = IpAddress.COUNT_STATUS_IP_BY_CITY, query = IpAddress.COUNT_STATUS_IP_BY_CITY_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_NOT_VALID, query = IpAddress.FIND_ALL_NOT_VALID_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_VALID, query = IpAddress.FIND_ALL_VALID_QUERY),
-        @NamedQuery(name = IpAddress.FIND_IPLIST_BY_CITY, query = IpAddress.FIND_IPLIST_BY_CITY_QUERY),
-        @NamedQuery(name = IpAddress.FIND_IPLIST_BY_COUNTRY, query = IpAddress.FIND_IPLIST_BY_COUNTRY_QUERY)
+        @NamedQuery(name = IpAddress.FIND_IP_LIST_BY_CITY, query = IpAddress.FIND_IP_LIST_BY_CITY_QUERY),
+        @NamedQuery(name = IpAddress.FIND_IP_LIST_BY_COUNTRY, query = IpAddress.FIND_IP_LIST_BY_COUNTRY_QUERY)
 // ---
 })
-public class IpAddress {
+public class IpAddress implements IpInterface {
 
     public static final String COUNT_ALL = "IpAddress.countAll";
     public static final String COUNT_ALL_QUERY = "SELECT count(ip) from IpAddress ip";
 
-    public static final String COUNT_WHITE_OR_BLACK_LIST = "IpAddress.countWhiteOrBlackList";
-    public static final String COUNT_WHITE_OR_BLACK_LIST_QUERY = "SELECT count(ip) from IpAddress ip where ip.whiteList = ?1";
-    
-    public static final String COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY = "IpAddress.countWhiteOrBlackListByCountry";
-    public static final String COUNT_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT count(ip) from IpAddress ip where ip.whiteList = ?1 and ip.city.country.countryName = ?2";
+    public static final String COUNT_STATUS_LIST = "IpAddress.countStatusList";
+    public static final String COUNT_STATUS_LIST_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1";
+
+    public static final String COUNT_STATUS_IP_BY_CITY = "IpAddress.countStatusIpByCity";
+    public static final String COUNT_STATUS_IP_BY_CITY_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.cityName = ?2";
+
+    public static final String COUNT_STATUS_IP_BY_COUNTRY = "IpAddress.countStatusIpByCountry";
+    public static final String COUNT_STATUS_IP_BY_COUNTRY_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.country.countryName = ?2";
 
     public static final String FIND_ALL = "IpAddress.findAll";
     public static final String FIND_ALL_QUERY = "SELECT ip from IpAddress ip";
@@ -69,38 +75,38 @@ public class IpAddress {
     public static final String FIND_ALL_VALID = "IpAddress.findAllValidIp";
     public static final String FIND_ALL_VALID_QUERY = "SELECT ipO FROM IpAddress ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpAddress ipI, NotValidIp nv WHERE ipI.id = nv.id)";
 
-    public static final String FIND_BY_ADDRESS = "IpAddress.findByAddress";
-    public static final String FIND_BY_ADDRESS_QUERY = "SELECT ip from IpAddress ip WHERE ip.address= ?1";
+    public static final String FIND_IP_LIST_BY_ADDRESS = "IpAddress.findIpListByAddress";
+    public static final String FIND_IP_LIST_BY_ADDRESS_QUERY = "SELECT ip from IpAddress ip WHERE ip.address= ?1";
 
-    public static final String FIND_BY_SOURCE = "IpAddress.findBySource";
-    public static final String FIND_BY_SOURCE_QUERY = "SELECT ip from IpAddress ip join ip.sourceSet s where s.sourceId = ?1";
+    public static final String FIND_IP_LIST_BY_SOURCE = "IpAddress.findIpListBySource";
+    public static final String FIND_IP_LIST_BY_SOURCE_QUERY = "SELECT ip from IpAddress ip join ip.sourceSet s where s.sourceId = ?1";
 
-    public static final String FIND_CITIES_WHITE_OR_BLACK_LIST = "IpAddress.findCityWhiteList";
-    public static final String FIND_CITIES_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.city.cityName) from IpAddress ip where ip.whiteList = ?1";
+    public static final String FIND_CITY_LIST_BY_STATUS = "IpAddress.findCityListByStatus";
+    public static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from IpAddress ip where ip.status = ?1";
 
-    public static final String FIND_COUNTRIES_WHITE_OR_BLACK_LIST = "IpAddress.findCountryWhiteList";
-    public static final String FIND_COUNTRIES_WHITE_OR_BLACK_LIST_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.whiteList = ?1";
+    public static final String FIND_COUNTRY_LIST_BY_STATUS = "IpAddress.findCountryListByStatus";
+    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.status = ?1";
 
-    public static final String FIND_IPLIST_BY_CITY = "IpAddress.findIpByCity";
-    public static final String FIND_IPLIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.city.cityName = ?1";
+    public static final String FIND_IP_LIST_BY_CITY = "IpAddress.findIpByCity";
+    public static final String FIND_IP_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.city.cityName = ?1";
 
-    public static final String FIND_IPLIST_BY_COUNTRY = "IpAddress.findIpByCountry";
-    public static final String FIND_IPLIST_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.city.country.countryName = ?1";
+    public static final String FIND_IP_LIST_BY_COUNTRY = "IpAddress.findIpByCountry";
+    public static final String FIND_IP_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.city.country.countryName = ?1";
 
-    public static final String FIND_UNDEFINEDLIST = "IpAddress.findUndefinedList";
-    public static final String FIND_UNDEFINEDLIST_QUERY = "SELECT ip from IpAddress ip where ip.whiteList is null";
+    public static final String FIND_IP_BY_NAME = "IpAddress.findIpByName";
+    public static final String FIND_IP_BY_NAME_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1 and ip.address = ?2";
 
-    public static final String FIND_WHITE_OR_BLACK_IP_BY_NAME = "IpAddress.findWhiteOrBlackIpByName";
-    public static final String FIND_WHITE_OR_BLACK_IP_BY_NAME_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1 and ip.address = ?2";
+    public static final String FIND_STATUS_LIST = "IpAddress.findStatusList";
+    public static final String FIND_STATUS_LIST_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1";
 
-    public static final String FIND_WHITE_OR_BLACK_LIST = "IpAddress.findWhiteOrBlackList";
-    public static final String FIND_WHITE_OR_BLACK_LIST_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1";
+    public static final String FIND_STATUS_LIST_BY_CITY = "IpAddress.findStatusListByCity";
+    public static final String FIND_STATUS_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1 and ip.city.cityName = ?2";
 
-    public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY = "IpAddress.findWhiteOrBlackListByCity";
-    public static final String FIND_WHITE_OR_BLACK_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1 and ip.city.cityName = ?2";
+    public static final String FIND_STATUS_LIST_BY_COUNTRY = "IpAddress.findStatusListByCountry";
+    public static final String FIND_STATUS_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1 and ip.city.country.countryCode = ?2";
 
-    public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY = "IpAddress.findWhiteOrBlackListByCountry";
-    public static final String FIND_WHITE_OR_BLACK_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.whiteList = ?1 and ip.city.country.countryCode = ?2";
+    public static final String FIND_UNDEFINED_LIST = "IpAddress.findUndefinedList";
+    public static final String FIND_UNDEFINEDLIST_QUERY = "SELECT ip from IpAddress ip where ip.status is null";
 
     @Column(name = "address", updatable = true, nullable = false, unique = true)
     protected String address;
@@ -122,8 +128,8 @@ public class IpAddress {
     @Fetch(FetchMode.JOIN)
     private Set<Source> sourceSet = new HashSet<Source>();
 
-    @Column(name = "white_list")
-    protected Boolean whiteList;
+    @Column(name = "status")
+    protected Boolean status;
 
     public IpAddress() {
     }
@@ -157,8 +163,8 @@ public class IpAddress {
         return sourceSet;
     }
 
-    public Boolean getWhiteList() {
-        return this.whiteList;
+    public Boolean getStatus() {
+        return this.status;
     }
 
     @Override
@@ -186,8 +192,99 @@ public class IpAddress {
         this.sourceSet = sourceSet;
     }
 
-    public void setWhiteList(Boolean whiteList) {
-        this.whiteList = whiteList;
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    // ----- IpInterface implementation -----
+    @Override
+    public String countAll() {
+        return IpAddress.COUNT_ALL;
+    }
+
+    @Override
+    public String countStatusList() {
+        return IpAddress.COUNT_STATUS_LIST;
+    }
+
+    @Override
+    public String countStatusIpByCity() {
+        return IpAddress.COUNT_STATUS_IP_BY_CITY;
+    }
+
+    @Override
+    public String countStatusIpByCountry() {
+        return IpAddress.COUNT_STATUS_IP_BY_COUNTRY;
+    }
+
+    @Override
+    public String findAll() {
+        return IpAddress.FIND_ALL;
+    }
+
+    @Override
+    public String findAllNotValid() {
+        return IpAddress.FIND_ALL_NOT_VALID;
+    }
+
+    @Override
+    public String findAllValid() {
+        return IpAddress.FIND_ALL_VALID;
+    }
+
+    @Override
+    public String findByAddress() {
+        return IpAddress.FIND_IP_LIST_BY_ADDRESS;
+    }
+
+    @Override
+    public String findIpListBySource() {
+        return IpAddress.FIND_IP_LIST_BY_SOURCE;
+    }
+
+    @Override
+    public String findCityListByStatus() {
+        return IpAddress.FIND_CITY_LIST_BY_STATUS;
+    }
+
+    @Override
+    public String findCountryListByStatus() {
+        return IpAddress.FIND_COUNTRY_LIST_BY_STATUS;
+    }
+
+    @Override
+    public String findIpListByCity() {
+        return IpAddress.FIND_IP_LIST_BY_CITY;
+    }
+
+    @Override
+    public String findIpListByCountry() {
+        return IpAddress.FIND_IP_LIST_BY_COUNTRY;
+    }
+
+    @Override
+    public String findIpByName() {
+        return IpAddress.FIND_IP_BY_NAME;
+    }
+
+    @Override
+    public String findStatusList() {
+        return IpAddress.FIND_STATUS_LIST;
+    }
+
+    @Override
+    public String findStatusListByCity() {
+        return IpAddress.FIND_STATUS_LIST_BY_CITY;
+    }
+
+    @Override
+    public String findStatusListByCountry() {
+        return IpAddress.FIND_STATUS_LIST_BY_COUNTRY;
+    }
+
+    @Override
+    public String findUndefinedList() {
+        return IpAddress.FIND_UNDEFINED_LIST;
     }
 
 }

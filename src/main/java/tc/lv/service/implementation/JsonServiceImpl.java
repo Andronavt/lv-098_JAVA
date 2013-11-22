@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.implementations.IpQueryEnum;
+import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.service.JsonService;
 
@@ -21,7 +22,33 @@ public class JsonServiceImpl implements JsonService {
     IpAddressDao ipAddressDao;
 
     @Override
+    //@Transactional
+    public void createJsonForCountryMap(String path, String fileName, Class<? extends IpAddress> ipType,
+            boolean status) throws JsonServiceException {
+        JSONObject json = new JSONObject();
+        FileWriter file;
+        try {
+            LOGGER.info("Start creating JSON-file for " + (status == true ? "White" : "Black") + "Map.");
+
+            for (String country : ipAddressDao.findCountryListByStatus(ipType, status)) {
+                json.put(country, ipAddressDao.countStatusIpByCountryName(country, ipType, status));
+            }
+            file = new FileWriter(path + fileName);
+            file.write("var array =");
+            file.write(json.toString());
+            file.close();
+            LOGGER.info("Finish creating JSON-file for " + (status == true ? "White" : "Black") + "Map.");
+
+        } catch (Exception e) {
+            LOGGER.error("Could not create JSON file", e);
+            throw new JsonServiceException("Could not create JSON file", e);
+
+        }
+    }
+
+    @Override
     @Transactional
+    @Deprecated
     public void createJsonCountryWhiteList(String path) throws JsonServiceException {
         JSONObject json = new JSONObject();
         FileWriter file;
@@ -48,6 +75,7 @@ public class JsonServiceImpl implements JsonService {
 
     @Override
     @Transactional
+    @Deprecated
     public void createJsonCountryBlackList(String path) throws JsonServiceException {
         JSONObject json = new JSONObject();
         FileWriter file;
