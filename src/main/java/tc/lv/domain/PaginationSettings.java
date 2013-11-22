@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "settings_for_pagination")
-public class SettingsForPagination {
+public class PaginationSettings {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class SettingsForPagination {
     @Column(name = "ips_per_page")
     Integer ipsPerPage;
 
-    public SettingsForPagination() {
+    public PaginationSettings() {
     }
 
     public int getId() {
