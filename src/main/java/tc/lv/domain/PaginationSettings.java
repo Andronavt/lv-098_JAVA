@@ -5,11 +5,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "settings_for_pagination")
+@NamedQueries({
+// -----
+@NamedQuery(name = PaginationSettings.FIND_ALL, query = PaginationSettings.FIND_ALL_QUERY)
+// -----
+})
 public class PaginationSettings {
+    public static final String FIND_ALL = "PaginationSettings.findAll";
+    public static final String FIND_ALL_QUERY = "SELECT ps from PaginationSettings ps";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
