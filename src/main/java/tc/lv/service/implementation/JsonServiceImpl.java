@@ -31,7 +31,6 @@ public class JsonServiceImpl implements JsonService {
 
             for (String country : ipAddressDao.findCountryListByStatus(status, ipType)) {
                 long i = ipAddressDao.countStatusIpByCountryName(status, country, ipType);
-                LOGGER.info("COUNTRY NAME: " + country + " COUNT: " + i);
                 json.put(ipAddressDao.findCountryCodeByCountryName(country, ipType), i);
             }
             file = new FileWriter(path + fileName);
