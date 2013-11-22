@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
+import tc.lv.domain.PaginationSettings;
 import tc.lv.exceptions.LocationServiceException;
 import tc.lv.service.LocationService;
 import tc.lv.service.implementation.PaginationServiceImpl;
@@ -85,7 +86,7 @@ public class LocationController {
         int ipCount;
         int pageCount;
         List<IpAddress> ipList;
-        List<Integer> pageList;
+        List<PaginationSettings> pageList;
         List<String> locationList;
         try {
 
@@ -98,6 +99,8 @@ public class LocationController {
                     makeIpType(ipTypeUI), makeStatus(statusUI));
 
             locationList = locationService.findCountryListByStatus(makeIpType(ipTypeUI), makeStatus(statusUI));
+
+            pageList = paginationServiceImpl.loadPages();
 
             map.put("pageList", pageList); //
             map.put("pageCount", pageCount); // Count of pages
