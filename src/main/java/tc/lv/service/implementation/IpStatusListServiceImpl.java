@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpAddress;
-import tc.lv.domain.IpV4Address;
 import tc.lv.exceptions.IpStatusListServiceException;
 import tc.lv.service.IpStatusListService;
 import tc.lv.utils.IpVersionUtil;
@@ -20,8 +19,6 @@ public class IpStatusListServiceImpl implements IpStatusListService {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(IpStatusListServiceImpl.class);
-	private static final String ADMIN_WHITE_LIST = "Admin WhiteList";
-	private static final String ADMIN_BLACK_LIST = "Admin BlackList";
 
 	@Autowired
 	private IpAddressDao ipAddressDao;
@@ -34,8 +31,9 @@ public class IpStatusListServiceImpl implements IpStatusListService {
 	public Collection<IpAddress> findIpList(int from, int count, int ipType,
 			int status) throws IpStatusListServiceException {
 		try {
-				return ipAddressDao.findStatusList(IpVersionUtil.makeStatus(status),from, count,
-						null, IpVersionUtil.makeIpType(ipType));
+			return ipAddressDao.findStatusList(
+					IpVersionUtil.makeStatus(status), from, count,
+					IpVersionUtil.makeIpType(ipType));
 		} catch (Exception e) {
 			LOGGER.error(e);
 			throw new IpStatusListServiceException(

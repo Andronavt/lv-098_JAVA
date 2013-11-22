@@ -14,7 +14,6 @@ import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.exceptions.GeoIpException;
 import tc.lv.exceptions.IpAddressServiceException;
-import tc.lv.exceptions.IpStatusListServiceException;
 import tc.lv.service.IpAddressService;
 import tc.lv.utils.GeoIpUtil;
 import tc.lv.utils.IpValidator;

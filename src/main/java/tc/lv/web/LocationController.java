@@ -51,7 +51,7 @@ public class LocationController {
 
             locationList = locationService.findCityListByStatus(makeIpType(ipTypeUI), makeStatus(statusUI));
 
-            map.put("pageList", pageList); //
+           // map.put("pageList", pageList); //
             map.put("pageCount", pageCount); // Count of pages
             map.put("ipList", ipList); // List of IP-addresses
             map.put("locationList", locationList); // List of cities
@@ -93,7 +93,7 @@ public class LocationController {
 
             locationList = locationService.findCountryListByStatus(makeIpType(ipTypeUI), makeStatus(statusUI));
 
-            map.put("pageList", pageList); //
+          //  map.put("pageList", pageList); //
             map.put("pageCount", pageCount); // Count of pages
             map.put("ipList", ipList); // List of IP-addresses
             map.put("locationList", locationList); // List of cities
