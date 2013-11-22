@@ -51,10 +51,10 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public Long countStatusIpByCountryName(boolean status, String contryName, Class<? extends IpAddress> ipType)
+    public Long countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
             throws DBException {
         Query query = entityManager.createNamedQuery(newInstance(ipType).countStatusIpByCountry());
-        query = query.setParameter(1, status).setParameter(2, contryName);
+        query = query.setParameter(1, status).setParameter(2, countryName);
         return (Long) query.getSingleResult();
     }
 
@@ -115,9 +115,9 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
     @Override
     public <T extends IpAddress> List<T> findStatusListByCountry(boolean status, int from, int count,
-            String contryName, Class<? extends IpAddress> ipType) throws DBException {
+            String countryName, Class<? extends IpAddress> ipType) throws DBException {
         Query query = entityManager.createNamedQuery(newInstance(ipType).findStatusListByCountry());
-        query = query.setParameter(1, status).setParameter(2, contryName);
+        query = query.setParameter(1, status).setParameter(2, countryName);
         return findRange(from, count, query);
     }
 

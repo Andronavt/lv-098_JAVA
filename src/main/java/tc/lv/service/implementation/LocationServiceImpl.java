@@ -21,7 +21,7 @@ public class LocationServiceImpl implements LocationService {
     public Long countStatusIpByCityName(String cityName, Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
-            return ipAddressDao.countStatusIpByCityName(cityName, ipType, status);
+            return ipAddressDao.countStatusIpByCityName(status, cityName, ipType);
 
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
@@ -33,7 +33,7 @@ public class LocationServiceImpl implements LocationService {
     public Long countStatusIpByCountryName(String countryName, Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
-            return ipAddressDao.countStatusIpByCountryName(countryName, ipType, status);
+            return ipAddressDao.countStatusIpByCountryName(status, countryName, ipType);
 
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
@@ -45,12 +45,12 @@ public class LocationServiceImpl implements LocationService {
     public List<String> findCityListByStatus(Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
-            return ipAddressDao.findCityListByStatus(ipType, status);
+            return ipAddressDao.findCityListByStatus(status, ipType);
 
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
         }
-        ;
+
     }
 
     @Override
@@ -58,7 +58,7 @@ public class LocationServiceImpl implements LocationService {
     public List<String> findCountryListByStatus(Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
-            return ipAddressDao.findCountryListByStatus(ipType, status);
+            return ipAddressDao.findCountryListByStatus(status, ipType);
 
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
@@ -70,7 +70,7 @@ public class LocationServiceImpl implements LocationService {
     public List<IpAddress> findStatusListByCity(int from, int count, String cityName,
             Class<? extends IpAddress> ipType, boolean status) throws LocationServiceException {
         try {
-            return ipAddressDao.findStatusListByCity(from, count, cityName, ipType, status);
+            return ipAddressDao.findStatusListByCity(status, from, count, cityName, ipType);
 
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
@@ -82,7 +82,7 @@ public class LocationServiceImpl implements LocationService {
     public List<IpAddress> findStatusListByCountry(int from, int count, String countryName,
             Class<? extends IpAddress> ipType, boolean status) throws LocationServiceException {
         try {
-            return ipAddressDao.findStatusListByCountry(from, count, countryName, ipType, status);
+            return ipAddressDao.findStatusListByCountry(status, from, count, countryName, ipType);
 
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);

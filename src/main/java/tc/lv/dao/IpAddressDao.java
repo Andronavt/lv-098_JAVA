@@ -14,7 +14,7 @@ public interface IpAddressDao {
     Long countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
             throws DBException;
 
-    Long countStatusIpByCountryName(boolean status, String contryName, Class<? extends IpAddress> ipType)
+    Long countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
             throws DBException;
 
     void deleteIp(IpAddress address);
@@ -34,7 +34,7 @@ public interface IpAddressDao {
     <T extends IpAddress> List<T> findStatusListByCity(boolean status, int from, int count, String cityName,
             Class<? extends IpAddress> ipType) throws DBException;
 
-    <T extends IpAddress> List<T> findStatusListByCountry(boolean status, int from, int count, String contryName,
+    <T extends IpAddress> List<T> findStatusListByCountry(boolean status, int from, int count, String countryName,
             Class<? extends IpAddress> ipType) throws DBException;
 
     <T extends IpAddress> List<T> findUndefList(Class<? extends IpAddress> ipType) throws DBException;
