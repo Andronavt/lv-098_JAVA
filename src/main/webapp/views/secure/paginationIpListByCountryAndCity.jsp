@@ -19,7 +19,8 @@
 <div id="content" class="content"></div>
 <div id="demo1"></div>
 <div id="number">
-	<select name="count">
+	<!-- ip pare page -->
+	<select name="countIpPerPage">
 		<option value="10">10</option>
 		<option value="20">20</option>
 		<option value="30">30</option>
@@ -30,24 +31,40 @@
 		<option value="-1">All Ip</option>
 		<option value="0">Ip v4</option>
 		<option value="1">Ip v6</option>
-	</select> <select name="location">
+	</select>
+	<!-- White or black list -->
+	<select name="typeList">
+		<option value="0">black list</option>
+		<option value="1">white list</option>
+	</select>
+	<!-- City or Country -->
+	<select name="location">
+		<%-- 		<c:forEach var="location" items="${locationList}"> --%>
+		<%-- 			<option value="${location.cityName }">${location.cityName}</option> --%>
+		<%-- 		</c:forEach> --%>
+		<option value="Taiwan">Taiwan</option>
 	</select>
 </div>
 <script>
 	// init bootpag
 	function doAjaxPagination(page) {
+		alert("FUUUU");
+		var pageNumber = page;
+		var countIpPerPage = $('select[name=countIpPerPage]').val();
+		var location = $('select[name=location]').val();
+		var ipType = $('select[name=ipType]').val();
+		var typeList = $('select[name=typeList]').val();		
 		$.ajax({
 			type : "POST",
 			url : location.href,
-			data : "pageNumber=" + page + "&countIpPerPage="
-					+ $('select[name=count]').val() + "&ipType"
-					+ $('select[name=ipType]').val() + "&location"
-					+ $('select[name=location]').val(),
+			data : "pageNumber=" + pageNumber + "&countIpPerPage="
+					+ countIpPerPage + "&location=" + location + "&ipType="
+					+ ipType + "&status=" + typeList,
 			success : function(response) {
 				$("#content").html(response);
 			},
 			error : function(e) {
-				alert('Error: ' + e + page + value);
+				alert('Error: ' + e);
 			}
 		});
 	}

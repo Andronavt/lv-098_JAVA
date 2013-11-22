@@ -21,109 +21,118 @@ import tc.lv.utils.ExceptionUtil;
 @Controller
 public class LocationController {
 
-    @Autowired
-    LocationService locationService;
+	@Autowired
+	LocationService locationService;
 
-    @Autowired
-    PaginationServiceImpl paginationServiceImpl;
+	@Autowired
+	PaginationServiceImpl paginationServiceImpl;
 
-    // showStatusListByCity
-    @RequestMapping(value = "secure_showListByCity", method = RequestMethod.GET)
-    public String showStatusListByCity() {
-        return "secure_showListByCity";
-    }
+	// showStatusListByCity
+	@RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.GET)
+	public String showStatusListByCity() {
+		return "secure_showIpListByCity";
+	}
 
-    // showStatusListByCity
-    @RequestMapping(value = "secure_showListByCity", method = RequestMethod.POST)
-    public String showStatusListByCity(@ModelAttribute("pageNumber") int pageNumber,
-            @ModelAttribute("countIpPerPage") int countIpPerPage, @ModelAttribute("location") String cityName,
-            @ModelAttribute("ipType") int ipTypeUI, @ModelAttribute("status") int statusUI, Map<String, Object> map) {
-        int from;
-        int ipCount;
-        int pageCount;
-        List<IpAddress> ipList;
-        List<PaginationSettings> pageList;
-        List<String> locationList;
-        try {
+	// showStatusListByCity
+	@RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.POST)
+	public String showStatusListByCity(
+			@ModelAttribute("pageNumber") int pageNumber,
+			@ModelAttribute("countIpPerPage") int countIpPerPage,
+			@ModelAttribute("location") String cityName,
+			@ModelAttribute("ipType") int ipTypeUI,
+			@ModelAttribute("status") int statusUI, Map<String, Object> map) {
+		int from;
+		int ipCount;
+		int pageCount;
+		List<IpAddress> ipList;
+		List<PaginationSettings> pageList;
+		List<String> locationList;
+		try {
 
-            ipCount = locationService
-                    .countStatusIpByCityName(cityName, makeIpType(ipTypeUI), makeStatus(statusUI)).intValue();
-            pageCount = ipCount / countIpPerPage + 1;
+			ipCount = locationService.countStatusIpByCityName(cityName,
+					makeIpType(ipTypeUI), makeStatus(statusUI)).intValue();
+			pageCount = ipCount / countIpPerPage + 1;
 
-            from = (pageNumber - 1) * countIpPerPage;
-            ipList = locationService.findStatusListByCity(from, countIpPerPage, cityName, makeIpType(ipTypeUI),
-                    makeStatus(statusUI));
+			from = (pageNumber - 1) * countIpPerPage;
+			ipList = locationService.findStatusListByCity(from, countIpPerPage,
+					cityName, makeIpType(ipTypeUI), makeStatus(statusUI));
 
-            locationList = locationService.findCityListByStatus(makeIpType(ipTypeUI), makeStatus(statusUI));
+			locationList = locationService.findCityListByStatus(
+					makeIpType(ipTypeUI), makeStatus(statusUI));
 
-            pageList = paginationServiceImpl.loadPages();
+			pageList = paginationServiceImpl.loadPages();
 
-            map.put("pageList", pageList); //
-            map.put("pageCount", pageCount); // Count of pages
-            map.put("ipList", ipList); // List of IP-addresses
-            map.put("locationList", locationList); // List of cities
+			map.put("pageList", pageList); //
+			map.put("pageCount", pageCount); // Count of pages
+			map.put("ipList", ipList); // List of IP-addresses
+			map.put("locationList", locationList); // List of cities
 
-        } catch (LocationServiceException e) {
-            map.put("errorList", ExceptionUtil.createErrorList(e));
-            map.put("errorMsg", e.getMessage());
-            return "result";
-        }
-        return "secure_table";
-    }
+		} catch (LocationServiceException e) {
+			map.put("errorList", ExceptionUtil.createErrorList(e));
+			map.put("errorMsg", e.getMessage());
+			return "result";
+		}
+		return "secure_table";
+	}
 
-    // showStatusListByCountry
-    @RequestMapping(value = "secure_showListByCountry", method = RequestMethod.GET)
-    public String showStatusListByCountry() {
-        return "secure_showListByCountry";
-    }
+	// showStatusListByCountry
+	@RequestMapping(value = "secure_showIpListByCountry", method = RequestMethod.GET)
+	public String showStatusListByCountry() {
+		return "secure_showIpListByCountry";
+	}
 
-    // showStatusListByCountry
-    @RequestMapping(value = "secure_showListByCountry", method = RequestMethod.POST)
-    public String showStatusListByCountry(@ModelAttribute("pageNumber") int pageNumber,
-            @ModelAttribute("countIpPerPage") int countIpPerPage, @ModelAttribute("location") String countryName,
-            @ModelAttribute("ipType") int ipTypeUI, @ModelAttribute("status") int statusUI, Map<String, Object> map) {
-        int from;
-        int ipCount;
-        int pageCount;
-        List<IpAddress> ipList;
-        List<PaginationSettings> pageList;
-        List<String> locationList;
-        try {
+	// showStatusListByCountry
+	@RequestMapping(value = "secure_showIpListByCountry", method = RequestMethod.POST)
+	public String showStatusListByCountry(
+			@ModelAttribute("pageNumber") int pageNumber,
+			@ModelAttribute("countIpPerPage") int countIpPerPage,
+			@ModelAttribute("location") String countryName,
+			@ModelAttribute("ipType") int ipTypeUI,
+			@ModelAttribute("status") int statusUI, Map<String, Object> map) {
+		int from;
+		int ipCount;
+		int pageCount;
+		List<IpAddress> ipList;
+		List<PaginationSettings> pageList;
+		List<String> locationList;
+		try {
 
-            ipCount = locationService.countStatusIpByCountryName(countryName, makeIpType(ipTypeUI),
-                    makeStatus(statusUI)).intValue();
-            pageCount = ipCount / countIpPerPage + 1;
+			ipCount = locationService.countStatusIpByCountryName(countryName,
+					makeIpType(ipTypeUI), makeStatus(statusUI)).intValue();
+			pageCount = ipCount / countIpPerPage + 1;
 
-            from = (pageNumber - 1) * countIpPerPage;
-            ipList = locationService.findStatusListByCountry(from, countIpPerPage, countryName,
-                    makeIpType(ipTypeUI), makeStatus(statusUI));
+			from = (pageNumber - 1) * countIpPerPage;
+			ipList = locationService.findStatusListByCountry(from,
+					countIpPerPage, countryName, makeIpType(ipTypeUI),
+					makeStatus(statusUI));
 
-            locationList = locationService.findCountryListByStatus(makeIpType(ipTypeUI), makeStatus(statusUI));
-            pageList = paginationServiceImpl.loadPages();
+			locationList = locationService.findCountryListByStatus(
+					makeIpType(ipTypeUI), makeStatus(statusUI));
+			pageList = paginationServiceImpl.loadPages();
 
-            map.put("pageList", pageList); //
-            map.put("pageCount", pageCount); // Count of pages
-            map.put("ipList", ipList); // List of IP-addresses
-            map.put("locationList", locationList); // List of cities
+			map.put("pageList", pageList); //
+			map.put("pageCount", pageCount); // Count of pages
+			map.put("ipList", ipList); // List of IP-addresses
+			map.put("locationList", locationList); // List of cities
 
-        } catch (LocationServiceException e) {
-            map.put("errorList", ExceptionUtil.createErrorList(e));
-            map.put("errorMsg", e.getMessage());
-            return "result";
-        }
-        return "secure_table";
-    }
+		} catch (LocationServiceException e) {
+			map.put("errorList", ExceptionUtil.createErrorList(e));
+			map.put("errorMsg", e.getMessage());
+			return "result";
+		}
+		return "secure_table";
+	}
 
-    private Class<? extends IpAddress> makeIpType(int ipType) {
-        if (ipType == 0)
-            return IpV4Address.class;
-        if (ipType == 1)
-            return IpV6Address.class;
-        return IpAddress.class;
-    }
+	private Class<? extends IpAddress> makeIpType(int ipType) {
+		if (ipType == 0)
+			return IpV4Address.class;
+		if (ipType == 1)
+			return IpV6Address.class;
+		return IpAddress.class;
+	}
 
-    private boolean makeStatus(int status) {
-        return (status == 1 ? true : false);
-    }
+	private boolean makeStatus(int status) {
+		return (status == 1 ? true : false);
+	}
 
 }
