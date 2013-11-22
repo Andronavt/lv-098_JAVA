@@ -224,4 +224,11 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
             entityManager.persist(ip);
         }
     }
+
+    @Override
+    public String findCountryCodeByCountryName(String country, Class<? extends IpAddress> ipType) throws DBException {
+        Query query = entityManager.createNamedQuery(newInstance(ipType).findCountryCodeByCountryName());
+        query = query.setParameter(1, country);
+        return (String) query.getSingleResult();
+    }
 }

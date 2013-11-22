@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
+import tc.lv.exceptions.JsonServiceException;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.exceptions.SourceDownloaderServiceException;
 import tc.lv.service.JsonService;
@@ -74,20 +75,15 @@ public class SourceDownloadController {
 
             parserResultService.saveAllSources(parserResultList);
 
-            // jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST,
-            // ALL_IP_ADDRESSES, WHITE_LIST);
-            // jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST,
-            // ALL_IP_ADDRESSES, BLACK_LIST);
-
-            // jsonService.createJsonCountryWhiteList(PATH);
-            // jsonService.createJsonCountryBlackList(PATH);
+            jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST, ALL_IP_ADDRESSES, WHITE_LIST);
+            jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST, ALL_IP_ADDRESSES, BLACK_LIST);
 
             LOGGER.info("Finish updating Sources.");
 
             map.put("successMsg", "Source " + sourceName + " updated.");
             return "result";
 
-        } catch (SourceDownloaderServiceException | ParserResultServiceException e) {
+        } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonServiceException e) {
             map.put("errorList", ExceptionUtil.createErrorList(e));
             map.put("errorMsg", e.getMessage());
             return "result";

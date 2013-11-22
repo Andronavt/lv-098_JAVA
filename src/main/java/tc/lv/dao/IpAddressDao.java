@@ -48,4 +48,6 @@ public interface IpAddressDao {
 
     void updateStatusList(Class<? extends IpAddress> ipType) throws DBException;
 
+    String findCountryCodeByCountryName(String country, Class<? extends IpAddress> ipType) throws DBException;
+
 }
