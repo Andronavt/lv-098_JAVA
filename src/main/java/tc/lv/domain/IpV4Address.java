@@ -67,7 +67,10 @@ public class IpV4Address extends IpAddress {
     public static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from IpV4Address ip where ip.status = ?1";
 
     public static final String FIND_COUNTRY_LIST_BY_STATUS = "IpV4Address.findCountryListByStatus";
-    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpV4Address ip where ip.status = ?1";
+    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryName) from IpV4Address ip where ip.status = ?1";
+
+    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME = "IpV4Address.findCountryCodeByCountryName";
+    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpV4Address ip where ip.city.country.countryName = ?1";
 
     public static final String FIND_IP_LIST_BY_CITY = "IpV4Address.findIpByCity";
     public static final String FIND_IP_LIST_BY_CITY_QUERY = "SELECT ip from IpV4Address ip where ip.city.cityName = ?1";
@@ -193,5 +196,10 @@ public class IpV4Address extends IpAddress {
     @Override
     public String findUndefinedList() {
         return IpV4Address.FIND_UNDEFINED_LIST;
+    }
+
+    @Override
+    public String findCountryCodeByCountryName() {
+        return IpV4Address.FIND_COUNTRY_CODE_BY_COUNTRY_NAME;
     }
 }

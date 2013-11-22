@@ -13,25 +13,25 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "id")
 @NamedQueries({
         // --------
-    @NamedQuery(name = IpV6Address.FIND_ALL, query = IpV6Address.FIND_ALL_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_IP_LIST_BY_SOURCE, query = IpV6Address.FIND_IP_LIST_BY_SOURCE_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_IP_LIST_BY_ADDRESS, query = IpV6Address.FIND_IP_LIST_BY_ADDRESS_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_STATUS_LIST, query = IpV6Address.FIND_STATUS_LIST_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_UNDEFINED_LIST, query = IpV6Address.FIND_UNDEFINEDLIST_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_IP_BY_NAME, query = IpV6Address.FIND_IP_BY_NAME_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_STATUS_LIST_BY_CITY, query = IpV6Address.FIND_STATUS_LIST_BY_CITY_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_STATUS_LIST_BY_COUNTRY, query = IpV6Address.FIND_STATUS_LIST_BY_COUNTRY_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_CITY_LIST_BY_STATUS, query = IpV6Address.FIND_CITY_LIST_BY_STATUS_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_COUNTRY_LIST_BY_STATUS, query = IpV6Address.FIND_COUNTRY_LIST_BY_STATUS_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_ALL, query = IpV6Address.FIND_ALL_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_IP_LIST_BY_SOURCE, query = IpV6Address.FIND_IP_LIST_BY_SOURCE_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_IP_LIST_BY_ADDRESS, query = IpV6Address.FIND_IP_LIST_BY_ADDRESS_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_STATUS_LIST, query = IpV6Address.FIND_STATUS_LIST_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_UNDEFINED_LIST, query = IpV6Address.FIND_UNDEFINEDLIST_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_IP_BY_NAME, query = IpV6Address.FIND_IP_BY_NAME_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_STATUS_LIST_BY_CITY, query = IpV6Address.FIND_STATUS_LIST_BY_CITY_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_STATUS_LIST_BY_COUNTRY, query = IpV6Address.FIND_STATUS_LIST_BY_COUNTRY_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_CITY_LIST_BY_STATUS, query = IpV6Address.FIND_CITY_LIST_BY_STATUS_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_COUNTRY_LIST_BY_STATUS, query = IpV6Address.FIND_COUNTRY_LIST_BY_STATUS_QUERY),
 
-    @NamedQuery(name = IpV6Address.COUNT_ALL, query = IpV6Address.COUNT_ALL_QUERY),
-    @NamedQuery(name = IpV6Address.COUNT_STATUS_LIST, query = IpV6Address.COUNT_STATUS_LIST_QUERY),
-    @NamedQuery(name = IpV6Address.COUNT_STATUS_IP_BY_COUNTRY, query = IpV6Address.COUNT_STATUS_IP_BY_COUNTRY_QUERY),
-    @NamedQuery(name = IpV6Address.COUNT_STATUS_IP_BY_CITY, query = IpV6Address.COUNT_STATUS_IP_BY_CITY_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_ALL_NOT_VALID, query = IpV6Address.FIND_ALL_NOT_VALID_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_ALL_VALID, query = IpV6Address.FIND_ALL_VALID_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_IP_LIST_BY_CITY, query = IpV6Address.FIND_IP_LIST_BY_CITY_QUERY),
-    @NamedQuery(name = IpV6Address.FIND_IP_LIST_BY_COUNTRY, query = IpV6Address.FIND_IP_LIST_BY_COUNTRY_QUERY)
+        @NamedQuery(name = IpV6Address.COUNT_ALL, query = IpV6Address.COUNT_ALL_QUERY),
+        @NamedQuery(name = IpV6Address.COUNT_STATUS_LIST, query = IpV6Address.COUNT_STATUS_LIST_QUERY),
+        @NamedQuery(name = IpV6Address.COUNT_STATUS_IP_BY_COUNTRY, query = IpV6Address.COUNT_STATUS_IP_BY_COUNTRY_QUERY),
+        @NamedQuery(name = IpV6Address.COUNT_STATUS_IP_BY_CITY, query = IpV6Address.COUNT_STATUS_IP_BY_CITY_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_ALL_NOT_VALID, query = IpV6Address.FIND_ALL_NOT_VALID_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_ALL_VALID, query = IpV6Address.FIND_ALL_VALID_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_IP_LIST_BY_CITY, query = IpV6Address.FIND_IP_LIST_BY_CITY_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_IP_LIST_BY_COUNTRY, query = IpV6Address.FIND_IP_LIST_BY_COUNTRY_QUERY)
 // ---
 })
 public class IpV6Address extends IpAddress {
@@ -67,7 +67,10 @@ public class IpV6Address extends IpAddress {
     public static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from IpV6Address ip where ip.status = ?1";
 
     public static final String FIND_COUNTRY_LIST_BY_STATUS = "IpV6Address.findCountryListByStatus";
-    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpV6Address ip where ip.status = ?1";
+    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryName) from IpV6Address ip where ip.status = ?1";
+
+    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME = "IpV6Address.findCountryCodeByCountryName";
+    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpV6Address ip where ip.city.country.countryName = ?1";
 
     public static final String FIND_IP_LIST_BY_CITY = "IpV6Address.findIpByCity";
     public static final String FIND_IP_LIST_BY_CITY_QUERY = "SELECT ip from IpV6Address ip where ip.city.cityName = ?1";
@@ -103,6 +106,7 @@ public class IpV6Address extends IpAddress {
         this.dateAdded = dateAdded;
         this.city = city;
     }
+
     // ----- IpInterface implementation -----
     @Override
     public String countAll() {
@@ -192,5 +196,10 @@ public class IpV6Address extends IpAddress {
     @Override
     public String findUndefinedList() {
         return IpV6Address.FIND_UNDEFINED_LIST;
+    }
+
+    @Override
+    public String findCountryCodeByCountryName() {
+        return IpV6Address.FIND_COUNTRY_CODE_BY_COUNTRY_NAME;
     }
 }

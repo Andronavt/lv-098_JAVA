@@ -41,6 +41,7 @@ import tc.lv.dao.IpInterface;
         @NamedQuery(name = IpAddress.FIND_STATUS_LIST_BY_COUNTRY, query = IpAddress.FIND_STATUS_LIST_BY_COUNTRY_QUERY),
         @NamedQuery(name = IpAddress.FIND_CITY_LIST_BY_STATUS, query = IpAddress.FIND_CITY_LIST_BY_STATUS_QUERY),
         @NamedQuery(name = IpAddress.FIND_COUNTRY_LIST_BY_STATUS, query = IpAddress.FIND_COUNTRY_LIST_BY_STATUS_QUERY),
+        @NamedQuery(name = IpAddress.FIND_COUNTRY_CODE_BY_COUNTRY_NAME, query = IpAddress.FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY),
 
         @NamedQuery(name = IpAddress.COUNT_ALL, query = IpAddress.COUNT_ALL_QUERY),
         @NamedQuery(name = IpAddress.COUNT_STATUS_LIST, query = IpAddress.COUNT_STATUS_LIST_QUERY),
@@ -85,7 +86,10 @@ public class IpAddress implements IpInterface {
     public static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from IpAddress ip where ip.status = ?1";
 
     public static final String FIND_COUNTRY_LIST_BY_STATUS = "IpAddress.findCountryListByStatus";
-    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.status = ?1";
+    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryName) from IpAddress ip where ip.status = ?1";
+
+    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME = "IpAddress.findCountryCodeByCountryName";
+    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.city.country.countryName = ?1";
 
     public static final String FIND_IP_LIST_BY_CITY = "IpAddress.findIpByCity";
     public static final String FIND_IP_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.city.cityName = ?1";
@@ -285,6 +289,11 @@ public class IpAddress implements IpInterface {
     @Override
     public String findUndefinedList() {
         return IpAddress.FIND_UNDEFINED_LIST;
+    }
+
+    @Override
+    public String findCountryCodeByCountryName() {
+        return IpAddress.FIND_COUNTRY_CODE_BY_COUNTRY_NAME;
     }
 
 }
