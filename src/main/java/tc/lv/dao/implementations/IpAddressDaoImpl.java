@@ -98,11 +98,10 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T extends IpAddress> List<T> findStatusList(boolean status, Class<? extends IpAddress> ipType)
-            throws DBException {
+    public <T extends IpAddress> List<T> findStatusList(boolean status, int from, int count,
+            Class<? extends IpAddress> ipType) throws DBException {
         Query query = entityManager.createNamedQuery(newInstance(ipType).findStatusList()).setParameter(1, status);
-        return query.getResultList();
+        return findRange(from, count, query);
     }
 
     @Override
@@ -224,5 +223,12 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
             }
             entityManager.persist(ip);
         }
+    }
+
+    @Override
+    public String findCountryCodeByCountryName(String country, Class<? extends IpAddress> ipType) throws DBException {
+        Query query = entityManager.createNamedQuery(newInstance(ipType).findCountryCodeByCountryName());
+        query = query.setParameter(1, country);
+        return (String) query.getSingleResult();
     }
 }

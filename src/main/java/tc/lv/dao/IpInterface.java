@@ -37,4 +37,6 @@ public interface IpInterface {
     String findStatusListByCountry();
 
     String findUndefinedList();
+
+    String findCountryCodeByCountryName();
 }

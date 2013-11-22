@@ -27,17 +27,19 @@ public class JsonServiceImpl implements JsonService {
         JSONObject json = new JSONObject();
         FileWriter file;
         try {
-            LOGGER.info("Start creating JSON-file for " + (status == true ? "White" : "Black") + "Map.");
+            LOGGER.info("Start creating JSON-file for " + (status ? "White" : "Black") + "Map.");
 
             for (String country : ipAddressDao.findCountryListByStatus(status, ipType)) {
-                json.put(country, ipAddressDao.countStatusIpByCountryName(status, country, ipType));
+                long i = ipAddressDao.countStatusIpByCountryName(status, country, ipType);
+                LOGGER.info("COUNTRY NAME: " + country + " COUNT: " + i);
+                json.put(ipAddressDao.findCountryCodeByCountryName(country, ipType), i);
             }
             file = new FileWriter(path + fileName);
             file.write("var array =");
             file.write(json.toString());
             file.write(";");
             file.close();
-            LOGGER.info("Finish creating JSON-file for " + (status == true ? "White" : "Black") + "Map.");
+            LOGGER.info("Finish creating JSON-file for " + (status ? "White" : "Black") + "Map.");
 
         } catch (Exception e) {
             LOGGER.error("Could not create JSON file", e);

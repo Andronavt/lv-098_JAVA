@@ -28,8 +28,8 @@ public interface IpAddressDao {
     <T extends IpAddress> List<T> findIpListBySource(int sourceId, Class<? extends IpAddress> ipType)
             throws DBException;
 
-    <T extends IpAddress> List<T> findStatusList(boolean status, Class<? extends IpAddress> ipType)
-            throws DBException;
+    <T extends IpAddress> List<T> findStatusList(boolean status, int from, int count,
+            Class<? extends IpAddress> ipType) throws DBException;
 
     <T extends IpAddress> List<T> findStatusListByCity(boolean status, int from, int count, String cityName,
             Class<? extends IpAddress> ipType) throws DBException;
@@ -47,5 +47,7 @@ public interface IpAddressDao {
             throws DBException;
 
     void updateStatusList(Class<? extends IpAddress> ipType) throws DBException;
+
+    String findCountryCodeByCountryName(String country, Class<? extends IpAddress> ipType) throws DBException;
 
 }
