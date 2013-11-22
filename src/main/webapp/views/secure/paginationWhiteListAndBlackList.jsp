@@ -19,14 +19,14 @@
 <div id="content" class="content"></div>
 <div id="demo1"></div>
 <div id="number">
-	<select name="count">
+	<select name="count" onchange="doAjaxPagination(1)">
 		<option value="10">10</option>
 		<option value="20">20</option>
 		<option value="30">30</option>
 		<option value="40">40</option>
 	</select>
 	<!-- List of type ip for white and black list pagination -->
-	<select name="ipType">
+	<select name="ipType" onchange="doAjaxPagination(1)">
 		<option value="-1">All Ip</option>
 		<option value="0">Ip v4</option>
 		<option value="1">Ip v6</option>
@@ -35,17 +35,17 @@
 <script>
 	// init bootpag
 	function doAjaxPagination(page) {
-		alert("AJAX");
 		$.ajax({
 			type : "POST",
 			url : location.href,
-			data : "pageNumber=" + page + "&countIpPerPage=" + $('select[name=count]').val()
-					+ "&ipType=" + $('select[name=ipType]').val(),
+			data : "pageNumber=" + page + "&countIpPerPage="
+					+ $('select[name=count]').val() + "&ipType="
+					+ $('select[name=ipType]').val(),
 			success : function(response) {
 				$("#content").html(response);
 			},
 			error : function(e) {
-				alert(e+pageNumber+countIpPerPage+ipType);
+				alert(e + pageNumber + countIpPerPage + ipType);
 			}
 		});
 	}
