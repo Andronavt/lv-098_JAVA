@@ -99,7 +99,6 @@ public class LocationController {
                     makeIpType(ipTypeUI), makeStatus(statusUI));
 
             locationList = locationService.findCountryListByStatus(makeIpType(ipTypeUI), makeStatus(statusUI));
-
             pageList = paginationServiceImpl.loadPages();
 
             map.put("pageList", pageList); //
