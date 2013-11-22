@@ -64,19 +64,23 @@
 	</definition>
 
 	<definition name="secure_showIpListFromWL" extends="base.definition">
-		<put-attribute name="body" value="/views/secure/ShowIpListFromWL.jsp" />
+		<put-attribute name="body"
+			value="/views/secure/paginationWhiteListAndBlackList.jsp" />
 	</definition>
 
 	<definition name="secure_showIpListFromBL" extends="base.definition">
-		<put-attribute name="body" value="/views/secure/showIpListFromBL.jsp" />
+		<put-attribute name="body"
+			value="/views/secure/paginationWhiteListAndBlackList.jsp" />
 	</definition>
 
-	<definition name="secure_whiteIpByCity" extends="base.definition">
-		<put-attribute name="body" value="/views/secure/whiteIpByCity.jsp" />
+	<definition name="secure_showIpListByCountry" extends="base.definition">
+		<put-attribute name="body"
+			value="/views/secure/paginationIpListByCountryAndCity.jsp" />
 	</definition>
 
-	<definition name="secure_whiteIpByCountry" extends="base.definition">
-		<put-attribute name="body" value="/views/secure/whiteIpByCountry.jsp" />
+	<definition name="secure_showIpListByCity" extends="base.definition">
+		<put-attribute name="body"
+			value="/views/secure/paginationIpListByCountryAndCity.jsp" />
 	</definition>
 
 	<!-- Result page -->
@@ -93,5 +97,4 @@
 	<definition name="secure_inProgres" extends="base.definition">
 		<put-attribute name="body" value="/views/tiles/inProgres.jsp" />
 	</definition>
-
 </tiles-definitions>

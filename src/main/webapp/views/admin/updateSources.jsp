@@ -8,17 +8,26 @@
 <script type="text/javascript"
 	src="<c:url value="/resources/js/ajax.js" />"></script>
 
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+	
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />	
+	
 <form action="" id="updateSource">
 	<div id="1">
 		<fieldset>
-			<legend align="left">Source for update:</legend>
+			<legend style="color: green" align="left"><strong>Source for update:</strong></legend>
 			<select name="sources" size="1">
 				<c:forEach var="Source" items="${listSource}">
 					<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
 				</c:forEach>
-			</select> <br> <input type="button" value="Update source"
-				onclick="doAjaxUpdateSource()">
-			<!-- 	<input align="left" id="btnUpdate" type="button" name="updateSource" value="Update source" /> -->
+			</select> <br> 
+			<input class="btn btn-primary" type="button" value="Update source" onclick="doAjaxUpdateSource()">
 
 		</fieldset>
 	</div>

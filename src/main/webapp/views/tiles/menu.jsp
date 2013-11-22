@@ -18,12 +18,12 @@
 <!-- Bootstrap -->
 <script type="text/javascript"
 	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
-	
+
 <script type="text/javascript"
 	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
 
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
-	rel="stylesheet" type="text/css" />	
+	rel="stylesheet" type="text/css" />
 
 <div id="accordion" align="left">
 
@@ -74,24 +74,13 @@
 		<div class="divmenu">
 
 			<p>
-				<a class="button" href="secure_inProgres" title="Black IP by city">Black
+				<a class="button" href="secure_showIpListByCity" title="IP by city">
 					IP by city</a>
 			</p>
 
 			<p>
-				<a class="button" href="secure_inProgres"
-					title="Black IP by country">Black IP by country</a>
-			</p>
-
-
-			<p>
-				<a class="button" href="secure_whiteIpByCity"
-					title="White Ip by city">White Ip by city</a>
-			</p>
-
-			<p>
-				<a class="button" href="secure_whiteIpByCountry"
-					title="White Ip by country">White Ip by country</a>
+				<a class="button" href="secure_showIpListByCountry"
+					title="Ip by country">Ip by country</a>
 			</p>
 
 		</div>

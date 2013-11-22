@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.exceptions.ParserResultServiceException;
@@ -25,6 +26,12 @@ import tc.lv.utils.ParserResults;
 @Controller
 public class SourceDownloadController {
     private static final String PATH = System.getenv("LV098_JAVA") + "/src/main/webapp/resources/js/jVectorMap/";
+    private static final String FILE_JSON_WHITE_LIST = "countryJsonWhiteList.js";
+    private static final String FILE_JSON_BLACK_LIST = "countryJsonBlackList.js";
+    private static final Class<? extends IpAddress> ALL_IP_ADDRESSES = IpAddress.class;
+    private static final boolean WHITE_LIST = true;
+    private static final boolean BLACK_LIST = false;
+
     private static final Logger LOGGER = Logger.getLogger(SourceDownloadController.class);
 
     @Autowired
@@ -63,11 +70,15 @@ public class SourceDownloadController {
 
             Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
 
-            List<ParserResults> parserResultList = null;
-
-            parserResultList = sourceDownloaderService.downloadParseAndUpdateData(sourceNameList, parserMap);
+            List<ParserResults> parserResultList = sourceDownloaderService.downloadParseAndUpdateData(
+                    sourceNameList, parserMap);
 
             parserResultService.saveAllSources(parserResultList);
+
+            // jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST,
+            // ALL_IP_ADDRESSES, WHITE_LIST);
+            // jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST,
+            // ALL_IP_ADDRESSES, BLACK_LIST);
 
             jsonService.createJsonCountryWhiteList(PATH);
             jsonService.createJsonCountryBlackList(PATH);

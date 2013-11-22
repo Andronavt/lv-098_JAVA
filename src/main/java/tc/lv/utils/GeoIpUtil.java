@@ -33,6 +33,7 @@ public class GeoIpUtil {
                     LookupService.GEOIP_MEMORY_CACHE);
             lookupServiceIpV4City = new LookupService(DIR + GEO_IPV4_DB_CITY, LookupService.GEOIP_MEMORY_CACHE);
             lookupServiceIpV6City = new LookupService(DIR + GEO_IPV6_DB_CITY, LookupService.GEOIP_MEMORY_CACHE);
+
         } catch (Exception e) {
             LOGGER.error("Problem with GeoIp", e);
             throw new GeoIpException("Problem with GeoIp", e);
@@ -43,6 +44,7 @@ public class GeoIpUtil {
         City city = null;
         Country country = null;
         String countryName, countryCode, cityName;
+
         try {
             if (IpValidator.isIpV4(ipAddress)) {
                 countryName = lookupServiceIpV4Country.getCountry(ipAddress).getName();
@@ -52,6 +54,7 @@ public class GeoIpUtil {
                 } else {
                     cityName = "None";
                 }
+
             } else {
                 countryName = lookupServiceIpV6Country.getCountry(ipAddress).getName();
                 countryCode = lookupServiceIpV6Country.getCountry(ipAddress).getCode();

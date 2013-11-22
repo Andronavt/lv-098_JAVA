@@ -1,6 +1,6 @@
 package tc.lv.exceptions;
 
-public class UserEntityServiceException extends DBException {
+public class UserEntityServiceException extends IPException {
     /**
      * 
      */
@@ -10,10 +10,10 @@ public class UserEntityServiceException extends DBException {
     }
 
     public UserEntityServiceException(String msg) {
-	super(msg);
+        super(msg);
     }
 
     public UserEntityServiceException(String msg, Exception e) {
-	super(msg, e);
+        super(msg, e);
     }
 }

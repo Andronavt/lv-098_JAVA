@@ -1,6 +1,6 @@
 package tc.lv.exceptions;
 
-public class SourceServiseException extends DBException {
+public class SourceServiseException extends IPException {
     /**
      * 
      */
@@ -10,10 +10,10 @@ public class SourceServiseException extends DBException {
     }
 
     public SourceServiseException(String msg) {
-	super(msg);
+        super(msg);
     }
 
     public SourceServiseException(String msg, Exception e) {
-	super(msg, e);
+        super(msg, e);
     }
 }
