@@ -73,7 +73,7 @@ public class NotValidIp extends IpAddress {
     }
 
     @Override
-    public String findIpByName() {
+    public String findIpByAddress() {
         return NotValidIp.FIND_IP_BY_NAME;
     }
 

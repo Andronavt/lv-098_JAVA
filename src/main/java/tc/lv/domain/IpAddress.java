@@ -83,10 +83,10 @@ public class IpAddress implements IpInterface {
     public static final String FIND_IP_LIST_BY_SOURCE_QUERY = "SELECT ip from IpAddress ip join ip.sourceSet s where s.sourceId = ?1";
 
     public static final String FIND_CITY_LIST_BY_STATUS = "IpAddress.findCityListByStatus";
-    public static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from IpAddress ip where ip.status = ?1";
+    public static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city) from IpAddress ip where ip.status = ?1";
 
     public static final String FIND_COUNTRY_LIST_BY_STATUS = "IpAddress.findCountryListByStatus";
-    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryName) from IpAddress ip where ip.status = ?1";
+    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country) from IpAddress ip where ip.status = ?1";
 
     public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME = "IpAddress.findCountryCodeByCountryName";
     public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.city.country.countryName = ?1";
@@ -267,7 +267,7 @@ public class IpAddress implements IpInterface {
     }
 
     @Override
-    public String findIpByName() {
+    public String findIpByAddress() {
         return IpAddress.FIND_IP_BY_NAME;
     }
 
