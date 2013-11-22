@@ -14,6 +14,7 @@ import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.exceptions.LocationServiceException;
 import tc.lv.service.LocationService;
+import tc.lv.service.implementation.PaginationServiceImpl;
 import tc.lv.utils.ExceptionUtil;
 
 @Controller
@@ -21,6 +22,9 @@ public class LocationController {
 
     @Autowired
     LocationService locationService;
+
+    @Autowired
+    PaginationServiceImpl paginationServiceImpl;
 
     // showStatusListByCity
     @RequestMapping(value = "secure_showListByCity", method = RequestMethod.GET)
@@ -37,7 +41,7 @@ public class LocationController {
         int ipCount;
         int pageCount;
         List<IpAddress> ipList;
-        List<Integer> pageList;
+        List<PaginationSettings> pageList;
         List<String> locationList;
         try {
 
@@ -50,6 +54,8 @@ public class LocationController {
                     makeStatus(statusUI));
 
             locationList = locationService.findCityListByStatus(makeIpType(ipTypeUI), makeStatus(statusUI));
+
+            pageList = paginationServiceImpl.loadPages();
 
             map.put("pageList", pageList); //
             map.put("pageCount", pageCount); // Count of pages
