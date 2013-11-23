@@ -21,9 +21,13 @@
 	href="<c:url value="/resources/css/jVectorMap/jquery-jvectormap-1.2.2.css" />"
 	rel="stylesheet" type="text/css" />
 
+<link
+	href="<c:url value="/resources/css/secure.css" />"
+	rel="stylesheet" type="text/css" />
+
 <fieldset>
 
-	<div id="world-map" style="width: 800px; height: 500px"></div>
+	<div id="world-map"></div>
 
 </fieldset>
 

@@ -26,40 +26,44 @@
 <!-- Bootstrap -->
 <script type="text/javascript"
 	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
-	
+
 <script type="text/javascript"
 	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
 
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
-	rel="stylesheet" type="text/css" />	
-	
-<form action="newFeed" id="addNewSource" method="post" name="input_feed">
+	rel="stylesheet" type="text/css" />
+
+<!-- custom css -->
+<link href="<c:url value="/resources/css/admin.css" />" rel="stylesheet"
+	type="text/css" />
+
+<form action="newSource" id="addNewSource" method="post" name="input_feed">
 	<fieldset>
 
-		<legend style="color: green">Add new source:</legend>
+		<legend>Add new source:</legend>
 
 		<div>
 			<b>Add parser:</b>
 		</div>
 
-		<input id="parser" type="text" name="parserIn" size="30"
-			maxlength="30" />
+		<input id="parser" type="text" name="parserIn" maxlength="30" />
 
 		<div>
 			<b>Add source name:</b>
 		</div>
 
-		<input id="sourceName" type="text" name="sourceNameIn" size="30"
-			maxlength="50" />
+		<input id="sourceName" type="text" name="sourceNameIn" maxlength="50" />
 
 		<div>
 			<b>Add url:</b>
 		</div>
 
-		<input id="url" type="text" name="urlIn" size="30" maxlength="50" />
+		<input id="url" type="text" name="urlIn" maxlength="50" />
 		<div>
-			<div><b>Chose type of list:</b></div>
-			 <b><select id="list" name="typeList" size="1">
+			<div>
+				<b>Chose type of list:</b>
+			</div>
+			<b><select id="list" name="typeList" size="1">
 					<option style="">black list</option>
 					<option>white list</option>
 			</select></b>
@@ -71,15 +75,15 @@
 		<input id="rank" type="text" name="rankIn" size="30" maxlength="50" />
 
 		<div>
-			<input class="btn btn-primary" id="btnAddNewSource" type="button" name="addNewSource"
-				value="Add new source" />
+			<input class="btn btn-primary" id="btnAddNewSource" type="button"
+				name="addNewSource" value="Add new source" />
 		</div>
 
 	</fieldset>
-	
+
 </form>
 
-<div id="Info" style="color: green;"></div>
+<div id="Info"></div>
 
 <script type="text/javascript">
 	$(document).ready(function() {
