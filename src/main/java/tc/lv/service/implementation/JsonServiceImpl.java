@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.IpAddressDao;
+import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.service.JsonService;
@@ -29,9 +30,9 @@ public class JsonServiceImpl implements JsonService {
         try {
             LOGGER.info("Start creating JSON-file for " + (status ? "White" : "Black") + "Map.");
 
-            for (String country : ipAddressDao.findCountryListByStatus(status, ipType)) {
-                int i = ipAddressDao.countStatusIpByCountryName(status, country, ipType).intValue();
-                json.put(ipAddressDao.findCountryCodeByCountryName(country, ipType), i);
+            for (Country country : ipAddressDao.findCountryListByStatus(status, ipType)) {
+                int i = ipAddressDao.countStatusIpByCountryName(status, country.getCountryName(), ipType).intValue();
+                json.put(ipAddressDao.findCountryCodeByCountryName(country.getCountryName(), ipType), i);
             }
             file = new FileWriter(path + fileName);
             file.write("var array =");

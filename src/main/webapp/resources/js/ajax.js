@@ -21,7 +21,7 @@ function doAjaxPostRegistration() {
 	});
 }
 
-function doAjaxAddNewFeed() {
+function doAjaxAddNewSource() {
 	// get the form values
 	var parser = $('#parser').val();
 	var sourceName = $('#sourceName').val();
@@ -30,7 +30,7 @@ function doAjaxAddNewFeed() {
 	var rank = $('#rank').val();
 	$.ajax({
 		type : "POST",
-		url : "admin_addNewFeed",
+		url : "admin_addNewSource",
 		data : "parser=" + parser + "&sourceName=" + sourceName + "&url=" + url
 				+ "&listType=" + listType + "&rank=" + rank,
 		success : function(response) {
@@ -60,7 +60,6 @@ function doAjaxPostAddIpToList() {
 		}
 	});
 }
-
 
 function selectSource() {
 	var source = $('select[name=sources]').val();
@@ -95,21 +94,66 @@ function doAjaxPostDeleteIpFromList() {
 	return false;
 }
 
-
 function doAjaxUpdateSource() {
 	var source = $('select[name=sources]').val();
+	$
+			.ajax({
+				type : "POST",
+				url : "admin_updateSourcesButton",
+				data : "source=" + source,
+				beforeSend : function() {
+					$('#upSource')
+							.html(
+									"<img src='resources/images/ajax-loader.gif'><br>Please wait. Source updating");
+				},
+				success : function(response) {
+					$('#upSource').html(response);
+				},
+				error : function(e) {
+					alert('Error: ' + parser);
+				}
+			});
+}
+
+function doAjaxPaginationWhiteAndBlackList(page) {
 	$.ajax({
 		type : "POST",
-		url : "admin_updateSourcesButton",
-		data : "source=" + source,
-		beforeSend: function() {
-			$('#upSource').html("Please wait. Source updating");
-		  },
+		url : location.href,
+		data : "pageNumber=" + page + "&countIpPerPage="
+				+ $('select[name=count]').val() + "&ipType="
+				+ $('select[name=ipType]').val(),
 		success : function(response) {
-			$('#upSource').html(response);
+			$("#content").html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + parser);
+			alert(e + pageNumber + countIpPerPage + ipType);
 		}
 	});
+}
+function defaultPaginationWhiteAndBlackList() {
+	doAjaxPaginationWhiteAndBlackList(1);
+}
+
+function doAjaxPaginationByCountryAndCity(page) {
+	var pageNumber = page;
+	var countIpPerPage = $('select[name=countIpPerPage]').val();
+	var location = $('select[name=location]').val();
+	var ipType = $('select[name=ipType]').val();
+	var typeList = $('select[name=typeList]').val();
+	$.ajax({
+		type : "POST",
+		url : location.href,
+		data : "pageNumber=" + pageNumber + "&countIpPerPage=" + countIpPerPage
+				+ "&location=" + location + "&ipType=" + ipType + "&status="
+				+ typeList,
+		success : function(response) {
+			$("#content").html(response);
+		},
+		error : function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+function defaltPaginationByCountryAndCity() {
+	doAjaxPaginationByCountryAndCity(1);
 }

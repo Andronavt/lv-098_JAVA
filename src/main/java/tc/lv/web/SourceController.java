@@ -22,13 +22,13 @@ public class SourceController {
     private SourceService sourceService;
 
     // Add new sources
-    @RequestMapping(value = "admin_addNewFeed", method = RequestMethod.GET)
+    @RequestMapping(value = "admin_addNewSource", method = RequestMethod.GET)
     public String addNewFeedPage() {
-        return "admin_addNewFeed";
+        return "admin_addNewSource";
     }
 
     // Add new sources
-    @RequestMapping(value = "admin_addNewFeed", method = RequestMethod.POST)
+    @RequestMapping(value = "admin_addNewSource", method = RequestMethod.POST)
     public String addNewFeed(@ModelAttribute(value = "parser") String parser,
             @ModelAttribute(value = "sourceName") String sourceName, @ModelAttribute(value = "url") String url,
             @ModelAttribute(value = "listType") String listType, @ModelAttribute(value = "rank") String rank,

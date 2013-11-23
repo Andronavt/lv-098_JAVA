@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$("#addNewFeed").validate({
+	$("#addNewSource").validate({
 
 		rules : {
 

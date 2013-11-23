@@ -37,7 +37,7 @@
 		<put-attribute name="body" value="/views/admin/addIpToList.jsp" />
 	</definition>
 
-	<definition name="admin_addNewFeed" extends="base.definition">
+	<definition name="admin_addNewSource" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/addNewSource.jsp" />
 	</definition>
 

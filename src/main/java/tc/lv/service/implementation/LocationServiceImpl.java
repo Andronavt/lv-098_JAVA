@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.IpAddressDao;
+import tc.lv.domain.City;
+import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.LocationServiceException;
 import tc.lv.service.LocationService;
@@ -18,7 +20,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     @Transactional
-    public Long countStatusIpByCityName(String cityName, Class<? extends IpAddress> ipType, boolean status)
+    public Integer countStatusIpByCityName(String cityName, Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
             return ipAddressDao.countStatusIpByCityName(status, cityName, ipType);
@@ -30,7 +32,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     @Transactional
-    public Long countStatusIpByCountryName(String countryName, Class<? extends IpAddress> ipType, boolean status)
+    public Integer countStatusIpByCountryName(String countryName, Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
             return ipAddressDao.countStatusIpByCountryName(status, countryName, ipType);
@@ -42,7 +44,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     @Transactional
-    public List<String> findCityListByStatus(Class<? extends IpAddress> ipType, boolean status)
+    public List<City> findCityListByStatus(Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
             return ipAddressDao.findCityListByStatus(status, ipType);
@@ -55,7 +57,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     @Transactional
-    public List<String> findCountryListByStatus(Class<? extends IpAddress> ipType, boolean status)
+    public List<Country> findCountryListByStatus(Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
             return ipAddressDao.findCountryListByStatus(status, ipType);

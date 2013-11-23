@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import tc.lv.domain.City;
+import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.PaginationSettings;
 import tc.lv.exceptions.LocationServiceException;
@@ -43,7 +45,7 @@ public class LocationController {
         int pageCount;
         List<IpAddress> ipList;
         List<PaginationSettings> pageList;
-        List<String> locationList;
+        List<City> locationList;
         try {
 
             ipCount = locationService.countStatusIpByCityName(cityName, IpVersionUtil.ipVersion(ipTypeUI),
@@ -89,7 +91,7 @@ public class LocationController {
         int pageCount;
         List<IpAddress> ipList;
         List<PaginationSettings> pageList;
-        List<String> locationList;
+        List<Country> locationList;
         try {
 
             ipCount = locationService.countStatusIpByCountryName(countryName, IpVersionUtil.ipVersion(ipTypeUI),

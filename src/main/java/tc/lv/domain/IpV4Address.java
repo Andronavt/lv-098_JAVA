@@ -174,7 +174,7 @@ public class IpV4Address extends IpAddress {
     }
 
     @Override
-    public String findIpByName() {
+    public String findIpByAddress() {
         return IpV4Address.FIND_IP_BY_NAME;
     }
 

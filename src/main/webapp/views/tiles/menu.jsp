@@ -37,9 +37,6 @@
 
 		<h6>Statistics:</h6>
 		<div class="divmenu">
-			<p>
-				<a class="button" href="secure_inProgres" title="Charts">Charts</a>
-			</p>
 
 			<p>
 				<a class="button" href="secure_showIpListFromWL"
@@ -87,17 +84,17 @@
 	</sec:authorize>
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<h6>Feeds:</h6>
+		<h6>Sources:</h6>
 		<div class="divmenu">
 
 			<p>
-				<a class="button" href="admin_addNewFeed" id="getContentAddNewFeed"
-					title="Add new Feed">Add new Feed</a>
+				<a class="button" href="admin_addNewSource" id="getContentAddNewSource"
+					title="Add new Source">Add new Source</a>
 			</p>
 
 			<p>
 				<a class="button" href="admin_deleteSource"
-					id="getContentDeleteFeed" title="Delete Feed">Delete Feed</a>
+					id="getContentDeleteSource" title="Delete Source">Delete Source</a>
 			</p>
 
 			<p>
@@ -107,7 +104,7 @@
 
 			<p>
 				<a class="button" href="admin_deleteIpFromList"
-					id="getContentDeleteWlIp" title="Delete IP from list">Delete IP
+					id="getContentDeleteIpFromList" title="Delete IP from list">Delete IP
 					from list</a>
 			</p>
 
