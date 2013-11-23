@@ -31,16 +31,23 @@ public class ParserResultServiceImpl implements ParserResultService {
 
         LOGGER.info("Start updating Data Base");
         try {
-
+            LOGGER.info("Start update IpV4List");
             ipAddressDao.saveList(result.getIpV4List(), result.getSourceId(), IpV4Address.class);
+            LOGGER.info("Finish updating IpV4List");
+
+            LOGGER.info("Start update IpV6List");
             ipAddressDao.saveList(result.getIpV6List(), result.getSourceId(), IpV6Address.class);
+            LOGGER.info("Finish updating IpV6List");
+
+            LOGGER.info("Start update NotValidList");
             ipAddressDao.saveList(result.getNotValidList(), result.getSourceId(), NotValidIp.class);
+            LOGGER.info("Finish updating NotValidList");
 
             LOGGER.info("Start update WhiteList");
             ipAddressDao.updateStatusList(IpAddress.class);
-            LOGGER.info("Finish updating Data Base");
-
             LOGGER.info("Finish update WhiteList");
+
+            LOGGER.info("Finish updating Data Base");
 
         } catch (Exception e) {
             LOGGER.error(e);

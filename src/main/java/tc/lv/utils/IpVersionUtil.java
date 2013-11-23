@@ -6,20 +6,21 @@ import tc.lv.domain.IpV6Address;
 
 public class IpVersionUtil {
 
-	public static boolean checkWhiteList(IpAddress ipAddress) {
-		return ipAddress.getStatus();
-	}
+    public static boolean checkWhiteList(IpAddress ipAddress) {
+        return ipAddress.getStatus();
+    }
 
-	public static Class<? extends IpAddress> makeIpType(int ipType) {
-		if (ipType == 0)
-			return IpV4Address.class;
-		if (ipType == 1)
-			return IpV6Address.class;
-		return IpAddress.class;
-	}
+    public static Class<? extends IpAddress> ipVersion(String ipType) {
+        if (ipType.equals("ipv4"))
+            return IpV4Address.class;
+        if (ipType.equals("ipv6"))
+            return IpV6Address.class;
 
-	public static boolean makeStatus(int status) {
-		return (status == 1 ? true : false);
-	}
+        return IpAddress.class;
+    }
+
+    public static boolean isWhiteIpAddress(String status) {
+        return (status.equals("whiteList") ? true : false);
+    }
 
 }

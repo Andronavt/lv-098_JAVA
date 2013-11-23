@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
+import tc.lv.exceptions.GeoIpServiceException;
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.exceptions.SourceDownloaderServiceException;
+import tc.lv.service.GeoIpService;
 import tc.lv.service.JsonService;
 import tc.lv.service.ParserResultService;
 import tc.lv.service.SourceDownloaderService;
@@ -36,6 +38,9 @@ public class SourceDownloadController {
 
     @Autowired
     private SourceDownloaderService sourceDownloaderService;
+
+    @Autowired
+    private GeoIpService geoIpService;
 
     @Autowired
     private ParserResultService parserResultService;
@@ -66,15 +71,24 @@ public class SourceDownloadController {
         try {
             LOGGER.info("Start updating Sources.");
 
+            // loading sources list
             List<Source> sourceList = sourceDownloaderService.loadSourceList();
 
+            // Creating Mapping with sources and parsers
             Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
 
+            // downloading and parsering files from sources
             List<ParserResults> parserResultList = sourceDownloaderService.downloadParseAndUpdateData(
                     sourceNameList, parserMap);
 
-            parserResultService.saveAllSources(parserResultList);
+            // adding locations from GeoIP
+            List<ParserResults> parserResultListWithLocations = geoIpService
+                    .updateIpAddresLocation(parserResultList);
 
+            // saving to data base
+            parserResultService.saveAllSources(parserResultListWithLocations);
+
+            // Creating JSON files for White and Black Maps
             jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST, ALL_IP_ADDRESSES, WHITE_LIST);
             jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST, ALL_IP_ADDRESSES, BLACK_LIST);
 
@@ -83,7 +97,8 @@ public class SourceDownloadController {
             map.put("successMsg", "Source " + sourceName + " updated.");
             return "result";
 
-        } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonServiceException e) {
+        } catch (SourceDownloaderServiceException | GeoIpServiceException | ParserResultServiceException
+                | JsonServiceException e) {
             map.put("errorList", ExceptionUtil.createErrorList(e));
             map.put("errorMsg", e.getMessage());
             return "result";
