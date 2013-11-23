@@ -32,14 +32,14 @@
 	</select>
 	<!-- List of type ip for white and black list pagination -->
 	<select name="ipType" onchange="defaltPaginationByCountryAndCity()">
-		<option value="-1">All Ip</option>
-		<option value="0">Ip v4</option>
-		<option value="1">Ip v6</option>
+		<option value="allIp">All Ip</option>
+		<option value="ipv4">Ip v4</option>
+		<option value="ipv6">Ip v6</option>
 	</select>
 	<!-- White or black list -->
 	<select name="typeList" onchange="defaltPaginationByCountryAndCity()">
-		<option value="0">black list</option>
-		<option value="1">white list</option>
+		<option value="blackList">black list</option>
+		<option value="whiteList">white list</option>
 	</select>
 	<!-- City or Country -->
 	<select name="location" onchange="defaltPaginationByCountryAndCity()">
