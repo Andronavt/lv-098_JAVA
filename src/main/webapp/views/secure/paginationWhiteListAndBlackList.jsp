@@ -30,9 +30,9 @@
 	</select>
 	<!-- List of type ip for white and black list pagination -->
 	<select name="ipType" onchange="defaultPaginationWhiteAndBlackList()">
-		<option value="-1">All Ip</option>
-		<option value="0">Ip v4</option>
-		<option value="1">Ip v6</option>
+		<option value="allIp">All Ip</option>
+		<option value="ipv4">Ip v4</option>
+		<option value="ipv6">Ip v6</option>
 	</select>
 </div>
 <script>

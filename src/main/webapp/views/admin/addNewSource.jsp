@@ -64,7 +64,7 @@
 				<b>Chose type of list:</b>
 			</div>
 			<b><select id="list" name="typeList" size="1">
-					<option style="">black list</option>
+					<option>black list</option>
 					<option>white list</option>
 			</select></b>
 		</div>

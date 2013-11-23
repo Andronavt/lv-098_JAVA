@@ -45,8 +45,8 @@
 			<input class="input-large" id="IP" type="text" name="addIp" size="20"
 				maxlength="50"> <b>Type of list:</b> <b><select
 				id="list" name="typeList" size="1">
-					<option value="0">black list</option>
-					<option value="1">white list</option>
+					<option value="blackList">black list</option>
+					<option value="whiteList">white list</option>
 			</select></b>
 		</div>
 	</form>
