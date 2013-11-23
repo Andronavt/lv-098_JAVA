@@ -21,7 +21,8 @@ function doAjaxPostRegistration() {
 	});
 }
 
-function doAjaxAddNewFeed() {
+function doAjaxAddNewSource() {
+	alert("FUCK");
 	// get the form values
 	var parser = $('#parser').val();
 	var sourceName = $('#sourceName').val();
@@ -103,7 +104,7 @@ function doAjaxUpdateSource() {
 		url : "admin_updateSourcesButton",
 		data : "source=" + source,
 		beforeSend: function() {
-			$('#upSource').html("Please wait. Source updating");
+			$('#upSource').html("<img src='resources/images/ajax-loader.gif'><br>Please wait. Source updating");
 		  },
 		success : function(response) {
 			$('#upSource').html(response);

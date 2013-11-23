@@ -15,10 +15,10 @@
 	src="<c:url value="/resources/js/jquery.validate.min.js" />"></script>
 
 <script type="text/javascript"
-	src="<c:url value="/resources/js/validationAddNewFeed.js" />"></script>
+	src="<c:url value="/resources/js/validationAddNewSource.js" />"></script>
 
 <script type="text/javascript"
-	src="<c:url value="/resources/js/rulesAddNewFeed.js" />"></script>
+	src="<c:url value="/resources/js/rulesAddNewSource.js" />"></script>
 
 <link href="<c:url value="/resources/css/validation.css" />"
 	rel="stylesheet" type="text/css" />
@@ -33,7 +33,7 @@
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
 	rel="stylesheet" type="text/css" />	
 	
-<form action="newFeed" id="addNewFeed" method="post" name="input_feed">
+<form action="newFeed" id="addNewSource" method="post" name="input_feed">
 	<fieldset>
 
 		<legend style="color: green">Add new source:</legend>
@@ -71,8 +71,8 @@
 		<input id="rank" type="text" name="rankIn" size="30" maxlength="50" />
 
 		<div>
-			<input class="btn btn-primary" id="btnAddNewFeed" type="button" name="addNewFeed"
-				value="Add new feed" />
+			<input class="btn btn-primary" id="btnAddNewSource" type="button" name="addNewSource"
+				value="Add new source" />
 		</div>
 
 	</fieldset>
@@ -83,6 +83,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		validateAddNewFeed();
+		validateAddNewSource();
 	});
 </script>
