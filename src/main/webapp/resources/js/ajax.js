@@ -30,7 +30,7 @@ function doAjaxAddNewSource() {
 	var rank = $('#rank').val();
 	$.ajax({
 		type : "POST",
-		url : "admin_addNewFeed",
+		url : "admin_addNewSource",
 		data : "parser=" + parser + "&sourceName=" + sourceName + "&url=" + url
 				+ "&listType=" + listType + "&rank=" + rank,
 		success : function(response) {
