@@ -45,19 +45,19 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public Integer countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
+    public Long countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
             throws DBException {
         Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusIpByCity());
         query = query.setParameter(1, status).setParameter(2, cityName);
-        return (Integer) query.getSingleResult();
+        return (Long) query.getSingleResult();
     }
 
     @Override
-    public Integer countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
+    public Long countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
             throws DBException {
         Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusIpByCountry());
         query = query.setParameter(1, status).setParameter(2, countryName);
-        return (Integer) query.getSingleResult();
+        return (Long) query.getSingleResult();
     }
 
     @Override

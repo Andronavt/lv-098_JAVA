@@ -23,7 +23,7 @@ public class LocationServiceImpl implements LocationService {
     public Integer countStatusIpByCityName(String cityName, Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
-            return ipAddressDao.countStatusIpByCityName(status, cityName, ipType);
+            return ipAddressDao.countStatusIpByCityName(status, cityName, ipType).intValue();
 
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
@@ -35,7 +35,7 @@ public class LocationServiceImpl implements LocationService {
     public Integer countStatusIpByCountryName(String countryName, Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
-            return ipAddressDao.countStatusIpByCountryName(status, countryName, ipType);
+            return ipAddressDao.countStatusIpByCountryName(status, countryName, ipType).intValue();
 
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);

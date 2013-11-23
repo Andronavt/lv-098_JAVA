@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +27,8 @@ public class ListController {
 
     @Autowired
     private IpAddressService ipAddressService;
+    
+    private static final Logger LOGGER = Logger.getLogger(ListController.class);
 
     // Delete IP-address from WhiteList
     @RequestMapping(value = "admin_deleteIpFromList", method = RequestMethod.GET)
@@ -112,8 +115,10 @@ public class ListController {
             @ModelAttribute("countIpPerPage") int value, @ModelAttribute("ipType") String ipType,
             Map<String, Object> map) {
         try {
+            LOGGER.info("!!!!!!!!!!!! pageNumber - " + page + " countIpPerPage - " + value + "ipType + " +  ipType);
             List<IpAddress> list = new ArrayList<IpAddress>();
             list.addAll(ipStatusListService.findIpList((page - 1) * value, value, ipType, "whiteList"));
+            //list.addAll(ipStatusListService.findIpList(1, 10, "allIp", "whiteList"));
             map.put("ipList", list);
 
         } catch (IpStatusListServiceException e) {

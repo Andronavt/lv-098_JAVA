@@ -13,10 +13,10 @@ public interface IpAddressDao {
 
     Integer countStatusIp(boolean status, Class<? extends IpAddress> ipType) throws DBException;
 
-    Integer countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
+    Long countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
             throws DBException;
 
-    Integer countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
+    Long countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
             throws DBException;
 
     void deleteIp(IpAddress address);

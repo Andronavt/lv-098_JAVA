@@ -3,6 +3,7 @@ package tc.lv.web;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ import tc.lv.domain.IpAddress;
 import tc.lv.domain.PaginationSettings;
 import tc.lv.exceptions.LocationServiceException;
 import tc.lv.service.LocationService;
+import tc.lv.service.implementation.JsonServiceImpl;
 import tc.lv.service.implementation.PaginationServiceImpl;
 import tc.lv.utils.ExceptionUtil;
 import tc.lv.utils.IpVersionUtil;
@@ -22,6 +24,7 @@ import tc.lv.utils.IpVersionUtil;
 @Controller
 public class LocationController {
 
+    private static final Logger LOGGER = Logger.getLogger(LocationController.class);
     @Autowired
     LocationService locationService;
 
@@ -29,13 +32,13 @@ public class LocationController {
     PaginationServiceImpl paginationServiceImpl;
 
     // showStatusListByCity
-    @RequestMapping(value = "secure_showListByCity", method = RequestMethod.GET)
+    @RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.GET)
     public String showStatusListByCity() {
-        return "secure_showListByCity";
+        return "secure_showIpListByCity";
     }
 
     // showStatusListByCity
-    @RequestMapping(value = "secure_showListByCity", method = RequestMethod.POST)
+    @RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.POST)
     public String showStatusListByCity(@ModelAttribute("pageNumber") int pageNumber,
             @ModelAttribute("countIpPerPage") int countIpPerPage, @ModelAttribute("location") String cityName,
             @ModelAttribute("ipType") String ipTypeUI, @ModelAttribute("status") String statusUI,
@@ -47,20 +50,28 @@ public class LocationController {
         List<PaginationSettings> pageList;
         List<City> locationList;
         try {
-
+            cityName = "Taipei";
+            
             ipCount = locationService.countStatusIpByCityName(cityName, IpVersionUtil.ipVersion(ipTypeUI),
                     IpVersionUtil.isWhiteIpAddress(statusUI)).intValue();
+            LOGGER.info("ipCount -" + ipCount );
+            
+            
             pageCount = ipCount / countIpPerPage + 1;
-
             from = (pageNumber - 1) * countIpPerPage;
             ipList = locationService.findStatusListByCity(from, countIpPerPage, cityName,
                     IpVersionUtil.ipVersion(ipTypeUI), IpVersionUtil.isWhiteIpAddress(statusUI));
-
+            LOGGER.info("ipList -" + ipList.toString());
+            
+            
             locationList = locationService.findCityListByStatus(IpVersionUtil.ipVersion(ipTypeUI),
                     IpVersionUtil.isWhiteIpAddress(statusUI));
-
+            LOGGER.info("locationList -" + locationList.toString() );
+            
+            
             pageList = paginationServiceImpl.loadPages();
-
+            LOGGER.info("pageList -" + pageList.toString() );
+            
             map.put("pageList", pageList); //
             map.put("pageCount", pageCount); // Count of pages
             map.put("ipList", ipList); // List of IP-addresses
@@ -75,13 +86,13 @@ public class LocationController {
     }
 
     // showStatusListByCountry
-    @RequestMapping(value = "secure_showListByCountry", method = RequestMethod.GET)
+    @RequestMapping(value = "secure_showIpListByCountry", method = RequestMethod.GET)
     public String showStatusListByCountry() {
-        return "secure_showListByCountry";
+        return "secure_showIpListByCountry";
     }
 
     // showStatusListByCountry
-    @RequestMapping(value = "secure_showListByCountry", method = RequestMethod.POST)
+    @RequestMapping(value = "secure_showIpListByCountry", method = RequestMethod.POST)
     public String showStatusListByCountry(@ModelAttribute("pageNumber") int pageNumber,
             @ModelAttribute("countIpPerPage") int countIpPerPage, @ModelAttribute("location") String countryName,
             @ModelAttribute("ipType") String ipTypeUI, @ModelAttribute("status") String statusUI,
