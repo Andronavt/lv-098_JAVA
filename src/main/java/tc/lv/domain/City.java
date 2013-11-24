@@ -12,27 +12,42 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "city")
+@NamedQueries({
+        // -----
+        @NamedQuery(name = City.FIND_ALL, query = City.FIND_ALL_QUERY),
+        @NamedQuery(name = City.FIND_CITY_LIST_BY_STATUS, query = City.FIND_CITY_LIST_BY_STATUS_QUERY),
+
+// -----
+})
 public class City {
+    public static final String FIND_ALL = "City.findAll";
+    public static final String FIND_ALL_QUERY = "SELECT ci from City ci";
+
+    public static final String FIND_CITY_LIST_BY_STATUS = "City.findCityListByStatus";
+    public static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from City ci, IpAddress ip where ip.status = ?1";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
-    int id;
+    private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "country")
-    Country country = new Country();
+    private Country country = new Country();
 
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
-    Set<IpAddress> ipAddresses = new HashSet<IpAddress>();
+    private Set<IpAddress> ipAddresses = new HashSet<IpAddress>();
 
     @Column(name = "city_name")
-    String cityName;
+    private String cityName;
 
     public City() {
 
@@ -77,39 +92,17 @@ public class City {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((cityName == null) ? 0 : cityName.hashCode());
-        result = prime * result + ((country == null) ? 0 : country.hashCode());
-        result = prime * result + ((ipAddresses == null) ? 0 : ipAddresses.hashCode());
-        return result;
+        return cityName.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        City other = (City) obj;
-        if (cityName == null) {
-            if (other.cityName != null)
-                return false;
-        } else if (!cityName.equals(other.cityName))
-            return false;
-        if (country == null) {
-            if (other.country != null)
-                return false;
-        } else if (!country.equals(other.country))
-            return false;
-        if (ipAddresses == null) {
-            if (other.ipAddresses != null)
-                return false;
-        } else if (!ipAddresses.equals(other.ipAddresses))
-            return false;
-        return true;
+        return cityName.equals(((City) obj).getCityName());
+    }
+
+    @PrePersist
+    private void setLocationData() {
+
     }
 
 }
