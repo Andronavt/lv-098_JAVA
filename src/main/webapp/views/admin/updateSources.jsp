@@ -35,13 +35,7 @@
  				 </c:forEach>
  				 
 			</select>
-			
-<!-- 			<select name="sources" size="1"> -->
-<%-- 				<c:forEach var="Source" items="${listSource}"> --%>
-<%-- 					<option value="${Source.getSourceName()}">${Source.getSourceName()}</option> --%>
-<%-- 				</c:forEach> --%>
-<!-- 			</select>  -->
-			
+
 			<br> 
 			
 			<input class="btn btn-primary" type="button" value="Update source" onclick="doAjaxUpdateSource()">

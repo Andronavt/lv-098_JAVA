@@ -1,3 +1,5 @@
+var DEFAULT_NUMBER_PAGE=1;
+
 function doAjaxPostRegistration() {
 	// get the form values
 	var user_name = $('#user_name').val();
@@ -129,15 +131,16 @@ function doAjaxPaginationWhiteAndBlackList(page) {
 }
 
 function defaultPaginationWhiteAndBlackList() {
-	doAjaxPaginationWhiteAndBlackList(1);
+	doAjaxPaginationWhiteAndBlackList(DEFAULT_NUMBER_PAGE);
 }
 
 function doAjaxPaginationByCountryAndCity(page) {
 	var pageNumber = page;
-	var countIpPerPage = $('select[name=countIpPerPage]').val();
-	var location = $('select[name=location]').val();
+	var countIpPerPage = $('select[name=countIpPerPage]').val();	
+	var location = $('input[name=clockpick]').val();
 	var ipType = $('select[name=ipType]').val();
 	var typeList = $('select[name=typeList]').val();
+	alert(" " + countIpPerPage + " " + location + " " + ipType + " " + typeList);
 	$.ajax({
 		type : "POST",
 		url : location.href,
@@ -148,11 +151,11 @@ function doAjaxPaginationByCountryAndCity(page) {
 			$("#content").html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + e);
+			alert('Error: ' + e );
 		}
 	});
 }
 
 function defaltPaginationByCountryAndCity() {
-	doAjaxPaginationByCountryAndCity(1);
+	doAjaxPaginationByCountryAndCity(DEFAULT_NUMBER_PAGE);
 }
