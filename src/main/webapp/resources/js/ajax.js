@@ -97,7 +97,25 @@ function doAjaxPostDeleteIpFromList() {
 
 
 function doAjaxUpdateSource() {
-	var source = $('select[name=sources]').val();
+	var arrSource = $('select[name=arrSource]').val();
+	$.ajax({
+		type : "POST",
+		url : "admin_updateSourcesButton",
+		data : "source=" + arrSource,
+		beforeSend: function() {
+			$('#upSource').html("Please wait. Source updating");
+		  },
+		success : function(response) {
+			alert('succes' + arrSource);
+			$('#upSource').html(response);
+		},
+		error : function(e) {
+			alert('eroor' + arrSource);
+			alert('Error: ' + parser);
+		}
+	});
+	
+/*	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
 		url : "admin_updateSourcesButton",
@@ -106,10 +124,12 @@ function doAjaxUpdateSource() {
 			$('#upSource').html("Please wait. Source updating");
 		  },
 		success : function(response) {
+			alert('succes' + source);
 			$('#upSource').html(response);
 		},
 		error : function(e) {
+			alert('eroor' + source);
 			alert('Error: ' + parser);
 		}
-	});
+	});*/
 }
