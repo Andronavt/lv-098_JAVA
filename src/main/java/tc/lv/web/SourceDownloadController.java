@@ -51,59 +51,60 @@ public class SourceDownloadController {
     // Getting updateSourcesPag.jsp
     @RequestMapping("admin_updateSources")
     public String getlistIpV4(Map<String, Object> map) {
-	try {
-	    map.put("listSource", sourceDownloaderService.loadSourceList());
+        try {
+            map.put("listSource", sourceDownloaderService.loadSourceList());
 
-	} catch (SourceDownloaderServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
-	return "admin_updateSources";
+        } catch (SourceDownloaderServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+        return "admin_updateSources";
     }
 
     // Updating Sources
     @RequestMapping(value = "admin_updateSourcesButton", method = RequestMethod.POST)
-    public String sourceDownloader(@ModelAttribute("source") String[] sourceName, Map<String, Object> map) {
-	
-	List<String> sourceNameList = Arrays.asList(sourceName);
-	
-	for (String s : sourceNameList) {
-	    LOGGER.info("SOURCE:" + s);
-	}
-	
-	try {
-	    LOGGER.info("Start updating Sources.");
+    public String sourceDownloader(@ModelAttribute("source") String[] sourceNameArray, Map<String, Object> map) {
+        List<String> sourceNameList = Arrays.asList(sourceNameArray);
+        LOGGER.info("Start updating Sources.");
+        try {
+            // loading sources list
+            List<Source> sourceList = sourceDownloaderService.loadSourceList();
 
-	    // loading sources list
-	    List<Source> sourceList = sourceDownloaderService.loadSourceList();
+            // Creating Mapping with sources and parsers
+            Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
+            for (String sourceName : sourceNameList) {
+                LOGGER.info("Start updating SOURCE:" + sourceName);
 
-	    // Creating Mapping with sources and parsers
-	    Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
+                // downloading and parsering files from sources
+                ParserResults parserResult = sourceDownloaderService.downloadParseAndUpdateData(sourceName,
+                        parserMap);
 
-	    // downloading and parsering files from sources
-	    List<ParserResults> parserResultList = sourceDownloaderService.downloadParseAndUpdateData(sourceNameList, parserMap);
+                // adding locations from GeoIP
+                ParserResults parserResultWithLocations = geoIpService.updateIpAddresLocation(parserResult);
 
-	    // adding locations from GeoIP
-	    List<ParserResults> parserResultListWithLocations = geoIpService.updateIpAddresLocation(parserResultList);
+                // saving to data base
+                parserResultService.save(parserResultWithLocations);
 
-	    // saving to data base
-	    parserResultService.saveAllSources(parserResultListWithLocations);
+            }
+            // Updating status list
+            sourceDownloaderService.updateStatusList();
 
-	    // Creating JSON files for White and Black Maps
-	    jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST, ALL_IP_ADDRESSES, WHITE_LIST);
-	    jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST, ALL_IP_ADDRESSES, BLACK_LIST);
+            // Creating JSON files for White and Black Maps
+            jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST, ALL_IP_ADDRESSES, WHITE_LIST);
+            jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST, ALL_IP_ADDRESSES, BLACK_LIST);
 
-	    LOGGER.info("Finish updating Sources.");
+            LOGGER.info("Finish updating Sources.");
 
-	    map.put("successMsg", "Source " + sourceName + " updated.");
-	    return "result";
+            map.put("successMsg", "Updated :)");
+            return "result";
 
-	} catch (SourceDownloaderServiceException | GeoIpServiceException | ParserResultServiceException | JsonServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
+        } catch (SourceDownloaderServiceException | GeoIpServiceException | ParserResultServiceException
+                | JsonServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
 
     }
 }
