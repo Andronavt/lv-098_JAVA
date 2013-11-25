@@ -38,40 +38,30 @@ public class GeoIpUtil {
         }
     }
 
-    public void addCityToIpV4Address(IpAddress ipV4Address) throws GeoIpException {
+    public void addCityToIpAddress(IpAddress ipAddress) throws GeoIpException {
         City city = null;
         Country country = null;
         String countryName, countryCode, cityName;
-        String address = ipV4Address.getAddress();
+        String address = ipAddress.getAddress();
         try {
-            countryName = lookupServiceIpV4Country.getCountry(address).getName();
-            countryCode = lookupServiceIpV4Country.getCountry(address).getCode();
-            cityName = (lookupServiceIpV4City.getLocation(address) != null ? lookupServiceIpV4City.getLocation(address).city : "None");
-            country = new Country(countryName, countryCode);
-            city = new City(cityName, country);
-            ipV4Address.setCity(city);
+            if (IpValidator.isIpV4(ipAddress.getAddress())) {
+                countryName = lookupServiceIpV4Country.getCountry(address).getName();
+                countryCode = lookupServiceIpV4Country.getCountry(address).getCode();
+                cityName = (lookupServiceIpV4City.getLocation(address) != null ? lookupServiceIpV4City
+                        .getLocation(address).city : "None");
+                country = new Country(countryName, countryCode);
+                city = new City(cityName, country);
+                ipAddress.setCity(city);
 
-        } catch (Exception e) {
-            LOGGER.error("Problem with GeoIp!", e);
-            dispose();
-            throw new GeoIpException("Problem with GeoIp!", e);
-        }
-    }
-
-    public void addCityToIpV6Address(IpAddress ipV6Address) throws GeoIpException {
-        City city = null;
-        Country country = null;
-        String countryName, countryCode, cityName;
-        String address = ipV6Address.getAddress();
-        
-        try {
-            countryName = lookupServiceIpV6Country.getCountry(address).getName();
-            
-            countryCode = lookupServiceIpV6Country.getCountry(address).getCode();
-            cityName = (lookupServiceIpV6City.getLocation(address) != null ? lookupServiceIpV6City.getLocation(address).city : "None");
-            country = new Country(countryName, countryCode);
-            city = new City(cityName, country);
-            ipV6Address.setCity(city);
+            } else {
+                countryName = lookupServiceIpV6Country.getCountry(address).getName();
+                countryCode = lookupServiceIpV6Country.getCountry(address).getCode();
+                cityName = (lookupServiceIpV6City.getLocation(address) != null ? lookupServiceIpV6City
+                        .getLocation(address).city : "None");
+                country = new Country(countryName, countryCode);
+                city = new City(cityName, country);
+                ipAddress.setCity(city);
+            }
 
         } catch (Exception e) {
             LOGGER.error("Problem with GeoIp!", e);

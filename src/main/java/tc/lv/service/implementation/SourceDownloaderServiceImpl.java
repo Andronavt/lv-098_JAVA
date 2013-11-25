@@ -72,12 +72,8 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
         List<Source> sourcesList;
         try {
             sourcesList = sourceDao.findAll();
-            for (Source source : sourcesList) {
-                if (source.getSourceName().equals(ADMIN_BLACK_LIST))
-                    sourcesList.remove(source);
-                if (source.getSourceName().equals(ADMIN_WHITE_LIST))
-                    sourcesList.remove(source);
-            }
+            sourcesList.remove(sourceDao.findByName(ADMIN_BLACK_LIST));
+            sourcesList.remove(sourceDao.findByName(ADMIN_WHITE_LIST));
             return sourcesList;
 
         } catch (Exception e) {

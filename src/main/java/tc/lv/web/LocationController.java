@@ -48,7 +48,6 @@ public class LocationController {
         List<String> locationList;
         try {
             cityName = "Taipei";
-
             ipCount = locationService.countStatusIpByCityName(cityName, IpVersionUtil.ipVersion(ipTypeUI),
                     IpVersionUtil.isWhiteIpAddress(statusUI)).intValue();
             LOGGER.info("ipCount -" + ipCount);
