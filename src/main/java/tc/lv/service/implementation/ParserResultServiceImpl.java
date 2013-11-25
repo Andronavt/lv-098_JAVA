@@ -1,14 +1,11 @@
 package tc.lv.service.implementation;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.IpAddressDao;
-import tc.lv.domain.IpAddress;
 import tc.lv.domain.IpV4Address;
 import tc.lv.domain.IpV6Address;
 import tc.lv.domain.NotValidIp;
@@ -30,6 +27,8 @@ public class ParserResultServiceImpl implements ParserResultService {
     public void save(ParserResults result) throws ParserResultServiceException {
 
         try {
+            LOGGER.info("Start updating Data Base");
+
             LOGGER.info("Start update IpV4List");
             ipAddressDao.saveList(result.getIpV4List(), result.getSourceId(), IpV4Address.class);
             LOGGER.info("Finish updating IpV4List");
@@ -42,28 +41,11 @@ public class ParserResultServiceImpl implements ParserResultService {
             ipAddressDao.saveList(result.getNotValidList(), result.getSourceId(), NotValidIp.class);
             LOGGER.info("Finish updating NotValidList");
 
+            LOGGER.info("Finish updating Data Base");
         } catch (Exception e) {
             LOGGER.error(e);
             throw new ParserResultServiceException("Could not save IP List to Data Base", e);
         }
     }
 
-    @Transactional
-    @Override
-    public void saveAllSources(List<ParserResults> resultList) throws ParserResultServiceException {
-
-        try {
-            LOGGER.info("Start updating Data Base");
-            for (ParserResults result : resultList) {
-                this.save(result);
-            }
-            LOGGER.info("Start update WhiteList");
-            ipAddressDao.updateStatusList(IpAddress.class);
-            LOGGER.info("Finish update WhiteList");
-            LOGGER.info("Finish updating Data Base");
-        } catch (Exception e) {
-            LOGGER.error(e);
-            throw new ParserResultServiceException("Could not save results of all sources", e);
-        }
-    }
 }

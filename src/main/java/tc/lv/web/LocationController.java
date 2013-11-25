@@ -14,7 +14,7 @@ import tc.lv.domain.IpAddress;
 import tc.lv.domain.PaginationSettings;
 import tc.lv.exceptions.LocationServiceException;
 import tc.lv.service.LocationService;
-import tc.lv.service.implementation.PaginationServiceImpl;
+import tc.lv.service.PaginationService;
 import tc.lv.utils.ExceptionUtil;
 import tc.lv.utils.IpVersionUtil;
 
@@ -26,7 +26,7 @@ public class LocationController {
     LocationService locationService;
 
     @Autowired
-    PaginationServiceImpl paginationServiceImpl;
+    PaginationService paginationService;
 
     // showStatusListByCity
     @RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.GET)
@@ -38,7 +38,7 @@ public class LocationController {
     @RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.POST)
     public String showStatusListByCity(@ModelAttribute("pageNumber") int pageNumber,
             @ModelAttribute("countIpPerPage") int countIpPerPage, @ModelAttribute("location") String cityName,
-            @ModelAttribute("ipType") String ipTypeUI, @ModelAttribute("status") String statusUI,
+            @ModelAttribute("ipType") String ipType, @ModelAttribute("status") String status,
             Map<String, Object> map) {
         int from;
         int ipCount;
@@ -48,21 +48,21 @@ public class LocationController {
         List<String> locationList;
         try {
             cityName = "Taipei";
-            ipCount = locationService.countStatusIpByCityName(cityName, IpVersionUtil.ipVersion(ipTypeUI),
-                    IpVersionUtil.isWhiteIpAddress(statusUI)).intValue();
+            ipCount = locationService.countStatusIpByCityName(cityName, IpVersionUtil.ipVersion(ipType),
+                    IpVersionUtil.isWhiteIpAddress(status)).intValue();
             LOGGER.info("ipCount -" + ipCount);
 
             pageCount = ipCount / countIpPerPage + 1;
             from = (pageNumber - 1) * countIpPerPage;
             ipList = locationService.findStatusListByCity(from, countIpPerPage, cityName,
-                    IpVersionUtil.ipVersion(ipTypeUI), IpVersionUtil.isWhiteIpAddress(statusUI));
+                    IpVersionUtil.ipVersion(ipType), IpVersionUtil.isWhiteIpAddress(status));
             LOGGER.info("ipList -" + ipList.toString());
 
-            locationList = locationService.findCityListByStatus(IpVersionUtil.ipVersion(ipTypeUI),
-                    IpVersionUtil.isWhiteIpAddress(statusUI));
+            locationList = locationService.findCityListByStatus(IpVersionUtil.ipVersion(ipType),
+                    IpVersionUtil.isWhiteIpAddress(status));
             LOGGER.info("locationList -" + locationList.toString());
 
-            pageList = paginationServiceImpl.loadPages();
+            pageList = paginationService.loadPages();
             LOGGER.info("pageList -" + pageList.toString());
 
             map.put("pageList", pageList); //
@@ -108,7 +108,7 @@ public class LocationController {
 
             locationList = locationService.findCountryListByStatus(IpVersionUtil.ipVersion(ipTypeUI),
                     IpVersionUtil.isWhiteIpAddress(statusUI));
-            pageList = paginationServiceImpl.loadPages();
+            pageList = paginationService.loadPages();
 
             map.put("pageList", pageList); //
             map.put("pageCount", pageCount); // Count of pages

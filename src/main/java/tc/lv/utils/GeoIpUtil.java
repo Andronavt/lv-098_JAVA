@@ -49,19 +49,17 @@ public class GeoIpUtil {
                 countryCode = lookupServiceIpV4Country.getCountry(address).getCode();
                 cityName = (lookupServiceIpV4City.getLocation(address) != null ? lookupServiceIpV4City
                         .getLocation(address).city : "None");
-                country = new Country(countryName, countryCode);
-                city = new City(cityName, country);
-                ipAddress.setCity(city);
 
             } else {
                 countryName = lookupServiceIpV6Country.getCountry(address).getName();
                 countryCode = lookupServiceIpV6Country.getCountry(address).getCode();
                 cityName = (lookupServiceIpV6City.getLocation(address) != null ? lookupServiceIpV6City
                         .getLocation(address).city : "None");
-                country = new Country(countryName, countryCode);
-                city = new City(cityName, country);
-                ipAddress.setCity(city);
             }
+
+            country = new Country(countryName, countryCode);
+            city = new City(cityName, country);
+            ipAddress.setCity(city);
 
         } catch (Exception e) {
             LOGGER.error("Problem with GeoIp!", e);
