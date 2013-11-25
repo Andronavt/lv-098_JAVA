@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.IpAddressDao;
-import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.IpStatusListServiceException;
 import tc.lv.service.IpStatusListService;
@@ -21,9 +20,6 @@ public class IpStatusListServiceImpl implements IpStatusListService {
 
     @Autowired
     private IpAddressDao ipAddressDao;
-
-    @Autowired
-    private SourceDao sourceDao;
 
     @Transactional
     @Override
