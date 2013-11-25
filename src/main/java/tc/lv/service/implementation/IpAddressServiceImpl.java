@@ -69,11 +69,11 @@ public class IpAddressServiceImpl implements IpAddressService {
                     tempIp = new IpV4Address(address, new Date(), null);
 
                     tempIp.getSourceSet().add(sourceDao.findByName(listType));
-                    geoIpUtil.addCityToIpV4Address(tempIp);
+                    geoIpUtil.addCityToIpAddress(tempIp);
                 } else if (tempIp == null && IpValidator.isIpV6(address)) {
                     tempIp = new IpV6Address(address, new Date(), null);
                     tempIp.getSourceSet().add(sourceDao.findByName(listType));
-                    geoIpUtil.addCityToIpV6Address(tempIp);
+                    geoIpUtil.addCityToIpAddress(tempIp);
                 } else {
                     tempIp.getSourceSet().add(sourceDao.findByName(listType));
                 }

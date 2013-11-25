@@ -29,7 +29,7 @@ public class ParserResultServiceImpl implements ParserResultService {
     @Override
     public void save(ParserResults result) throws ParserResultServiceException {
 
-        LOGGER.info("Start updating Data Base");
+        
         try {
             LOGGER.info("Start update IpV4List");
             ipAddressDao.saveList(result.getIpV4List(), result.getSourceId(), IpV4Address.class);
@@ -47,7 +47,7 @@ public class ParserResultServiceImpl implements ParserResultService {
             ipAddressDao.updateStatusList(IpAddress.class);
             LOGGER.info("Finish update WhiteList");
 
-            LOGGER.info("Finish updating Data Base");
+            
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -60,11 +60,11 @@ public class ParserResultServiceImpl implements ParserResultService {
     public void saveAllSources(List<ParserResults> resultList) throws ParserResultServiceException {
 
         try {
-
+            LOGGER.info("Start updating Data Base");
             for (ParserResults result : resultList) {
                 this.save(result);
             }
-
+            LOGGER.info("Finish updating Data Base");
         } catch (Exception e) {
             LOGGER.error(e);
             throw new ParserResultServiceException("Could not save results of all sources", e);

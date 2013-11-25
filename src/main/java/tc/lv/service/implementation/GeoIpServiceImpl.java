@@ -45,12 +45,10 @@ public class GeoIpServiceImpl implements GeoIpService {
 
     private void update(ParserResults parserRes) throws GeoIpException {
         for (IpV4Address ipv4 : parserRes.getIpV4List()) {
-            geoIpUtil.addCityToIpV4Address(ipv4);
-
+            geoIpUtil.addCityToIpAddress(ipv4);
         }
-
         for (IpV6Address ipv6 : parserRes.getIpV6List()) {
-            geoIpUtil.addCityToIpV6Address(ipv6);
+            geoIpUtil.addCityToIpAddress(ipv6);
         }
     }
 }
