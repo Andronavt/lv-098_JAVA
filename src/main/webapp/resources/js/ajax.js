@@ -95,24 +95,21 @@ function doAjaxPostDeleteIpFromList() {
 }
 
 function doAjaxUpdateSource() {
-	var source = $('select[name=sources]').val();
-	$
-			.ajax({
-				type : "POST",
-				url : "admin_updateSourcesButton",
-				data : "source=" + source,
-				beforeSend : function() {
-					$('#upSource')
-							.html(
-									"<img src='resources/images/ajax-loader.gif'><br>Please wait. Source updating");
-				},
-				success : function(response) {
-					$('#upSource').html(response);
-				},
-				error : function(e) {
-					alert('Error: ' + parser);
-				}
-			});
+	var source = [ $('select[name=sources]').val()];
+	$.ajax({
+		type : "POST",
+		url : "admin_updateSourcesButton",
+		data : "source=" + source,
+		beforeSend: function() {
+			$('#upSource').html("<img src='resources/images/ajax-loader.gif'><br>Please wait. Source updating");
+		  },
+		success : function(response) {
+			$('#upSource').html(response);
+		},
+		error : function(e) {
+			alert('Error: ' + parser);
+		}
+	});
 }
 
 function doAjaxPaginationWhiteAndBlackList(page) {
@@ -130,6 +127,7 @@ function doAjaxPaginationWhiteAndBlackList(page) {
 		}
 	});
 }
+
 function defaultPaginationWhiteAndBlackList() {
 	doAjaxPaginationWhiteAndBlackList(1);
 }
@@ -154,6 +152,7 @@ function doAjaxPaginationByCountryAndCity(page) {
 		}
 	});
 }
+
 function defaltPaginationByCountryAndCity() {
 	doAjaxPaginationByCountryAndCity(1);
 }
