@@ -30,37 +30,37 @@ public class IpAddressServiceImpl implements IpAddressService {
     @Transactional
     @Override
     public boolean saveIpByStatus(String address, String status) throws IpAddressServiceException {
-	try {
-	    IpAddress tempIp = ipAddressDao.findByAddress(address, IpAddress.class);
-	    if (tempIp != null) {
-		tempIp.getSourceSet().add(ipAddressSaveService.getSourceByStatus(status));
-	    } else {
-		tempIp = ipAddressSaveService.saveIpAddress(address, status);
-	    }
-	    tempIp.setStatus(IpVersionUtil.isWhiteIpAddress(status));
-	    ipAddressDao.save(tempIp);
-	    return true;
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new IpAddressServiceException("Could not save IP to List", e);
-	}
+        try {
+            IpAddress tempIp = ipAddressDao.findByAddress(address, IpAddress.class);
+            if (tempIp != null) {
+                tempIp.getSourceSet().add(ipAddressSaveService.getSourceByStatus(status));
+            } else {
+                tempIp = ipAddressSaveService.saveIpAddress(address, status);
+            }
+            tempIp.setStatus(IpVersionUtil.isWhiteIpAddress(status));
+            ipAddressDao.save(tempIp);
+            return true;
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new IpAddressServiceException("Could not save IP to List", e);
+        }
     }
 
     @Transactional
     @Override
     public boolean deleteIpByAddress(String address) throws IpAddressServiceException {
-	try {
-	    IpAddress tempIp = null;
-	    tempIp = ipAddressDao.findByAddress(address, IpAddress.class);
-	    if (tempIp != null) {
-		ipAddressDao.deleteIp(tempIp);
-		return true;
-	    }
-	    return false;
-	} catch (Exception e) {
-	    LOGGER.error(e);
-	    throw new IpAddressServiceException("Could not delete ip from list", e);
-	}
+        try {
+            IpAddress tempIp = null;
+            tempIp = ipAddressDao.findByAddress(address, IpAddress.class);
+            if (tempIp != null) {
+                ipAddressDao.deleteIp(tempIp);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new IpAddressServiceException("Could not delete ip from list", e);
+        }
     }
 
 }

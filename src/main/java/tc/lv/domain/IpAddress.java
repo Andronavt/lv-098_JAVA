@@ -215,16 +215,6 @@ public class IpAddress implements IpInterface {
     }
 
     @Override
-    public String findAllNotValid() {
-        return IpAddress.FIND_ALL_NOT_VALID;
-    }
-
-    @Override
-    public String findAllValid() {
-        return IpAddress.FIND_ALL_VALID;
-    }
-
-    @Override
     public String findByAddress() {
         return IpAddress.FIND_IP_LIST_BY_ADDRESS;
     }
@@ -232,21 +222,6 @@ public class IpAddress implements IpInterface {
     @Override
     public String findIpListBySource() {
         return IpAddress.FIND_IP_LIST_BY_SOURCE;
-    }
-
-    @Override
-    public String findIpListByCity() {
-        return IpAddress.FIND_IP_LIST_BY_CITY;
-    }
-
-    @Override
-    public String findIpListByCountry() {
-        return IpAddress.FIND_IP_LIST_BY_COUNTRY;
-    }
-
-    @Override
-    public String findIpByAddress() {
-        return IpAddress.FIND_IP_BY_NAME;
     }
 
     @Override
