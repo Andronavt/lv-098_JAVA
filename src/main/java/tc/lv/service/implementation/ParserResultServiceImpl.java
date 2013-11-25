@@ -29,7 +29,6 @@ public class ParserResultServiceImpl implements ParserResultService {
     @Override
     public void save(ParserResults result) throws ParserResultServiceException {
 
-        
         try {
             LOGGER.info("Start update IpV4List");
             ipAddressDao.saveList(result.getIpV4List(), result.getSourceId(), IpV4Address.class);
@@ -42,12 +41,6 @@ public class ParserResultServiceImpl implements ParserResultService {
             LOGGER.info("Start update NotValidList");
             ipAddressDao.saveList(result.getNotValidList(), result.getSourceId(), NotValidIp.class);
             LOGGER.info("Finish updating NotValidList");
-
-            LOGGER.info("Start update WhiteList");
-            ipAddressDao.updateStatusList(IpAddress.class);
-            LOGGER.info("Finish update WhiteList");
-
-            
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -64,6 +57,9 @@ public class ParserResultServiceImpl implements ParserResultService {
             for (ParserResults result : resultList) {
                 this.save(result);
             }
+            LOGGER.info("Start update WhiteList");
+            ipAddressDao.updateStatusList(IpAddress.class);
+            LOGGER.info("Finish update WhiteList");
             LOGGER.info("Finish updating Data Base");
         } catch (Exception e) {
             LOGGER.error(e);
