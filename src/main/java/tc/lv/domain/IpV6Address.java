@@ -20,12 +20,12 @@ import javax.persistence.Table;
         @NamedQuery(name = IpV6Address.FIND_UNDEFINED_LIST, query = IpV6Address.FIND_UNDEFINEDLIST_QUERY),
         @NamedQuery(name = IpV6Address.FIND_IP_BY_NAME, query = IpV6Address.FIND_IP_BY_NAME_QUERY),
         @NamedQuery(name = IpV6Address.FIND_STATUS_LIST_BY_CITY, query = IpV6Address.FIND_STATUS_LIST_BY_CITY_QUERY),
-        @NamedQuery(name = IpV6Address.FIND_STATUS_LIST_BY_COUNTRY, query = IpV6Address.FIND_STATUS_LIST_BY_COUNTRY_QUERY),
+        @NamedQuery(name = IpV6Address.FIND_STATUS_LIST_BY_COUNTRY_NAME, query = IpV6Address.FIND_STATUS_LIST_BY_COUNTRY_NAME_QUERY),
 
         @NamedQuery(name = IpV6Address.COUNT_ALL, query = IpV6Address.COUNT_ALL_QUERY),
         @NamedQuery(name = IpV6Address.COUNT_STATUS_LIST, query = IpV6Address.COUNT_STATUS_LIST_QUERY),
-        @NamedQuery(name = IpV6Address.COUNT_STATUS_IP_BY_COUNTRY, query = IpV6Address.COUNT_STATUS_IP_BY_COUNTRY_QUERY),
-        @NamedQuery(name = IpV6Address.COUNT_STATUS_IP_BY_CITY, query = IpV6Address.COUNT_STATUS_IP_BY_CITY_QUERY),
+        @NamedQuery(name = IpV6Address.COUNT_STATUS_IP_BY_COUNTRY_NAME, query = IpV6Address.COUNT_STATUS_IP_BY_COUNTRY_NAME_QUERY),
+        @NamedQuery(name = IpV6Address.COUNT_STATUS_IP_BY_CITY_NAME, query = IpV6Address.COUNT_STATUS_IP_BY_CITY_NAME_QUERY),
         @NamedQuery(name = IpV6Address.FIND_ALL_NOT_VALID, query = IpV6Address.FIND_ALL_NOT_VALID_QUERY),
         @NamedQuery(name = IpV6Address.FIND_ALL_VALID, query = IpV6Address.FIND_ALL_VALID_QUERY),
         @NamedQuery(name = IpV6Address.FIND_IP_LIST_BY_CITY, query = IpV6Address.FIND_IP_LIST_BY_CITY_QUERY),
@@ -40,11 +40,11 @@ public class IpV6Address extends IpAddress {
     public static final String COUNT_STATUS_LIST = "IpV6Address.countStatusList";
     public static final String COUNT_STATUS_LIST_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1";
 
-    public static final String COUNT_STATUS_IP_BY_CITY = "IpV6Address.countStatusIpByCity";
-    public static final String COUNT_STATUS_IP_BY_CITY_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1 and ip.city.cityName = ?2";
+    public static final String COUNT_STATUS_IP_BY_CITY_NAME = "IpV6Address.countStatusIpByCityName";
+    public static final String COUNT_STATUS_IP_BY_CITY_NAME_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1 and ip.city.cityName = ?2";
 
-    public static final String COUNT_STATUS_IP_BY_COUNTRY = "IpV6Address.countStatusIpByCountry";
-    public static final String COUNT_STATUS_IP_BY_COUNTRY_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1 and ip.city.country.countryCode = ?2";
+    public static final String COUNT_STATUS_IP_BY_COUNTRY_NAME = "IpV6Address.countStatusIpByCountryName";
+    public static final String COUNT_STATUS_IP_BY_COUNTRY_NAME_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1 and ip.city.country.countryName = ?2";
 
     public static final String FIND_ALL = "IpV6Address.findAll";
     public static final String FIND_ALL_QUERY = "SELECT ip from IpV6Address ip";
@@ -85,8 +85,8 @@ public class IpV6Address extends IpAddress {
     public static final String FIND_STATUS_LIST_BY_CITY = "IpV6Address.findStatusListByCity";
     public static final String FIND_STATUS_LIST_BY_CITY_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1 and ip.city.cityName = ?2";
 
-    public static final String FIND_STATUS_LIST_BY_COUNTRY = "IpV6Address.findStatusListByCountry";
-    public static final String FIND_STATUS_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1 and ip.city.country.countryCode = ?2";
+    public static final String FIND_STATUS_LIST_BY_COUNTRY_NAME = "IpV6Address.findStatusListByCountryName";
+    public static final String FIND_STATUS_LIST_BY_COUNTRY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1 and ip.city.country.countryName = ?2";
 
     public static final String FIND_UNDEFINED_LIST = "IpV6Address.findUndefinedList";
     public static final String FIND_UNDEFINEDLIST_QUERY = "SELECT ip from IpV6Address ip where ip.status is null";
@@ -117,13 +117,13 @@ public class IpV6Address extends IpAddress {
     }
 
     @Override
-    public String countStatusIpByCity() {
-        return IpV6Address.COUNT_STATUS_IP_BY_CITY;
+    public String countStatusIpByCityName() {
+        return IpV6Address.COUNT_STATUS_IP_BY_CITY_NAME;
     }
 
     @Override
-    public String countStatusIpByCountryCode() {
-        return IpV6Address.COUNT_STATUS_IP_BY_COUNTRY;
+    public String countStatusIpByCountryName() {
+        return IpV6Address.COUNT_STATUS_IP_BY_COUNTRY_NAME;
     }
 
     @Override
@@ -177,8 +177,8 @@ public class IpV6Address extends IpAddress {
     }
 
     @Override
-    public String findStatusListByCountry() {
-        return IpV6Address.FIND_STATUS_LIST_BY_COUNTRY;
+    public String findStatusListByCountryName() {
+        return IpV6Address.FIND_STATUS_LIST_BY_COUNTRY_NAME;
     }
 
     @Override

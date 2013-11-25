@@ -7,6 +7,6 @@ import tc.lv.exceptions.DBException;
 
 public interface CityDao {
 
-    List<String> findCityListByStatus(boolean status) throws DBException;
+    List<String> findCityNameListByStatus(boolean status) throws DBException;
 
 }
