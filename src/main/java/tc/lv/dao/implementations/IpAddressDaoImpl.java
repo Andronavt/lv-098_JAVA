@@ -139,8 +139,7 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
         Source source = entityManager.find(Source.class, sourceId);
         if (source == null) {
-            // We can't find source for this Id
-            // TODO
+            throw new DBException("Didn't find source with id " + sourceId);
         } else {
             if (list.size() < 1) {
                 return;

@@ -12,6 +12,8 @@
 <script type="text/javascript"
 	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
 
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 <script type="text/javascript"
 	src="<c:url value="/resources/js/ajax.js" />"></script>
 
@@ -25,10 +27,9 @@
 	<!-- ip pare page -->
 	<select name="countIpPerPage"
 		onchange="defaltPaginationByCountryAndCity()">
-		<option value="10">10</option>
-		<option value="20">20</option>
-		<option value="30">30</option>
-		<option value="40">40</option>
+		<c:forEach var="list" items="${pageList}">
+			<option value="${list.ipsPerPage}">${list.ipsPerPage}</option>
+		</c:forEach>
 	</select>
 	<!-- List of type ip for white and black list pagination -->
 	<select name="ipType" onchange="defaltPaginationByCountryAndCity()">
@@ -42,21 +43,25 @@
 		<option value="whiteList">white list</option>
 	</select>
 	<!-- City or Country -->
-	<select name="location" onchange="defaltPaginationByCountryAndCity()">
-		<%-- 		<c:forEach var="location" items="${locationList}"> --%>
-		<%-- 			<option value="${location.cityName }">${location.cityName}</option> --%>
-		<%-- 		</c:forEach> --%>
-		<option value="Taiwan">Taiwan</option>
-	</select>
+	<input name="clockpick" id="xy" type="text" size=10
+		onchange="defaltPaginationByCountryAndCity()">
 </div>
 <script>
+	var source = "${locationList}";
+	source = source.replace('[','');
+	source = source.replace(']','');	   
+	source = source.split(',');
+	var page = "${pageCount}";
 	$(document).ready(function() {
 		$('#demo1').bootpag({
-			total : 5
+			total : page
 		}).on("page", function(event, num) {
 			doAjaxPaginationByCountryAndCity(num);
 		});
-		defaltPaginationByCountryAndCity();
+		// 		defaltPaginationByCountryAndCity();
+		$("#xy").autocomplete({
+			source : source
+		});
 	});
 </script>
 

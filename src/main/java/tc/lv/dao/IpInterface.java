@@ -10,21 +10,11 @@ public interface IpInterface {
 
     String countStatusIpByCountryName();
 
-    String findAll();// not used
-
-    String findAllNotValid();// not used
-
-    String findAllValid();// not used
+    String findAll();
 
     String findByAddress();
 
     String findIpListBySource();
-
-    String findIpListByCity();// ??????????
-
-    String findIpListByCountry();// ???????????
-
-    String findIpByAddress();// ?
 
     String findStatusList();
 

@@ -17,7 +17,6 @@ import tc.lv.exceptions.IpAddressServiceException;
 import tc.lv.service.IpAddressSaveService;
 import tc.lv.utils.GeoIpUtil;
 import tc.lv.utils.IpValidator;
-import tc.lv.utils.IpVersionUtil;
 
 @Service
 public class IpAddressSaveServiceImpl implements IpAddressSaveService {

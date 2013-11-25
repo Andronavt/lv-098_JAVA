@@ -8,6 +8,7 @@
 
 <center>
 	<div class="table">
+		
 		<table>
 			<tr>
 				<td>IP address</td>

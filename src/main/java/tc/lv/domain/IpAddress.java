@@ -53,52 +53,52 @@ import tc.lv.dao.IpInterface;
 public class IpAddress implements IpInterface {
 
     public static final String COUNT_ALL = "IpAddress.countAll";
-    public static final String COUNT_ALL_QUERY = "SELECT count(ip) from IpAddress ip";
+    static final String COUNT_ALL_QUERY = "SELECT count(ip) from IpAddress ip";
 
     public static final String COUNT_STATUS_LIST = "IpAddress.countStatusList";
-    public static final String COUNT_STATUS_LIST_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1";
+    static final String COUNT_STATUS_LIST_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1";
 
     public static final String COUNT_STATUS_IP_BY_CITY_NAME = "IpAddress.countStatusIpByCityName";
-    public static final String COUNT_STATUS_IP_BY_CITY_NAME_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.cityName = ?2";
+    static final String COUNT_STATUS_IP_BY_CITY_NAME_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.cityName = ?2";
 
     public static final String COUNT_STATUS_IP_BY_COUNTRY_NAME = "IpAddress.countStatusIpByCountryName";
-    public static final String COUNT_STATUS_IP_BY_COUNTRY_NAME_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.country.countryName = ?2";
+    static final String COUNT_STATUS_IP_BY_COUNTRY_NAME_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.country.countryName = ?2";
 
     public static final String FIND_ALL = "IpAddress.findAll";
-    public static final String FIND_ALL_QUERY = "SELECT ip from IpAddress ip";
+    static final String FIND_ALL_QUERY = "SELECT ip from IpAddress ip";
 
     public static final String FIND_ALL_NOT_VALID = "IpAddress.findAllNotValidIp";
-    public static final String FIND_ALL_NOT_VALID_QUERY = "SELECT ip FROM IpAddress ip, NotValidIp nv WHERE ip.id = nv.id";
+    static final String FIND_ALL_NOT_VALID_QUERY = "SELECT ip FROM IpAddress ip, NotValidIp nv WHERE ip.id = nv.id";
 
     public static final String FIND_ALL_VALID = "IpAddress.findAllValidIp";
-    public static final String FIND_ALL_VALID_QUERY = "SELECT ipO FROM IpAddress ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpAddress ipI, NotValidIp nv WHERE ipI.id = nv.id)";
+    static final String FIND_ALL_VALID_QUERY = "SELECT ipO FROM IpAddress ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpAddress ipI, NotValidIp nv WHERE ipI.id = nv.id)";
 
     public static final String FIND_IP_LIST_BY_ADDRESS = "IpAddress.findIpListByAddress";
-    public static final String FIND_IP_LIST_BY_ADDRESS_QUERY = "SELECT ip from IpAddress ip WHERE ip.address= ?1";
+    static final String FIND_IP_LIST_BY_ADDRESS_QUERY = "SELECT ip from IpAddress ip WHERE ip.address= ?1";
 
     public static final String FIND_IP_LIST_BY_SOURCE = "IpAddress.findIpListBySource";
-    public static final String FIND_IP_LIST_BY_SOURCE_QUERY = "SELECT ip from IpAddress ip join ip.sourceSet s where s.sourceId = ?1";
+    static final String FIND_IP_LIST_BY_SOURCE_QUERY = "SELECT ip from IpAddress ip join ip.sourceSet s where s.sourceId = ?1";
 
     public static final String FIND_IP_LIST_BY_CITY = "IpAddress.findIpByCity";
-    public static final String FIND_IP_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.city.cityName = ?1";
+    static final String FIND_IP_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.city.cityName = ?1";
 
     public static final String FIND_IP_LIST_BY_COUNTRY = "IpAddress.findIpByCountry";
-    public static final String FIND_IP_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.city.country.countryName = ?1";
+    static final String FIND_IP_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpAddress ip where ip.city.country.countryName = ?1";
 
     public static final String FIND_IP_BY_NAME = "IpAddress.findIpByName";
-    public static final String FIND_IP_BY_NAME_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1 and ip.address = ?2";
+    static final String FIND_IP_BY_NAME_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1 and ip.address = ?2";
 
     public static final String FIND_STATUS_LIST = "IpAddress.findStatusList";
-    public static final String FIND_STATUS_LIST_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1";
+    static final String FIND_STATUS_LIST_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1";
 
     public static final String FIND_STATUS_LIST_BY_CITY = "IpAddress.findStatusListByCity";
-    public static final String FIND_STATUS_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1 and ip.city.cityName = ?2";
+    static final String FIND_STATUS_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1 and ip.city.cityName = ?2";
 
     public static final String FIND_STATUS_LIST_BY_COUNTRY_NAME = "IpAddress.findStatusListByCountryName";
-    public static final String FIND_STATUS_LIST_BY_COUNTRY_NAME_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1 and ip.city.country.countryName = ?2";
+    static final String FIND_STATUS_LIST_BY_COUNTRY_NAME_QUERY = "SELECT ip from IpAddress ip where ip.status = ?1 and ip.city.country.countryName = ?2";
 
     public static final String FIND_UNDEFINED_LIST = "IpAddress.findUndefinedList";
-    public static final String FIND_UNDEFINEDLIST_QUERY = "SELECT ip from IpAddress ip where ip.status is null";
+    static final String FIND_UNDEFINEDLIST_QUERY = "SELECT ip from IpAddress ip where ip.status is null";
 
     @Column(name = "address", updatable = true, nullable = false, unique = true)
     protected String address;
@@ -215,16 +215,6 @@ public class IpAddress implements IpInterface {
     }
 
     @Override
-    public String findAllNotValid() {
-        return IpAddress.FIND_ALL_NOT_VALID;
-    }
-
-    @Override
-    public String findAllValid() {
-        return IpAddress.FIND_ALL_VALID;
-    }
-
-    @Override
     public String findByAddress() {
         return IpAddress.FIND_IP_LIST_BY_ADDRESS;
     }
@@ -232,21 +222,6 @@ public class IpAddress implements IpInterface {
     @Override
     public String findIpListBySource() {
         return IpAddress.FIND_IP_LIST_BY_SOURCE;
-    }
-
-    @Override
-    public String findIpListByCity() {
-        return IpAddress.FIND_IP_LIST_BY_CITY;
-    }
-
-    @Override
-    public String findIpListByCountry() {
-        return IpAddress.FIND_IP_LIST_BY_COUNTRY;
-    }
-
-    @Override
-    public String findIpByAddress() {
-        return IpAddress.FIND_IP_BY_NAME;
     }
 
     @Override
