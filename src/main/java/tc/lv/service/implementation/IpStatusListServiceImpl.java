@@ -17,28 +17,25 @@ import tc.lv.utils.IpVersionUtil;
 @Service
 public class IpStatusListServiceImpl implements IpStatusListService {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(IpStatusListServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(IpStatusListServiceImpl.class);
 
-	@Autowired
-	private IpAddressDao ipAddressDao;
+    @Autowired
+    private IpAddressDao ipAddressDao;
 
-	@Autowired
-	private SourceDao sourceDao;
+    @Autowired
+    private SourceDao sourceDao;
 
-	@Transactional
-	@Override
-	public Collection<IpAddress> findIpList(int from, int count, int ipType,
-			int status) throws IpStatusListServiceException {
-		try {
-			return ipAddressDao.findStatusList(
-					IpVersionUtil.makeStatus(status), from, count,
-					IpVersionUtil.makeIpType(ipType));
-		} catch (Exception e) {
-			LOGGER.error(e);
-			throw new IpStatusListServiceException(
-					"Could not load IP List by range", e);
-		}
-	}
+    @Transactional
+    @Override
+    public Collection<IpAddress> findIpList(int from, int count, String ipType, String status)
+            throws IpStatusListServiceException {
+        try {
+            return ipAddressDao.findStatusList(IpVersionUtil.isWhiteIpAddress(status), from, count,
+                    IpVersionUtil.ipVersion(ipType));
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new IpStatusListServiceException("Could not load IP List by range", e);
+        }
+    }
 
 }

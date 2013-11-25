@@ -22,7 +22,6 @@ public class ParserChaosreignsWL implements Parser {
     private static final Pattern PATTERN = Pattern.compile(IP_ALL);
 
     private ParserResults parserResults = new ParserResults();
-    private GeoIpUtil geoIpUtil = new GeoIpUtil();
 
     public ParserChaosreignsWL() {
     }
@@ -35,7 +34,6 @@ public class ParserChaosreignsWL implements Parser {
 
         try {
             scanner = new Scanner(new BufferedReader(new FileReader(file)));
-            geoIpUtil.init();
 
             while (scanner.hasNext()) {
                 String tmpIpAddress = "";
@@ -45,17 +43,15 @@ public class ParserChaosreignsWL implements Parser {
                     tmpIpAddress = matcher.group();
 
                     if (IpValidator.isIpV4(tmpIpAddress)) {
-                        parserResults.addToIpV4List(new IpV4Address(tmpIpAddress, new Date(), geoIpUtil
-                                .findLocationByIpAddress(tmpIpAddress)));
+                        parserResults.addToIpV4List(new IpV4Address(tmpIpAddress, new Date(), null));
                     } else if (IpValidator.isIpV6(tmpIpAddress)) {
-                        parserResults.addToIpV6List(new IpV6Address(tmpIpAddress, new Date(), geoIpUtil
-                                .findLocationByIpAddress(tmpIpAddress)));
+                        parserResults.addToIpV6List(new IpV6Address(tmpIpAddress, new Date(), null));
                     } else {
                         parserResults.addToNotValidList(new NotValidIp(tmpIpAddress, new Date()));
                     }
                 }
             }
-            geoIpUtil.close();
+
             scanner.close();
 
         } catch (Exception e) {

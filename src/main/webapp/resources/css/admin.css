@@ -1,0 +1,39 @@
+/*common*/
+legend {
+	color: green;
+}
+
+#Info {
+	color: green;
+}
+
+/*addNewSource*/
+#parser {
+	size: 30;
+}
+
+#sourceName {
+	size: 30;
+}
+
+#url {
+	size: 30;
+}
+
+#list {
+	size: 1;
+}
+
+#rank {
+	size: 30;
+}
+
+/*deleteIpFromList*/
+#ipForRemove {
+	size: 20;
+}
+
+/*updateSources*/
+#upSource {
+	color: black;
+}

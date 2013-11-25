@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,144 +22,135 @@ import tc.lv.utils.IpValidator;
 @Controller
 public class ListController {
 
-	@Autowired
-	private IpStatusListService ipStatusListService;
+    @Autowired
+    private IpStatusListService ipStatusListService;
 
-	@Autowired
-	private IpAddressService ipAddressService;
+    @Autowired
+    private IpAddressService ipAddressService;
+    
+    private static final Logger LOGGER = Logger.getLogger(ListController.class);
 
-	// Delete IP-address from WhiteList
-	@RequestMapping(value = "admin_deleteIpFromList", method = RequestMethod.GET)
-	public String deleteIpFromWhiteList() {
-		return "admin_deleteIpFromList";
-	}
+    // Delete IP-address from WhiteList
+    @RequestMapping(value = "admin_deleteIpFromList", method = RequestMethod.GET)
+    public String deleteIpFromWhiteList() {
+        return "admin_deleteIpFromList";
+    }
 
-	// Delete IP-address from WhiteList
-	@RequestMapping(value = "admin_deleteIpFromList", method = RequestMethod.POST)
-	public String deleteIpFromWhiteList(
-			@ModelAttribute("address") String ipAddress, Map<String, Object> map)
-			throws IpAddressServiceException, IpStatusListServiceException {
+    // Delete IP-address from WhiteList
+    @RequestMapping(value = "admin_deleteIpFromList", method = RequestMethod.POST)
+    public String deleteIpFromWhiteList(@ModelAttribute("address") String ipAddress, Map<String, Object> map)
+            throws IpAddressServiceException, IpStatusListServiceException {
 
-		try {
-			if (IpValidator.isIpV4(ipAddress)) {
-				return deleteIpFromDataBase(
-						ipAddressService.deleteIpByAddress(ipAddress),
-						ipAddress, map);
-			}
-			if (IpValidator.isIpV6(ipAddress)) {
-				return deleteIpFromDataBase(
-						ipAddressService.deleteIpByAddress(ipAddress),
-						ipAddress, map);
-			}
-			map.put("incorrectMsg", "Incorrect IP-address!");
-			return "result";
+        try {
+            if (IpValidator.isIpV4(ipAddress)) {
+                return deleteIpFromDataBase(ipAddressService.deleteIpByAddress(ipAddress), ipAddress, map);
+            }
+            if (IpValidator.isIpV6(ipAddress)) {
+                return deleteIpFromDataBase(ipAddressService.deleteIpByAddress(ipAddress), ipAddress, map);
+            }
+            map.put("incorrectMsg", "Incorrect IP-address!");
+            return "result";
 
-		} catch (IpAddressServiceException e) {
-			map.put("errorList", ExceptionUtil.createErrorList(e));
-			map.put("errorMsg", e.getMessage());
-			return "result";
-		}
-	}
+        } catch (IpAddressServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+    }
 
-	// delete IP from DB
-	private String deleteIpFromDataBase(boolean flag, String ipAddress,
-			Map<String, Object> map) throws IpStatusListServiceException {
-		if (flag) {
-			map.put("successMsg", "IP-address: " + ipAddress
-					+ " has been successfully deleted.");
-			return "result";
-		}
-		map.put("incorrectMsg", "Current IP-address don't exist");
-		return "result";
-	}
+    // delete IP from DB
+    private String deleteIpFromDataBase(boolean flag, String ipAddress, Map<String, Object> map)
+            throws IpStatusListServiceException {
+        if (flag) {
+            map.put("successMsg", "IP-address: " + ipAddress + " has been successfully deleted.");
+            return "result";
+        }
+        map.put("incorrectMsg", "Current IP-address don't exist");
+        return "result";
+    }
 
-	// Add IP-address to WhiteList
-	@RequestMapping(value = "admin_addIpToList", method = RequestMethod.GET)
-	public String addIpToWhiteList() {
-		return "admin_addIpToList";
-	}
+    // Add IP-address to WhiteList
+    @RequestMapping(value = "admin_addIpToList", method = RequestMethod.GET)
+    public String addIpToWhiteList() {
+        return "admin_addIpToList";
+    }
 
-	// Add IP-address to WhiteList
-	@RequestMapping(value = "admin_addIpToList", method = RequestMethod.POST)
-	public String addIpToWhiteList(@ModelAttribute("address") String ipAddress,
-			@ModelAttribute("listType") int listType, Map<String, Object> map)
-			throws IpAddressServiceException {
-		try {
-			String result = addIpToDataBase(
-					ipAddressService.saveIpByStatus(ipAddress, listType),
-					ipAddress, listType, map);
-			// map.put("incorrectMsg", "Incorrect IP-address!");
-			return "result";
+    // Add IP-address to WhiteList
+    @RequestMapping(value = "admin_addIpToList", method = RequestMethod.POST)
+    public String addIpToWhiteList(@ModelAttribute("address") String ipAddress,
+            @ModelAttribute("listType") String listType, Map<String, Object> map) throws IpAddressServiceException {
+        try {
+            String result = addIpToDataBase(ipAddressService.saveIpByStatus(ipAddress, listType), ipAddress,
+                    listType, map);
+            // map.put("incorrectMsg", "Incorrect IP-address!");
+            return "result";
 
-		} catch (IpStatusListServiceException e) {
-			map.put("errorList", ExceptionUtil.createErrorList(e));
-			map.put("errorMsg", e.getMessage());
-			return "result";
-		}
-	}
-	// add IP to DB
-	private String addIpToDataBase(boolean flag, String ipAddress,
-			int listType, Map<String, Object> map)
-			throws IpStatusListServiceException {
-		System.out.println(flag + " FLAGGGG");
-		if (flag) {
-			map.put("successMsg", "IP-address: " + ipAddress
-					+ " has been successfully added.");
-			return "result";
-		}
-		map.put("incorrectMsg", "Current IP-address exist");
-		return "result";
-	}
+        } catch (IpStatusListServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+    }
 
-	// Show IP-address from WhiteList
-	@RequestMapping(value = "secure_showIpListFromWL", method = RequestMethod.GET)
-	public String showIpListFromWhiteList() {
-		return "secure_showIpListFromWL";
-	}
+    // add IP to DB
+    private String addIpToDataBase(boolean flag, String ipAddress, String listType, Map<String, Object> map)
+            throws IpStatusListServiceException {
+        System.out.println(flag + " FLAGGGG");
+        if (flag) {
+            map.put("successMsg", "IP-address: " + ipAddress + " has been successfully added.");
+            return "result";
+        }
+        map.put("incorrectMsg", "Current IP-address exist");
+        return "result";
+    }
 
-	@RequestMapping(value = "secure_showIpListFromWL", method = RequestMethod.POST)
-	public String showIpListFromWhiteList(
-			@ModelAttribute("pageNumber") int page,
-			@ModelAttribute("countIpPerPage") int value,
-			@ModelAttribute("ipType") int ipType, Map<String, Object> map) {
-		try {
-			List<IpAddress> list = new ArrayList<IpAddress>();
-			list.addAll(ipStatusListService.findIpList((page - 1) * value,
-					value, ipType, 1));
-			map.put("ipList", list);
+    // Show IP-address from WhiteList
+    @RequestMapping(value = "secure_showIpListFromWL", method = RequestMethod.GET)
+    public String showIpListFromWhiteList() {
+        return "secure_showIpListFromWL";
+    }
 
-		} catch (IpStatusListServiceException e) {
-			map.put("errorList", ExceptionUtil.createErrorList(e));
-			map.put("errorMsg", e.getMessage());
-			return "result";
-		}
-		return "secure_table";
-	}
+    @RequestMapping(value = "secure_showIpListFromWL", method = RequestMethod.POST)
+    public String showIpListFromWhiteList(@ModelAttribute("pageNumber") int page,
+            @ModelAttribute("countIpPerPage") int value, @ModelAttribute("ipType") String ipType,
+            Map<String, Object> map) {
+        try {
+            LOGGER.info("!!!!!!!!!!!! pageNumber - " + page + " countIpPerPage - " + value + "ipType + " +  ipType);
+            List<IpAddress> list = new ArrayList<IpAddress>();
+            list.addAll(ipStatusListService.findIpList((page - 1) * value, value, ipType, "whiteList"));
+            //list.addAll(ipStatusListService.findIpList(1, 10, "allIp", "whiteList"));
+            map.put("ipList", list);
 
-	// test Black List
-	@RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.GET)
-	public String showIpListFromBlackList() {
-		return "secure_showIpListFromBL";
-	}
+        } catch (IpStatusListServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+        return "secure_table";
+    }
 
-	@RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.POST)
-	public String showIpListFromBlackList(
-			@ModelAttribute("pageNumber") int page,
-			@ModelAttribute("countIpPerPage") int value,
-			@ModelAttribute("ipType") int ipType, Map<String, Object> map) {
-		System.out.println("PAGE "+page+ " COUNT "+value+ "Iptype "+ipType+" ");
-		try {
-			
-			List<IpAddress> list = new ArrayList<IpAddress>();
-			list.addAll(ipStatusListService.findIpList((page - 1) * value,
-					value,ipType, 0));
-			map.put("ipList", list);
+    // test Black List
+    @RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.GET)
+    public String showIpListFromBlackList() {
+        return "secure_showIpListFromBL";
+    }
 
-		} catch (IpStatusListServiceException e) {
-			map.put("errorList", ExceptionUtil.createErrorList(e));
-			map.put("errorMsg", e.getMessage());
-			return "result";
-		}
-		return "secure_table";
-	}
+    @RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.POST)
+    public String showIpListFromBlackList(@ModelAttribute("pageNumber") int page,
+            @ModelAttribute("countIpPerPage") int value, @ModelAttribute("ipType") String ipType,
+            Map<String, Object> map) {
+        System.out.println("PAGE " + page + " COUNT " + value + "Iptype " + ipType + " ");
+        try {
+
+            List<IpAddress> list = new ArrayList<IpAddress>();
+            list.addAll(ipStatusListService.findIpList((page - 1) * value, value, ipType, "blackList"));
+            map.put("ipList", list);
+
+        } catch (IpStatusListServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+        return "secure_table";
+    }
 }

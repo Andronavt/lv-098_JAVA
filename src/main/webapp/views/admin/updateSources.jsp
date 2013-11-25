@@ -11,15 +11,18 @@
 <!-- Bootstrap -->
 <script type="text/javascript"
 	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
-	
+
 <script type="text/javascript"
 	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
 
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
-	rel="stylesheet" type="text/css" />	
-	
+	rel="stylesheet" type="text/css" />
+
+<link href="<c:url value="/resources/css/admin.css" />" rel="stylesheet"
+	type="text/css" />
+
 <form action="" id="updateSource">
-	<div id="1">
+	<div>
 		<fieldset>
 			<legend style="color: green" align="left"><strong>Source for update:</strong></legend>
 			
@@ -43,4 +46,4 @@
 	</div>
 </form>
 <br>
-<div id="upSource" style="color: black;"></div>
+<div id="upSource"></div>

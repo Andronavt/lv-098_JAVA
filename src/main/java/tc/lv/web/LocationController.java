@@ -3,6 +3,7 @@ package tc.lv.web;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,48 +11,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import tc.lv.domain.IpAddress;
-import tc.lv.domain.IpV4Address;
-import tc.lv.domain.IpV6Address;
+import tc.lv.domain.PaginationSettings;
 import tc.lv.exceptions.LocationServiceException;
 import tc.lv.service.LocationService;
+import tc.lv.service.implementation.PaginationServiceImpl;
 import tc.lv.utils.ExceptionUtil;
+import tc.lv.utils.IpVersionUtil;
 
 @Controller
 public class LocationController {
 
+    private static final Logger LOGGER = Logger.getLogger(LocationController.class);
     @Autowired
     LocationService locationService;
 
+    @Autowired
+    PaginationServiceImpl paginationServiceImpl;
+
     // showStatusListByCity
-    @RequestMapping(value = "secure_showListByCity", method = RequestMethod.GET)
+    @RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.GET)
     public String showStatusListByCity() {
-        return "secure_showListByCity";
+        return "secure_showIpListByCity";
     }
 
     // showStatusListByCity
-    @RequestMapping(value = "secure_showListByCity", method = RequestMethod.POST)
+    @RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.POST)
     public String showStatusListByCity(@ModelAttribute("pageNumber") int pageNumber,
             @ModelAttribute("countIpPerPage") int countIpPerPage, @ModelAttribute("location") String cityName,
-            @ModelAttribute("ipType") int ipTypeUI, @ModelAttribute("status") int statusUI, Map<String, Object> map) {
+            @ModelAttribute("ipType") String ipTypeUI, @ModelAttribute("status") String statusUI,
+            Map<String, Object> map) {
         int from;
         int ipCount;
         int pageCount;
         List<IpAddress> ipList;
-        List<Integer> pageList;
+        List<PaginationSettings> pageList;
         List<String> locationList;
         try {
+            cityName = "Taipei";
+            ipCount = locationService.countStatusIpByCityName(cityName, IpVersionUtil.ipVersion(ipTypeUI),
+                    IpVersionUtil.isWhiteIpAddress(statusUI)).intValue();
+            LOGGER.info("ipCount -" + ipCount);
 
-            ipCount = locationService
-                    .countStatusIpByCityName(cityName, makeIpType(ipTypeUI), makeStatus(statusUI)).intValue();
             pageCount = ipCount / countIpPerPage + 1;
-
             from = (pageNumber - 1) * countIpPerPage;
-            ipList = locationService.findStatusListByCity(from, countIpPerPage, cityName, makeIpType(ipTypeUI),
-                    makeStatus(statusUI));
+            ipList = locationService.findStatusListByCity(from, countIpPerPage, cityName,
+                    IpVersionUtil.ipVersion(ipTypeUI), IpVersionUtil.isWhiteIpAddress(statusUI));
+            LOGGER.info("ipList -" + ipList.toString());
 
-            locationList = locationService.findCityListByStatus(makeIpType(ipTypeUI), makeStatus(statusUI));
+            locationList = locationService.findCityListByStatus(IpVersionUtil.ipVersion(ipTypeUI),
+                    IpVersionUtil.isWhiteIpAddress(statusUI));
+            LOGGER.info("locationList -" + locationList.toString());
 
-           // map.put("pageList", pageList); //
+            pageList = paginationServiceImpl.loadPages();
+            LOGGER.info("pageList -" + pageList.toString());
+
+            map.put("pageList", pageList); //
             map.put("pageCount", pageCount); // Count of pages
             map.put("ipList", ipList); // List of IP-addresses
             map.put("locationList", locationList); // List of cities
@@ -65,35 +79,38 @@ public class LocationController {
     }
 
     // showStatusListByCountry
-    @RequestMapping(value = "secure_showListByCountry", method = RequestMethod.GET)
+    @RequestMapping(value = "secure_showIpListByCountry", method = RequestMethod.GET)
     public String showStatusListByCountry() {
-        return "secure_showListByCountry";
+        return "secure_showIpListByCountry";
     }
 
     // showStatusListByCountry
-    @RequestMapping(value = "secure_showListByCountry", method = RequestMethod.POST)
+    @RequestMapping(value = "secure_showIpListByCountry", method = RequestMethod.POST)
     public String showStatusListByCountry(@ModelAttribute("pageNumber") int pageNumber,
             @ModelAttribute("countIpPerPage") int countIpPerPage, @ModelAttribute("location") String countryName,
-            @ModelAttribute("ipType") int ipTypeUI, @ModelAttribute("status") int statusUI, Map<String, Object> map) {
+            @ModelAttribute("ipType") String ipTypeUI, @ModelAttribute("status") String statusUI,
+            Map<String, Object> map) {
         int from;
         int ipCount;
         int pageCount;
         List<IpAddress> ipList;
-        List<Integer> pageList;
+        List<PaginationSettings> pageList;
         List<String> locationList;
         try {
 
-            ipCount = locationService.countStatusIpByCountryName(countryName, makeIpType(ipTypeUI),
-                    makeStatus(statusUI)).intValue();
+            ipCount = locationService.countStatusIpByCountryName(countryName, IpVersionUtil.ipVersion(ipTypeUI),
+                    IpVersionUtil.isWhiteIpAddress(statusUI)).intValue();
             pageCount = ipCount / countIpPerPage + 1;
 
             from = (pageNumber - 1) * countIpPerPage;
             ipList = locationService.findStatusListByCountry(from, countIpPerPage, countryName,
-                    makeIpType(ipTypeUI), makeStatus(statusUI));
+                    IpVersionUtil.ipVersion(ipTypeUI), IpVersionUtil.isWhiteIpAddress(statusUI));
 
-            locationList = locationService.findCountryListByStatus(makeIpType(ipTypeUI), makeStatus(statusUI));
+            locationList = locationService.findCountryListByStatus(IpVersionUtil.ipVersion(ipTypeUI),
+                    IpVersionUtil.isWhiteIpAddress(statusUI));
+            pageList = paginationServiceImpl.loadPages();
 
-          //  map.put("pageList", pageList); //
+            map.put("pageList", pageList); //
             map.put("pageCount", pageCount); // Count of pages
             map.put("ipList", ipList); // List of IP-addresses
             map.put("locationList", locationList); // List of cities
@@ -104,18 +121,6 @@ public class LocationController {
             return "result";
         }
         return "secure_table";
-    }
-
-    private Class<? extends IpAddress> makeIpType(int ipType) {
-        if (ipType == 0)
-            return IpV4Address.class;
-        if (ipType == 1)
-            return IpV6Address.class;
-        return IpAddress.class;
-    }
-
-    private boolean makeStatus(int status) {
-        return (status == 1 ? true : false);
     }
 
 }

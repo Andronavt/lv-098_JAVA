@@ -21,8 +21,6 @@ import javax.persistence.Table;
         @NamedQuery(name = IpV4Address.FIND_IP_BY_NAME, query = IpV4Address.FIND_IP_BY_NAME_QUERY),
         @NamedQuery(name = IpV4Address.FIND_STATUS_LIST_BY_CITY, query = IpV4Address.FIND_STATUS_LIST_BY_CITY_QUERY),
         @NamedQuery(name = IpV4Address.FIND_STATUS_LIST_BY_COUNTRY, query = IpV4Address.FIND_STATUS_LIST_BY_COUNTRY_QUERY),
-        @NamedQuery(name = IpV4Address.FIND_CITY_LIST_BY_STATUS, query = IpV4Address.FIND_CITY_LIST_BY_STATUS_QUERY),
-        @NamedQuery(name = IpV4Address.FIND_COUNTRY_LIST_BY_STATUS, query = IpV4Address.FIND_COUNTRY_LIST_BY_STATUS_QUERY),
 
         @NamedQuery(name = IpV4Address.COUNT_ALL, query = IpV4Address.COUNT_ALL_QUERY),
         @NamedQuery(name = IpV4Address.COUNT_STATUS_LIST, query = IpV4Address.COUNT_STATUS_LIST_QUERY),
@@ -46,7 +44,7 @@ public class IpV4Address extends IpAddress {
     public static final String COUNT_STATUS_IP_BY_CITY_QUERY = "SELECT count(ip) from IpV4Address ip where ip.status = ?1 and ip.city.cityName = ?2";
 
     public static final String COUNT_STATUS_IP_BY_COUNTRY = "IpV4Address.countStatusIpByCountry";
-    public static final String COUNT_STATUS_IP_BY_COUNTRY_QUERY = "SELECT count(ip) from IpV4Address ip where ip.status = ?1 and ip.city.country.countryName = ?2";
+    public static final String COUNT_STATUS_IP_BY_COUNTRY_QUERY = "SELECT count(ip) from IpV4Address ip where ip.status = ?1 and ip.city.country.countryCode = ?2";
 
     public static final String FIND_ALL = "IpV4Address.findAll";
     public static final String FIND_ALL_QUERY = "SELECT ip from IpV4Address ip";
@@ -76,7 +74,7 @@ public class IpV4Address extends IpAddress {
     public static final String FIND_IP_LIST_BY_CITY_QUERY = "SELECT ip from IpV4Address ip where ip.city.cityName = ?1";
 
     public static final String FIND_IP_LIST_BY_COUNTRY = "IpV4Address.findIpByCountry";
-    public static final String FIND_IP_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpV4Address ip where ip.city.country.countryName = ?1";
+    public static final String FIND_IP_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpV4Address ip where ip.city.country.countryCode = ?1";
 
     public static final String FIND_IP_BY_NAME = "IpV4Address.findIpByName";
     public static final String FIND_IP_BY_NAME_QUERY = "SELECT ip from IpV4Address ip where ip.status = ?1 and ip.address = ?2";
@@ -124,7 +122,7 @@ public class IpV4Address extends IpAddress {
     }
 
     @Override
-    public String countStatusIpByCountry() {
+    public String countStatusIpByCountryCode() {
         return IpV4Address.COUNT_STATUS_IP_BY_COUNTRY;
     }
 
@@ -154,16 +152,6 @@ public class IpV4Address extends IpAddress {
     }
 
     @Override
-    public String findCityListByStatus() {
-        return IpV4Address.FIND_CITY_LIST_BY_STATUS;
-    }
-
-    @Override
-    public String findCountryListByStatus() {
-        return IpV4Address.FIND_COUNTRY_LIST_BY_STATUS;
-    }
-
-    @Override
     public String findIpListByCity() {
         return IpV4Address.FIND_IP_LIST_BY_CITY;
     }
@@ -174,7 +162,7 @@ public class IpV4Address extends IpAddress {
     }
 
     @Override
-    public String findIpByName() {
+    public String findIpByAddress() {
         return IpV4Address.FIND_IP_BY_NAME;
     }
 
@@ -198,8 +186,4 @@ public class IpV4Address extends IpAddress {
         return IpV4Address.FIND_UNDEFINED_LIST;
     }
 
-    @Override
-    public String findCountryCodeByCountryName() {
-        return IpV4Address.FIND_COUNTRY_CODE_BY_COUNTRY_NAME;
-    }
 }

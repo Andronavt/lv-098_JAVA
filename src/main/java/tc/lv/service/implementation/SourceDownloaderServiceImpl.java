@@ -24,7 +24,9 @@ import tc.lv.utils.ParserResults;
 public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     private static final Logger LOGGER = Logger.getLogger(SourceDownloaderServiceImpl.class);
     private static final String PROJECT_DIR = System.getenv("LV098_JAVA");
-    
+    private static final String ADMIN_WHITE_LIST = "Admin Whitelist";
+    private static final String ADMIN_BLACK_LIST = "Admin Blacklist";
+
     @Autowired
     private SourceDao sourceDao;
 
@@ -67,8 +69,12 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     @Override
     public List<Source> loadSourceList() throws SourceDownloaderServiceException {
         LOGGER.info("Load List of Sources from base.");
+        List<Source> sourcesList;
         try {
-            return sourceDao.findAll();
+            sourcesList = sourceDao.findAll();
+            sourcesList.remove(sourceDao.findByName(ADMIN_BLACK_LIST));
+            sourcesList.remove(sourceDao.findByName(ADMIN_WHITE_LIST));
+            return sourcesList;
 
         } catch (Exception e) {
             LOGGER.error(e);

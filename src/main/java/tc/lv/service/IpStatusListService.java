@@ -7,7 +7,7 @@ import tc.lv.exceptions.IpStatusListServiceException;
 
 public interface IpStatusListService {
 
-	public Collection<IpAddress> findIpList(int from, int count, int ipType,
-			int status) throws IpStatusListServiceException;
+    public Collection<IpAddress> findIpList(int from, int count, String ipType, String status)
+            throws IpStatusListServiceException;
 
 }

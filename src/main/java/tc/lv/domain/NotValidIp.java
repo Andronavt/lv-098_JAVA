@@ -73,7 +73,7 @@ public class NotValidIp extends IpAddress {
     }
 
     @Override
-    public String findIpByName() {
+    public String findIpByAddress() {
         return NotValidIp.FIND_IP_BY_NAME;
     }
 
@@ -103,16 +103,6 @@ public class NotValidIp extends IpAddress {
     }
 
     @Override
-    public String findCityListByStatus() {
-        return NotValidIp.FIND_CITY_LIST_BY_STATUS;
-    }
-
-    @Override
-    public String findCountryListByStatus() {
-        return NotValidIp.FIND_COUNTRY_LIST_BY_STATUS;
-    }
-
-    @Override
     public String countAll() {
         return NotValidIp.COUNT_ALL;
     }
@@ -123,8 +113,8 @@ public class NotValidIp extends IpAddress {
     }
 
     @Override
-    public String countStatusIpByCountry() {
-        return NotValidIp.COUNT_STATUS_IP_BY_COUNTRY;
+    public String countStatusIpByCountryCode() {
+        return NotValidIp.COUNT_STATUS_IP_BY_COUNTRY_CODE;
     }
 
     @Override

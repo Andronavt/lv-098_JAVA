@@ -7,10 +7,10 @@ import tc.lv.exceptions.LocationServiceException;
 
 public interface LocationService {
 
-    public Long countStatusIpByCountryName(String countryName, Class<? extends IpAddress> ipType, boolean status)
+    public Integer countStatusIpByCountryName(String countryName, Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException;
 
-    public Long countStatusIpByCityName(String cityName, Class<? extends IpAddress> ipType, boolean status)
+    public Integer countStatusIpByCityName(String cityName, Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException;
 
     public List<String> findCountryListByStatus(Class<? extends IpAddress> ipType, boolean status)

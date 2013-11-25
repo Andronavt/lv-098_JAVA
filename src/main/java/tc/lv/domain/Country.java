@@ -8,26 +8,47 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "country")
+@NamedQueries({
+        // -----
+        @NamedQuery(name = Country.FIND_ALL, query = Country.FIND_ALL_QUERY),
+        @NamedQuery(name = Country.FIND_COUNTRY_CODE_LIST_BY_STATUS, query = Country.FIND_COUNTRY_CODE_LIST_BY_STATUS_QUERY),
+        @NamedQuery(name = Country.FIND_COUNTRY_CODE_BY_COUNTRY_NAME, query = Country.FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY),
+// -----
+})
 public class Country {
+    public static final String FIND_ALL = "Country.findAll";
+    public static final String FIND_ALL_QUERY = "SELECT co from Country co";
+
+    public static final String FIND_COUNTRY_CODE_LIST_BY_STATUS = "Country.findCountryCodeListByStatus";
+    public static final String FIND_COUNTRY_CODE_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.status = ?1";
+
+    public static final String FIND_COUNTRY_NAME_LIST_BY_STATUS = "Country.findCountryNameListByStatus";
+    public static final String FIND_COUNTRY_NAME_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryName) from IpAddress ip where ip.status = ?1";
+
+    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME = "Country.findCountryCodeByCountryName";
+    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(co.countryCode) from Country co where co.countryName = ?1";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
-    int id;
+    private int id;
 
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
-    Set<City> cities;
+    private Set<City> cities;
 
     @Column(name = "country_code")
-    String countryCode;
+    private String countryCode;
 
     @Column(name = "country_name")
-    String countryName;
+    private String countryName;
 
     public Country() {
 
@@ -38,7 +59,7 @@ public class Country {
         this.countryCode = countryCode;
     }
 
-    public Set<City> getCities() {
+    public Set<City> getCitySet() {
         return cities;
     }
 
@@ -72,39 +93,17 @@ public class Country {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((cities == null) ? 0 : cities.hashCode());
-        result = prime * result + ((countryCode == null) ? 0 : countryCode.hashCode());
-        result = prime * result + ((countryName == null) ? 0 : countryName.hashCode());
-        return result;
+        return countryName.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Country other = (Country) obj;
-        if (cities == null) {
-            if (other.cities != null)
-                return false;
-        } else if (!cities.equals(other.cities))
-            return false;
-        if (countryCode == null) {
-            if (other.countryCode != null)
-                return false;
-        } else if (!countryCode.equals(other.countryCode))
-            return false;
-        if (countryName == null) {
-            if (other.countryName != null)
-                return false;
-        } else if (!countryName.equals(other.countryName))
-            return false;
-        return true;
+        return countryName.equals(((Country) obj).getCountryName());
+    }
+
+    @PrePersist
+    private void setLocationData() {
+
     }
 
 }

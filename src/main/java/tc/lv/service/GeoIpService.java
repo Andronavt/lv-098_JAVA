@@ -1,13 +1,11 @@
 package tc.lv.service;
 
-import tc.lv.exceptions.GeoIpException;
+import java.util.List;
+
+import tc.lv.exceptions.GeoIpServiceException;
+import tc.lv.utils.ParserResults;
 
 public interface GeoIpService {
 
-    public String findCountryByIpAddress(String ipAddress) throws GeoIpException;
-
-    public String findCountryCodeByIpAddress(String ipAddress) throws GeoIpException;
-
-    public String findCityByIpAddress(String ipAddress) throws GeoIpException;
-
+    public List<ParserResults> updateIpAddresLocation(List<ParserResults> resultList) throws GeoIpServiceException;
 }

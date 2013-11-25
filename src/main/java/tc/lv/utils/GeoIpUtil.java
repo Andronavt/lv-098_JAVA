@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import tc.lv.domain.City;
 import tc.lv.domain.Country;
+import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.GeoIpException;
 
 import com.maxmind.geoip.LookupService;
@@ -22,10 +23,7 @@ public class GeoIpUtil {
     private LookupService lookupServiceIpV4City;
     private LookupService lookupServiceIpV6City;
 
-    public GeoIpUtil() {
-    }
-
-    public void init() throws GeoIpException {
+    public GeoIpUtil() throws GeoIpException {
         try {
             lookupServiceIpV4Country = new LookupService(DIR + GEO_IPV4_DB_COUNTRY,
                     LookupService.GEOIP_MEMORY_CACHE);
@@ -40,42 +38,39 @@ public class GeoIpUtil {
         }
     }
 
-    public City findLocationByIpAddress(String ipAddress) throws GeoIpException {
+    public void addCityToIpAddress(IpAddress ipAddress) throws GeoIpException {
         City city = null;
         Country country = null;
         String countryName, countryCode, cityName;
-
+        String address = ipAddress.getAddress();
         try {
-            if (IpValidator.isIpV4(ipAddress)) {
-                countryName = lookupServiceIpV4Country.getCountry(ipAddress).getName();
-                countryCode = lookupServiceIpV4Country.getCountry(ipAddress).getCode();
-                if (lookupServiceIpV4City.getLocation(ipAddress) != null) {
-                    cityName = lookupServiceIpV4City.getLocation(ipAddress).city;
-                } else {
-                    cityName = "None";
-                }
+            if (IpValidator.isIpV4(ipAddress.getAddress())) {
+                countryName = lookupServiceIpV4Country.getCountry(address).getName();
+                countryCode = lookupServiceIpV4Country.getCountry(address).getCode();
+                cityName = (lookupServiceIpV4City.getLocation(address) != null ? lookupServiceIpV4City
+                        .getLocation(address).city : "None");
+                country = new Country(countryName, countryCode);
+                city = new City(cityName, country);
+                ipAddress.setCity(city);
 
             } else {
-                countryName = lookupServiceIpV6Country.getCountry(ipAddress).getName();
-                countryCode = lookupServiceIpV6Country.getCountry(ipAddress).getCode();
-                if (lookupServiceIpV6City.getLocation(ipAddress) != null) {
-                    cityName = lookupServiceIpV6City.getLocation(ipAddress).city;
-                } else {
-                    cityName = "None";
-                }
+                countryName = lookupServiceIpV6Country.getCountry(address).getName();
+                countryCode = lookupServiceIpV6Country.getCountry(address).getCode();
+                cityName = (lookupServiceIpV6City.getLocation(address) != null ? lookupServiceIpV6City
+                        .getLocation(address).city : "None");
+                country = new Country(countryName, countryCode);
+                city = new City(cityName, country);
+                ipAddress.setCity(city);
             }
-            country = new Country(countryName, countryCode);
-            city = new City(cityName, country);
 
         } catch (Exception e) {
             LOGGER.error("Problem with GeoIp!", e);
-            close();
+            dispose();
             throw new GeoIpException("Problem with GeoIp!", e);
         }
-        return city;
     }
 
-    public void close() {
+    public void dispose() {
         lookupServiceIpV4Country.close();
         lookupServiceIpV6Country.close();
         lookupServiceIpV4City.close();
