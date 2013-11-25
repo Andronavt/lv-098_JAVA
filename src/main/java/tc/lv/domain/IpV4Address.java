@@ -132,16 +132,6 @@ public class IpV4Address extends IpAddress {
     }
 
     @Override
-    public String findAllNotValid() {
-        return IpV4Address.FIND_ALL_NOT_VALID;
-    }
-
-    @Override
-    public String findAllValid() {
-        return IpV4Address.FIND_ALL_VALID;
-    }
-
-    @Override
     public String findByAddress() {
         return IpV4Address.FIND_IP_LIST_BY_ADDRESS;
     }
@@ -149,21 +139,6 @@ public class IpV4Address extends IpAddress {
     @Override
     public String findIpListBySource() {
         return IpV4Address.FIND_IP_LIST_BY_SOURCE;
-    }
-
-    @Override
-    public String findIpListByCity() {
-        return IpV4Address.FIND_IP_LIST_BY_CITY;
-    }
-
-    @Override
-    public String findIpListByCountry() {
-        return IpV4Address.FIND_IP_LIST_BY_COUNTRY;
-    }
-
-    @Override
-    public String findIpByAddress() {
-        return IpV4Address.FIND_IP_BY_NAME;
     }
 
     @Override

@@ -48,16 +48,6 @@ public class NotValidIp extends IpAddress {
     }
 
     @Override
-    public String findAllNotValid() {
-        return NotValidIp.FIND_ALL_NOT_VALID;
-    }
-
-    @Override
-    public String findAllValid() {
-        return NotValidIp.FIND_ALL_VALID;
-    }
-
-    @Override
     public String findByAddress() {
         return NotValidIp.FIND_IP_LIST_BY_ADDRESS;
     }
@@ -73,11 +63,6 @@ public class NotValidIp extends IpAddress {
     }
 
     @Override
-    public String findIpByAddress() {
-        return NotValidIp.FIND_IP_BY_NAME;
-    }
-
-    @Override
     public String findStatusList() {
         return NotValidIp.FIND_STATUS_LIST;
     }
@@ -88,18 +73,8 @@ public class NotValidIp extends IpAddress {
     }
 
     @Override
-    public String findIpListByCity() {
-        return NotValidIp.FIND_IP_LIST_BY_CITY;
-    }
-
-    @Override
     public String findStatusListByCountryName() {
         return NotValidIp.FIND_STATUS_LIST_BY_COUNTRY_NAME;
-    }
-
-    @Override
-    public String findIpListByCountry() {
-        return NotValidIp.FIND_IP_LIST_BY_COUNTRY;
     }
 
     @Override

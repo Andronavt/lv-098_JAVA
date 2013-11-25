@@ -24,15 +24,21 @@
 <form action="" id="updateSource">
 	<div>
 		<fieldset>
-			<legend align="left">
-				<strong>Source for update:</strong>
-			</legend>
-			<select name="sources" size="1">
-				<c:forEach var="Source" items="${listSource}">
-					<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
-				</c:forEach>
-			</select> <br> <input class="btn btn-primary" type="button"
-				value="Update source" onclick="doAjaxUpdateSource()">
+			<legend style="color: green" align="left"><strong>Source for update:</strong></legend>
+			
+			<select size="3" multiple="multiple" name="sources">
+			
+			<c:forEach var="Source" items="${listSource}">
+			
+  				 <option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
+  				 
+ 				 </c:forEach>
+ 				 
+			</select>
+
+			<br> 
+			
+			<input class="btn btn-primary" type="button" value="Update source" onclick="doAjaxUpdateSource()">
 
 		</fieldset>
 	</div>

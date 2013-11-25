@@ -3,8 +3,8 @@ $(document).ready(function() {
 	jQuery.validator.addMethod(
 		    'regexp',
 		    function(value, element, regexp) {
-				  var re = new RegExp(regexp);
-		        return  re.test(value);
+				  var regex = new RegExp(regexp);
+		        return  regex.test(value);
 		    },
 		    "Please check your input."
 		); 
@@ -20,7 +20,7 @@ $(document).ready(function() {
 		    messages: {
 		    	addIp: {
 		    		required : "Input ip address",
-		    		regexp: "Input correct ip",
+		    		regexp: "Input correct ip address",
 		        }
 		    }
 	});
