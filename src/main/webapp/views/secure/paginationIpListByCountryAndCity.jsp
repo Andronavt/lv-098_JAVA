@@ -42,15 +42,17 @@
 		<option value="blackList">black list</option>
 		<option value="whiteList">white list</option>
 	</select>
+
 	<!-- City or Country -->
 	<input name="clockpick" id="xy" type="text" size=10
 		onchange="defaltPaginationByCountryAndCity()">
 </div>
 <script>
-	var source = "${locationList}";
-	source = source.replace('[','');
-	source = source.replace(']','');	   
-	source = source.split(',');
+// 	var source = "${locationList}";
+// 	source = source.replace("[", "").replace("]", "").split(',');
+	// 	source = source.replace('[','');
+	// 	source = source.replace(']','');	   
+	// 	source = source.split(',');
 	var page = "${pageCount}";
 	$(document).ready(function() {
 		$('#demo1').bootpag({

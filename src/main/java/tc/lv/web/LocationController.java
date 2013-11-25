@@ -32,7 +32,7 @@ public class LocationController {
 	// showStatusListByCity
 	@RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.GET)
 	public String showStatusListByCity(Map<String, Object> map) {
-				
+
 		map.put("pageList", paginationServiceImpl.loadPages());
 		try {
 			map.put("locationList",
@@ -98,7 +98,18 @@ public class LocationController {
 
 	// showStatusListByCountry
 	@RequestMapping(value = "secure_showIpListByCountry", method = RequestMethod.GET)
-	public String showStatusListByCountry() {
+	public String showStatusListByCountry(Map<String, Object> map) {
+		map.put("pageList", paginationServiceImpl.loadPages());
+		try {
+			map.put("locationList",
+					locationService.findCityListByStatus(
+							IpVersionUtil.ipVersion("allIp"),
+							IpVersionUtil.isWhiteIpAddress("blackList")));
+		} catch (LocationServiceException e) {
+			map.put("errorList", ExceptionUtil.createErrorList(e));
+			map.put("errorMsg", e.getMessage());
+			return "result";
+		}
 		return "secure_showIpListByCountry";
 	}
 
