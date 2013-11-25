@@ -64,13 +64,11 @@ public class GeoIpUtil {
         String countryName, countryCode, cityName;
         String address = ipV6Address.getAddress();
         
-
         try {
             countryName = lookupServiceIpV6Country.getCountry(address).getName();
             
             countryCode = lookupServiceIpV6Country.getCountry(address).getCode();
-            cityName = (lookupServiceIpV6City.getLocation(address) != null ? lookupServiceIpV6City
-                    .getLocation(address).city : "None");
+            cityName = (lookupServiceIpV6City.getLocation(address) != null ? lookupServiceIpV6City.getLocation(address).city : "None");
             country = new Country(countryName, countryCode);
             city = new City(cityName, country);
             ipV6Address.setCity(city);

@@ -1,14 +1,14 @@
 package tc.lv.service;
 
 import tc.lv.domain.IpAddress;
+import tc.lv.domain.Source;
 import tc.lv.exceptions.IpAddressServiceException;
 
-public interface IpAddressService {
+public interface IpAddressSaveService {
 
-	public boolean saveIpByStatus(String address, String status)
+	public IpAddress saveIpAddress(String address, String status)
 			throws IpAddressServiceException;
-
-	public boolean deleteIpByAddress(String address)
+	public Source getSourceByStatus(String status)
 			throws IpAddressServiceException;
 
 }
