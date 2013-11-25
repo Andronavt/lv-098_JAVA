@@ -14,8 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import tc.lv.dao.DaoAbstract;
 import tc.lv.dao.IpAddressDao;
-import tc.lv.domain.City;
-import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.NotValidIp;
 import tc.lv.domain.Source;
@@ -32,16 +30,16 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public Integer countAll(Class<? extends IpAddress> ipType) throws DBException {
+    public Long countAll(Class<? extends IpAddress> ipType) throws DBException {
         Query query = entityManager.createNamedQuery(createIpAddress(ipType).countAll());
-        return (Integer) query.getSingleResult();
+        return (Long) query.getSingleResult();
     }
 
     @Override
-    public Integer countStatusIp(boolean status, Class<? extends IpAddress> ipType) throws DBException {
+    public Long countStatusIp(boolean status, Class<? extends IpAddress> ipType) throws DBException {
         Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusList()).setParameter(1,
                 status);
-        return (Integer) query.getSingleResult();
+        return (Long) query.getSingleResult();
     }
 
     @Override
@@ -53,10 +51,10 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public Long countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
+    public Long countStatusIpByCountryCode(boolean status, String countryCode, Class<? extends IpAddress> ipType)
             throws DBException {
-        Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusIpByCountry());
-        query = query.setParameter(1, status).setParameter(2, countryName);
+        Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusIpByCountryCode());
+        query = query.setParameter(1, status).setParameter(2, countryCode);
         return (Long) query.getSingleResult();
     }
 
@@ -72,23 +70,6 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
         Query query = entityManager.createNamedQuery(createIpAddress(ipType).findByAddress()).setParameter(1,
                 address);
         return (T) find(query);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<City> findCityListByStatus(boolean status, Class<? extends IpAddress> ipType) throws DBException {
-        Query query = entityManager.createNamedQuery(createIpAddress(ipType).findCityListByStatus());
-        query = query.setParameter(1, status);
-        return query.getResultList();
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<Country> findCountryListByStatus(boolean status, Class<? extends IpAddress> ipType)
-            throws DBException {
-        Query query = entityManager.createNamedQuery(createIpAddress(ipType).findCountryListByStatus());
-        query = query.setParameter(1, status);
-        return query.getResultList();
     }
 
     @Override
@@ -225,13 +206,5 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
             }
             entityManager.persist(ip);
         }
-    }
-
-    @Override
-    public String findCountryCodeByCountryName(String country, Class<? extends IpAddress> ipType)
-            throws DBException {
-        Query query = entityManager.createNamedQuery(createIpAddress(ipType).findCountryCodeByCountryName());
-        query = query.setParameter(1, country);
-        return (String) query.getSingleResult();
     }
 }

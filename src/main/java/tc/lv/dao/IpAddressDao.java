@@ -9,23 +9,19 @@ import tc.lv.exceptions.DBException;
 
 public interface IpAddressDao {
 
-    Integer countAll(Class<? extends IpAddress> ipType) throws DBException;
+	Long countAll(Class<? extends IpAddress> ipType) throws DBException;
 
-    Integer countStatusIp(boolean status, Class<? extends IpAddress> ipType) throws DBException;
+	Long countStatusIp(boolean status, Class<? extends IpAddress> ipType) throws DBException;
 
-    Long countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
+	Long countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
             throws DBException;
 
-    Long countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
+	Long countStatusIpByCountryCode(boolean status, String countryName, Class<? extends IpAddress> ipType)
             throws DBException;
 
     void deleteIp(IpAddress address);
 
     <T extends IpAddress> T findByAddress(String address, Class<? extends IpAddress> ipType) throws DBException;
-
-    List<City> findCityListByStatus(boolean status, Class<? extends IpAddress> ipType) throws DBException;
-
-    List<Country> findCountryListByStatus(boolean status, Class<? extends IpAddress> ipType) throws DBException;
 
     <T extends IpAddress> List<T> findIpListBySource(int sourceId, Class<? extends IpAddress> ipType)
             throws DBException;
@@ -49,7 +45,5 @@ public interface IpAddressDao {
             throws DBException;
 
     void updateStatusList(Class<? extends IpAddress> ipType) throws DBException;
-
-    String findCountryCodeByCountryName(String country, Class<? extends IpAddress> ipType) throws DBException;
 
 }

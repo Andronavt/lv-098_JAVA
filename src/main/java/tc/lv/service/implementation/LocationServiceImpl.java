@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tc.lv.dao.CityDao;
+import tc.lv.dao.CountryDao;
 import tc.lv.dao.IpAddressDao;
-import tc.lv.domain.City;
-import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.LocationServiceException;
 import tc.lv.service.LocationService;
@@ -17,6 +17,10 @@ import tc.lv.service.LocationService;
 public class LocationServiceImpl implements LocationService {
     @Autowired
     IpAddressDao ipAddressDao;
+    @Autowired
+    CityDao cityDao;
+    @Autowired
+    CountryDao countryDao;
 
     @Override
     @Transactional
@@ -24,7 +28,6 @@ public class LocationServiceImpl implements LocationService {
             throws LocationServiceException {
         try {
             return ipAddressDao.countStatusIpByCityName(status, cityName, ipType).intValue();
-
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
         }
@@ -35,8 +38,8 @@ public class LocationServiceImpl implements LocationService {
     public Integer countStatusIpByCountryName(String countryName, Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
-            return ipAddressDao.countStatusIpByCountryName(status, countryName, ipType).intValue();
-
+            return ipAddressDao.countStatusIpByCountryCode(status,
+                    countryDao.findCountryCodeByCountryName(countryName, ipType), ipType).intValue();
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
         }
@@ -44,11 +47,10 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     @Transactional
-    public List<City> findCityListByStatus(Class<? extends IpAddress> ipType, boolean status)
+    public List<String> findCityListByStatus(Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
-            return ipAddressDao.findCityListByStatus(status, ipType);
-
+            return cityDao.findCityListByStatus(status);
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
         }
@@ -57,11 +59,10 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     @Transactional
-    public List<Country> findCountryListByStatus(Class<? extends IpAddress> ipType, boolean status)
+    public List<String> findCountryListByStatus(Class<? extends IpAddress> ipType, boolean status)
             throws LocationServiceException {
         try {
-            return ipAddressDao.findCountryListByStatus(status, ipType);
-
+            return countryDao.findCountryNameListByStatus(status, ipType);
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
         }
@@ -73,7 +74,6 @@ public class LocationServiceImpl implements LocationService {
             Class<? extends IpAddress> ipType, boolean status) throws LocationServiceException {
         try {
             return ipAddressDao.findStatusListByCity(status, from, count, cityName, ipType);
-
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
         }
@@ -85,7 +85,6 @@ public class LocationServiceImpl implements LocationService {
             Class<? extends IpAddress> ipType, boolean status) throws LocationServiceException {
         try {
             return ipAddressDao.findStatusListByCountry(status, from, count, countryName, ipType);
-
         } catch (Exception e) {
             throw new LocationServiceException("Could not load location list.", e);
         }
