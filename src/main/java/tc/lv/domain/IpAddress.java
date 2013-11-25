@@ -39,13 +39,10 @@ import tc.lv.dao.IpInterface;
         @NamedQuery(name = IpAddress.FIND_IP_BY_NAME, query = IpAddress.FIND_IP_BY_NAME_QUERY),
         @NamedQuery(name = IpAddress.FIND_STATUS_LIST_BY_CITY, query = IpAddress.FIND_STATUS_LIST_BY_CITY_QUERY),
         @NamedQuery(name = IpAddress.FIND_STATUS_LIST_BY_COUNTRY, query = IpAddress.FIND_STATUS_LIST_BY_COUNTRY_QUERY),
-        @NamedQuery(name = IpAddress.FIND_CITY_LIST_BY_STATUS, query = IpAddress.FIND_CITY_LIST_BY_STATUS_QUERY),
-        @NamedQuery(name = IpAddress.FIND_COUNTRY_LIST_BY_STATUS, query = IpAddress.FIND_COUNTRY_LIST_BY_STATUS_QUERY),
-        @NamedQuery(name = IpAddress.FIND_COUNTRY_CODE_BY_COUNTRY_NAME, query = IpAddress.FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY),
 
         @NamedQuery(name = IpAddress.COUNT_ALL, query = IpAddress.COUNT_ALL_QUERY),
         @NamedQuery(name = IpAddress.COUNT_STATUS_LIST, query = IpAddress.COUNT_STATUS_LIST_QUERY),
-        @NamedQuery(name = IpAddress.COUNT_STATUS_IP_BY_COUNTRY, query = IpAddress.COUNT_STATUS_IP_BY_COUNTRY_QUERY),
+        @NamedQuery(name = IpAddress.COUNT_STATUS_IP_BY_COUNTRY_CODE, query = IpAddress.COUNT_STATUS_IP_BY_COUNTRY_CODE_QUERY),
         @NamedQuery(name = IpAddress.COUNT_STATUS_IP_BY_CITY, query = IpAddress.COUNT_STATUS_IP_BY_CITY_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_NOT_VALID, query = IpAddress.FIND_ALL_NOT_VALID_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_VALID, query = IpAddress.FIND_ALL_VALID_QUERY),
@@ -64,8 +61,8 @@ public class IpAddress implements IpInterface {
     public static final String COUNT_STATUS_IP_BY_CITY = "IpAddress.countStatusIpByCity";
     public static final String COUNT_STATUS_IP_BY_CITY_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.cityName = ?2";
 
-    public static final String COUNT_STATUS_IP_BY_COUNTRY = "IpAddress.countStatusIpByCountry";
-    public static final String COUNT_STATUS_IP_BY_COUNTRY_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.country.countryName = ?2";
+    public static final String COUNT_STATUS_IP_BY_COUNTRY_CODE = "IpAddress.countStatusIpByCountry";
+    public static final String COUNT_STATUS_IP_BY_COUNTRY_CODE_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.country.countryCode = ?2";
 
     public static final String FIND_ALL = "IpAddress.findAll";
     public static final String FIND_ALL_QUERY = "SELECT ip from IpAddress ip";
@@ -81,15 +78,6 @@ public class IpAddress implements IpInterface {
 
     public static final String FIND_IP_LIST_BY_SOURCE = "IpAddress.findIpListBySource";
     public static final String FIND_IP_LIST_BY_SOURCE_QUERY = "SELECT ip from IpAddress ip join ip.sourceSet s where s.sourceId = ?1";
-
-    public static final String FIND_CITY_LIST_BY_STATUS = "IpAddress.findCityListByStatus";
-    public static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city) from IpAddress ip where ip.status = ?1";
-
-    public static final String FIND_COUNTRY_LIST_BY_STATUS = "IpAddress.findCountryListByStatus";
-    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country) from IpAddress ip where ip.status = ?1";
-
-    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME = "IpAddress.findCountryCodeByCountryName";
-    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.city.country.countryName = ?1";
 
     public static final String FIND_IP_LIST_BY_CITY = "IpAddress.findIpByCity";
     public static final String FIND_IP_LIST_BY_CITY_QUERY = "SELECT ip from IpAddress ip where ip.city.cityName = ?1";
@@ -217,8 +205,8 @@ public class IpAddress implements IpInterface {
     }
 
     @Override
-    public String countStatusIpByCountry() {
-        return IpAddress.COUNT_STATUS_IP_BY_COUNTRY;
+    public String countStatusIpByCountryCode() {
+        return IpAddress.COUNT_STATUS_IP_BY_COUNTRY_CODE;
     }
 
     @Override
@@ -244,16 +232,6 @@ public class IpAddress implements IpInterface {
     @Override
     public String findIpListBySource() {
         return IpAddress.FIND_IP_LIST_BY_SOURCE;
-    }
-
-    @Override
-    public String findCityListByStatus() {
-        return IpAddress.FIND_CITY_LIST_BY_STATUS;
-    }
-
-    @Override
-    public String findCountryListByStatus() {
-        return IpAddress.FIND_COUNTRY_LIST_BY_STATUS;
     }
 
     @Override
@@ -289,11 +267,6 @@ public class IpAddress implements IpInterface {
     @Override
     public String findUndefinedList() {
         return IpAddress.FIND_UNDEFINED_LIST;
-    }
-
-    @Override
-    public String findCountryCodeByCountryName() {
-        return IpAddress.FIND_COUNTRY_CODE_BY_COUNTRY_NAME;
     }
 
 }

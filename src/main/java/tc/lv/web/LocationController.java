@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import tc.lv.domain.City;
-import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.PaginationSettings;
 import tc.lv.exceptions.LocationServiceException;
 import tc.lv.service.LocationService;
-import tc.lv.service.implementation.JsonServiceImpl;
 import tc.lv.service.implementation.PaginationServiceImpl;
 import tc.lv.utils.ExceptionUtil;
 import tc.lv.utils.IpVersionUtil;
@@ -48,30 +45,26 @@ public class LocationController {
         int pageCount;
         List<IpAddress> ipList;
         List<PaginationSettings> pageList;
-        List<City> locationList;
+        List<String> locationList;
         try {
             cityName = "Taipei";
-            System.out.println("SSSSSS");
             ipCount = locationService.countStatusIpByCityName(cityName, IpVersionUtil.ipVersion(ipTypeUI),
                     IpVersionUtil.isWhiteIpAddress(statusUI)).intValue();
-            LOGGER.info("ipCount -" + ipCount );
-            
-            
+            LOGGER.info("ipCount -" + ipCount);
+
             pageCount = ipCount / countIpPerPage + 1;
             from = (pageNumber - 1) * countIpPerPage;
             ipList = locationService.findStatusListByCity(from, countIpPerPage, cityName,
                     IpVersionUtil.ipVersion(ipTypeUI), IpVersionUtil.isWhiteIpAddress(statusUI));
             LOGGER.info("ipList -" + ipList.toString());
-            
-            
+
             locationList = locationService.findCityListByStatus(IpVersionUtil.ipVersion(ipTypeUI),
                     IpVersionUtil.isWhiteIpAddress(statusUI));
-            LOGGER.info("locationList -" + locationList.toString() );
-            
-            
+            LOGGER.info("locationList -" + locationList.toString());
+
             pageList = paginationServiceImpl.loadPages();
-            LOGGER.info("pageList -" + pageList.toString() );
-            
+            LOGGER.info("pageList -" + pageList.toString());
+
             map.put("pageList", pageList); //
             map.put("pageCount", pageCount); // Count of pages
             map.put("ipList", ipList); // List of IP-addresses
@@ -102,7 +95,7 @@ public class LocationController {
         int pageCount;
         List<IpAddress> ipList;
         List<PaginationSettings> pageList;
-        List<Country> locationList;
+        List<String> locationList;
         try {
 
             ipCount = locationService.countStatusIpByCountryName(countryName, IpVersionUtil.ipVersion(ipTypeUI),
