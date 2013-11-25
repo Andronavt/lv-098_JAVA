@@ -35,61 +35,61 @@ import javax.persistence.Table;
 public class IpV6Address extends IpAddress {
 
     public static final String COUNT_ALL = "IpV6Address.countAll";
-    public static final String COUNT_ALL_QUERY = "SELECT count(ip) from IpV6Address ip";
+    static final String COUNT_ALL_QUERY = "SELECT count(ip) from IpV6Address ip";
 
     public static final String COUNT_STATUS_LIST = "IpV6Address.countStatusList";
-    public static final String COUNT_STATUS_LIST_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1";
+    static final String COUNT_STATUS_LIST_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1";
 
     public static final String COUNT_STATUS_IP_BY_CITY_NAME = "IpV6Address.countStatusIpByCityName";
-    public static final String COUNT_STATUS_IP_BY_CITY_NAME_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1 and ip.city.cityName = ?2";
+    static final String COUNT_STATUS_IP_BY_CITY_NAME_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1 and ip.city.cityName = ?2";
 
     public static final String COUNT_STATUS_IP_BY_COUNTRY_NAME = "IpV6Address.countStatusIpByCountryName";
-    public static final String COUNT_STATUS_IP_BY_COUNTRY_NAME_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1 and ip.city.country.countryName = ?2";
+    static final String COUNT_STATUS_IP_BY_COUNTRY_NAME_QUERY = "SELECT count(ip) from IpV6Address ip where ip.status = ?1 and ip.city.country.countryName = ?2";
 
     public static final String FIND_ALL = "IpV6Address.findAll";
-    public static final String FIND_ALL_QUERY = "SELECT ip from IpV6Address ip";
+    static final String FIND_ALL_QUERY = "SELECT ip from IpV6Address ip";
 
     public static final String FIND_ALL_NOT_VALID = "IpV6Address.findAllNotValidIp";
-    public static final String FIND_ALL_NOT_VALID_QUERY = "SELECT ip FROM IpV6Address ip, NotValidIp nv WHERE ip.id = nv.id";
+    static final String FIND_ALL_NOT_VALID_QUERY = "SELECT ip FROM IpV6Address ip, NotValidIp nv WHERE ip.id = nv.id";
 
     public static final String FIND_ALL_VALID = "IpV6Address.findAllValidIp";
-    public static final String FIND_ALL_VALID_QUERY = "SELECT ipO FROM IpV6Address ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpV6Address ipI, NotValidIp nv WHERE ipI.id = nv.id)";
+    static final String FIND_ALL_VALID_QUERY = "SELECT ipO FROM IpV6Address ipO WHERE ipO.id NOT IN (SELECT ipI.id FROM IpV6Address ipI, NotValidIp nv WHERE ipI.id = nv.id)";
 
     public static final String FIND_IP_LIST_BY_ADDRESS = "IpV6Address.findIpListByAddress";
-    public static final String FIND_IP_LIST_BY_ADDRESS_QUERY = "SELECT ip from IpV6Address ip WHERE ip.address= ?1";
+    static final String FIND_IP_LIST_BY_ADDRESS_QUERY = "SELECT ip from IpV6Address ip WHERE ip.address= ?1";
 
     public static final String FIND_IP_LIST_BY_SOURCE = "IpV6Address.findIpListBySource";
-    public static final String FIND_IP_LIST_BY_SOURCE_QUERY = "SELECT ip from IpV6Address ip join ip.sourceSet s where s.sourceId = ?1";
+    static final String FIND_IP_LIST_BY_SOURCE_QUERY = "SELECT ip from IpV6Address ip join ip.sourceSet s where s.sourceId = ?1";
 
     public static final String FIND_CITY_LIST_BY_STATUS = "IpV6Address.findCityListByStatus";
-    public static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from IpV6Address ip where ip.status = ?1";
+    static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from IpV6Address ip where ip.status = ?1";
 
     public static final String FIND_COUNTRY_LIST_BY_STATUS = "IpV6Address.findCountryListByStatus";
-    public static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryName) from IpV6Address ip where ip.status = ?1";
+    static final String FIND_COUNTRY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryName) from IpV6Address ip where ip.status = ?1";
 
     public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME = "IpV6Address.findCountryCodeByCountryName";
-    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpV6Address ip where ip.city.country.countryCode = ?1";
+    static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpV6Address ip where ip.city.country.countryCode = ?1";
 
     public static final String FIND_IP_LIST_BY_CITY = "IpV6Address.findIpByCity";
-    public static final String FIND_IP_LIST_BY_CITY_QUERY = "SELECT ip from IpV6Address ip where ip.city.cityName = ?1";
+    static final String FIND_IP_LIST_BY_CITY_QUERY = "SELECT ip from IpV6Address ip where ip.city.cityName = ?1";
 
     public static final String FIND_IP_LIST_BY_COUNTRY = "IpV6Address.findIpByCountry";
-    public static final String FIND_IP_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpV6Address ip where ip.city.country.countryCode = ?1";
+    static final String FIND_IP_LIST_BY_COUNTRY_QUERY = "SELECT ip from IpV6Address ip where ip.city.country.countryCode = ?1";
 
     public static final String FIND_IP_BY_NAME = "IpV6Address.findIpByName";
-    public static final String FIND_IP_BY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1 and ip.address = ?2";
+    static final String FIND_IP_BY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1 and ip.address = ?2";
 
     public static final String FIND_STATUS_LIST = "IpV6Address.findStatusList";
-    public static final String FIND_STATUS_LIST_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1";
+    static final String FIND_STATUS_LIST_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1";
 
     public static final String FIND_STATUS_LIST_BY_CITY = "IpV6Address.findStatusListByCity";
-    public static final String FIND_STATUS_LIST_BY_CITY_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1 and ip.city.cityName = ?2";
+    static final String FIND_STATUS_LIST_BY_CITY_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1 and ip.city.cityName = ?2";
 
     public static final String FIND_STATUS_LIST_BY_COUNTRY_NAME = "IpV6Address.findStatusListByCountryName";
-    public static final String FIND_STATUS_LIST_BY_COUNTRY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1 and ip.city.country.countryName = ?2";
+    static final String FIND_STATUS_LIST_BY_COUNTRY_NAME_QUERY = "SELECT ip from IpV6Address ip where ip.status = ?1 and ip.city.country.countryName = ?2";
 
     public static final String FIND_UNDEFINED_LIST = "IpV6Address.findUndefinedList";
-    public static final String FIND_UNDEFINEDLIST_QUERY = "SELECT ip from IpV6Address ip where ip.status is null";
+    static final String FIND_UNDEFINEDLIST_QUERY = "SELECT ip from IpV6Address ip where ip.status is null";
 
     public IpV6Address() {
 
