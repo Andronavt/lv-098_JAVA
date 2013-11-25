@@ -110,6 +110,7 @@ function doAjaxUpdateSource() {
 			alert('Error: ' + parser);
 		}
 	});
+}
 
 function doAjaxPaginationWhiteAndBlackList(page) {
 	$.ajax({
@@ -126,6 +127,7 @@ function doAjaxPaginationWhiteAndBlackList(page) {
 		}
 	});
 }
+
 function defaultPaginationWhiteAndBlackList() {
 	doAjaxPaginationWhiteAndBlackList(1);
 }
@@ -150,6 +152,7 @@ function doAjaxPaginationByCountryAndCity(page) {
 		}
 	});
 }
+
 function defaltPaginationByCountryAndCity() {
 	doAjaxPaginationByCountryAndCity(1);
 }
