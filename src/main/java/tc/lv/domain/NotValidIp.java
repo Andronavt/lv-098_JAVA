@@ -89,7 +89,7 @@ public class NotValidIp extends IpAddress {
 
     @Override
     public String countStatusIpByCountryName() {
-        return NotValidIp.COUNT_STATUS_IP_BY_COUNTRY_NAME;
+        return NotValidIp.COUNT_STATUS_IP_BY_COUNTRY_CODE;
     }
 
     @Override

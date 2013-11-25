@@ -8,6 +8,8 @@ public interface IpInterface {
 
     String countStatusIpByCityName();
 
+    String countStatusIpByCountryCode();
+
     String countStatusIpByCountryName();
 
     String findAll();
