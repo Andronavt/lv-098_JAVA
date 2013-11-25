@@ -21,7 +21,7 @@ import javax.persistence.Table;
         @NamedQuery(name = Country.FIND_ALL, query = Country.FIND_ALL_QUERY),
         @NamedQuery(name = Country.FIND_COUNTRY_CODE_LIST_BY_STATUS, query = Country.FIND_COUNTRY_CODE_LIST_BY_STATUS_QUERY),
         @NamedQuery(name = Country.FIND_COUNTRY_CODE_BY_COUNTRY_NAME, query = Country.FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY),
-        @NamedQuery(name = Country.FIND_COUNTRY_NAME_LIST, query = Country.FIND_COUNTRY_NAME_LIST_QUERY),
+        @NamedQuery(name = Country.FIND_COUNTRY_NAME_LIST_BY_STATUS, query = Country.FIND_COUNTRY_NAME_LIST_BY_STATUS_QUERY),
 // -----
 })
 public class Country {
@@ -31,8 +31,8 @@ public class Country {
     public static final String FIND_COUNTRY_CODE_LIST_BY_STATUS = "Country.findCountryCodeListByStatus";
     static final String FIND_COUNTRY_CODE_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.status = ?1";
 
-    public static final String FIND_COUNTRY_NAME_LIST = "Country.findCountryNameList";
-    static final String FIND_COUNTRY_NAME_LIST_QUERY = "SELECT distinct(ip.city.country.countryName) from IpAddress ip";
+    public static final String FIND_COUNTRY_NAME_LIST_BY_STATUS = "Country.findCountryNameListByStatus";
+    static final String FIND_COUNTRY_NAME_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryName) from IpAddress ip where ip.status = ?1";
 
     public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME = "Country.findCountryCodeByCountryName";
     static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(co.countryCode) from Country co where co.countryName = ?1";
