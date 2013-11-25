@@ -33,7 +33,7 @@ public class JsonServiceImpl implements JsonService {
             LOGGER.info("Start creating JSON-file for " + (status ? "White" : "Black") + "Map.");
 
             for (String code : countryDao.findCountryCodeListByStatus(status, ipType)) {
-                json.put(code, ipAddressDao.countStatusIpByCountryCode(status, code, ipType));
+                json.put(code, ipAddressDao.countStatusIpByCountryName(status, code, ipType));
             }
             file = new FileWriter(path + fileName);
             file.write("var array =");

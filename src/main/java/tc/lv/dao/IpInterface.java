@@ -6,9 +6,9 @@ public interface IpInterface {
 
     String countStatusList();
 
-    String countStatusIpByCity();
+    String countStatusIpByCityName();
 
-    String countStatusIpByCountryCode();
+    String countStatusIpByCountryName();
 
     String findAll();// not used
 
@@ -30,7 +30,7 @@ public interface IpInterface {
 
     String findStatusListByCity();
 
-    String findStatusListByCountry();
+    String findStatusListByCountryName();
 
     String findUndefinedList();
 

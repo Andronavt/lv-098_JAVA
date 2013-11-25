@@ -93,8 +93,8 @@ public class NotValidIp extends IpAddress {
     }
 
     @Override
-    public String findStatusListByCountry() {
-        return NotValidIp.FIND_STATUS_LIST_BY_COUNTRY;
+    public String findStatusListByCountryName() {
+        return NotValidIp.FIND_STATUS_LIST_BY_COUNTRY_NAME;
     }
 
     @Override
@@ -113,12 +113,12 @@ public class NotValidIp extends IpAddress {
     }
 
     @Override
-    public String countStatusIpByCountryCode() {
-        return NotValidIp.COUNT_STATUS_IP_BY_COUNTRY_CODE;
+    public String countStatusIpByCountryName() {
+        return NotValidIp.COUNT_STATUS_IP_BY_COUNTRY_NAME;
     }
 
     @Override
-    public String countStatusIpByCity() {
-        return NotValidIp.COUNT_STATUS_IP_BY_CITY;
+    public String countStatusIpByCityName() {
+        return NotValidIp.COUNT_STATUS_IP_BY_CITY_NAME;
     }
 }
