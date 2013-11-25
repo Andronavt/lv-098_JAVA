@@ -26,10 +26,14 @@
 		<fieldset>
 			<legend style="color: green" align="left"><strong>Source for update:</strong></legend>
 			
-			<select size="3" multiple="multiple" name="arrSource[]">
+			<select size="3" multiple="multiple" name="sources">
+			
 			<c:forEach var="Source" items="${listSource}">
+			
   				 <option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
+  				 
  				 </c:forEach>
+ 				 
 			</select>
 			
 <!-- 			<select name="sources" size="1"> -->

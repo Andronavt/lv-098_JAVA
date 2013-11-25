@@ -95,43 +95,21 @@ function doAjaxPostDeleteIpFromList() {
 }
 
 function doAjaxUpdateSource() {
-	var arrSource = $('select[name=arrSource]').val();
+	var source = [ $('select[name=sources]').val()];
 	$.ajax({
 		type : "POST",
 		url : "admin_updateSourcesButton",
-		data : "source=" + arrSource,
+		data : "source=" + source,
 		beforeSend: function() {
-			$('#upSource').html("Please wait. Source updating");
+			$('#upSource').html("<img src='resources/images/ajax-loader.gif'><br>Please wait. Source updating");
 		  },
 		success : function(response) {
-			alert('succes' + arrSource);
 			$('#upSource').html(response);
 		},
 		error : function(e) {
-			alert('eroor' + arrSource);
 			alert('Error: ' + parser);
 		}
 	});
-	
-/*	var source = $('select[name=sources]').val();
-	$
-			.ajax({
-				type : "POST",
-				url : "admin_updateSourcesButton",
-				data : "source=" + source,
-				beforeSend : function() {
-					$('#upSource')
-							.html(
-									"<img src='resources/images/ajax-loader.gif'><br>Please wait. Source updating");
-				},
-				success : function(response) {
-					$('#upSource').html(response);
-				},
-				error : function(e) {
-					alert('Error: ' + parser);
-				}
-			});
-}*/
 
 function doAjaxPaginationWhiteAndBlackList(page) {
 	$.ajax({
