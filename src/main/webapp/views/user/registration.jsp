@@ -52,7 +52,7 @@
 		</div>
 
 	</fieldset>
-	<input class="btn btn-primary" type="button" name="registration" value="Registration" />
+	<input class="btn btn-primary" type="button" id="registration" value="Registration" />
 </form>
 
 <script type="text/javascript">
