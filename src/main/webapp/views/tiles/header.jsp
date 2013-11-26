@@ -18,20 +18,20 @@
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
 	rel="stylesheet" type="text/css" />	
 
-<p align="right">
 
+<div>
 	<sec:authorize access="isAnonymous()">
- 	<em><strong> <font size="3" color="#FFFFFF">Welcome! Guest&#09;</font></strong></em>
+ 	<em><strong> <font size="3" color="#FFFFFF">Welcome! Guest</font></strong></em>
    </sec:authorize>
 	<sec:authorize access="isAuthenticated()">
-   <em><strong> <font size="3" color="#FFFFFF">Welcome!	<sec:authentication property="principal.username" />&#09; </font></strong></em>
+   <em><strong> <font size="3" color="#FFFFFF">Welcome!	<sec:authentication property="principal.username" /> </font></strong></em>
 	</sec:authorize>
-	
+	</div>
+	<div>
 	<sec:authorize access="isAnonymous()">
-		<a class="btn" href="signin" id="getContentLogin">Login/Registration</a>
+		<a class="btn btn-small btn-primary" href="signin" id="getContentLogin">Login/Registration</a>
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
-		<a class="btn" href="<c:url value="/j_spring_security_logout"/>">Logout</a>
+		<a class="btn btn-small btn-primary" href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 	</sec:authorize>
-
-</p>
+</div>

@@ -16,7 +16,7 @@
 
 <center>
 	<h2>
-			<font color="FF3300"><strong>Welcome to HELL!</strong></font>
+			<font color="#0066FF"><strong>Welcome! </strong></font>
 		<sec:authorize access="isAuthenticated()">
 			<sec:authentication property="principal.username" />
 		</sec:authorize>
