@@ -1,7 +1,6 @@
 package tc.lv.service.implementation;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.SourceDao;
+import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.SourceDownloaderServiceException;
 import tc.lv.service.SourceDownloaderService;
@@ -30,34 +31,33 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     @Autowired
     private SourceDao sourceDao;
 
+    @Autowired
+    private IpAddressDao ipAddressDao;
+
     @Transactional
     @Override
-    public List<ParserResults> downloadParseAndUpdateData(List<String> sourceNameList,
-            Map<Source, Parser> parserMap) throws SourceDownloaderServiceException {
+    public ParserResults downloadParseAndUpdateData(String sourceName, Map<Source, Parser> parserMap)
+            throws SourceDownloaderServiceException {
         LOGGER.info("Start downloading, parsing and updating sources.");
         try {
             Downloader downloader = new Downloader();
 
-            List<ParserResults> resultList = new ArrayList<ParserResults>();
+            ParserResults result = null;
 
             File file;
 
             Set<Source> sourceSet = parserMap.keySet();
-
-            for (String sourceName : sourceNameList) {
-
-                for (Source source : sourceSet) {
-
-                    if (source.getSourceName().equals(sourceName)) {
-                        file = downloader.downloadFile(source.getUrl(), PROJECT_DIR + source.getDirname());
-                        ParserResults tmp = parserMap.get(source).parse(file);
-                        tmp.setSourceId(source.getSourceId());
-                        resultList.add(tmp);
-                    }
+            for (Source source : sourceSet) {
+                if (source.getSourceName().equals(sourceName)) {
+                    file = downloader.downloadFile(source.getUrl(), PROJECT_DIR + source.getDirname());
+                    result = parserMap.get(source).parse(file);
+                    result.setSourceId(source.getSourceId());
+                    break;
                 }
             }
+
             LOGGER.info("Finish downloading, parsing and updating sources.");
-            return resultList;
+            return result;
 
         } catch (Exception e) {
             LOGGER.error(e);
@@ -68,7 +68,6 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     @Transactional
     @Override
     public List<Source> loadSourceList() throws SourceDownloaderServiceException {
-        LOGGER.info("Load List of Sources from base.");
         List<Source> sourcesList;
         try {
             sourcesList = sourceDao.findAll();
@@ -117,6 +116,20 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
         }
         LOGGER.info("Finish creating Map of Sources and Parsers.");
         return parserMap;
+    }
+
+    @Transactional
+    @Override
+    public void updateStatusList() throws SourceDownloaderServiceException {
+        LOGGER.info("Start update WhiteList");
+        try {
+            ipAddressDao.updateStatusList(IpAddress.class);
+
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw new SourceDownloaderServiceException("class of Parser cannot be instantiated!", e);
+        }
+        LOGGER.info("Finish update WhiteList");
     }
 
 }

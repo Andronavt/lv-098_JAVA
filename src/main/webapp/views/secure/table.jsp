@@ -3,13 +3,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 
-<link href="<c:url value="/resources/css/ipTable/table.css" />"
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
 	rel="stylesheet" type="text/css" />
 
-<center>
-	<div class="table">
-		
-		<table>
+<link href="<c:url value="/resources/css/ipTable/table.css" />"
+	rel="stylesheet" type="text/css" /> 
+
+		<table class="table">
 			<tr>
 				<td>IP address</td>
 				<td>Date added</td>
@@ -21,5 +28,3 @@
 				</tr>
 			</c:forEach>
 		</table>
-	</div>
-</center>

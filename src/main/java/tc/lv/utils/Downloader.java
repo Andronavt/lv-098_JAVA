@@ -29,12 +29,15 @@ public class Downloader {
 
         BufferedInputStream inputStream = null;
         GZIPInputStream gInputStream = null;
+        
         FileOutputStream outputFile = null;
         GZIPOutputStream gZipFile = null;
+        
         File file = null;
         File fileOut = null;
 
         if (urlString.contains(".gz")) {
+            
             try {
 
                 file = new File(dir + fileName + ".gz");
@@ -61,7 +64,6 @@ public class Downloader {
             } finally {
 
                 if (gInputStream != null) {
-
                     try {
                         gInputStream.close();
                     } catch (Exception e) {

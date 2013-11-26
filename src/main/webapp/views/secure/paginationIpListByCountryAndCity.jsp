@@ -21,8 +21,6 @@
 	rel="stylesheet" type="text/css" />
 
 
-<div id="content" class="content"></div>
-<div id="demo1"></div>
 <div id="number">
 	<!-- ip pare page -->
 	<select name="countIpPerPage"
@@ -47,6 +45,8 @@
 	<input name="clockpick" id="xy" type="text" size=10
 		onchange="defaltPaginationByCountryAndCity()">
 </div>
+<div id="content" class="content"></div>
+<div id="demo1"></div>
 <script>
 // 	var source = "${locationList}";
 // 	source = source.replace("[", "").replace("]", "").split(',');

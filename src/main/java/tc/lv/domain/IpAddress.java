@@ -42,6 +42,7 @@ import tc.lv.dao.IpInterface;
 
         @NamedQuery(name = IpAddress.COUNT_ALL, query = IpAddress.COUNT_ALL_QUERY),
         @NamedQuery(name = IpAddress.COUNT_STATUS_LIST, query = IpAddress.COUNT_STATUS_LIST_QUERY),
+        @NamedQuery(name = IpAddress.COUNT_STATUS_IP_BY_COUNTRY_CODE, query = IpAddress.COUNT_STATUS_IP_BY_COUNTRY_CODE_QUERY),
         @NamedQuery(name = IpAddress.COUNT_STATUS_IP_BY_COUNTRY_NAME, query = IpAddress.COUNT_STATUS_IP_BY_COUNTRY_NAME_QUERY),
         @NamedQuery(name = IpAddress.COUNT_STATUS_IP_BY_CITY_NAME, query = IpAddress.COUNT_STATUS_IP_BY_CITY_NAME_QUERY),
         @NamedQuery(name = IpAddress.FIND_ALL_NOT_VALID, query = IpAddress.FIND_ALL_NOT_VALID_QUERY),
@@ -60,6 +61,9 @@ public class IpAddress implements IpInterface {
 
     public static final String COUNT_STATUS_IP_BY_CITY_NAME = "IpAddress.countStatusIpByCityName";
     static final String COUNT_STATUS_IP_BY_CITY_NAME_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.cityName = ?2";
+
+    public static final String COUNT_STATUS_IP_BY_COUNTRY_CODE = "IpAddress.countStatusIpByCountryCode";
+    static final String COUNT_STATUS_IP_BY_COUNTRY_CODE_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.country.countryCode = ?2";
 
     public static final String COUNT_STATUS_IP_BY_COUNTRY_NAME = "IpAddress.countStatusIpByCountryName";
     static final String COUNT_STATUS_IP_BY_COUNTRY_NAME_QUERY = "SELECT count(ip) from IpAddress ip where ip.status = ?1 and ip.city.country.countryName = ?2";
@@ -207,6 +211,11 @@ public class IpAddress implements IpInterface {
     @Override
     public String countStatusIpByCountryName() {
         return IpAddress.COUNT_STATUS_IP_BY_COUNTRY_NAME;
+    }
+
+    @Override
+    public String countStatusIpByCountryCode() {
+        return IpAddress.COUNT_STATUS_IP_BY_COUNTRY_CODE;
     }
 
     @Override

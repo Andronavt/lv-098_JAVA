@@ -24,8 +24,18 @@
 <link href="<c:url value="/resources/css/secure.css" />"
 	rel="stylesheet" type="text/css" />
 
-<fieldset>
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
 
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />
+
+<fieldset>
+	<h3 class="text-info">Map of ip-address in white list.</h3>
 	<div id="world-map"></div>
 
 </fieldset>

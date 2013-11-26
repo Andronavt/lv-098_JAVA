@@ -11,7 +11,6 @@ import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.IpAddressServiceException;
 import tc.lv.service.IpAddressSaveService;
 import tc.lv.service.IpAddressService;
-import tc.lv.utils.GeoIpUtil;
 import tc.lv.utils.IpVersionUtil;
 
 @Service
@@ -27,8 +26,6 @@ public class IpAddressServiceImpl implements IpAddressService {
 
     @Autowired
     private IpAddressSaveService ipAddressSaveService;
-
-    private GeoIpUtil geoIpUtil;
 
     @Transactional
     @Override
