@@ -34,8 +34,6 @@ public class ListController {
 	@Autowired
 	private PaginationService paginationService;
 
-	private static final Logger LOGGER = Logger.getLogger(ListController.class);
-
 	@RequestMapping(value = "admin_deleteIpFromList", method = RequestMethod.GET)
 	public String deleteIpFromWhiteList() {
 		return "admin_deleteIpFromList";
@@ -137,7 +135,7 @@ public class ListController {
 			map.put("ipList", list);
 			map.put("pageList", pageList);
 			map.put("pageCount", pageCount);
-			
+
 		} catch (IpStatusListServiceException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));
 			map.put("errorMsg", e.getMessage());
@@ -170,7 +168,7 @@ public class ListController {
 			pageList = paginationService.loadPages();
 			map.put("ipList", list);
 			map.put("pageList", pageList);
-			map.put("pageCount", pageCount);			
+			map.put("pageCount", pageCount);
 		} catch (IpStatusListServiceException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));
 			map.put("errorMsg", e.getMessage());
