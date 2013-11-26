@@ -35,13 +35,13 @@ public class IpAddressServiceImpl implements IpAddressService {
 		try {
 			IpAddress tempIp = ipAddressDao.findByAddress(address,
 					IpAddress.class);
-			if (tempIp != null) {
-				tempIp.getSourceSet().add(
-						ipAddressSaveDetailsService.getSourceByStatus(status));
-			} else {
+			if (tempIp == null) {
 				tempIp = ipAddressSaveDetailsService
 						.getDetails(address, status);
 			}
+			tempIp.getSourceSet().clear();
+			tempIp.getSourceSet().add(
+					ipAddressSaveDetailsService.getSourceByStatus(status));
 			tempIp.setStatus(IpVersionUtil.isWhiteIpAddress(status));
 			ipAddressDao.save(tempIp);
 			return true;
