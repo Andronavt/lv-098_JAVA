@@ -6,31 +6,23 @@ public interface IpInterface {
 
     String countStatusList();
 
-    String countStatusIpByCity();
+    String countStatusIpByCityName();
 
     String countStatusIpByCountryCode();
 
-    String findAll();// not used
+    String countStatusIpByCountryName();
 
-    String findAllNotValid();// not used
-
-    String findAllValid();// not used
+    String findAll();
 
     String findByAddress();
 
     String findIpListBySource();
 
-    String findIpListByCity();// ??????????
-
-    String findIpListByCountry();// ???????????
-
-    String findIpByAddress();// ?
-
     String findStatusList();
 
     String findStatusListByCity();
 
-    String findStatusListByCountry();
+    String findStatusListByCountryName();
 
     String findUndefinedList();
 

@@ -2,21 +2,19 @@ package tc.lv.dao;
 
 import java.util.List;
 
-import tc.lv.domain.City;
-import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.DBException;
 
 public interface IpAddressDao {
 
-	Long countAll(Class<? extends IpAddress> ipType) throws DBException;
+    Long countAll(Class<? extends IpAddress> ipType) throws DBException;
 
-	Long countStatusIp(boolean status, Class<? extends IpAddress> ipType) throws DBException;
+    Long countStatusIp(boolean status, Class<? extends IpAddress> ipType) throws DBException;
 
-	Long countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
+    Long countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
             throws DBException;
 
-	Long countStatusIpByCountryCode(boolean status, String countryName, Class<? extends IpAddress> ipType)
+    Long countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
             throws DBException;
 
     void deleteIp(IpAddress address);
@@ -32,8 +30,8 @@ public interface IpAddressDao {
     <T extends IpAddress> List<T> findStatusListByCity(boolean status, int from, int count, String cityName,
             Class<? extends IpAddress> ipType) throws DBException;
 
-    <T extends IpAddress> List<T> findStatusListByCountry(boolean status, int from, int count, String countryName,
-            Class<? extends IpAddress> ipType) throws DBException;
+    <T extends IpAddress> List<T> findStatusListByCountryName(boolean status, int from, int count,
+            String countryName, Class<? extends IpAddress> ipType) throws DBException;
 
     <T extends IpAddress> List<T> findUndefList(Class<? extends IpAddress> ipType) throws DBException;
 
@@ -45,5 +43,8 @@ public interface IpAddressDao {
             throws DBException;
 
     void updateStatusList(Class<? extends IpAddress> ipType) throws DBException;
+
+    Long countStatusIpByCountryCode(boolean status, String countryCode, Class<? extends IpAddress> ipType)
+            throws DBException;
 
 }

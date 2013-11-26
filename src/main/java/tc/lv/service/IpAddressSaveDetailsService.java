@@ -8,7 +8,5 @@ public interface IpAddressSaveDetailsService {
 
 	public IpAddress getDetails(String address, String status)
 			throws IpAddressServiceException;
-	public Source getSourceByStatus(String status)
-			throws IpAddressServiceException;
-
+    public Source getSourceByStatus(String status) throws IpAddressServiceException;
 }

@@ -11,25 +11,25 @@ import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.IpAddressServiceException;
 import tc.lv.service.IpAddressSaveDetailsService;
 import tc.lv.service.IpAddressService;
+<<<<<<< HEAD
 import tc.lv.utils.GeoIpUtil;
+=======
+>>>>>>> cc8d518eb81481b657a7e0a62532ebb0a185baeb
 import tc.lv.utils.IpVersionUtil;
 
 @Service
 public class IpAddressServiceImpl implements IpAddressService {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(IpAddressServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(IpAddressServiceImpl.class);
 
-	@Autowired
-	private IpAddressDao ipAddressDao;
+    @Autowired
+    private IpAddressDao ipAddressDao;
 
-	@Autowired
-	private SourceDao sourceDao;
+    @Autowired
+    private SourceDao sourceDao;
 
-	@Autowired
-	private IpAddressSaveDetailsService ipAddressSaveDetailsService;
-
-	private GeoIpUtil geoIpUtil;
+    @Autowired
+    private IpAddressSaveDetailsService ipAddressSaveDetailsService;
 
 	@Transactional
 	@Override

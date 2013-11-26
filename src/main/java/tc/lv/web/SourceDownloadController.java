@@ -1,6 +1,6 @@
 package tc.lv.web;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -64,29 +64,31 @@ public class SourceDownloadController {
 
     // Updating Sources
     @RequestMapping(value = "admin_updateSourcesButton", method = RequestMethod.POST)
-    public String sourceDownloader(@ModelAttribute("source") String sourceName, Map<String, Object> map) {
-        List<String> sourceNameList = new ArrayList<String>();
-        LOGGER.info("SOURCE:" + sourceName);
-        sourceNameList.add(sourceName);
+    public String sourceDownloader(@ModelAttribute("source") String[] sourceNameArray, Map<String, Object> map) {
+        List<String> sourceNameList = Arrays.asList(sourceNameArray);
+        LOGGER.info("Start updating Sources.");
         try {
-            LOGGER.info("Start updating Sources.");
-
             // loading sources list
             List<Source> sourceList = sourceDownloaderService.loadSourceList();
 
             // Creating Mapping with sources and parsers
             Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
+            for (String sourceName : sourceNameList) {
+                LOGGER.info("Start updating SOURCE:" + sourceName);
 
-            // downloading and parsering files from sources
-            List<ParserResults> parserResultList = sourceDownloaderService.downloadParseAndUpdateData(
-                    sourceNameList, parserMap);
+                // downloading and parsering files from sources
+                ParserResults parserResult = sourceDownloaderService.downloadParseAndUpdateData(sourceName,
+                        parserMap);
 
-            // adding locations from GeoIP
-            List<ParserResults> parserResultListWithLocations = geoIpService
-                    .updateIpAddresLocation(parserResultList);
+                // adding locations from GeoIP
+                ParserResults parserResultWithLocations = geoIpService.updateIpAddresLocation(parserResult);
 
-            // saving to data base
-            parserResultService.saveAllSources(parserResultListWithLocations);
+                // saving to data base
+                parserResultService.save(parserResultWithLocations);
+
+            }
+            // Updating status list
+            sourceDownloaderService.updateStatusList();
 
             // Creating JSON files for White and Black Maps
             jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST, ALL_IP_ADDRESSES, WHITE_LIST);
@@ -94,7 +96,7 @@ public class SourceDownloadController {
 
             LOGGER.info("Finish updating Sources.");
 
-            map.put("successMsg", "Source " + sourceName + " updated.");
+            map.put("successMsg", "Updated :)");
             return "result";
 
         } catch (SourceDownloaderServiceException | GeoIpServiceException | ParserResultServiceException

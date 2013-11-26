@@ -4,9 +4,19 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+	
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />
+
 <center>
 	<h2>
-		Welcome to HELL!
+			<font color="FF3300"><strong>Welcome to HELL!</strong></font>
 		<sec:authorize access="isAuthenticated()">
 			<sec:authentication property="principal.username" />
 		</sec:authorize>

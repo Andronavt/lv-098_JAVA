@@ -23,16 +23,16 @@ import javax.persistence.Table;
 @NamedQueries({
         // -----
         @NamedQuery(name = City.FIND_ALL, query = City.FIND_ALL_QUERY),
-        @NamedQuery(name = City.FIND_CITY_LIST_BY_STATUS, query = City.FIND_CITY_LIST_BY_STATUS_QUERY),
+        @NamedQuery(name = City.FIND_CITY_NAME_LIST_BY_STATUS, query = City.FIND_CITY_NAME_LIST_BY_STATUS_QUERY),
 
 // -----
 })
 public class City {
     public static final String FIND_ALL = "City.findAll";
-    public static final String FIND_ALL_QUERY = "SELECT ci from City ci";
+    static final String FIND_ALL_QUERY = "SELECT ci from City ci";
 
-    public static final String FIND_CITY_LIST_BY_STATUS = "City.findCityListByStatus";
-    public static final String FIND_CITY_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from City ci, IpAddress ip where ip.status = ?1";
+    public static final String FIND_CITY_NAME_LIST_BY_STATUS = "City.findCityNameListByStatus";
+    static final String FIND_CITY_NAME_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from City ci, IpAddress ip where ip.status = ?1";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

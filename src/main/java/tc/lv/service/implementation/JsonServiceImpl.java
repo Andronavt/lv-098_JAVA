@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.CountryDao;
 import tc.lv.dao.IpAddressDao;
@@ -24,7 +23,6 @@ public class JsonServiceImpl implements JsonService {
     CountryDao countryDao;
 
     @Override
-    // @Transactional
     public void createJsonForCountryMap(String path, String fileName, Class<? extends IpAddress> ipType,
             boolean status) throws JsonServiceException {
         JSONObject json = new JSONObject();
@@ -49,62 +47,4 @@ public class JsonServiceImpl implements JsonService {
         }
     }
 
-    @Override
-    @Transactional
-    @Deprecated
-    public void createJsonCountryWhiteList(String path) throws JsonServiceException {
-        JSONObject json = new JSONObject();
-        FileWriter file;
-        try {
-            LOGGER.info("Start creating JSON-file for WhiteList Map.");
-
-            // for (String country :
-            // ipAddressDao.findCountriesWhiteList(IpAddress.class)) {
-            // json.put(country, ipAddressDao.findWhiteListByCountyName(country,
-            // IpAddress.class).size());
-            // }
-
-            file = new FileWriter(path + "countryJsonWhiteList.js");
-            file.write("var array =");
-            file.write(json.toString());
-            file.close();
-
-            LOGGER.info("Finish creating JSON-file for WhiteList Map.");
-
-        } catch (Exception e) {
-            LOGGER.error("Could not create JSON file", e);
-            throw new JsonServiceException("Could not create JSON file", e);
-
-        }
-    }
-
-    @Override
-    @Transactional
-    @Deprecated
-    public void createJsonCountryBlackList(String path) throws JsonServiceException {
-        JSONObject json = new JSONObject();
-        FileWriter file;
-        try {
-            LOGGER.info("Start creating JSON-file for BlackList Map.");
-
-            // for (String country :
-            // ipAddressDao.findCountriesBlackList(IpAddress.class)) {
-            // json.put(country,
-            // ipAddressDao.findBlackListByCountryName(country,
-            // IpAddress.class).size());
-            // }
-
-            file = new FileWriter(path + "countryJsonBlackList.js");
-            file.write("var array =");
-            file.write(json.toString());
-            file.write(";");
-            file.close();
-
-            LOGGER.info("Finish creating JSON-file for BlackList Map.");
-
-        } catch (Exception e) {
-            LOGGER.error("Could not create JSON file", e);
-            throw new JsonServiceException("Could not create JSON file", e);
-        }
-    }
 }

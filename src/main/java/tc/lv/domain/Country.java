@@ -21,20 +21,21 @@ import javax.persistence.Table;
         @NamedQuery(name = Country.FIND_ALL, query = Country.FIND_ALL_QUERY),
         @NamedQuery(name = Country.FIND_COUNTRY_CODE_LIST_BY_STATUS, query = Country.FIND_COUNTRY_CODE_LIST_BY_STATUS_QUERY),
         @NamedQuery(name = Country.FIND_COUNTRY_CODE_BY_COUNTRY_NAME, query = Country.FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY),
+        @NamedQuery(name = Country.FIND_COUNTRY_NAME_LIST_BY_STATUS, query = Country.FIND_COUNTRY_NAME_LIST_BY_STATUS_QUERY),
 // -----
 })
 public class Country {
     public static final String FIND_ALL = "Country.findAll";
-    public static final String FIND_ALL_QUERY = "SELECT co from Country co";
+    static final String FIND_ALL_QUERY = "SELECT co from Country co";
 
     public static final String FIND_COUNTRY_CODE_LIST_BY_STATUS = "Country.findCountryCodeListByStatus";
-    public static final String FIND_COUNTRY_CODE_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.status = ?1";
+    static final String FIND_COUNTRY_CODE_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryCode) from IpAddress ip where ip.status = ?1";
 
     public static final String FIND_COUNTRY_NAME_LIST_BY_STATUS = "Country.findCountryNameListByStatus";
-    public static final String FIND_COUNTRY_NAME_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryName) from IpAddress ip where ip.status = ?1";
+    static final String FIND_COUNTRY_NAME_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.country.countryName) from IpAddress ip where ip.status = ?1";
 
     public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME = "Country.findCountryCodeByCountryName";
-    public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(co.countryCode) from Country co where co.countryName = ?1";
+    static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(co.countryCode) from Country co where co.countryName = ?1";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

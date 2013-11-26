@@ -45,8 +45,16 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     @Override
     public Long countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
             throws DBException {
-        Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusIpByCity());
+        Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusIpByCityName());
         query = query.setParameter(1, status).setParameter(2, cityName);
+        return (Long) query.getSingleResult();
+    }
+
+    @Override
+    public Long countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
+            throws DBException {
+        Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusIpByCountryName());
+        query = query.setParameter(1, status).setParameter(2, countryName);
         return (Long) query.getSingleResult();
     }
 
@@ -98,9 +106,9 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public <T extends IpAddress> List<T> findStatusListByCountry(boolean status, int from, int count,
+    public <T extends IpAddress> List<T> findStatusListByCountryName(boolean status, int from, int count,
             String countryName, Class<? extends IpAddress> ipType) throws DBException {
-        Query query = entityManager.createNamedQuery(createIpAddress(ipType).findStatusListByCountry());
+        Query query = entityManager.createNamedQuery(createIpAddress(ipType).findStatusListByCountryName());
         query = query.setParameter(1, status).setParameter(2, countryName);
         return findRange(from, count, query);
     }
@@ -139,8 +147,7 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
         Source source = entityManager.find(Source.class, sourceId);
         if (source == null) {
-            // We can't find source for this Id
-            // TODO
+            throw new DBException("Didn't find source with id " + sourceId);
         } else {
             if (list.size() < 1) {
                 return;

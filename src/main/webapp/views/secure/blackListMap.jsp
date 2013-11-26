@@ -21,12 +21,22 @@
 	href="<c:url value="/resources/css/jVectorMap/jquery-jvectormap-1.2.2.css" />"
 	rel="stylesheet" type="text/css" />
 
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
+
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />
+
 <link
 	href="<c:url value="/resources/css/secure.css" />"
 	rel="stylesheet" type="text/css" />
 
 <fieldset>
-
+<h3 class="text-info">Map of ip-address in black list.</h3>
 	<div id="world-map"></div>
 
 </fieldset>

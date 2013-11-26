@@ -25,8 +25,8 @@ public class CityDaoImpl extends DaoAbstract implements CityDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<String> findCityListByStatus(boolean status) throws DBException {
-        Query query = entityManager.createNamedQuery(City.FIND_CITY_LIST_BY_STATUS);
+    public List<String> findCityNameListByStatus(boolean status) throws DBException {
+        Query query = entityManager.createNamedQuery(City.FIND_CITY_NAME_LIST_BY_STATUS);
         query = query.setParameter(1, status);
         return query.getResultList();
     }
