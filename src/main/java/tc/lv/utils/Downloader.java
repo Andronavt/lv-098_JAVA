@@ -54,7 +54,7 @@ public class Downloader {
                 while ((count = gInputStream.read(data, 0, 1024)) != -1) {
                     gZipFile.write(data, 0, count);
                 }
-
+                
             } catch (Exception e) {
 
                 LOGGER.error(e);
@@ -83,9 +83,9 @@ public class Downloader {
                     }
                 }
             }
-
             fileOut = unZip(file);
             return fileOut;
+            
 
         } else {
 
@@ -143,11 +143,11 @@ public class Downloader {
 
         try {
 
-            File outputFileName = new File(file.getAbsolutePath() + ".txt");
+            File outputFile = new File(file.getAbsolutePath() + ".txt");
             fileInput = new FileInputStream(file);
             gzInput = new GZIPInputStream(fileInput);
 
-            fileOutput = new FileOutputStream(outputFileName);
+            fileOutput = new FileOutputStream(outputFile);
 
             byte[] buffer = new byte[1024];
             int count;
@@ -155,7 +155,7 @@ public class Downloader {
             while ((count = gzInput.read(buffer, 0, 1024)) != -1) {
                 fileOutput.write(buffer, 0, count);
             }
-            return outputFileName;
+            return outputFile;
 
         } catch (Exception e) {
             LOGGER.error(e);

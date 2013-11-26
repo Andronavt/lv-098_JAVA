@@ -34,6 +34,9 @@
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
 	rel="stylesheet" type="text/css" />
 
+<script type="text/javascript"
+	src="<c:url value="/resources/js/jVectorMap/createMap.js" />"></script>
+
 <fieldset>
 	<h3 class="text-info">Map of ip-address in white list.</h3>
 	<div id="world-map"></div>
@@ -41,6 +44,13 @@
 </fieldset>
 
 <script>
+$(document).ready(function() {
+	createMap();
+});
+</script>
+
+
+<!-- <script>
 	$('#world-map').vectorMap({
 		map : 'world_mill_en',
 		series : {
@@ -54,5 +64,5 @@
 			el.html(el.html() + ' - ' + array[code]);
 		}
 	});
-</script>
+</script> -->
 
