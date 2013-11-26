@@ -1,4 +1,4 @@
-var DEFAULT_NUMBER_PAGE=1;
+var DEFAULT_NUMBER_PAGE = 1;
 
 function doAjaxPostRegistration() {
 	// get the form values
@@ -97,35 +97,41 @@ function doAjaxPostDeleteIpFromList() {
 }
 
 function doAjaxUpdateSource() {
-	var source = [ $('select[name=sources]').val()];
-	$.ajax({
-		type : "POST",
-		url : "admin_updateSourcesButton",
-		data : "source=" + source,
-		beforeSend: function() {
-			$('#upSource').html("<img src='resources/images/ajax-loader.gif'><br>Please wait. Source updating");
-		  },
-		success : function(response) {
-			$('#upSource').html(response);
-		},
-		error : function(e) {
-			alert('Error: ' + parser);
-		}
-	});
+	var source = [ $('select[name=sources]').val() ];
+	$
+			.ajax({
+				type : "POST",
+				url : "admin_updateSourcesButton",
+				data : "source=" + source,
+				beforeSend : function() {
+					$('#upSource')
+							.html(
+									"<img src='resources/images/ajax-loader.gif'><br>Please wait. Source updating");
+				},
+				success : function(response) {
+					$('#upSource').html(response);
+				},
+				error : function(e) {
+					alert('Error: ' + parser);
+				}
+			});
 }
 
 function doAjaxPaginationWhiteAndBlackList(page) {
+	var pageNumber = page;
+	var countIpPerPage = $('select[name=countIpPerPage]').val();
+	var ipType = $('select[name=ipType]').val();
+	alert(" "+pageNumber+" "+countIpPerPage+" "+ipType);
 	$.ajax({
 		type : "POST",
 		url : location.href,
-		data : "pageNumber=" + page + "&countIpPerPage="
-				+ $('select[name=count]').val() + "&ipType="
-				+ $('select[name=ipType]').val(),
+		data : "pageNumber=" + pageNumber + "&countIpPerPage=" + countIpPerPage
+				+ "&ipType=" + ipType,
 		success : function(response) {
 			$("#content").html(response);
 		},
 		error : function(e) {
-			alert(e + pageNumber + countIpPerPage + ipType);
+			alert("Error: "+e);
 		}
 	});
 }
@@ -136,7 +142,7 @@ function defaultPaginationWhiteAndBlackList() {
 
 function doAjaxPaginationByCountryAndCity(page) {
 	var pageNumber = page;
-	var countIpPerPage = $('select[name=countIpPerPage]').val();	
+	var countIpPerPage = $('select[name=countIpPerPage]').val();
 	var location = $('input[name=clockpick]').val();
 	var ipType = $('select[name=ipType]').val();
 	var typeList = $('select[name=typeList]').val();
@@ -151,7 +157,7 @@ function doAjaxPaginationByCountryAndCity(page) {
 			$("#content").html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + e );
+			alert('Error: ' + e);
 		}
 	});
 }

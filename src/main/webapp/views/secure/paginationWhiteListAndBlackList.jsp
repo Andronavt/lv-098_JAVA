@@ -19,14 +19,13 @@
 	rel="stylesheet" type="text/css" />
 
 <div align="center">
-<script type="text/javascript"
-	src="<c:url value="/resources/js/ajax.js" />"></script>
-<!-- <div align="left" id="number"></div> -->
-	<select name="count" onchange="defaultPaginationWhiteAndBlackList()">
-		<option value="10">10</option>
-		<option value="20">20</option>
-		<option value="30">30</option>
-		<option value="40">40</option>
+	<script type="text/javascript"
+		src="<c:url value="/resources/js/ajax.js" />"></script>
+
+	<select name="countIpPerPage" onchange="defaultPaginationWhiteAndBlackList()">
+		<c:forEach var="list" items="${pageList}">
+			<option value="${list.ipsPerPage}">${list.ipsPerPage}</option>
+		</c:forEach>
 	</select>
 	<!-- List of type ip for white and black list pagination -->
 	<select name="ipType" onchange="defaultPaginationWhiteAndBlackList()">
@@ -34,17 +33,17 @@
 		<option value="ipv4">Ip v4</option>
 		<option value="ipv6">Ip v6</option>
 	</select>
-	</div>
+</div>
 
 <div align="left" id="content" class="content"></div>
 
-<div align="center" id="demo1"> </div>
+<div align="center" id="demo1"></div>
 
 <script>
-	$(document).ready(function() {
+	$(document).ready(function() {		
 		$('#demo1').bootpag({
 			total : 10,
-			maxVisible: 5
+			maxVisible : 5
 		}).on("page", function(event, num) {
 			doAjaxPaginationWhiteAndBlackList(num);
 		});

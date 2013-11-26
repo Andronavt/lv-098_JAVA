@@ -18,6 +18,7 @@ import tc.lv.exceptions.IpStatusListServiceException;
 import tc.lv.service.IpAddressService;
 import tc.lv.service.IpStatusListService;
 import tc.lv.service.PaginationService;
+import tc.lv.service.implementation.PaginationServiceImpl;
 import tc.lv.utils.ExceptionUtil;
 import tc.lv.utils.IpValidator;
 
@@ -112,7 +113,8 @@ public class ListController {
 	}
 
 	@RequestMapping(value = "secure_showIpListFromWL", method = RequestMethod.GET)
-	public String showIpListFromWhiteList() {
+	public String showIpListFromWhiteList(Map<String, Object> map) {
+		map.put("pageList", paginationService.loadPages());
 		return "secure_showIpListFromWL";
 	}
 
@@ -131,9 +133,11 @@ public class ListController {
 					* countIpPerPage, countIpPerPage, ipType, "whiteList"));
 			ipCount = list.size();
 			pageCount = ipCount / countIpPerPage + 1;
+			pageList = paginationService.loadPages();
 			map.put("ipList", list);
 			map.put("pageList", pageList);
 			map.put("pageCount", pageCount);
+			
 		} catch (IpStatusListServiceException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));
 			map.put("errorMsg", e.getMessage());
@@ -143,7 +147,8 @@ public class ListController {
 	}
 
 	@RequestMapping(value = "secure_showIpListFromBL", method = RequestMethod.GET)
-	public String showIpListFromBlackList() {
+	public String showIpListFromBlackList(Map<String, Object> map) {
+		map.put("pageList", paginationService.loadPages());
 		return "secure_showIpListFromBL";
 	}
 
@@ -162,10 +167,10 @@ public class ListController {
 					* countIpPerPage, countIpPerPage, ipType, "blackList"));
 			ipCount = list.size();
 			pageCount = ipCount / countIpPerPage + 1;
-
+			pageList = paginationService.loadPages();
 			map.put("ipList", list);
 			map.put("pageList", pageList);
-			map.put("pageCount", pageCount);
+			map.put("pageCount", pageCount);			
 		} catch (IpStatusListServiceException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));
 			map.put("errorMsg", e.getMessage());

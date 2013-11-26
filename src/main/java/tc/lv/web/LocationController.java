@@ -14,7 +14,7 @@ import tc.lv.domain.IpAddress;
 import tc.lv.domain.PaginationSettings;
 import tc.lv.exceptions.LocationServiceException;
 import tc.lv.service.LocationService;
-import tc.lv.service.implementation.PaginationServiceImpl;
+import tc.lv.service.PaginationService;
 import tc.lv.utils.ExceptionUtil;
 import tc.lv.utils.IpVersionUtil;
 
@@ -27,13 +27,13 @@ public class LocationController {
 	LocationService locationService;
 
 	@Autowired
-	PaginationServiceImpl paginationServiceImpl;
+	PaginationService paginationService;
 
 	// showStatusListByCity
 	@RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.GET)
 	public String showStatusListByCity(Map<String, Object> map) {
 
-		map.put("pageList", paginationServiceImpl.loadPages());
+		map.put("pageList", paginationService.loadPages());
 		try {
 			map.put("locationList",
 					locationService.findCityListByStatus(
@@ -76,17 +76,13 @@ public class LocationController {
 					IpVersionUtil.ipVersion(ipTypeUI),
 					IpVersionUtil.isWhiteIpAddress(statusUI));
 
-			pageList = paginationServiceImpl.loadPages();
+			pageList = paginationService.loadPages();
 
 			map.put("pageList", pageList); //
 			map.put("pageCount", pageCount); // Count of pages
 			map.put("ipList", ipList); // List of IP-addresses
 			map.put("locationList", locationList); // List of cities
-
-			System.out.println("City!!!" + pageList);
-			System.out.println("City!!!" + pageCount);
-			System.out.println("City!!!" + ipList);
-			System.out.println("City!!!" + locationList);
+			
 
 		} catch (LocationServiceException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));
@@ -99,10 +95,10 @@ public class LocationController {
 	// showStatusListByCountry
 	@RequestMapping(value = "secure_showIpListByCountry", method = RequestMethod.GET)
 	public String showStatusListByCountry(Map<String, Object> map) {
-		map.put("pageList", paginationServiceImpl.loadPages());
+		map.put("pageList", paginationService.loadPages());
 		try {
 			map.put("locationList",
-					locationService.findCityListByStatus(
+					locationService.findCountryListByStatus(
 							IpVersionUtil.ipVersion("allIp"),
 							IpVersionUtil.isWhiteIpAddress("blackList")));
 		} catch (LocationServiceException e) {
@@ -143,17 +139,12 @@ public class LocationController {
 			locationList = locationService.findCountryListByStatus(
 					IpVersionUtil.ipVersion(ipTypeUI),
 					IpVersionUtil.isWhiteIpAddress(statusUI));
-			pageList = paginationServiceImpl.loadPages();
+			pageList = paginationService.loadPages();
 
 			map.put("pageList", pageList); //
 			map.put("pageCount", pageCount); // Count of pages
 			map.put("ipList", ipList); // List of IP-addresses
 			map.put("locationList", locationList); // List of cities
-
-			System.out.println("Country!!!" + pageList);
-			System.out.println("Country!!!" + pageCount);
-			System.out.println("Country!!!" + ipList);
-			System.out.println("Country!!!" + locationList);
 
 		} catch (LocationServiceException e) {
 			map.put("errorList", ExceptionUtil.createErrorList(e));
