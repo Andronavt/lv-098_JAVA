@@ -9,58 +9,65 @@ import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.IpAddressServiceException;
-import tc.lv.service.IpAddressSaveService;
+import tc.lv.service.IpAddressSaveDetailsService;
 import tc.lv.service.IpAddressService;
 import tc.lv.utils.IpVersionUtil;
 
 @Service
 public class IpAddressServiceImpl implements IpAddressService {
 
-    private static final Logger LOGGER = Logger.getLogger(IpAddressServiceImpl.class);
+	private static final Logger LOGGER = Logger
+			.getLogger(IpAddressServiceImpl.class);
 
-    @Autowired
-    private IpAddressDao ipAddressDao;
+	@Autowired
+	private IpAddressDao ipAddressDao;
 
-    @Autowired
-    private SourceDao sourceDao;
+	@Autowired
+	private SourceDao sourceDao;
 
-    @Autowired
-    private IpAddressSaveService ipAddressSaveService;
+	@Autowired
+	private IpAddressSaveDetailsService ipAddressSaveDetailsService;
 
-    @Transactional
-    @Override
-    public boolean saveIpByStatus(String address, String status) throws IpAddressServiceException {
-        try {
-            IpAddress tempIp = ipAddressDao.findByAddress(address, IpAddress.class);
-            if (tempIp != null) {
-                tempIp.getSourceSet().add(ipAddressSaveService.getSourceByStatus(status));
-            } else {
-                tempIp = ipAddressSaveService.saveIpAddress(address, status);
-            }
-            tempIp.setStatus(IpVersionUtil.isWhiteIpAddress(status));
-            ipAddressDao.save(tempIp);
-            return true;
-        } catch (Exception e) {
-            LOGGER.error(e);
-            throw new IpAddressServiceException("Could not save IP to List", e);
-        }
-    }
+	@Transactional
+	@Override
+	public boolean saveIpByStatus(String address, String status)
+			throws IpAddressServiceException {
+		try {
+			IpAddress tempIp = ipAddressDao.findByAddress(address,
+					IpAddress.class);
+			if (tempIp == null) {
+				tempIp = ipAddressSaveDetailsService
+						.getDetails(address, status);
+			}
+			tempIp.getSourceSet().clear();
+			tempIp.getSourceSet().add(
+					ipAddressSaveDetailsService.getSourceByStatus(status));
+			tempIp.setStatus(IpVersionUtil.isWhiteIpAddress(status));
+			ipAddressDao.save(tempIp);
+			return true;
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new IpAddressServiceException("Could not save IP to List", e);
+		}
+	}
 
-    @Transactional
-    @Override
-    public boolean deleteIpByAddress(String address) throws IpAddressServiceException {
-        try {
-            IpAddress tempIp = null;
-            tempIp = ipAddressDao.findByAddress(address, IpAddress.class);
-            if (tempIp != null) {
-                ipAddressDao.deleteIp(tempIp);
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            LOGGER.error(e);
-            throw new IpAddressServiceException("Could not delete ip from list", e);
-        }
-    }
+	@Transactional
+	@Override
+	public boolean deleteIpByAddress(String address)
+			throws IpAddressServiceException {
+		try {
+			IpAddress tempIp = ipAddressDao.findByAddress(address,
+					IpAddress.class);
+			if (tempIp != null) {
+				ipAddressDao.deleteIp(tempIp);
+				return true;
+			}
+		} catch (Exception e) {
+			LOGGER.error(e);
+			throw new IpAddressServiceException(
+					"Could not delete ip from list", e);
+		}
+		return false;
+	}
 
 }
