@@ -13,6 +13,4 @@ public interface CountryDao {
 
     List<String> findCountryNameListByStatus(boolean status, Class<? extends IpAddress> ipType) throws DBException;
 
-    List<String> findCountryNameList() throws DBException;
-
 }
