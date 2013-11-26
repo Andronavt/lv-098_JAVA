@@ -44,4 +44,7 @@ public interface IpAddressDao {
 
     void updateStatusList(Class<? extends IpAddress> ipType) throws DBException;
 
+    Long countStatusIpByCountryCode(boolean status, String countryCode, Class<? extends IpAddress> ipType)
+            throws DBException;
+
 }

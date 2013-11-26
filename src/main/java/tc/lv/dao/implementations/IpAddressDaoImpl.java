@@ -59,6 +59,14 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
+    public Long countStatusIpByCountryCode(boolean status, String countryCode, Class<? extends IpAddress> ipType)
+            throws DBException {
+        Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusIpByCountryCode());
+        query = query.setParameter(1, status).setParameter(2, countryCode);
+        return (Long) query.getSingleResult();
+    }
+
+    @Override
     public void deleteIp(IpAddress address) {
         entityManager.remove(address);
     }
