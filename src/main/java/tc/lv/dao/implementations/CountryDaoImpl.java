@@ -49,11 +49,4 @@ public class CountryDaoImpl extends DaoAbstract implements CountryDao {
         query = query.setParameter(1, status);
         return query.getResultList();
     }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<String> findCountryNameList() throws DBException {
-        Query query = entityManager.createNamedQuery(Country.FIND_COUNTRY_NAME_LIST_BY_STATUS);
-        return query.getResultList();
-    }
 }
