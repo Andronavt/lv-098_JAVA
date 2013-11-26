@@ -32,7 +32,6 @@
 
 	<authentication-manager>
 		<authentication-provider user-service-ref="userDetailsService">
-
 		</authentication-provider>
 	</authentication-manager>
 
