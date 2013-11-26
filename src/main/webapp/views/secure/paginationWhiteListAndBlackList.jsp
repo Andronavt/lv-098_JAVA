@@ -43,7 +43,8 @@
 <script>
 	$(document).ready(function() {
 		$('#demo1').bootpag({
-			total : 5
+			total : 10,
+			maxVisible: 5
 		}).on("page", function(event, num) {
 			doAjaxPaginationWhiteAndBlackList(num);
 		});

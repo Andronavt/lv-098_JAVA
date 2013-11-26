@@ -42,26 +42,23 @@
 	</select>
 
 	<!-- City or Country -->
-	<input name="clockpick" id="xy" type="text" size=10
+	<input name="clockpick" id="inputData" type="text" size=10
 		onchange="defaltPaginationByCountryAndCity()">
 </div>
 <div id="content" class="content"></div>
 <div id="demo1"></div>
 <script>
-// 	var source = "${locationList}";
-// 	source = source.replace("[", "").replace("]", "").split(',');
-	// 	source = source.replace('[','');
-	// 	source = source.replace(']','');	   
-	// 	source = source.split(',');
+	var source = "${locationList}";
+	source = source.replace("[", "").replace("]", "").split(',');	
 	var page = "${pageCount}";
 	$(document).ready(function() {
 		$('#demo1').bootpag({
-			total : page
+			total : page,
+			maxVisible: 5
 		}).on("page", function(event, num) {
 			doAjaxPaginationByCountryAndCity(num);
-		});
-		// 		defaltPaginationByCountryAndCity();
-		$("#xy").autocomplete({
+		});		
+		$("#inputData").autocomplete({
 			source : source
 		});
 	});
