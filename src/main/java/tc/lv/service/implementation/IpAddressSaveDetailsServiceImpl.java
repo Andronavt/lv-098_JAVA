@@ -14,16 +14,16 @@ import tc.lv.domain.IpV6Address;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.GeoIpException;
 import tc.lv.exceptions.IpAddressServiceException;
-import tc.lv.service.IpAddressSaveService;
+import tc.lv.service.IpAddressSaveDetailsService;
 import tc.lv.utils.GeoIpUtil;
 import tc.lv.utils.IpValidator;
 import tc.lv.utils.IpVersionUtil;
 
 @Service
-public class IpAddressSaveServiceImpl implements IpAddressSaveService {
+public class IpAddressSaveDetailsServiceImpl implements IpAddressSaveDetailsService {
 
 	private static final Logger LOGGER = Logger
-			.getLogger(IpAddressSaveServiceImpl.class);
+			.getLogger(IpAddressSaveDetailsServiceImpl.class);
 
 	@Autowired
 	private SourceDao sourceDao;
@@ -35,10 +35,10 @@ public class IpAddressSaveServiceImpl implements IpAddressSaveService {
 
 	@Transactional
 	@Override
-	public IpAddress saveIpAddress(String address, String status)
+	public IpAddress getDetails(String address, String status)
 			throws IpAddressServiceException {
+		IpAddress tempIp = null;
 		try {
-			IpAddress tempIp = null;
 			geoIpUtil = new GeoIpUtil();
 			if (IpValidator.isIpV4(address)) {
 				tempIp = new IpV4Address(address, new Date(), null);
