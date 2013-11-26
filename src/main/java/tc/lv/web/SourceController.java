@@ -33,6 +33,7 @@ public class SourceController {
             @ModelAttribute(value = "sourceName") String sourceName, @ModelAttribute(value = "url") String url,
             @ModelAttribute(value = "listType") String listType, @ModelAttribute(value = "rank") String rank,
             Map<String, Object> map) {
+	
         try {
             if (sourceService.addNewFeed(parser, sourceName, url, listType, Double.parseDouble(rank))) {
                 map.put("successMsg", "Source " + sourceName + " succesfuly addeed!");

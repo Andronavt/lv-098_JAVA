@@ -61,6 +61,4 @@ public class IpAddressServiceImpl implements IpAddressService {
         }
         return false;
     }
-
 }
-

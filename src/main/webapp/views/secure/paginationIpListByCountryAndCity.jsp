@@ -54,7 +54,7 @@
 	var page = "${pageCount}";
 	$(document).ready(function() {
 		$('#demo1').bootpag({
-			total : page
+			total : 5
 		}).on("page", function(event, num) {
 			doAjaxPaginationByCountryAndCity(num);
 		});
