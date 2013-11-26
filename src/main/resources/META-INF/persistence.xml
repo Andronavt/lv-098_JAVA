@@ -21,8 +21,8 @@
 			<property name="hibernate.connection.driver_class" value="net.sourceforge.jtds.jdbc.Driver" />
 			<property name="hibernate.jdbc.use_scrollable_resultset"
 				value="false" />
-			<property name="hibernate.connection.username" value="andrew" />
-			<property name="hibernate.connection.password" value="1992" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="root1" />
 
 			<property name="hibernate.connection.url"
 				value="jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=ip_addresses" />
