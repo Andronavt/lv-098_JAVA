@@ -1,5 +1,5 @@
 .table {
-	margin: 0px;
+	margin: auto;
 	padding: 0px;
 	width: 100%;
 	border: 1px solid #000000;
@@ -55,22 +55,22 @@
 }
 
 .table tr:nth-child(odd) {
-	background-color: #aad4ff;
+	background-color: #D0D0D0;
 }
 
 .table tr:nth-child(even) {
-	background-color: #ffffff;
+	background-color: #F8F8F8;
 }
 
 .table td {
 	vertical-align: middle;
 	border: 1px solid #000000;
 	border-width: 0px 1px 1px 0px;
-	text-align: right;
+	text-align: center;
 	padding: 9px;
-	font-size: 9px;
+	font-size: 12px;
 	font-family: Verdana;
-	font-weight: normal;
+	font-weight: bold;
 	color: #000000;
 }
 
@@ -87,32 +87,18 @@
 }
 
 .table tr:first-child td {
-	background: -o-linear-gradient(bottom, #005fbf 5%, #003f7f 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #005fbf
-		), color-stop(1, #003f7f));
-	background: -moz-linear-gradient(center top, #005fbf 5%, #003f7f 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#005fbf",
-		endColorstr="#003f7f");
-	background: -o-linear-gradient(top, #005fbf, 003f7f);
-	background-color: #005fbf;
-	border: 0px solid #000000;
+	background: -o-linear-gradient(bottom,  #080808 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1, #080808));
+	background: -moz-linear-gradient(center top, #080808 100%);
+	background: -o-linear-gradient(top, #080808);
+	background-color: #080808;
+	border: 3px solid #000000;
 	text-align: center;
 	border-width: 0px 0px 1px 1px;
-	font-size: 14px;
+	font-size: 18px;
 	font-family: Times New Roman;
 	font-weight: bold;
 	color: #ffffff;
-}
-
-.table tr:first-child:hover td {
-	background: -o-linear-gradient(bottom, #005fbf 5%, #003f7f 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #005fbf
-		), color-stop(1, #003f7f));
-	background: -moz-linear-gradient(center top, #005fbf 5%, #003f7f 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#005fbf",
-		endColorstr="#003f7f");
-	background: -o-linear-gradient(top, #005fbf, 003f7f);
-	background-color: #005fbf;
 }
 
 .table tr:first-child td:first-child {
