@@ -120,8 +120,7 @@ function doAjaxUpdateSource() {
 function doAjaxPaginationWhiteAndBlackList(page) {
 	var pageNumber = page;
 	var countIpPerPage = $('select[name=countIpPerPage]').val();
-	var ipType = $('select[name=ipType]').val();
-	alert(" "+pageNumber+" "+countIpPerPage+" "+ipType);
+	var ipType = $('select[name=ipType]').val();	
 	$.ajax({
 		type : "POST",
 		url : location.href,
@@ -145,8 +144,7 @@ function doAjaxPaginationByCountryAndCity(page) {
 	var countIpPerPage = $('select[name=countIpPerPage]').val();
 	var location = $('input[name=clockpick]').val();
 	var ipType = $('select[name=ipType]').val();
-	var typeList = $('select[name=typeList]').val();
-	alert(" " + countIpPerPage + " " + location + " " + ipType + " " + typeList);
+	var typeList = $('select[name=typeList]').val();	
 	$.ajax({
 		type : "POST",
 		url : location.href,
