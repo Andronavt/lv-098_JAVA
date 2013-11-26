@@ -188,30 +188,29 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
         for (IpAddress ip : list) {
             Set<Source> set = ip.getSourceSet();
-            if (set == null) {
+            if (set == null || set.size() == 0) {
                 continue;
             }
-
-            Iterator<Source> it = set.iterator();
-            double blackRank = 0;
-            double whiteRank = 0;
-            while (it.hasNext()) {
-                Source source = it.next();
-                if (source.getListType().equals(Source.WHITE_LIST)) {
-                    whiteRank += source.getRank();
-                } else if (source.getListType().equals(Source.BLACK_LIST)) {
-                    blackRank += source.getRank();
-                } else {
-                    throw new DBException(source.getListType() + " didn't supported by updateStatusList() method");
-                }
-            }
-
-            if (whiteRank > blackRank) {
-                ip.setStatus(true);
-            } else {
-                ip.setStatus(false);
-            }
+            ip = rankLogick(set, ip);
             entityManager.persist(ip);
         }
+    }
+
+    private IpAddress rankLogick(Set<Source> set, IpAddress ip) throws DBException {
+        Iterator<Source> it = set.iterator();
+        double statuskRank = 0;
+        while (it.hasNext()) {
+            Source source = it.next();
+            if (source.getListType().equals(Source.WHITE_LIST)) {
+                statuskRank += source.getRank();
+            } else if (source.getListType().equals(Source.BLACK_LIST)) {
+                statuskRank -= source.getRank();
+            } else {
+                throw new DBException(source.getListType() + " didn't supported by updateStatusList() method");
+            }
+        }
+
+        ip.setStatus(statuskRank > 0);
+        return ip;
     }
 }

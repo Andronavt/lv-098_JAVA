@@ -30,7 +30,7 @@ import tc.lv.dao.IpInterface;
 @Table(name = "ip_addresses")
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
-        // --------
+        // -----
         @NamedQuery(name = IpAddress.FIND_ALL, query = IpAddress.FIND_ALL_QUERY),
         @NamedQuery(name = IpAddress.FIND_IP_LIST_BY_SOURCE, query = IpAddress.FIND_IP_LIST_BY_SOURCE_QUERY),
         @NamedQuery(name = IpAddress.FIND_IP_LIST_BY_ADDRESS, query = IpAddress.FIND_IP_LIST_BY_ADDRESS_QUERY),
@@ -49,7 +49,7 @@ import tc.lv.dao.IpInterface;
         @NamedQuery(name = IpAddress.FIND_ALL_VALID, query = IpAddress.FIND_ALL_VALID_QUERY),
         @NamedQuery(name = IpAddress.FIND_IP_LIST_BY_CITY, query = IpAddress.FIND_IP_LIST_BY_CITY_QUERY),
         @NamedQuery(name = IpAddress.FIND_IP_LIST_BY_COUNTRY, query = IpAddress.FIND_IP_LIST_BY_COUNTRY_QUERY)
-// ---
+// -----
 })
 public class IpAddress implements IpInterface {
 
