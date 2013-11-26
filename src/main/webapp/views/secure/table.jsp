@@ -14,17 +14,17 @@
 	rel="stylesheet" type="text/css" />
 
 <link href="<c:url value="/resources/css/ipTable/table.css" />"
-	rel="stylesheet" type="text/css" /> 
+	rel="stylesheet" type="text/css" />
 
-		<table class="table">
-			<tr>
-				<td>IP address</td>
-				<td>Date added</td>
-			</tr>
-			<c:forEach var="list" items="${ipList}">
-				<tr>
-					<td>${list.address}</td>
-					<td>${list.dateAdded}</td>
-				</tr>
-			</c:forEach>
-		</table>
+<table class="table">
+	<tr>
+		<td>IP address</td>
+		<td>Date added</td>
+	</tr>
+	<c:forEach var="list" items="${ipList}">
+		<tr>
+			<td>${list.address}</td>
+			<td>${list.dateAdded}</td>
+		</tr>
+	</c:forEach>
+</table>
