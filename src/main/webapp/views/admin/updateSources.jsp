@@ -2,7 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
-
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script type="text/javascript"
@@ -24,7 +24,7 @@
 <form action="" id="updateSource">
 	<div>
 		<fieldset>
-			<legend style="color: green" align="left"><strong>Source for update:</strong></legend>
+			<legend style="color: green" align="left"><strong><spring:message code="label.sourceUpdate"/></strong></legend>
 			
 			<select size="3" multiple="multiple" name="sources">
 			
@@ -38,7 +38,7 @@
 
 			<br> 
 			
-			<input class="btn btn-primary" type="button" value="Update source" onclick="doAjaxUpdateSource()">
+			<input class="btn btn-primary" type="button" value="<spring:message code="label.updateSourceButton"/>" onclick="doAjaxUpdateSource()">
 
 		</fieldset>
 	</div>

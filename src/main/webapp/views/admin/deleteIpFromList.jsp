@@ -2,6 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <title>Insert title here</title>
 <script type="text/javascript"
 	src="<c:url value="/resources/js/ajax.js" />"></script>
@@ -36,17 +37,17 @@
 
 <fieldset>
 
-	<legend>Delete IP from list</legend>
+	<legend><spring:message code="label.deleteIpFromList"/></legend>
 
 	<form class="Delete-IP" id="deleteIp" method="post" name="deleteFromWL">
 
-		<div>Insert ip for deleting:</div>
+		<div><spring:message code="label.insertToDelete"/></div>
 		<br> <input class="input-large" id="ipForRemove" type="text"
 			name="deleteIpIn" maxlength="50">
 
 	</form>
 	<input class="btn btn-primary" id="btnDeleteIp" type="button"
-		name="deleteIp" value="DELETE">
+		name="deleteIp" value="<spring:message code="label.deleteIpButton"/>">
 </fieldset>
 <br>
 

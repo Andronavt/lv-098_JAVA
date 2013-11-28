@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!-- Bootstrap -->
 <script type="text/javascript"
@@ -16,7 +17,7 @@
 
 <center>
 	<h2>
-			<font color="#0066FF"><strong>Welcome! </strong></font>
+			<font color="#0066FF"><strong><spring:message code="label.welcome"/> </strong></font>
 		<sec:authorize access="isAuthenticated()">
 			<sec:authentication property="principal.username" />
 		</sec:authorize>

@@ -2,7 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
-
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <link rel="stylesheet" href="jquery-jvectormap-1.0.css" type="text/css"
 	media="screen" />
 
@@ -38,7 +38,7 @@
 	src="<c:url value="/resources/js/jVectorMap/createMap.js" />"></script>
 
 <fieldset>
-	<h3 class="text-info">Map of ip-address in white list.</h3>
+	<h3 class="text-info"><spring:message code="label.whiteListMap"/></h3>
 	<div id="world-map"></div>
 
 </fieldset>

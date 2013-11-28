@@ -20,18 +20,23 @@
 
 
 <div>
+<span style="float: right">
+    <a href="?lang=en">en</a> 
+    | 
+    <a href="?lang=ua">ua</a>
+</span>
 	<sec:authorize access="isAnonymous()">
- 	<em><strong> <font size="3" color="#FFFFFF">Welcome! Guest</font></strong></em>
+ 	<em><strong> <font size="3" color="#FFFFFF"><spring:message code="label.guest"/></font></strong></em>
    </sec:authorize>
 	<sec:authorize access="isAuthenticated()">
-   <em><strong> <font size="3" color="#FFFFFF">Welcome!	<sec:authentication property="principal.username" /> </font></strong></em>
+   <em><strong> <font size="3" color="#FFFFFF"><spring:message code="label.welcome"/>	<sec:authentication property="principal.username" /> </font></strong></em>
 	</sec:authorize>
 	</div>
 	<div>
 	<sec:authorize access="isAnonymous()">
-		<a class="btn btn-small btn-primary" href="signin" id="getContentLogin">Login/Registration</a>
+		<a class="btn btn-small btn-primary" href="signin" id="getContentLogin"><spring:message code="label.loginOrRegistration"/></a>
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
-		<a class="btn btn-small btn-primary" href="<c:url value="/j_spring_security_logout"/>">Logout</a>
+		<a class="btn btn-small btn-primary" href="<c:url value="/j_spring_security_logout"/>"><spring:message code="label.logout"/></a>
 	</sec:authorize>
 </div>
