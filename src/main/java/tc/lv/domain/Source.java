@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,20 +17,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sources")
-@NamedQueries({ @NamedQuery(name = Source.GET_ALL, query = Source.GET_ALL_QUERY),
+@NamedQueries({ @NamedQuery(name = Source.FIND_ALL, query = Source.FIND_ALL_QUERY),
         @NamedQuery(name = Source.FIND_BY_NAME, query = Source.FIND_BY_NAME_QUERY),
-        // ------
-        @NamedQuery(name = Source.DELETE, query = Source.DELETE_QUERY) })
+        })
 public class Source {
 
     public static final String FIND_BY_NAME = "Source.findByName";
     public static final String FIND_BY_NAME_QUERY = "SELECT s FROM Source s WHERE s.sourceName  = ?1";
 
-    public static final String GET_ALL = "Source.getAll";
-    public static final String GET_ALL_QUERY = "SELECT s FROM Source s";
+    public static final String FIND_ALL = "Source.findAll";
+    public static final String FIND_ALL_QUERY = "SELECT s FROM Source s";
 
-    public static final String DELETE = "Source.delete";
-    public static final String DELETE_QUERY = "DELETE FROM Source s where s.sourceName  = ?1";
 
     public static final String WHITE_LIST = "whitelist";
     public static final String BLACK_LIST = "blacklist";
@@ -39,7 +35,7 @@ public class Source {
     @Column(name = "dirname", nullable = false)
     private String dirname;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "sourceSet", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "sourceSet", fetch = FetchType.LAZY)
     private Collection<IpAddress> ipSet = new HashSet<IpAddress>();
 
     @Column(name = "list_type", nullable = false)

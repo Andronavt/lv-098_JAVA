@@ -2,13 +2,30 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
 
-<c:forEach var="list" items="${ipList}">
-	<table border="1">
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />
+
+<link href="<c:url value="/resources/css/ipTable/table.css" />"
+	rel="stylesheet" type="text/css" />
+
+<table class="table">
+	<tr>
+		<td><spring:message code="label.ipAddress"/></td>
+		<td><spring:message code="label.dateAdded"/></td>
+	</tr>
+	<c:forEach var="list" items="${ipList}">
 		<tr>
-			<td width="10">${list.id}</td>
-			<td width="50">${list.address}</td>
+			<td>${list.address}</td>
+			<td>${list.dateAdded}</td>
 		</tr>
-	</table>
-</c:forEach>
+	</c:forEach>
+</table>

@@ -1,3 +1,5 @@
+var DEFAULT_NUMBER_PAGE = 1;
+
 function doAjaxPostRegistration() {
 	// get the form values
 	var user_name = $('#user_name').val();
@@ -21,7 +23,7 @@ function doAjaxPostRegistration() {
 	});
 }
 
-function doAjaxAddNewFeed() {
+function doAjaxAddNewSource() {
 	// get the form values
 	var parser = $('#parser').val();
 	var sourceName = $('#sourceName').val();
@@ -30,7 +32,7 @@ function doAjaxAddNewFeed() {
 	var rank = $('#rank').val();
 	$.ajax({
 		type : "POST",
-		url : "addNewFeed",
+		url : "admin_addNewSource",
 		data : "parser=" + parser + "&sourceName=" + sourceName + "&url=" + url
 				+ "&listType=" + listType + "&rank=" + rank,
 		success : function(response) {
@@ -43,13 +45,14 @@ function doAjaxAddNewFeed() {
 	});
 }
 
-function doAjaxPostAddIpToWhiteList() {
+function doAjaxPostAddIpToList() {
 	// get the form values
 	var ipAddress = $('#IP').val();
+	var listType = $('select[name=typeList]').val();
 	$.ajax({
 		type : "POST",
-		url : "addIpToWL",
-		data : "address=" + ipAddress,
+		url : "admin_addIpToList",
+		data : "address=" + ipAddress + "&listType=" + listType,
 		success : function(response) {
 			$('#Info').html(response);
 		},
@@ -60,12 +63,11 @@ function doAjaxPostAddIpToWhiteList() {
 	});
 }
 
-
 function selectSource() {
 	var source = $('select[name=sources]').val();
 	$.ajax({
 		type : "POST",
-		url : "deleteSource",
+		url : "admin_deleteSource",
 		data : "source=" + source,
 		success : function(response) {
 			// we have the response
@@ -77,12 +79,12 @@ function selectSource() {
 	});
 }
 
-function doAjaxPostDeleteIp() {
+function doAjaxPostDeleteIpFromList() {
 	// get the form values
 	var ipAddress = $('#ipForRemove').val();
 	$.ajax({
 		type : "POST",
-		url : "deleteIpFromWL",
+		url : "admin_deleteIpFromList",
 		data : "address=" + ipAddress,
 		success : function(response) {
 			$('#Info').html(response);
@@ -94,22 +96,70 @@ function doAjaxPostDeleteIp() {
 	return false;
 }
 
-
 function doAjaxUpdateSource() {
-	var source = $('select[name=sources]').val();
+	var source = [ $('select[name=sources]').val() ];
+	$
+			.ajax({
+				type : "POST",
+				url : "admin_updateSourcesButton",
+				data : "source=" + source,
+				beforeSend : function() {
+					$('#upSource')
+							.html(
+									"<img src='resources/images/ajax-loader.gif'><br>Please wait. Source updating");
+				},
+				success : function(response) {
+					$('#upSource').html(response);
+				},
+				error : function(e) {
+					alert('Error: ' + parser);
+				}
+			});
+}
+
+function doAjaxPaginationWhiteAndBlackList(page) {
+	var pageNumber = page;
+	var countIpPerPage = $('select[name=countIpPerPage]').val();
+	var ipType = $('select[name=ipType]').val();	
 	$.ajax({
 		type : "POST",
-		url : "updateSourcesButton",
-		data : "source=" + source,
-		beforeSend: function() {
-//		    $('#upSource').html("<img src='/resources/images/ajax-loader.gif' />");
-			$('#upSource').html("Please wait. Source updating");
-		  },
+		url : location.href,
+		data : "pageNumber=" + pageNumber + "&countIpPerPage=" + countIpPerPage
+				+ "&ipType=" + ipType,
 		success : function(response) {
-			$('#upSource').html(response);
+			$("#content").html(response);
 		},
 		error : function(e) {
-			alert('Error: ' + parser);
+			alert("Error: "+e);
 		}
 	});
+}
+
+function defaultPaginationWhiteAndBlackList() {
+	doAjaxPaginationWhiteAndBlackList(DEFAULT_NUMBER_PAGE);
+}
+
+function doAjaxPaginationByCountryAndCity(page) {
+	var pageNumber = page;
+	var countIpPerPage = $('select[name=countIpPerPage]').val();
+	var location = $('input[name=clockpick]').val();
+	var ipType = $('select[name=ipType]').val();
+	var typeList = $('select[name=typeList]').val();	
+	$.ajax({
+		type : "POST",
+		url : location.href,
+		data : "pageNumber=" + pageNumber + "&countIpPerPage=" + countIpPerPage
+				+ "&location=" + location + "&ipType=" + ipType + "&status="
+				+ typeList,
+		success : function(response) {
+			$("#content").html(response);
+		},
+		error : function(e) {
+			alert('Error: ' + e);
+		}
+	});
+}
+
+function defaltPaginationByCountryAndCity() {
+	doAjaxPaginationByCountryAndCity(DEFAULT_NUMBER_PAGE);
 }

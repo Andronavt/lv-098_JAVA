@@ -13,52 +13,48 @@ public class ParserResults {
     private ArrayList<NotValidIp> notValidList = new ArrayList<NotValidIp>();
     private int sourceId;
 
-    public void printLists() {
-	System.out.println("ipV4List size " + ipV4List.size());
-    }
-
     public ArrayList<IpV4Address> getIpV4List() {
-	return ipV4List;
+        return ipV4List;
     }
 
     public void setIpV4List(ArrayList<IpV4Address> ipV4List) {
-	this.ipV4List = ipV4List;
+        this.ipV4List = ipV4List;
     }
 
     public ArrayList<IpV6Address> getIpV6List() {
-	return ipV6List;
+        return ipV6List;
     }
 
     public void setIpV6List(ArrayList<IpV6Address> ipV6List) {
-	this.ipV6List = ipV6List;
+        this.ipV6List = ipV6List;
     }
 
     public ArrayList<NotValidIp> getNotValidList() {
-	return notValidList;
+        return notValidList;
     }
 
     public void setNotValidList(ArrayList<NotValidIp> notValidList) {
-	this.notValidList = notValidList;
+        this.notValidList = notValidList;
     }
 
     public int getSourceId() {
-	return sourceId;
+        return sourceId;
     }
 
     public void setSourceId(int sourceId) {
-	this.sourceId = sourceId;
+        this.sourceId = sourceId;
     }
 
-    public void AddToIpV4List(IpV4Address address) {
-	ipV4List.add(address);
+    public void addToIpV4List(IpV4Address address) {
+        ipV4List.add(address);
     }
 
-    public void AddToIpV6List(IpV6Address address) {
-	ipV6List.add(address);
+    public void addToIpV6List(IpV6Address address) {
+        ipV6List.add(address);
     }
 
-    public void AddToNotValidList(NotValidIp address) {
-	notValidList.add(address);
+    public void addToNotValidList(NotValidIp address) {
+        notValidList.add(address);
     }
 
 }

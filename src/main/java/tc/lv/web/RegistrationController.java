@@ -21,47 +21,41 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration() {
-	return "registration";
+        return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String addUser(
-	    @ModelAttribute(value = "user_name") String user_name,
-	    @ModelAttribute(value = "first_name") String first_name,
-	    @ModelAttribute(value = "last_name") String last_name,
-	    @ModelAttribute(value = "e-mail") String email,
-	    @ModelAttribute(value = "pass") String pass, Map<String, Object> map) {
+    public String addUser(@ModelAttribute(value = "user_name") String user_name,
+            @ModelAttribute(value = "first_name") String first_name,
+            @ModelAttribute(value = "last_name") String last_name, @ModelAttribute(value = "e-mail") String email,
+            @ModelAttribute(value = "pass") String pass, Map<String, Object> map) {
 
-	try {
+        try {
 
-	    if (UserValidator.isCorrectName(user_name)
-		    && UserValidator.isCorrectFirstName(first_name)
-		    && UserValidator.isCorrectLastName(last_name)
-		    && UserValidator.isCorrectEmail(email)
-		    && UserValidator.isCorrectPassword(pass)) {
-		return addUserDB(userService.createUser(user_name,
-			first_name, last_name, email, pass), map);
+            if (UserValidator.isCorrectName(user_name) && UserValidator.isCorrectFirstName(first_name)
+                    && UserValidator.isCorrectLastName(last_name) && UserValidator.isCorrectEmail(email)
+                    && UserValidator.isCorrectPassword(pass)) {
+                return addUserDB(userService.createUser(user_name, first_name, last_name, email, pass), map);
 
-	    } else {
-		map.put("errorMsg", "Inccorect data for registration!");
-		return "result";
-	    }
+            } else {
+                map.put("incorrectMsg", "Incorrect data!");
+                return "result";
+            }
 
-	} catch (UserEntityServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
+        } catch (UserEntityServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
     }
 
-    private String addUserDB(boolean flag, Map<String, Object> map)
-	    throws UserEntityServiceException {
+    private String addUserDB(boolean flag, Map<String, Object> map) throws UserEntityServiceException {
 
-	if (flag) {
-	    map.put("successMsg", "User was registred");
-	    return "result";
-	}
-	map.put("incorrectMsg", "Current User exist");
-	return "result";
+        if (flag) {
+            map.put("successMsg", "User was registred");
+            return "result";
+        }
+        map.put("incorrectMsg", "Current User exist");
+        return "result";
     }
 }

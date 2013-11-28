@@ -2,29 +2,44 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script type="text/javascript"
 	src="<c:url value="/resources/js/ajax.js" />"></script>
+<!-- Bootstrap -->
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.min.js" />"></script>
 
+<script type="text/javascript"
+	src="<c:url value="/resources/bootstrap/js/bootstrap.js" />"></script>
+
+<link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
+	rel="stylesheet" type="text/css" />
+
+<link href="<c:url value="/resources/css/admin.css" />" rel="stylesheet"
+	type="text/css" />
 
 <fieldset>
-	<legend style="color: green" align="center">List of sources</legend>
+	<legend align="center">
+		<strong><spring:message code="label.listOfSources"/></strong>
+	</legend>
 	<br>
-
-	<div id="1">
+	<div>
 		<center>
 			<select name="sources" size="1">
 				<c:forEach var="Source" items="${listSource}">
 					<option value="${Source.getSourceName()}">${Source.getSourceName()}</option>
 				</c:forEach>
-			</select> <br> <br> <input type="button" value="Delete source"
-				onclick="selectSource()">
+			</select>
+			<div>
+				<input class="btn btn-primary" type="button" value="<spring:message code="label.deleteSource"/>"
+					onclick="selectSource()">
+			</div>
 		</center>
-		<br> <br>
 	</div>
 
 </fieldset>
 
-<div id="Info" style="color: green;"></div>
+<div align="center" id="Info"></div>

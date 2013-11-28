@@ -4,7 +4,7 @@ function validateIpAddress() {
 
 	$('#btnAddIp').click(function() {
 		if ($("#addIpToWL").valid()) {
-			doAjaxPostAddIpToWhiteList();
+			doAjaxPostAddIpToList();
 		}
 	});
 }

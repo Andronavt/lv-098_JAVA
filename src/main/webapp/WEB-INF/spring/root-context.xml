@@ -35,15 +35,15 @@ http://www.springframework.org/schema/util/spring-util.xsd">
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	
-	
-	
+
+
+
 
 	<!-- @Component, @Service -->
 	<context:component-scan base-package="tc.lv.dao"></context:component-scan>
 	<context:component-scan base-package="tc.lv.service"></context:component-scan>
 	<!-- Data Access Resources -->
-	
-	
 
+	
+	
 </beans>

@@ -4,6 +4,7 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
+
 	<definition name="base.definition" template="/views/tiles/layout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/views/tiles/header.jsp" />
@@ -33,35 +34,54 @@
 	</definition>
 
 	<!-- admin views -->
-	<definition name="addIpToWL" extends="base.definition">
-		<put-attribute name="body" value="/views/admin/AddIpToWL.jsp" />
+	<definition name="admin_addIpToList" extends="base.definition">
+		<put-attribute name="body" value="/views/admin/addIpToList.jsp" />
 	</definition>
 
-	<definition name="addIpv4" extends="base.definition">
-		<put-attribute name="body" value="/views/admin/AddIpv4.jsp" />
+	<definition name="admin_addNewSource" extends="base.definition">
+		<put-attribute name="body" value="/views/admin/addNewSource.jsp" />
 	</definition>
 
-	<definition name="addNewFeed" extends="base.definition">
-		<put-attribute name="body" value="/views/admin/AddNewFeed.jsp" />
-	</definition>
-
-	<definition name="deleteSource" extends="base.definition">
+	<definition name="admin_deleteSource" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/deleteSource.jsp" />
 	</definition>
 
-	<definition name="deleteIpFromWL" extends="base.definition">
-		<put-attribute name="body" value="/views/admin/deleteIpFromWL.jsp" />
+	<definition name="admin_deleteIpFromList" extends="base.definition">
+		<put-attribute name="body" value="/views/admin/deleteIpFromList.jsp" />
 	</definition>
 
-	<definition name="updateSources" extends="base.definition">
+	<definition name="admin_updateSources" extends="base.definition">
 		<put-attribute name="body" value="/views/admin/updateSources.jsp" />
 	</definition>
 
 	<!-- secure views -->
 
+	<definition name="secure_blackListMap" extends="base.definition">
+		<put-attribute name="body" value="/views/secure/blackListMap.jsp" />
+	</definition>
 
-	<definition name="showIpListFromWL" extends="base.definition">
-		<put-attribute name="body" value="/views/secure/ShowIpListFromWL.jsp" />
+	<definition name="secure_whiteListMap" extends="base.definition">
+		<put-attribute name="body" value="/views/secure/whiteListMap.jsp" />
+	</definition>
+
+	<definition name="secure_showIpListFromWL" extends="base.definition">
+		<put-attribute name="body"
+			value="/views/secure/paginationWhiteListAndBlackList.jsp" />
+	</definition>
+
+	<definition name="secure_showIpListFromBL" extends="base.definition">
+		<put-attribute name="body"
+			value="/views/secure/paginationWhiteListAndBlackList.jsp" />
+	</definition>
+
+	<definition name="secure_showIpListByCountry" extends="base.definition">
+		<put-attribute name="body"
+			value="/views/secure/paginationIpListByCountryAndCity.jsp" />
+	</definition>
+
+	<definition name="secure_showIpListByCity" extends="base.definition">
+		<put-attribute name="body"
+			value="/views/secure/paginationIpListByCountryAndCity.jsp" />
 	</definition>
 
 	<!-- Result page -->
@@ -69,14 +89,13 @@
 		<put-attribute name="body" value="/views/result/result.jsp" />
 	</definition>
 
-	<definition name="table" extends="result.definition">
+	<definition name="secure_table" extends="result.definition">
 		<put-attribute name="body" value="/views/secure/table.jsp" />
 	</definition>
 
 
 	<!-- Page is under construction -->
-	<definition name="inProgres" extends="base.definition">
+	<definition name="secure_inProgres" extends="base.definition">
 		<put-attribute name="body" value="/views/tiles/inProgres.jsp" />
 	</definition>
-
 </tiles-definitions>

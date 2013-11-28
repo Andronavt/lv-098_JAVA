@@ -19,53 +19,49 @@ public class ParserUceprotect implements Parser {
 
     protected static final String IP_ALL = "(([0-9]{0,3}+[.]){3}+([0-9]{1,}){1})|(([0-9a-zA-Z]{4}+[:]){2}+[0-9a-zA-Z]{0,4})";
 
-    private static final Logger LOGGER = Logger
-	    .getLogger(ParserUceprotect.class);
+    private static final Logger LOGGER = Logger.getLogger(ParserUceprotect.class);
     private static final Pattern PATTERN = Pattern.compile(IP_ALL);
 
-    private ParserResults parserResults;
+    private ParserResults parserResults = new ParserResults();
 
     public ParserUceprotect() {
-	parserResults = new ParserResults();
     }
 
     @Override
     public ParserResults parse(File file) throws DownloadException {
-	LOGGER.info("START PARSING Uceprotect");
+        LOGGER.info("START PARSING Uceprotect");
+        Matcher matcher;
+        Scanner scanner;
 
-	Matcher matcher;
-	Scanner scanner;
+        try {
+            scanner = new Scanner(new BufferedReader(new FileReader(file)));
+            ;
 
-	try {
-	    scanner = new Scanner(new BufferedReader(new FileReader(file)));
+            while (scanner.hasNext()) {
+                String tmpIpAddress = "";
+                matcher = PATTERN.matcher(scanner.nextLine());
 
-	    while (scanner.hasNext()) {
-		String ipStr = "";
-		matcher = PATTERN.matcher(scanner.nextLine());
+                if (matcher.find()) {
+                    tmpIpAddress = matcher.group();
 
-		if (matcher.find()) {
-		    ipStr = matcher.group();
+                    if (IpValidator.isIpV4(tmpIpAddress)) {
+                        parserResults.addToIpV4List(new IpV4Address(tmpIpAddress, new Date(), null));
+                    } else if (IpValidator.isIpV6(tmpIpAddress)) {
+                        parserResults.addToIpV6List(new IpV6Address(tmpIpAddress, new Date(), null));
+                    } else {
+                        parserResults.addToNotValidList(new NotValidIp(tmpIpAddress, new Date()));
+                    }
+                }
+            }
 
-		    if (IpValidator.isIpV4(ipStr)) {
-			parserResults.AddToIpV4List(new IpV4Address(ipStr,
-				new Date()));
-		    } else if (IpValidator.isIpV6(ipStr)) {
-			parserResults.AddToIpV6List(new IpV6Address(ipStr,
-				new Date()));
-		    } else {
-			parserResults.AddToNotValidList(new NotValidIp(ipStr,
-				new Date()));
-		    }
-		}
-	    }
-	    scanner.close();
+            scanner.close();
 
-	} catch (Exception e) {
-	    LOGGER.error("File not found!", e);
-	    throw new DownloadException("File not found", e);
-	}
-	LOGGER.info("FINISH PARSING Uceprotect");
-	return parserResults;
+        } catch (Exception e) {
+            LOGGER.error("File not found!", e);
+            throw new DownloadException("File not found", e);
+        }
+        LOGGER.info("FINISH PARSING Uceprotect");
+        return parserResults;
     }
 
 }
