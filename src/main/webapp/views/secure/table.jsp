@@ -2,6 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!-- Bootstrap -->
 <script type="text/javascript"
@@ -18,8 +19,8 @@
 
 <table class="table">
 	<tr>
-		<td>IP address</td>
-		<td>Date added</td>
+		<td><spring:message code="label.ipAddress"/></td>
+		<td><spring:message code="label.dateAdded"/></td>
 	</tr>
 	<c:forEach var="list" items="${ipList}">
 		<tr>

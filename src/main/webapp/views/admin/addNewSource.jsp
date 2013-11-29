@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript"
@@ -40,43 +41,43 @@
 <form action="newSource" id="addNewSource" method="post" name="input_feed">
 	<fieldset>
 
-		<legend>Add new source:</legend>
+		<legend><spring:message code="label.addSource"/></legend>
 
 		<div>
-			<b>Add parser:</b>
+			<b><spring:message code="label.addParser"/></b>
 		</div>
 
 		<input id="parser" type="text" name="parserIn" maxlength="30" />
 
 		<div>
-			<b>Add source name:</b>
+			<b><spring:message code="label.sourceName"/></b>
 		</div>
 
 		<input id="sourceName" type="text" name="sourceNameIn" maxlength="50" />
 
 		<div>
-			<b>Add url:</b>
+			<b><spring:message code="label.addUrl"/></b>
 		</div>
 
 		<input id="url" type="text" name="urlIn" maxlength="50" />
 		<div>
 			<div>
-				<b>Chose type of list:</b>
+				<b><spring:message code="label.typeList"/></b>
 			</div>
 			<b><select id="list" name="typeList" size="1">
-					<option>black list</option>
-					<option>white list</option>
+					<option><spring:message code="label.whiteIpList"/></option>
+					<option><spring:message code="label.blackIpList"/></option>
 			</select></b>
 		</div>
 		<div>
-			<b>Add rank of source:</b>
+			<b><spring:message code="label.rank"/></b>
 		</div>
 
 		<input id="rank" type="text" name="rankIn" size="30" maxlength="50" />
 
 		<div>
 			<input class="btn btn-primary" id="btnAddNewSource" type="button"
-				name="addNewSource" value="Add new source" />
+				name="addNewSource" value="<spring:message code="label.addSource"/>" />
 		</div>
 
 	</fieldset>

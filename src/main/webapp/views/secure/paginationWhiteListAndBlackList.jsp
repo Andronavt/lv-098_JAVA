@@ -2,6 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
@@ -29,9 +30,9 @@
 	</select>
 	<!-- List of type ip for white and black list pagination -->
 	<select name="ipType" onchange="defaultPaginationWhiteAndBlackList()">
-		<option value="allIp">All Ip</option>
-		<option value="ipv4">Ip v4</option>
-		<option value="ipv6">Ip v6</option>
+		<option value="allIp"><spring:message code="label.allIp"/></option>
+		<option value="ipv4"><spring:message code="label.ipV4"/></option>
+		<option value="ipv6"><spring:message code="label.ipV6"/></option>
 	</select>
 </div>
 

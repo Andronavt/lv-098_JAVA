@@ -15,8 +15,7 @@ import tc.lv.service.JsonService;
 
 @Service
 public class JsonServiceImpl implements JsonService {
-    private static final Logger LOGGER = Logger
-	    .getLogger(JsonServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(JsonServiceImpl.class);
 
     @Autowired
     IpAddressDao ipAddressDao;
@@ -24,34 +23,30 @@ public class JsonServiceImpl implements JsonService {
     CountryDao countryDao;
 
     @Override
-    public void createJsonForCountryMap(String path, String fileName,
-	    Class<? extends IpAddress> ipType, boolean status)
-	    throws JsonServiceException {
-	JSONObject json = new JSONObject();
-	FileWriter file;
-	try {
-	    LOGGER.info("Start creating JSON-file for "
-		    + (status ? "White" : "Black") + "Map.");
+    public void createJsonForCountryMap(String path, String fileName, Class<? extends IpAddress> ipType,
+            boolean status) throws JsonServiceException {
+        JSONObject json = new JSONObject();
+        FileWriter file;
+        try {
+            LOGGER.info("Start creating JSON-file for " + (status ? "White" : "Black") + "Map.");
 
-	    for (String code : countryDao.findCountryCodeListByStatus(status,
-		    ipType)) {
-		long l = ipAddressDao.countStatusIpByCountryCode(status, code,
-			ipType);
-		json.put(code, l);
-	    }
-	    file = new FileWriter(path + fileName);
-	    file.write("var array =");
-	    file.write(json.toString());
-	    file.write(";");
-	    file.close();
-	    LOGGER.info("Finish creating JSON-file for "
-		    + (status ? "White" : "Black") + "Map.");
+            for (String code : countryDao.findCountryCodeListByStatus(status, ipType)) {
+                long l = ipAddressDao.countStatusIpByCountryCode(status, code, ipType);
+                LOGGER.info("country code: " + code + ", ip count: " + l);
+                json.put(code, l);
+            }
+            file = new FileWriter(path + fileName);
+            file.write("var array =");
+            file.write(json.toString());
+            file.write(";");
+            file.close();
+            LOGGER.info("Finish creating JSON-file for " + (status ? "White" : "Black") + "Map.");
 
-	} catch (Exception e) {
-	    LOGGER.error("Could not create JSON file", e);
-	    throw new JsonServiceException("Could not create JSON file", e);
+        } catch (Exception e) {
+            LOGGER.error("Could not create JSON file", e);
+            throw new JsonServiceException("Could not create JSON file", e);
 
-	}
+        }
     }
 
 }
