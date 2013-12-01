@@ -16,22 +16,39 @@ import tc.lv.utils.IpVersionUtil;
 @Service
 public class IpStatusListServiceImpl implements IpStatusListService {
 
-    private static final Logger LOGGER = Logger.getLogger(IpStatusListServiceImpl.class);
+    private static final Logger LOGGER = Logger
+	    .getLogger(IpStatusListServiceImpl.class);
 
     @Autowired
     private IpAddressDao ipAddressDao;
 
     @Transactional
     @Override
-    public Collection<IpAddress> findIpList(int from, int count, String ipType, String status)
-            throws IpStatusListServiceException {
-        try {
-            return ipAddressDao.findStatusList(IpVersionUtil.isWhiteIpAddress(status), from, count,
-                    IpVersionUtil.ipVersion(ipType));
-        } catch (Exception e) {
-            LOGGER.error(e);
-            throw new IpStatusListServiceException("Could not load IP List by range", e);
-        }
+    public Collection<IpAddress> findIpList(int from, int count, String ipType,
+	    String status) throws IpStatusListServiceException {
+	try {
+	    return ipAddressDao.findStatusList(
+		    IpVersionUtil.isWhiteIpAddress(status), from, count,
+		    IpVersionUtil.ipVersion(ipType));
+	} catch (Exception e) {
+	    LOGGER.error(e);
+	    throw new IpStatusListServiceException(
+		    "Could not load IP List by range", e);
+	}
+    }
+
+    @Override
+    public Long findIpCount(String ipType, String status)
+	    throws IpStatusListServiceException {
+	try {
+	    return ipAddressDao.countStatusIp(
+		    IpVersionUtil.isWhiteIpAddress(status),
+		    IpVersionUtil.ipVersion(ipType));
+
+	} catch (Exception e) {
+	    LOGGER.error(e);
+	    throw new IpStatusListServiceException("Could not load IP Count", e);
+	}
     }
 
 }

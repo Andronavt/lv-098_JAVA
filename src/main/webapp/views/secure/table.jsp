@@ -17,10 +17,13 @@
 <link href="<c:url value="/resources/css/ipTable/table.css" />"
 	rel="stylesheet" type="text/css" />
 
+<script type="text/javascript"
+	src="<c:url value="/resources/js/ajax.js" />"></script>
+
 <table class="table">
 	<tr>
-		<td><spring:message code="label.ipAddress"/></td>
-		<td><spring:message code="label.dateAdded"/></td>
+		<td><spring:message code="label.ipAddress" /></td>
+		<td><spring:message code="label.dateAdded" /></td>
 	</tr>
 	<c:forEach var="list" items="${ipList}">
 		<tr>
@@ -28,4 +31,12 @@
 			<td>${list.dateAdded}</td>
 		</tr>
 	</c:forEach>
+
 </table>
+
+<script>
+	function sendPageCount(){
+		return ${pageCount};
+	}
+</script>
+
