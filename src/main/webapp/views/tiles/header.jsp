@@ -19,8 +19,9 @@
 	rel="stylesheet" type="text/css" />	
 
 
+
 <div>
-<span style="float: right">
+<span id = "Localization">
     <a href="?lang=en">en</a> 
     | 
     <a href="?lang=ua">ua</a>
