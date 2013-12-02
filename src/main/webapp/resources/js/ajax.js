@@ -137,6 +137,18 @@ function doAjaxPaginationWhiteAndBlackList(page) {
 
 function defaultPaginationWhiteAndBlackList() {
 	doAjaxPaginationWhiteAndBlackList(DEFAULT_NUMBER_PAGE);
+	setTimeout(loadPageIpList, 1000);
+	
+}
+
+function loadPageIpList() {
+	var page = sendPageCount();
+	$('#ipListDiv').bootpag({
+		total : page,
+		maxVisible : 10
+	}).on("page", function(event, num) {
+		doAjaxPaginationWhiteAndBlackList(num);
+	});
 }
 
 function doAjaxPaginationByCountryAndCity(page) {
@@ -162,4 +174,16 @@ function doAjaxPaginationByCountryAndCity(page) {
 
 function defaltPaginationByCountryAndCity() {
 	doAjaxPaginationByCountryAndCity(DEFAULT_NUMBER_PAGE);
+	setTimeout(loadPageCountLocation, 1000);
+	
+}
+
+function loadPageCountLocation() {
+	var page = sendPageCount();
+	$('#locationDiv').bootpag({
+		total : page,
+		maxVisible : 10
+	}).on("page", function(event, num) {
+		doAjaxPaginationByCountryAndCity(num);
+	});
 }

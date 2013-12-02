@@ -21,7 +21,6 @@
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
 	rel="stylesheet" type="text/css" />
 
-
 <div id="number">
 	<!-- ip pare page -->
 	<select name="countIpPerPage"
@@ -32,33 +31,29 @@
 	</select>
 	<!-- List of type ip for white and black list pagination -->
 	<select name="ipType" onchange="defaltPaginationByCountryAndCity()">
-		<option value="allIp"><spring:message code="label.allIp"/></option>
-		<option value="ipv4"><spring:message code="label.ipV4"/></option>
-		<option value="ipv6"><spring:message code="label.ipV6"/></option>
+		<option value="allIp"><spring:message code="label.allIp" /></option>
+		<option value="ipv4"><spring:message code="label.ipV4" /></option>
+		<option value="ipv6"><spring:message code="label.ipV6" /></option>
 	</select>
 	<!-- White or black list -->
 	<select name="typeList" onchange="defaltPaginationByCountryAndCity()">
-		<option value="blackList"><spring:message code="label.whiteIpList"/></option>
-		<option value="whiteList"><spring:message code="label.blackIpList"/></option>
+		<option value="blackList"><spring:message
+				code="label.whiteIpList" /></option>
+		<option value="whiteList"><spring:message
+				code="label.blackIpList" /></option>
 	</select>
 
 	<!-- City or Country -->
 	<input name="clockpick" id="inputData" type="text" size=10
-		onchange="defaltPaginationByCountryAndCity()">
+		onchange="defaltPaginationByCountryAndCity()"> 
+
 </div>
-<div id="content" class="content"></div>
-<div id="demo1"></div>
+<div align="center" id="content" class="content"></div>
+<div align="center" id="locationDiv"></div>
 <script>
 	var source = "${locationList}";
-	source = source.replace("[", "").replace("]", "").split(',');	
-	var page = "${pageCount}";	
+	source = source.replace("[", "").replace("]", "").split(',');
 	$(document).ready(function() {
-		$('#demo1').bootpag({
-			total : 40,
-			maxVisible: 5
-		}).on("page", function(event, num) {			
-			doAjaxPaginationByCountryAndCity(num);
-		});		
 		$("#inputData").autocomplete({
 			source : source
 		});

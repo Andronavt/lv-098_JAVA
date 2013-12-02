@@ -38,7 +38,7 @@
 		<label for="j_password"><spring:message code="label.password"/></label> <input id="j_password"
 			name="j_password" size="20" maxlength="50" type="password" /><br>
 
-		<input  class="btn btn-primary" type="submit" value="<spring:message code="label.enter"/>" />
+		<input  class="btn" type="submit" value="<spring:message code="label.enter"/>" />
 	</form>
 </fieldset>
 <form action="">

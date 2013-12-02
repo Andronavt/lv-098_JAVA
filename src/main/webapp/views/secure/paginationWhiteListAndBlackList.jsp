@@ -18,10 +18,11 @@
 
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
 	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+		src="<c:url value="/resources/js/ajax.js" />"></script>
 
 <div align="center">
-	<script type="text/javascript"
-		src="<c:url value="/resources/js/ajax.js" />"></script>
+	
 
 	<select name="countIpPerPage" onchange="defaultPaginationWhiteAndBlackList()">
 		<c:forEach var="list" items="${pageList}">
@@ -36,18 +37,18 @@
 	</select>
 </div>
 
-<div align="left" id="content" class="content"></div>
+<div align="center" id="content" class="content"></div>
 
-<div align="center" id="demo1"></div>
+<div align="center" id="ipListDiv"></div>
 
 <script>
 	$(document).ready(function() {		
-		$('#demo1').bootpag({
-			total : 100,
-			maxVisible : 5
-		}).on("page", function(event, num) {
-			doAjaxPaginationWhiteAndBlackList(num);
-		});
+// 		$('#demo1').bootpag({
+// 			total : 100,
+// 			maxVisible : 5
+// 		}).on("page", function(event, num) {
+// 			doAjaxPaginationWhiteAndBlackList(num);
+// 		});
 		defaultPaginationWhiteAndBlackList();
 	});
 </script>
