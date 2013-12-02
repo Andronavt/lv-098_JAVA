@@ -58,16 +58,22 @@ public class LocationController {
 	List<PaginationSettings> pageList;
 	List<String> locationList;
 	try {
+	    pageList = paginationService.loadPages();
+	    locationList = locationService.findCityListByStatus(ipTypeUI,
+		    statusUI);
+	    if (!(locationList.contains(cityName))) {
+		map.put("incorrectMsg", "Incorrect City Name!");
+		map.put("pageList", pageList);
+		map.put("pageCount", 1);
+		map.put("locationList", locationList);
+		return "secure_table";
+	    }
 	    ipCount = locationService.countStatusIpByCityName(cityName,
 		    ipTypeUI, statusUI).intValue();
 	    pageCount = ipCount / countIpPerPage + 1;
 	    ipList = locationService.findStatusListByCity((pageNumber - 1)
 		    * countIpPerPage, countIpPerPage, cityName, ipTypeUI,
 		    statusUI);
-
-	    locationList = locationService.findCityListByStatus(ipTypeUI,
-		    statusUI);
-
 	    pageList = paginationService.loadPages();
 
 	    map.put("pageList", pageList); //
@@ -115,15 +121,24 @@ public class LocationController {
 	List<PaginationSettings> pageList;
 	List<String> locationList;
 	try {
+	    pageList = paginationService.loadPages();
+	    locationList = locationService.findCountryListByStatus(ipTypeUI,
+		    statusUI);
+
+	    if (!(locationList.contains(countryName))) {
+		map.put("incorrectMsg", "Incorrect Country Name!");
+		map.put("pageList", pageList);
+		map.put("pageCount", 1);
+		map.put("locationList", locationList);
+		return "secure_table";
+	    }
+
 	    ipCount = locationService.countStatusIpByCountryName(countryName,
 		    ipTypeUI, statusUI).intValue();
 	    pageCount = ipCount / countIpPerPage + 1;
 	    ipList = locationService.findStatusListByCountry((pageNumber - 1)
 		    * countIpPerPage, countIpPerPage, countryName, ipTypeUI,
 		    statusUI);
-	    locationList = locationService.findCountryListByStatus(ipTypeUI,
-		    statusUI);
-	    pageList = paginationService.loadPages();
 
 	    map.put("pageList", pageList);
 	    map.put("pageCount", pageCount); // Count of pages

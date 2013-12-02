@@ -37,7 +37,7 @@
 	</select>
 </div>
 
-<div align="left" id="content" class="content"></div>
+<div align="center" id="content" class="content"></div>
 
 <div align="center" id="ipListDiv"></div>
 

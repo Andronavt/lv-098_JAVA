@@ -21,7 +21,6 @@
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
 	rel="stylesheet" type="text/css" />
 
-
 <div id="number">
 	<!-- ip pare page -->
 	<select name="countIpPerPage"
@@ -49,8 +48,8 @@
 		onchange="defaltPaginationByCountryAndCity()"> 
 
 </div>
-<div id="content" class="content"></div>
-<div id="locationDiv"></div>
+<div align="center" id="content" class="content"></div>
+<div align="center" id="locationDiv"></div>
 <script>
 	var source = "${locationList}";
 	source = source.replace("[", "").replace("]", "").split(',');

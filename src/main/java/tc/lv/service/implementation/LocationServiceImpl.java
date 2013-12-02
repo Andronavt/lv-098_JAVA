@@ -1,5 +1,6 @@
 package tc.lv.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,9 +89,14 @@ public class LocationServiceImpl implements LocationService {
 	    String cityName, String ipType, String status)
 	    throws LocationServiceException {
 	try {
-	    return ipAddressDao.findStatusListByCity(
+	    List<IpAddress> resultList = ipAddressDao.findStatusListByCity(
 		    IpVersionUtil.isWhiteIpAddress(status), from, count,
 		    cityName, IpVersionUtil.ipVersion(ipType));
+	    if (resultList != null){
+		 return resultList;
+	    }
+	    return resultList = new ArrayList<IpAddress>();
+	       
 	} catch (Exception e) {
 	    throw new LocationServiceException("Could not load location list.",
 		    e);
