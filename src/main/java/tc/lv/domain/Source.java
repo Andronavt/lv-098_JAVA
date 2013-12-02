@@ -26,7 +26,7 @@ public class Source {
     public static final String FIND_BY_NAME_QUERY = "SELECT s FROM Source s WHERE s.sourceName  = ?1";
 
     public static final String FIND_ALL = "Source.findAll";
-    public static final String FIND_ALL_QUERY = "SELECT s FROM Source s";
+    public static final String FIND_ALL_QUERY = "SELECT s FROM Source s";    
 
 
     public static final String WHITE_LIST = "whitelist";

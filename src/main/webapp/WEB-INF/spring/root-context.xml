@@ -39,11 +39,11 @@ http://www.springframework.org/schema/util/spring-util.xsd">
 
 
 
-	<!-- @Component, @Service -->
-	<context:component-scan base-package="tc.lv.dao"></context:component-scan>
+	<!-- @Component, @Service -->	
+	<context:component-scan base-package="tc.lv.dao.implementations"></context:component-scan>
 	<context:component-scan base-package="tc.lv.service"></context:component-scan>
 	<!-- Data Access Resources -->
 
-	
-	
+
+
 </beans>

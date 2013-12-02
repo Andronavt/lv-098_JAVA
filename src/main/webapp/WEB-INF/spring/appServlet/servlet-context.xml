@@ -37,35 +37,36 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
-	
+
 	<beans:bean id="messageSource"
-    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-    <beans:property name="basename" value="classpath:messages" />
-    <beans:property name="defaultEncoding" value="UTF-8"/>
-</beans:bean>
- 
-<beans:bean id="localeChangeInterceptor"
-    class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-    <beans:property name="paramName" value="lang" />
-</beans:bean>
- 
-<beans:bean id="localeResolver"
-    class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-    <beans:property name="defaultLocale" value="ua"/>
-</beans:bean>
- 
-<beans:bean id="handlerMapping"
-    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
-    <beans:property name="interceptors">
-        <beans:ref bean="localeChangeInterceptor" />
-    </beans:property>
-</beans:bean>
-	
-<mvc:interceptors>
-    <beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-        <beans:property name="paramName" value="lang" />
-    </beans:bean>
-</mvc:interceptors>
-	
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<beans:property name="basename" value="classpath:messages" />
+		<beans:property name="defaultEncoding" value="UTF-8" />
+	</beans:bean>
+
+	<beans:bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<beans:property name="paramName" value="lang" />
+	</beans:bean>
+
+	<beans:bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<beans:property name="defaultLocale" value="ua" />
+	</beans:bean>
+
+	<beans:bean id="handlerMapping"
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<beans:property name="interceptors">
+			<beans:ref bean="localeChangeInterceptor" />
+		</beans:property>
+	</beans:bean>
+
+	<mvc:interceptors>
+		<beans:bean
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<beans:property name="paramName" value="lang" />
+		</beans:bean>
+	</mvc:interceptors>
+
 	<context:component-scan base-package="tc.lv.web" />
 </beans:beans>
