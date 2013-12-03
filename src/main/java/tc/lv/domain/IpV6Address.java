@@ -103,10 +103,9 @@ public class IpV6Address extends IpAddress {
         this.address = address;
     }
 
-    public IpV6Address(String address, Date dateAdded, City city) {
+    public IpV6Address(String address, Date dateAdded) {
         this.address = address;
         this.dateAdded = dateAdded;
-        this.city = city;
     }
 
     // ----- IpInterface implementation -----

@@ -6,19 +6,19 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import tc.lv.dao.IpAddressDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
-import tc.lv.exceptions.GeoIpServiceException;
+import tc.lv.exceptions.DBException;
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.exceptions.SourceDownloaderServiceException;
-import tc.lv.service.GeoIpService;
+import tc.lv.service.IpAddressService;
 import tc.lv.service.JsonService;
 import tc.lv.service.ParserResultService;
 import tc.lv.service.SourceDownloaderService;
@@ -28,22 +28,23 @@ import tc.lv.utils.ParserResults;
 
 @Controller
 public class SourceDownloadController {
-    private static final String PATH = System.getenv("LV098_JAVA")
-	    + "/src/main/webapp/resources/js/jVectorMap/";
+    private static final String PATH = System.getenv("LV098_JAVA") + "/src/main/webapp/resources/js/jVectorMap/";
     private static final String FILE_JSON_WHITE_LIST = "countryJsonWhiteList.js";
     private static final String FILE_JSON_BLACK_LIST = "countryJsonBlackList.js";
     private static final Class<? extends IpAddress> ALL_IP_ADDRESSES = IpAddress.class;
     private static final boolean WHITE_LIST = true;
     private static final boolean BLACK_LIST = false;
 
-    private static final Logger LOGGER = Logger
-	    .getLogger(SourceDownloadController.class);
+    private static final Logger LOGGER = Logger.getLogger(SourceDownloadController.class);
 
     @Autowired
     private SourceDownloaderService sourceDownloaderService;
 
     @Autowired
-    private GeoIpService geoIpService;
+    private IpAddressService ipAddressService;
+
+    @Autowired
+    private IpAddressDao ipAddressDao;
 
     @Autowired
     private ParserResultService parserResultService;
@@ -52,69 +53,68 @@ public class SourceDownloadController {
     private JsonService jsonService;
 
     // Getting updateSourcesPag.jsp
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping("admin_updateSources")
     public String getlistIpV4(Map<String, Object> map) {
-	try {
-	    map.put("listSource", sourceDownloaderService.loadSourceList());
-	} catch (SourceDownloaderServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
-	return "admin_updateSources";
+        try {
+            map.put("listSource", sourceDownloaderService.loadSourceList());
+
+        } catch (SourceDownloaderServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+        return "admin_updateSources";
     }
 
     // Updating Sources
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "admin_updateSourcesButton", method = RequestMethod.POST)
-    public String sourceDownloader(
-	    @ModelAttribute("source") String[] sourceNameArray,
-	    Map<String, Object> map) {
-	List<String> sourceNameList = Arrays.asList(sourceNameArray);
-	LOGGER.info("Start updating Sources.");
-	try {
-	    // loading sources list
-	    List<Source> sourceList = sourceDownloaderService.loadSourceList();
+    public String sourceDownloader(@ModelAttribute("source") String[] sourceNameArray, Map<String, Object> map) {
+        List<String> sourceNameList = Arrays.asList(sourceNameArray);
+        LOGGER.info("Start updating Sources.");
+        try {
+            // loading sources list
+            List<Source> sourceList = sourceDownloaderService.loadSourceList();
 
-	    // Creating Mapping with sources and parsers
-	    Map<Source, Parser> parserMap = sourceDownloaderService
-		    .createParserMap(sourceList);
-	    for (String sourceName : sourceNameList) {
-		LOGGER.info("Start updating SOURCE:" + sourceName);
+            // Creating Mapping with sources and parsers
+            Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
 
-		// downloading and parsering files from sources
-		ParserResults parserResult = sourceDownloaderService
-			.downloadParseAndUpdateData(sourceName, parserMap);
+            // Creating Ip Map fro DB
+            ipAddressDao.creatIpMap();
 
-		// adding locations from GeoIP
-		ParserResults parserResultWithLocations = geoIpService
-			.updateIpAddresLocation(parserResult);
+            for (String sourceName : sourceNameList) {
+                LOGGER.info("Start updating SOURCE:" + sourceName);
 
-		// saving to data base
-		parserResultService.save(parserResultWithLocations);
+                // downloading and parsering files from sources
+                ParserResults parserResult = sourceDownloaderService.downloadParseAndUpdateData(sourceName,
+                        parserMap);
 
-	    }
-	    // Updating status list
-	    sourceDownloaderService.updateStatusList();
+                // adding locations from GeoIP
+                // ParserResults parserResultWithLocations =
+                // geoIpService.updateIpAddresLocation(parserResult);
 
-	    // Creating JSON files for White and Black Maps
-	    jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST,
-		    ALL_IP_ADDRESSES, WHITE_LIST);
-	    jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST,
-		    ALL_IP_ADDRESSES, BLACK_LIST);
+                // saving to data base
+                // parserResultService.save(parserResultWithLocations);
+                parserResultService.save(parserResult);
 
-	    LOGGER.info("Finish updating Sources.");
+            }
+            // Updating status list
+            ipAddressService.updateStatusList(IpAddress.IP_MAP);
 
-	    map.put("successMsg", "Updated :)");
-	    return "result";
+            // Creating JSON files for White and Black Maps
+            jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST, ALL_IP_ADDRESSES, WHITE_LIST);
+            jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST, ALL_IP_ADDRESSES, BLACK_LIST);
 
-	} catch (SourceDownloaderServiceException | GeoIpServiceException
-		| ParserResultServiceException | JsonServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
+            LOGGER.info("Finish updating Sources.");
+
+            map.put("successMsg", "Updated :)");
+            return "result";
+
+        } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonServiceException
+                | DBException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
 
     }
 }

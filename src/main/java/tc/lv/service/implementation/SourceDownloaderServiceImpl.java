@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.SourceDownloaderServiceException;
+import tc.lv.service.IpAddressService;
 import tc.lv.service.SourceDownloaderService;
 import tc.lv.utils.Downloader;
 import tc.lv.utils.Parser;
@@ -32,10 +32,10 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     private SourceDao sourceDao;
 
     @Autowired
-    private IpAddressDao ipAddressDao;
+    private IpAddressService ipAddressService;
 
-    @Transactional
     @Override
+    @Transactional
     public ParserResults downloadParseAndUpdateData(String sourceName, Map<Source, Parser> parserMap)
             throws SourceDownloaderServiceException {
         LOGGER.info("Start downloading, parsing and updating sources.");
@@ -117,19 +117,19 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
         LOGGER.info("Finish creating Map of Sources and Parsers.");
         return parserMap;
     }
-
-    @Transactional
-    @Override
-    public void updateStatusList() throws SourceDownloaderServiceException {
-        LOGGER.info("Start update WhiteList");
-        try {
-            ipAddressDao.updateStatusList(IpAddress.class);
-
-        } catch (Exception e) {
-            LOGGER.error(e);
-            throw new SourceDownloaderServiceException("class of Parser cannot be instantiated!", e);
-        }
-        LOGGER.info("Finish update WhiteList");
-    }
+//
+//    @Transactional
+//    @Override
+//    public void updateStatusList() throws SourceDownloaderServiceException {
+//        LOGGER.info("Start update WhiteList");
+//        try {
+//            ipAddressService.updateStatusList(IpAddress.IP_MAP);
+//
+//        } catch (Exception e) {
+//            LOGGER.error(e);
+//            throw new SourceDownloaderServiceException("class of Parser cannot be instantiated!", e);
+//        }
+//        LOGGER.info("Finish update WhiteList");
+//    }
 
 }

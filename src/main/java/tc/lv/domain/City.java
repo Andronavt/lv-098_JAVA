@@ -1,9 +1,10 @@
 package tc.lv.domain;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
@@ -28,18 +30,24 @@ import javax.persistence.Table;
 // -----
 })
 public class City {
+
     public static final String FIND_ALL = "City.findAll";
     static final String FIND_ALL_QUERY = "SELECT ci from City ci";
 
     public static final String FIND_CITY_NAME_LIST_BY_STATUS = "City.findCityNameListByStatus";
     static final String FIND_CITY_NAME_LIST_BY_STATUS_QUERY = "SELECT distinct(ip.city.cityName) from City ci, IpAddress ip where ip.status = ?1";
 
+    /* --------- static map from DB --------- */
+    public static boolean IS_MAP_CREATE = false;
+    public static final Map<String, City> CITY_MAP = new HashMap<String, City>();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    // cascade = CascadeType.ALL,
     @JoinColumn(name = "country")
     private Country country = new Country();
 
@@ -92,17 +100,39 @@ public class City {
 
     @Override
     public int hashCode() {
-        return cityName.hashCode();
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((cityName == null) ? 0 : cityName.hashCode());
+        result = prime * result + ((country == null) ? 0 : country.hashCode());
+        return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return cityName.equals(((City) obj).getCityName());
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        City other = (City) obj;
+        if (cityName == null) {
+            if (other.cityName != null)
+                return false;
+        } else if (!cityName.equals(other.cityName))
+            return false;
+        if (country == null) {
+            if (other.country != null)
+                return false;
+        } else if (!country.equals(other.country))
+            return false;
+        return true;
     }
 
+    @PreUpdate
     @PrePersist
-    private void setLocationData() {
-
+    protected void city() {
+        City.CITY_MAP.put(this.getCityName(), this);
     }
 
 }

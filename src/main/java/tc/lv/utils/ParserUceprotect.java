@@ -45,9 +45,9 @@ public class ParserUceprotect implements Parser {
                     tmpIpAddress = matcher.group();
 
                     if (IpValidator.isIpV4(tmpIpAddress)) {
-                        parserResults.addToIpV4List(new IpV4Address(tmpIpAddress, new Date(), null));
+                        parserResults.addToIpV4List(new IpV4Address(tmpIpAddress, new Date()));
                     } else if (IpValidator.isIpV6(tmpIpAddress)) {
-                        parserResults.addToIpV6List(new IpV6Address(tmpIpAddress, new Date(), null));
+                        parserResults.addToIpV6List(new IpV6Address(tmpIpAddress, new Date()));
                     } else {
                         parserResults.addToNotValidList(new NotValidIp(tmpIpAddress, new Date()));
                     }

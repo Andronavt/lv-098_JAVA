@@ -17,20 +17,27 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sources")
-@NamedQueries({ @NamedQuery(name = Source.FIND_ALL, query = Source.FIND_ALL_QUERY),
-        @NamedQuery(name = Source.FIND_BY_NAME, query = Source.FIND_BY_NAME_QUERY),
-        })
+@NamedQueries({
+        // -----
+        @NamedQuery(name = Source.FIND_ALL, query = Source.FIND_ALL_QUERY),
+        @NamedQuery(name = Source.FIND_BY_NAME, query = Source.FIND_BY_NAME_QUERY)
+// -----
+})
 public class Source {
 
     public static final String FIND_BY_NAME = "Source.findByName";
     public static final String FIND_BY_NAME_QUERY = "SELECT s FROM Source s WHERE s.sourceName  = ?1";
 
     public static final String FIND_ALL = "Source.findAll";
-    public static final String FIND_ALL_QUERY = "SELECT s FROM Source s";    
-
+    public static final String FIND_ALL_QUERY = "SELECT s FROM Source s";
 
     public static final String WHITE_LIST = "whitelist";
     public static final String BLACK_LIST = "blacklist";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "source_id", nullable = false)
+    private int sourceId;
 
     @Column(name = "dirname", nullable = false)
     private String dirname;
@@ -49,11 +56,6 @@ public class Source {
 
     @Column(name = "source_date_added", nullable = false)
     private Date sourceDateAdded;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "source_id", nullable = false)
-    private int sourceId;
 
     @Column(name = "source_name", nullable = false)
     private String sourceName;
