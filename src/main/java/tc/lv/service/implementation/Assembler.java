@@ -16,17 +16,17 @@ public class Assembler {
     @Transactional(readOnly = true)
     User buildUserFromUserEntity(tc.lv.domain.User userEntity) {
 
-        String username = userEntity.getUsername();
-        String password = userEntity.getPassword();
+	String username = userEntity.getUsername();
+	String password = userEntity.getPassword();
 
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+	Collection<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
 
-        for (Role role : userEntity.getRoleSet()) {
-            authorities.add(new SimpleGrantedAuthority(role.getRole()));
-        }
+	for (Role role : userEntity.getRoleSet()) {
+	    authorities.add(new SimpleGrantedAuthority(role.getRole()));
+	}
 
-        User user = new User(username, password, authorities);
+	User user = new User(username, password, authorities);
 
-        return user;
+	return user;
     }
 }

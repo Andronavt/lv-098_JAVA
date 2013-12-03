@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import tc.lv.dao.IpAddressDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
-import tc.lv.exceptions.DBException;
+import tc.lv.exceptions.IpAddressServiceException;
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.exceptions.SourceDownloaderServiceException;
@@ -28,23 +27,22 @@ import tc.lv.utils.ParserResults;
 
 @Controller
 public class SourceDownloadController {
-    private static final String PATH = System.getenv("LV098_JAVA") + "/src/main/webapp/resources/js/jVectorMap/";
+    private static final String PATH = System.getenv("LV098_JAVA")
+	    + "/src/main/webapp/resources/js/jVectorMap/";
     private static final String FILE_JSON_WHITE_LIST = "countryJsonWhiteList.js";
     private static final String FILE_JSON_BLACK_LIST = "countryJsonBlackList.js";
     private static final Class<? extends IpAddress> ALL_IP_ADDRESSES = IpAddress.class;
     private static final boolean WHITE_LIST = true;
     private static final boolean BLACK_LIST = false;
 
-    private static final Logger LOGGER = Logger.getLogger(SourceDownloadController.class);
+    private static final Logger LOGGER = Logger
+	    .getLogger(SourceDownloadController.class);
 
     @Autowired
     private SourceDownloaderService sourceDownloaderService;
 
     @Autowired
     private IpAddressService ipAddressService;
-
-    @Autowired
-    private IpAddressDao ipAddressDao;
 
     @Autowired
     private ParserResultService parserResultService;
@@ -55,66 +53,66 @@ public class SourceDownloadController {
     // Getting updateSourcesPag.jsp
     @RequestMapping("admin_updateSources")
     public String getlistIpV4(Map<String, Object> map) {
-        try {
-            map.put("listSource", sourceDownloaderService.loadSourceList());
+	try {
+	    map.put("listSource", sourceDownloaderService.loadSourceList());
 
-        } catch (SourceDownloaderServiceException e) {
-            map.put("errorList", ExceptionUtil.createErrorList(e));
-            map.put("errorMsg", e.getMessage());
-            return "result";
-        }
-        return "admin_updateSources";
+	} catch (SourceDownloaderServiceException e) {
+	    map.put("errorList", ExceptionUtil.createErrorList(e));
+	    map.put("errorMsg", e.getMessage());
+	    return "result";
+	}
+	return "admin_updateSources";
     }
 
     // Updating Sources
     @RequestMapping(value = "admin_updateSourcesButton", method = RequestMethod.POST)
-    public String sourceDownloader(@ModelAttribute("source") String[] sourceNameArray, Map<String, Object> map) {
-        List<String> sourceNameList = Arrays.asList(sourceNameArray);
-        LOGGER.info("Start updating Sources.");
-        try {
-            // loading sources list
-            List<Source> sourceList = sourceDownloaderService.loadSourceList();
+    public String sourceDownloader(
+	    @ModelAttribute("source") String[] sourceNameArray,
+	    Map<String, Object> map) {
+	List<String> sourceNameList = Arrays.asList(sourceNameArray);
+	LOGGER.info("Start updating Sources.");
+	try {
+	    // loading sources list
+	    List<Source> sourceList = sourceDownloaderService.loadSourceList();
 
-            // Creating Mapping with sources and parsers
-            Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
+	    // Creating Mapping with sources and parsers
+	    Map<Source, Parser> parserMap = sourceDownloaderService
+		    .createParserMap(sourceList);
 
-            // Creating Ip Map fro DB
-            ipAddressDao.creatIpMap();
+	    // Creating Ip Map fro DB
+	    ipAddressService.createIpMap();
 
-            for (String sourceName : sourceNameList) {
-                LOGGER.info("Start updating SOURCE:" + sourceName);
+	    for (String sourceName : sourceNameList) {
+		LOGGER.info("Start updating SOURCE:" + sourceName);
 
-                // downloading and parsering files from sources
-                ParserResults parserResult = sourceDownloaderService.downloadParseAndUpdateData(sourceName,
-                        parserMap);
+		// downloading and parsering files from sources
+		ParserResults parserResult = sourceDownloaderService
+			.downloadParseAndUpdateData(sourceName, parserMap);
+		// saving to data base
+		parserResultService.save(parserResult);
 
-                // adding locations from GeoIP
-                // ParserResults parserResultWithLocations =
-                // geoIpService.updateIpAddresLocation(parserResult);
+	    }
+	    // Updating status list
+	    ipAddressService.updateStatusList(IpAddress.IP_MAP);
 
-                // saving to data base
-                // parserResultService.save(parserResultWithLocations);
-                parserResultService.save(parserResult);
+	    // Creating JSON files for White and Black Maps
+	    jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST,
+		    ALL_IP_ADDRESSES, WHITE_LIST);
+	    jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST,
+		    ALL_IP_ADDRESSES, BLACK_LIST);
 
-            }
-            // Updating status list
-            ipAddressService.updateStatusList(IpAddress.IP_MAP);
+	    LOGGER.info("Finish updating Sources.");
 
-            // Creating JSON files for White and Black Maps
-            jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST, ALL_IP_ADDRESSES, WHITE_LIST);
-            jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST, ALL_IP_ADDRESSES, BLACK_LIST);
+	    map.put("successMsg", "Updated :)");
+	    return "result";
 
-            LOGGER.info("Finish updating Sources.");
-
-            map.put("successMsg", "Updated :)");
-            return "result";
-
-        } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonServiceException
-                | DBException e) {
-            map.put("errorList", ExceptionUtil.createErrorList(e));
-            map.put("errorMsg", e.getMessage());
-            return "result";
-        }
+	} catch (SourceDownloaderServiceException
+		| ParserResultServiceException | JsonServiceException
+		| IpAddressServiceException e) {
+	    map.put("errorList", ExceptionUtil.createErrorList(e));
+	    map.put("errorMsg", e.getMessage());
+	    return "result";
+	}
 
     }
 }
