@@ -18,11 +18,24 @@ public class SourceDaoImpl extends DaoAbstract implements SourceDao {
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
+    public SourceDaoImpl() {
+
+    }
+
+    public SourceDaoImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    @Override
+    public Source findByID(int sourceId) {
+        return entityManager.find(Source.class, sourceId);
+    }
+
     @Override
     public Source findByName(String sourceName) {
         Query query = entityManager.createNamedQuery(Source.FIND_BY_NAME).setParameter(1, sourceName);
-        return (Source) find(query);        
-    }        
+        return (Source) find(query);
+    }
 
     @Override
     public List<Source> findAll() {

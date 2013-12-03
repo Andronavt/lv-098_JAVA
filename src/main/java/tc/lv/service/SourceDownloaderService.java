@@ -17,5 +17,5 @@ public interface SourceDownloaderService {
     public ParserResults downloadParseAndUpdateData(String sourceName, Map<Source, Parser> parserMap)
             throws SourceDownloaderServiceException;
 
-    public void updateStatusList() throws SourceDownloaderServiceException;
+    // public void updateStatusList() throws SourceDownloaderServiceException;
 }
