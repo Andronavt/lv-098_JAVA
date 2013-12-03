@@ -10,7 +10,7 @@ public class BlackListMapController {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "secure_blackListMap", method = RequestMethod.GET)
-    public String deleteIpFromWhiteList() {
+    public String showIpFromWhiteList() {
 	return "secure_blackListMap";
     }
 
