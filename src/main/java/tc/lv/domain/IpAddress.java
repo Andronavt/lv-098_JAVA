@@ -194,7 +194,7 @@ public class IpAddress implements IpInterface {
 
     // ----- IpInterface implementation -----
     @Override
-    public String countAll() {
+    public String countAll() {    	
         return IpAddress.COUNT_ALL;
     }
 

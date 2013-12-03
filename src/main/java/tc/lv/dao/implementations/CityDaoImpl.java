@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import tc.lv.dao.CityDao;
 import tc.lv.dao.DaoAbstract;
 import tc.lv.domain.City;
-import tc.lv.exceptions.DBException;
 
 @Repository
 public class CityDaoImpl extends DaoAbstract implements CityDao {
@@ -25,7 +24,7 @@ public class CityDaoImpl extends DaoAbstract implements CityDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<String> findCityNameListByStatus(boolean status) throws DBException {
+    public List<String> findCityNameListByStatus(boolean status) {
         Query query = entityManager.createNamedQuery(City.FIND_CITY_NAME_LIST_BY_STATUS);
         query = query.setParameter(1, status);
         return query.getResultList();

@@ -26,8 +26,8 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     private EntityManager entityManager;
 
     public IpAddressDaoImpl() {
-
-    }
+    	
+    }    
 
     @Override
     public Long countAll(Class<? extends IpAddress> ipType) throws DBException {

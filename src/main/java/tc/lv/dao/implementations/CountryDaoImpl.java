@@ -22,7 +22,7 @@ public class CountryDaoImpl extends DaoAbstract implements CountryDao {
 
     public CountryDaoImpl() {
 
-    }
+    }    
 
     @Override
     @SuppressWarnings("unchecked")

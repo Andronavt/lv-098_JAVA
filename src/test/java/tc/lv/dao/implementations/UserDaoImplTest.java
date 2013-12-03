@@ -1,7 +1,6 @@
 package tc.lv.dao.implementations;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,47 +30,46 @@ public class UserDaoImplTest {
 
 	@Before
 	public void dataSetup() {
-		user = new User("niger", "niger", "niger", "niger@gmail.com", "niger");
-		newUser = new User("white", "niger", "niger", "niger@gmail.com",
-				"niger");
-		role = new Role();
-		role.setRole("ROLE_ADMIN");
+		user = new User("test", "test", "test", "test@gmail.com", "test");
+		userDao.save(user);
 	}
 
 	@Test
 	public void saveUser() {
-		if (user.equals(userDao.findByName("niger"))) {
-			fail("USER ALREADY EXIST");
-		}
 		userDao.save(user);
-		assertEquals(user, userDao.findByName("niger"));
+		User expected = user;
+		assertEquals(expected, userDao.findByName("test"));
 	}
 
 	@Test
 	public void removeUser() {
-		saveUser();
 		userDao.remove(user);
-		assertEquals(null, userDao.findByName("niger"));
+		assertEquals(null, userDao.findByName("test"));
 	}
 
 	@Test
 	public void findUserByName() {
-		saveUser();
-		assertEquals(user, userDao.findByName("niger"));
+		User expected = user;
+		User actuals = userDao.findByName("test");
+		assertEquals(expected, actuals);
 	}
 
 	@Test
 	public void findUserByRole() {
-		saveUser();
-		assertEquals(role.getRole(), userDao.findRoleByName("ROLE_ADMIN")
-				.getRole());
+		role = new Role();
+		role.setRole("ROLE_ADMIN");
+		String expected = role.getRole();
+		String actuals = userDao.findRoleByName("ROLE_ADMIN").getRole();
+		assertEquals(expected, actuals);
 	}
 
 	@Test
 	public void updateUser() {
-		saveUser();
+		newUser = new User("newTest", "test", "test", "test@gmail.com", "test");
 		userDao.update(newUser);
-		assertEquals(newUser, userDao.findByName("white"));		
+		User expected = newUser;
+		User actuals = userDao.findByName("newTest");
+		assertEquals(expected, actuals);
 	}
 
 }

@@ -15,7 +15,7 @@ import tc.lv.domain.User;
 public class UserDaoImpl extends DaoAbstract implements UserDao {
 
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
-    private EntityManager entityManager;
+    private EntityManager entityManager;    
 
     @Override
     public User findByName(String name) {
