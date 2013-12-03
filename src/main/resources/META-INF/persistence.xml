@@ -10,10 +10,12 @@
 		<class>tc.lv.domain.IpV4Address</class>
 		<class>tc.lv.domain.IpV6Address</class>
 		<class>tc.lv.domain.NotValidIp</class>
+		<class>tc.lv.domain.PaginationSettings</class>
+		<class>tc.lv.domain.Parser</class>
 		<class>tc.lv.domain.Role</class>
 		<class>tc.lv.domain.Source</class>
+		<class>tc.lv.domain.Unzipper</class>
 		<class>tc.lv.domain.User</class>
-		<class>tc.lv.domain.PaginationSettings</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
 			<property name="hibernate.connection.show_sql" value="true" />

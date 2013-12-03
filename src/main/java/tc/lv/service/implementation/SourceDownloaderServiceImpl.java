@@ -123,7 +123,7 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
     public void updateStatusList() throws SourceDownloaderServiceException {
         LOGGER.info("Start update WhiteList");
         try {
-            ipAddressDao.updateStatusList(IpAddress.class);
+            ipAddressDao.updateStatusList(IpAddress.IP_MAP);
 
         } catch (Exception e) {
             LOGGER.error(e);

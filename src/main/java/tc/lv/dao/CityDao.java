@@ -9,4 +9,12 @@ public interface CityDao {
 
     List<String> findCityNameListByStatus(boolean status) throws DBException;
 
+    void creatCityMap();
+
+    void save(City city);
+
+    City update(City city);
+
+    boolean isCityExists(City city);
+
 }

@@ -16,4 +16,6 @@ public interface SourceDao {
 
     void delete(Source source);
 
+    Source findByID(int sourceId);
+
 }
