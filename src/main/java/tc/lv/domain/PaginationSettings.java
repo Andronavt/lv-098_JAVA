@@ -47,4 +47,30 @@ public class PaginationSettings {
         this.ipsPerPage = ipsPerPage;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((ipsPerPage == null) ? 0 : ipsPerPage.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PaginationSettings other = (PaginationSettings) obj;
+        if (ipsPerPage == null) {
+            if (other.ipsPerPage != null)
+                return false;
+        } else if (!ipsPerPage.equals(other.ipsPerPage))
+            return false;
+        return true;
+    }
+
+    
 }

@@ -13,7 +13,6 @@
 		<class>tc.lv.domain.PaginationSettings</class>
 		<class>tc.lv.domain.Parser</class>
 		<class>tc.lv.domain.Role</class>
-		<class>tc.lv.domain.SettingsForPagination</class>
 		<class>tc.lv.domain.Source</class>
 		<class>tc.lv.domain.Unzipper</class>
 		<class>tc.lv.domain.User</class>
