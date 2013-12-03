@@ -21,8 +21,8 @@ public class SourceDaoImpl extends DaoAbstract implements SourceDao {
     @Override
     public Source findByName(String sourceName) {
         Query query = entityManager.createNamedQuery(Source.FIND_BY_NAME).setParameter(1, sourceName);
-        return (Source) find(query);
-    }
+        return (Source) find(query);        
+    }        
 
     @Override
     public List<Source> findAll() {

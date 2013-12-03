@@ -2,6 +2,7 @@
 	pageEncoding="UTF8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -22,7 +23,7 @@
 
 <fieldset>
 	<legend align="center">
-		<strong>List of sources</strong>
+		<strong><spring:message code="label.listOfSources"/></strong>
 	</legend>
 	<br>
 	<div>
@@ -33,7 +34,7 @@
 				</c:forEach>
 			</select>
 			<div>
-				<input class="btn btn-primary" type="button" value="Delete source"
+				<input class="btn btn-primary" type="button" value="<spring:message code="label.deleteSource"/>"
 					onclick="selectSource()">
 			</div>
 		</center>

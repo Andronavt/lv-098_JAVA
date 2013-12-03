@@ -53,7 +53,7 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     @Override
     public Long countStatusIpByCountryName(boolean status, String countryName, Class<? extends IpAddress> ipType)
             throws DBException {
-        Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusIpByCountryName());
+        Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusIpByCountryCode());
         query = query.setParameter(1, status).setParameter(2, countryName);
         return (Long) query.getSingleResult();
     }

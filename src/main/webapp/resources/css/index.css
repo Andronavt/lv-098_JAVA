@@ -48,3 +48,16 @@ h2 {
 	right: 0px;
 	margin-bottom: 0px;
 }
+
+
+#Localization {
+	color : #00FF00 ;
+	font-size: 14px;
+	float: right;
+	font: white;
+	padding: 5px;
+	
+}
+#Localization a:visited {color: #00FF00;}
+#Localization a:hover {text-decoration: underline; color: white;}
+

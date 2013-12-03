@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <script type="text/javascript"
 	src="<c:url value="/resources/js/ajax.js" />"></script>
@@ -36,23 +37,23 @@
 	type="text/css" />
 
 <fieldset>
-	<legend>Adding IP to list</legend>
+	<legend><spring:message code="label.addingIp"/></legend>
 
 	<form class="Add-IP" id="addIpToWL" method="post" name="ipToWL">
-		<div align="left">Insert the IP that you want add to list:</div>
+		<div align="left"><spring:message code="label.insertTheIp"/></div>
 		<br>
 		<div>
 			<input class="input-large" id="IP" type="text" name="addIp" size="20"
-				maxlength="50"> <b>Type of list:</b> <b><select
+				maxlength="50"> <b><spring:message code="label.typeList"/></b> <b><select
 				id="list" name="typeList" size="1">
-					<option value="blackList">black list</option>
-					<option value="whiteList">white list</option>
+					<option><spring:message code="label.whiteIpList"/></option>
+					<option><spring:message code="label.blackIpList"/></option>
 			</select></b>
 		</div>
 	</form>
 
 	<input class="btn btn-primary" id="btnAddIp" type="button" name="addIp"
-		value="ADD">
+		value="<spring:message code="label.add"/>">
 
 	<div id="Info"></div>
 </fieldset>

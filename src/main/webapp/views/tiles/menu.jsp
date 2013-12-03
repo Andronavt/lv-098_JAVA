@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -24,101 +25,83 @@
 
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css" />"
 	rel="stylesheet" type="text/css" />
+	
+	<script type="text/javascript"
+	src="<c:url value="/resources/js/menu.js" />"></script> 
 
-<div id="accordion" align="left">
-
-	<h6>Home</h6>
-	<div class="divmenu">
-		<p>
-			<a class="button" href="welcomes" title="Home">Home</a>
-		</p>
-	</div>
+<div id="cssmenu">
+<ul>
+	<li><a><span><spring:message code="label.home"/></span></a></li>
+	<li><a><span><spring:message code="label.home"/></span></a>
+	<ul>
+	<li><a class="button" href="welcomes" title="<spring:message code="label.about"/>"><spring:message code="label.about"/></a>
+        </ul>
+        </li>
+		
 	<sec:authorize access="hasRole('ROLE_USER')">
 
-		<h6>Statistics:</h6>
-		<div class="divmenu">
+		<li><a><span><spring:message code="label.statistics"/></span></a>
+            <ul>
+			
+				<li><a class="button" href="secure_showIpListFromWL"
+					title="<spring:message code="label.whitelist"/>"><spring:message code="label.whitelist"/></a></li>
+			
 
-			<p>
-				<a class="button" href="secure_showIpListFromWL"
-					title="Show Ip list from White List">Show Ip list from White
-					List</a>
-			</p>
+				<li><a class="button" href="secure_showIpListFromBL"
+					title="<spring:message code="label.blacklist"/>"><spring:message code="label.blacklist"/></a></li>
+			
 
-			<p>
-				<a class="button" href="secure_showIpListFromBL"
-					title="Show Ip list from Black List">Show Ip list from Black
-					List</a>
-			</p>
+				<li><a class="button" href="secure_blackListMap" title="<spring:message code="label.blackmap"/>"><spring:message code="label.blackmap"/></a></li>
+		
 
-			<p>
-				<a class="button" href="secure_blackListMap" title="Blacklist map">Blacklist
-					map</a>
-			</p>
+				<li><a class="button" href="secure_whiteListMap" title="<spring:message code="label.whitemap"/>"><spring:message code="label.whitemap"/></a></li>
+			
+				<li><a class="button" href="secure_inProgres" title="<spring:message code="label.topOldestIp"/>"><spring:message code="label.topOldestIp"/></a></li>
+			</ul>
+			</li>
 
-			<p>
-				<a class="button" href="secure_whiteListMap" title="Whitelist map">Whitelist
-					map</a>
-			</p>
+        <li><a><span><spring:message code="label.ipData"/></span></a>
+                <ul>			
+				<li><a class="button" href="secure_showIpListByCity" title="<spring:message code="label.ipByCity"/>">
+					<spring:message code="label.ipByCity"/></a></li>
+			
 
-			<p>
-				<a class="button" href="secure_inProgres" title="Top oldest IP">Top
-					oldest IP</a>
-			</p>
-
-		</div>
-
-		<h6>Ip data:</h6>
-		<div class="divmenu">
-
-			<p>
-				<a class="button" href="secure_showIpListByCity" title="IP by city">
-					IP by city</a>
-			</p>
-
-			<p>
-				<a class="button" href="secure_showIpListByCountry"
-					title="Ip by country">Ip by country</a>
-			</p>
-
-		</div>
+		
+				<li><a class="button" href="secure_showIpListByCountry"
+					title="<spring:message code="label.ipByCountry"/>"><spring:message code="label.ipByCountry"/></a></li>
+					</ul>
+			</li>
 	</sec:authorize>
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<h6>Sources:</h6>
-		<div class="divmenu">
+	
+	<li><a><span><spring:message code="label.sources"/></span></a>
+        <ul>
+				<li><a class="button" href="admin_addNewSource" id="getContentAddNewSource"
+					title="<spring:message code="label.addNewSource"/>"><spring:message code="label.addNewSource"/></a></li>
+		
 
-			<p>
-				<a class="button" href="admin_addNewSource" id="getContentAddNewSource"
-					title="Add new Source">Add new Source</a>
-			</p>
+			
+				<li><a class="button" href="admin_deleteSource"
+					id="getContentDeleteSource" title="<spring:message code="label.deleteSource"/>"><spring:message code="label.deleteSource"/></a></li>
+			
 
-			<p>
-				<a class="button" href="admin_deleteSource"
-					id="getContentDeleteSource" title="Delete Source">Delete Source</a>
-			</p>
+			
+				<li><a class="button" href="admin_addIpToList" id="getContentAddIpToWl"
+					title="<spring:message code="label.addIpToList"/>"><spring:message code="label.addIpToList"/></a></li>
+			
 
-			<p>
-				<a class="button" href="admin_addIpToList" id="getContentAddIpToWl"
-					title="Add Ip to list">Add Ip to list</a>
-			</p>
+			
+				<li><a class="button" href="admin_deleteIpFromList"
+					id="getContentDeleteIpFromList" title="<spring:message code="label.deleteIpFromList"/>"><spring:message code="label.deleteIpFromList"/></a></li>
+		
 
-			<p>
-				<a class="button" href="admin_deleteIpFromList"
-					id="getContentDeleteIpFromList" title="Delete IP from list">Delete IP
-					from list</a>
-			</p>
+			
+				<li><a class="button" href="admin_updateSources" title="<spring:message code="label.updateSource"/>"><spring:message code="label.updateSource"/></a></li>
+			</ul>
+			</li>
 
-			<p>
-				<a class="button" href="admin_updateSources" title="updateSources">Update
-					Sources</a>
-			</p>
-
-		</div>
+		
 	</sec:authorize>
+</ul>
 </div>
-
-<script>
-	$("#accordion").accordion({
-		collapsible : true
-	});
-</script>

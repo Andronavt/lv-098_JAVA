@@ -43,5 +43,6 @@ public class UserDaoImpl extends DaoAbstract implements UserDao {
     @Override
     public User update(User user) {
         return entityManager.merge(user);
+        
     }
 }
