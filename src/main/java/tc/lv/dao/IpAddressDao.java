@@ -1,11 +1,9 @@
 package tc.lv.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import tc.lv.domain.IpAddress;
 import tc.lv.exceptions.DBException;
-import tc.lv.exceptions.GeoIpException;
 
 public interface IpAddressDao {
 
@@ -41,10 +39,11 @@ public interface IpAddressDao {
 
     void save(IpAddress address);
 
-    void saveList(List<? extends IpAddress> list, int sourceId, Class<? extends IpAddress> ipType,
-            Map<String, IpAddress> map) throws DBException, GeoIpException;
-
-    void updateStatusList(Map<String, IpAddress> map) throws DBException;
+    // void saveList(List<? extends IpAddress> list, int sourceId, Class<?
+    // extends IpAddress> ipType,
+    // Map<String, IpAddress> map) throws DBException, GeoIpException;
+    //
+    // void updateStatusList(Map<String, IpAddress> map) throws DBException;
 
     Long countStatusIpByCountryCode(boolean status, String countryCode, Class<? extends IpAddress> ipType)
             throws DBException;

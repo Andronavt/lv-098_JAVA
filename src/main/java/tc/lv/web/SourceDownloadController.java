@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import tc.lv.dao.IpAddressDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
+import tc.lv.exceptions.DBException;
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.exceptions.SourceDownloaderServiceException;
-import tc.lv.service.GeoIpService;
+import tc.lv.service.IpAddressService;
 import tc.lv.service.JsonService;
 import tc.lv.service.ParserResultService;
 import tc.lv.service.SourceDownloaderService;
@@ -39,7 +41,10 @@ public class SourceDownloadController {
     private SourceDownloaderService sourceDownloaderService;
 
     @Autowired
-    private GeoIpService geoIpService;
+    private IpAddressService ipAddressService;
+
+    @Autowired
+    private IpAddressDao ipAddressDao;
 
     @Autowired
     private ParserResultService parserResultService;
@@ -72,6 +77,10 @@ public class SourceDownloadController {
 
             // Creating Mapping with sources and parsers
             Map<Source, Parser> parserMap = sourceDownloaderService.createParserMap(sourceList);
+
+            // Creating Ip Map fro DB
+            ipAddressDao.creatIpMap();
+
             for (String sourceName : sourceNameList) {
                 LOGGER.info("Start updating SOURCE:" + sourceName);
 
@@ -89,7 +98,7 @@ public class SourceDownloadController {
 
             }
             // Updating status list
-            sourceDownloaderService.updateStatusList();
+            ipAddressService.updateStatusList(IpAddress.IP_MAP);
 
             // Creating JSON files for White and Black Maps
             jsonService.createJsonForCountryMap(PATH, FILE_JSON_WHITE_LIST, ALL_IP_ADDRESSES, WHITE_LIST);
@@ -100,7 +109,8 @@ public class SourceDownloadController {
             map.put("successMsg", "Updated :)");
             return "result";
 
-        } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonServiceException e) {
+        } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonServiceException
+                | DBException e) {
             map.put("errorList", ExceptionUtil.createErrorList(e));
             map.put("errorMsg", e.getMessage());
             return "result";
