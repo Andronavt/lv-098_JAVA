@@ -1,7 +1,9 @@
 package tc.lv.domain;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,9 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import javax.persistence.Transient;
 
 import tc.lv.dao.IpInterface;
 
@@ -104,35 +104,47 @@ public class IpAddress implements IpInterface {
     public static final String FIND_UNDEFINED_LIST = "IpAddress.findUndefinedList";
     static final String FIND_UNDEFINEDLIST_QUERY = "SELECT ip from IpAddress ip where ip.status is null";
 
-    @Column(name = "address", updatable = true, nullable = false, unique = true)
-    protected String address;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "city")
-    protected City city = new City();
-
-    @Column(name = "date_added")
-    protected Date dateAdded;
+    /* --------- static map from DB --------- */
+    public static boolean IS_MAP_CREATE = false;
+    public static final Map<String, IpAddress> IP_MAP = new HashMap<String, IpAddress>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     protected int id;
 
-    @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.EAGER)
-    @JoinTable(name = "sources_to_addresses", joinColumns = { @JoinColumn(name = "ip_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "source_id", updatable = true, nullable = true) })
-    @Fetch(FetchMode.JOIN)
-    private Set<Source> sourceSet = new HashSet<Source>();
+    @Column(name = "address", updatable = true, nullable = false, unique = true)
+    protected String address;
+
+    @Column(name = "date_added")
+    protected Date dateAdded;
 
     @Column(name = "status")
     protected Boolean status;
 
-    public IpAddress() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    // cascade = CascadeType.ALL,
+    @JoinColumn(name = "city")
+    protected City city = new City();
+
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.EAGER)
+    @JoinTable(name = "sources_to_addresses", joinColumns = { @JoinColumn(name = "ip_id", updatable = true, nullable = true) }, inverseJoinColumns = { @JoinColumn(name = "source_id", updatable = true, nullable = true) })
+    protected Set<Source> sourceSet = new HashSet<Source>();
+
+    // ---------------------------------------------------------
+    @Transient
+    protected Boolean modified = true;
+
+    public Boolean getModified() {
+        return modified;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return this.getAddress().equals(((IpAddress) obj).getAddress());
+    public void setModified(Boolean modified) {
+        this.modified = modified;
+    }
+
+    // ---------------------------------------------------------
+    public IpAddress() {
     }
 
     public String getAddress() {
@@ -163,11 +175,6 @@ public class IpAddress implements IpInterface {
         return this.status;
     }
 
-    @Override
-    public int hashCode() {
-        return address.hashCode();
-    }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -190,6 +197,51 @@ public class IpAddress implements IpInterface {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((address == null) ? 0 : address.hashCode());
+        result = prime * result + ((city == null) ? 0 : city.hashCode());
+        result = prime * result + ((sourceSet == null) ? 0 : sourceSet.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        IpAddress other = (IpAddress) obj;
+        if (address == null) {
+            if (other.address != null)
+                return false;
+        } else if (!address.equals(other.address))
+            return false;
+        if (city == null) {
+            if (other.city != null)
+                return false;
+        } else if (!city.equals(other.city))
+            return false;
+        if (sourceSet == null) {
+            if (other.sourceSet != null)
+                return false;
+        } else if (!sourceSet.equals(other.sourceSet))
+            return false;
+        return true;
+    }
+
+    // @PostUpdate
+    // @PostPersist
+    // @PrePersist
+    // @PreUpdate
+    protected void updateIpMap() {
+        IpAddress.IP_MAP.put(this.getAddress(), this);
     }
 
     // ----- IpInterface implementation -----

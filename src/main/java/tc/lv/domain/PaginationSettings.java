@@ -27,7 +27,7 @@ public class PaginationSettings {
 
     @Column(name = "ips_per_page")
     Integer ipsPerPage;
-
+    
     public PaginationSettings() {
     }
 

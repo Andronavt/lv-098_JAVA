@@ -18,6 +18,14 @@ public class PaginationSettingsDaoImpl extends DaoAbstract implements Pagination
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
+    public PaginationSettingsDaoImpl() {
+
+    }
+
+    public PaginationSettingsDaoImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public List<PaginationSettings> findAll() {

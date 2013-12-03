@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
-import tc.lv.exceptions.GeoIpServiceException;
 import tc.lv.exceptions.JsonServiceException;
 import tc.lv.exceptions.ParserResultServiceException;
 import tc.lv.exceptions.SourceDownloaderServiceException;
@@ -81,10 +80,12 @@ public class SourceDownloadController {
                         parserMap);
 
                 // adding locations from GeoIP
-                ParserResults parserResultWithLocations = geoIpService.updateIpAddresLocation(parserResult);
+                // ParserResults parserResultWithLocations =
+                // geoIpService.updateIpAddresLocation(parserResult);
 
                 // saving to data base
-                parserResultService.save(parserResultWithLocations);
+                // parserResultService.save(parserResultWithLocations);
+                parserResultService.save(parserResult);
 
             }
             // Updating status list
@@ -99,8 +100,7 @@ public class SourceDownloadController {
             map.put("successMsg", "Updated :)");
             return "result";
 
-        } catch (SourceDownloaderServiceException | GeoIpServiceException | ParserResultServiceException
-                | JsonServiceException e) {
+        } catch (SourceDownloaderServiceException | ParserResultServiceException | JsonServiceException e) {
             map.put("errorList", ExceptionUtil.createErrorList(e));
             map.put("errorMsg", e.getMessage());
             return "result";

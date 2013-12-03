@@ -17,6 +17,14 @@ public class UserDaoImpl extends DaoAbstract implements UserDao {
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
+    public UserDaoImpl() {
+
+    }
+
+    public UserDaoImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     @Override
     public User findByName(String name) {
         Query query = entityManager.createNamedQuery(User.FIND_BY_NAME).setParameter(1, name);

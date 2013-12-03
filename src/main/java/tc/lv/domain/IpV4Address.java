@@ -49,7 +49,7 @@ public class IpV4Address extends IpAddress {
 
     public static final String COUNT_STATUS_IP_BY_COUNTRY_NAME = "IpV4Address.countStatusIpByCountryName";
     static final String COUNT_STATUS_IP_BY_COUNTRY_NAME_QUERY = "SELECT count(ip) from IpV4Address ip where ip.status = ?1 and ip.city.country.countryName = ?2";
-    
+
     public static final String FIND_ALL = "IpV4Address.findAll";
     static final String FIND_ALL_QUERY = "SELECT ip from IpV4Address ip";
 
@@ -103,10 +103,9 @@ public class IpV4Address extends IpAddress {
         this.address = address;
     }
 
-    public IpV4Address(String address, Date dateAdded, City city) {
+    public IpV4Address(String address, Date dateAdded) {
         this.address = address;
         this.dateAdded = dateAdded;
-        this.city = city;
     }
 
     // ----- IpInterface implementation -----

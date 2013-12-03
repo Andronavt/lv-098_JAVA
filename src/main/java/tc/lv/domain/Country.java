@@ -1,5 +1,7 @@
 package tc.lv.domain;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +28,7 @@ import javax.persistence.Table;
 // -----
 })
 public class Country {
+
     public static final String FIND_ALL = "Country.findAll";
     static final String FIND_ALL_QUERY = "SELECT co from Country co";
 
@@ -36,6 +40,10 @@ public class Country {
 
     public static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME = "Country.findCountryCodeByCountryName";
     static final String FIND_COUNTRY_CODE_BY_COUNTRY_NAME_QUERY = "SELECT distinct(co.countryCode) from Country co where co.countryName = ?1";
+
+    /* --------- static map from DB --------- */
+    public static boolean IS_MAP_CREATE = false;
+    public static final Map<String, Country> COUNTRY_MAP = new HashMap<String, Country>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -94,17 +102,45 @@ public class Country {
 
     @Override
     public int hashCode() {
-        return countryName.hashCode();
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((cities == null) ? 0 : cities.hashCode());
+        result = prime * result + ((countryCode == null) ? 0 : countryCode.hashCode());
+        result = prime * result + ((countryName == null) ? 0 : countryName.hashCode());
+        return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return countryName.equals(((Country) obj).getCountryName());
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Country other = (Country) obj;
+        if (cities == null) {
+            if (other.cities != null)
+                return false;
+        } else if (!cities.equals(other.cities))
+            return false;
+        if (countryCode == null) {
+            if (other.countryCode != null)
+                return false;
+        } else if (!countryCode.equals(other.countryCode))
+            return false;
+        if (countryName == null) {
+            if (other.countryName != null)
+                return false;
+        } else if (!countryName.equals(other.countryName))
+            return false;
+        return true;
     }
 
+    @PreUpdate
     @PrePersist
-    private void setLocationData() {
-
+    protected void country() {
+        Country.COUNTRY_MAP.put(this.getCountryName(), this);
     }
 
 }

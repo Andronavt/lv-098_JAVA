@@ -40,9 +40,9 @@ public class IpAddressSaveDetailsServiceImpl implements IpAddressSaveDetailsServ
 		try {
 			geoIpUtil = new GeoIpUtil();
 			if (IpValidator.isIpV4(address)) {
-				tempIp = new IpV4Address(address, new Date(), null);
+				tempIp = new IpV4Address(address, new Date());
 			} else {
-				tempIp = new IpV6Address(address, new Date(), null);
+				tempIp = new IpV6Address(address, new Date());
 			}
 			geoIpUtil.addCityToIpAddress(tempIp);
 			tempIp.getSourceSet().add(getSourceByStatus(status));
