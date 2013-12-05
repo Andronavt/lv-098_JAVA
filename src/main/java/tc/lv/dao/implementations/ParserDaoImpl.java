@@ -13,20 +13,21 @@ import tc.lv.dao.ParserDao;
 import tc.lv.domain.Parser;
 
 @Repository
-public class ParserDaoImpl extends DaoAbstract implements ParserDao{
-    
+public class ParserDaoImpl extends DaoAbstract implements ParserDao {
+
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
-    
+
     @Override
-    public List<Parser> findAll(int from, int count){
+    @SuppressWarnings("unchecked")
+    public List<Parser> findAll(int from, int count) {
         Query query = entityManager.createNamedQuery(Parser.FIND_ALL);
-        return findRange(from, count, query);
+        return query.getResultList();
     }
-    
+
     @Override
-    public String findUrlByName(String name){
-        Query query = entityManager.createNamedQuery(Parser.FIND_URL_BY_NAME);
+    public String findDirByName(String name) {
+        Query query = entityManager.createNamedQuery(Parser.FIND_DIR_BY_NAME);
         return (String) find(query);
     }
 }

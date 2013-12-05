@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -18,12 +19,15 @@ public class UnzipperDaoImpl extends DaoAbstract implements UnzipperDao {
     private EntityManager entityManager;
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Unzipper> findAll() {
-        return null;
+        Query query = entityManager.createNamedQuery(Unzipper.FIND_ALL);
+        return query.getResultList();
     }
 
     @Override
-    public String findUrlByName(String name) {
-        return null;
+    public String findDirByName(String name) {
+        Query query = entityManager.createNamedQuery(Unzipper.FIND_DIR_BY_NAME);
+        return (String) find(query);
     }
 }

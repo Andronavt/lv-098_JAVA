@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @NamedQueries({
         // -----
         @NamedQuery(name = Unzipper.FIND_ALL, query = Unzipper.FIND_ALL_QUERY),
-        @NamedQuery(name = Unzipper.FIND_URL_BY_NAME, query = Unzipper.FIND_URL_BY_NAME_QUERY)
+        @NamedQuery(name = Unzipper.FIND_DIR_BY_NAME, query = Unzipper.FIND_DIR_BY_NAME_QUERY)
 
 // -----
 })
@@ -23,16 +23,16 @@ public class Unzipper {
     public static final String FIND_ALL = "Unzipper.findAll";
     static final String FIND_ALL_QUERY = "SELECT u FROM Unzipper u";
 
-    public static final String FIND_URL_BY_NAME = "Unzipper.findUrlByName";
-    static final String FIND_URL_BY_NAME_QUERY = "SELECT u.url FROM Unzipper u WHERE u.name = ?1";
+    public static final String FIND_DIR_BY_NAME = "Unzipper.findDirByName";
+    static final String FIND_DIR_BY_NAME_QUERY = "SELECT u.dir FROM Unzipper u WHERE u.name = ?1";
 
     public Unzipper() {
 
     }
 
-    public Unzipper(String name, String url) {
+    public Unzipper(String name, String dir) {
         this.name = name;
-        this.url = url;
+        this.dir = dir;
     }
 
     @Id
@@ -43,8 +43,8 @@ public class Unzipper {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "url")
-    private String url;
+    @Column(name = "dir")
+    private String dir;
 
     public int getId() {
         return id;
@@ -62,12 +62,12 @@ public class Unzipper {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getDir() {
+        return dir;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDir(String dir) {
+        this.dir = dir;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class Unzipper {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((url == null) ? 0 : url.hashCode());
+        result = prime * result + ((dir == null) ? 0 : dir.hashCode());
         return result;
     }
 
@@ -93,13 +93,12 @@ public class Unzipper {
                 return false;
         } else if (!name.equals(other.name))
             return false;
-        if (url == null) {
-            if (other.url != null)
+        if (dir == null) {
+            if (other.dir != null)
                 return false;
-        } else if (!url.equals(other.url))
+        } else if (!dir.equals(other.dir))
             return false;
         return true;
     }
 
-    
 }

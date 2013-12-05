@@ -6,7 +6,7 @@ import tc.lv.domain.Parser;
 
 public interface ParserDao {
 
-    String findUrlByName(String name);
+    String findDirByName(String name);
 
     List<Parser> findAll(int from, int count);
 

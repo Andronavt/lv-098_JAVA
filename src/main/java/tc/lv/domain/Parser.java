@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @NamedQueries({
         // -----
         @NamedQuery(name = Parser.FIND_ALL, query = Parser.FIND_ALL_QUERY),
-        @NamedQuery(name = Parser.FIND_URL_BY_NAME, query = Parser.FIND_URL_BY_NAME_QUERY)
+        @NamedQuery(name = Parser.FIND_DIR_BY_NAME, query = Parser.FIND_DIR_BY_NAME_QUERY)
 
 // -----
 })
@@ -23,16 +23,16 @@ public class Parser {
     public static final String FIND_ALL = "Parser.findAll";
     static final String FIND_ALL_QUERY = "SELECT p FROM Parser p";
 
-    public static final String FIND_URL_BY_NAME = "Parser.findUrlByName";
-    static final String FIND_URL_BY_NAME_QUERY = "SELECT p.url FROM Parser p WHERE p.name = ?1";
+    public static final String FIND_DIR_BY_NAME = "Parser.findDirByName";
+    static final String FIND_DIR_BY_NAME_QUERY = "SELECT p.dir FROM Parser p WHERE p.name = ?1";
 
     public Parser() {
 
     }
 
-    public Parser(String name, String url) {
+    public Parser(String name, String dir) {
         this.name = name;
-        this.url = url;
+        this.dir = dir;
     }
 
     @Id
@@ -43,8 +43,8 @@ public class Parser {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "url")
-    private String url;
+    @Column(name = "dir")
+    private String dir;
 
     public int getId() {
         return id;
@@ -62,12 +62,12 @@ public class Parser {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getDir() {
+        return dir;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDir(String dir) {
+        this.dir = dir;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class Parser {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((url == null) ? 0 : url.hashCode());
+        result = prime * result + ((dir == null) ? 0 : dir.hashCode());
         return result;
     }
 
@@ -93,14 +93,12 @@ public class Parser {
                 return false;
         } else if (!name.equals(other.name))
             return false;
-        if (url == null) {
-            if (other.url != null)
+        if (dir == null) {
+            if (other.dir != null)
                 return false;
-        } else if (!url.equals(other.url))
+        } else if (!dir.equals(other.dir))
             return false;
         return true;
     }
-    
-    
-    
+
 }

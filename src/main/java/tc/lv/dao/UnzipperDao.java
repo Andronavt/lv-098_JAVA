@@ -8,6 +8,6 @@ public interface UnzipperDao {
 
     List<Unzipper> findAll();
 
-    String findUrlByName(String name);
+    String findDirByName(String name);
 
 }
