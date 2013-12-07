@@ -247,7 +247,7 @@ public class IpAddress implements IpInterface {
 
     @PreRemove
     protected void remove() {
-        IP_MAP.remove(this);
+        IP_MAP.remove(this.getAddress());
     }
 
     // ----- IpInterface implementation -----

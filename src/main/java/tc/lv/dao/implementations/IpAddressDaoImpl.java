@@ -149,11 +149,12 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public IpAddress update(IpAddress address) {
+    @SuppressWarnings("unchecked")
+    public <T extends IpAddress> T update(IpAddress address) {
         // address.setModified(true);
         address = entityManager.merge(address);
         IpAddress.IP_MAP.put(address.getAddress(), address);
-        return address;
+        return (T) address;
     }
 
     @Override

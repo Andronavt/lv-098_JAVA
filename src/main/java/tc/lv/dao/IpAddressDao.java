@@ -51,8 +51,8 @@ public interface IpAddressDao {
 
     void creatIpMap();
 
-    IpAddress update(IpAddress address);
-
     boolean addSource(IpAddress tempIp, Source sourceByStatus);
+
+    <T extends IpAddress> T update(IpAddress address);
 
 }
