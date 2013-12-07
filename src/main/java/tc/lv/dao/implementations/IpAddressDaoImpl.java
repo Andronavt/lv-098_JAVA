@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import tc.lv.dao.DaoAbstract;
@@ -14,15 +15,19 @@ import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.DBException;
 import tc.lv.exceptions.GeoIpException;
+import tc.lv.utils.GeoIpUtil;
 
 @Repository
 public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
 
     @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
+    private static final Logger LOGGER = Logger.getLogger(IpAddressDaoImpl.class);
+    private static GeoIpUtil geoIpUtil = null;
 
     public IpAddressDaoImpl() throws GeoIpException {
-
+        if (geoIpUtil == null)
+            geoIpUtil = new GeoIpUtil();
     }
 
     public IpAddressDaoImpl(EntityManager entityManager) throws GeoIpException {
@@ -70,7 +75,6 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     @Override
     public void deleteIp(IpAddress address) {
         entityManager.remove(address);
-        IpAddress.IP_MAP.remove(address.getAddress());
     }
 
     @Override

@@ -21,6 +21,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -242,6 +243,11 @@ public class IpAddress implements IpInterface {
 
     public boolean removeSource(Source source) {
         return this.getSourceSet().remove(source);
+    }
+
+    @PreRemove
+    protected void remove() {
+        IP_MAP.remove(this);
     }
 
     // ----- IpInterface implementation -----
