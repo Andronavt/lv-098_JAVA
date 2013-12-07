@@ -46,7 +46,7 @@ public class City {
     @Column(name = "id", unique = true)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     // cascade = CascadeType.ALL,
     @JoinColumn(name = "country")
     private Country country = new Country();

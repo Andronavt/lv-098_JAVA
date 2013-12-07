@@ -236,12 +236,12 @@ public class IpAddress implements IpInterface {
         return true;
     }
 
-    // @PostUpdate
-    // @PostPersist
-    // @PrePersist
-    // @PreUpdate
-    protected void updateIpMap() {
-        IpAddress.IP_MAP.put(this.getAddress(), this);
+    public boolean addSource(Source source) {
+        return this.getSourceSet().add(source);
+    }
+
+    public boolean removeSource(Source source) {
+        return this.getSourceSet().remove(source);
     }
 
     // ----- IpInterface implementation -----
