@@ -85,31 +85,20 @@ public class ListController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "admin_addIpToList", method = RequestMethod.POST)
     public String addIpToWhiteList(@ModelAttribute("address") String ipAddress,
-	    @ModelAttribute("listType") String listType, Map<String, Object> map)
-	    throws IpAddressServiceException {
+	    @ModelAttribute("listType") String listType, Map<String, Object> map) {
 	try {
-	    String result = addIpToDataBase(
-		    ipAddressService.saveIpByStatus(ipAddress, listType),
-		    ipAddress, listType, map);
+	    if (ipAddressService.saveIpByStatus(ipAddress, listType)) {
+		map.put("successMsg", "IP-address: " + ipAddress
+			+ " has been successfully added.");
+		return "result";
+	    }
+	    map.put("incorrectMsg", "Current IP-address exist");
 	    return "result";
-
-	} catch (IpStatusListServiceException e) {
+	} catch (IpAddressServiceException e) {
 	    map.put("errorList", ExceptionUtil.createErrorList(e));
 	    map.put("errorMsg", e.getMessage());
 	    return "result";
 	}
-    }
-
-    private String addIpToDataBase(boolean flag, String ipAddress,
-	    String listType, Map<String, Object> map)
-	    throws IpStatusListServiceException {
-	if (flag) {
-	    map.put("successMsg", "IP-address: " + ipAddress
-		    + " has been successfully added.");
-	    return "result";
-	}
-	map.put("incorrectMsg", "Current IP-address exist");
-	return "result";
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -178,6 +167,7 @@ public class ListController {
 	    map.put("ipList", ipList);
 	    map.put("pageList", pageList);
 	    map.put("pageCount", pageCount);
+
 	} catch (IpStatusListServiceException e) {
 	    map.put("errorList", ExceptionUtil.createErrorList(e));
 	    map.put("errorMsg", e.getMessage());

@@ -101,7 +101,7 @@ public class SourceDownloadController {
 	    jsonService.createJsonForCountryMap(PATH, FILE_JSON_BLACK_LIST,
 		    ALL_IP_ADDRESSES, BLACK_LIST);
 
-	    LOGGER.info("Finish updating Sources.");
+	   LOGGER.info("Finish updating Sources.");
 
 	    map.put("successMsg", "Updated :)");
 	    return "result";

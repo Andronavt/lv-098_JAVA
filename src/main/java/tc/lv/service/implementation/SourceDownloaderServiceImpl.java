@@ -23,7 +23,8 @@ import tc.lv.utils.ParserResults;
 
 @Service
 public class SourceDownloaderServiceImpl implements SourceDownloaderService {
-    private static final Logger LOGGER = Logger.getLogger(SourceDownloaderServiceImpl.class);
+    private static final Logger LOGGER = Logger
+	    .getLogger(SourceDownloaderServiceImpl.class);
     private static final String PROJECT_DIR = System.getenv("LV098_JAVA");
     private static final String ADMIN_WHITE_LIST = "Admin Whitelist";
     private static final String ADMIN_BLACK_LIST = "Admin Blacklist";
@@ -36,100 +37,111 @@ public class SourceDownloaderServiceImpl implements SourceDownloaderService {
 
     @Override
     @Transactional
-    public ParserResults downloadParseAndUpdateData(String sourceName, Map<Source, Parser> parserMap)
-            throws SourceDownloaderServiceException {
-        LOGGER.info("Start downloading, parsing and updating sources.");
-        try {
-            Downloader downloader = new Downloader();
+    public ParserResults downloadParseAndUpdateData(String sourceName,
+	    Map<Source, Parser> parserMap)
+	    throws SourceDownloaderServiceException {
+	LOGGER.info("Start downloading, parsing and updating sources.");
+	try {
+	    Downloader downloader = new Downloader();
 
-            ParserResults result = null;
+	    ParserResults result = null;
 
-            File file;
+	    File file;
 
-            Set<Source> sourceSet = parserMap.keySet();
-            for (Source source : sourceSet) {
-                if (source.getSourceName().equals(sourceName)) {
-                    file = downloader.downloadFile(source.getUrl(), PROJECT_DIR + source.getDirname());
-                    result = parserMap.get(source).parse(file);
-                    result.setSourceId(source.getSourceId());
-                    break;
-                }
-            }
+	    Set<Source> sourceSet = parserMap.keySet();
+	    for (Source source : sourceSet) {
+		if (source.getSourceName().equals(sourceName)) {
+		    file = downloader.downloadFile(source.getUrl(), PROJECT_DIR
+			    + source.getDirname());
+		    result = parserMap.get(source).parse(file);
+		    result.setSourceId(source.getSourceId());
+		    break;
+		}
+	    }
 
-            LOGGER.info("Finish downloading, parsing and updating sources.");
-            return result;
+	    LOGGER.info("Finish downloading, parsing and updating sources.");
+	    return result;
 
-        } catch (Exception e) {
-            LOGGER.error(e);
-            throw new SourceDownloaderServiceException("Data didn't downloaded ", e);
-        }
+	} catch (Exception e) {
+	    LOGGER.error(e);
+	    throw new SourceDownloaderServiceException(
+		    "Data didn't downloaded ", e);
+	}
     }
 
     @Transactional
     @Override
-    public List<Source> loadSourceList() throws SourceDownloaderServiceException {
-        List<Source> sourcesList;
-        try {
-            sourcesList = sourceDao.findAll();
-            sourcesList.remove(sourceDao.findByName(ADMIN_BLACK_LIST));
-            sourcesList.remove(sourceDao.findByName(ADMIN_WHITE_LIST));
-            return sourcesList;
+    public List<Source> loadSourceList()
+	    throws SourceDownloaderServiceException {
+	List<Source> sourcesList;
+	try {
+	    sourcesList = sourceDao.findAll();
+	    sourcesList.remove(sourceDao.findByName(ADMIN_BLACK_LIST));
+	    sourcesList.remove(sourceDao.findByName(ADMIN_WHITE_LIST));
+	    return sourcesList;
 
-        } catch (Exception e) {
-            LOGGER.error(e);
-            throw new SourceDownloaderServiceException("Could not load list of sources", e);
-        }
+	} catch (Exception e) {
+	    LOGGER.error(e);
+	    throw new SourceDownloaderServiceException(
+		    "Could not load list of sources", e);
+	}
     }
 
     @SuppressWarnings("unchecked")
     @Transactional
     @Override
-    public Map<Source, Parser> createParserMap(List<Source> sourceList) throws SourceDownloaderServiceException {
-        LOGGER.info("Start creating Map of Sources and Parsers.");
-        Map<Source, Parser> parserMap = new HashMap<Source, Parser>();
+    public Map<Source, Parser> createParserMap(List<Source> sourceList)
+	    throws SourceDownloaderServiceException {
+	LOGGER.info("Start creating Map of Sources and Parsers.");
+	Map<Source, Parser> parserMap = new HashMap<Source, Parser>();
 
-        for (Source source : sourceList) {
+	for (Source source : sourceList) {
 
-            if (source.getParser() != null) {
-                Class<Parser> parserClass;
+	    if (source.getParser() != null) {
+		Class<Parser> parserClass;
 
-                try {
-                    parserClass = (Class<Parser>) Class.forName(source.getParser());
+		try {
+		    parserClass = (Class<Parser>) Class.forName(source
+			    .getParser());
 
-                } catch (Exception e) {
-                    LOGGER.error(e);
-                    throw new SourceDownloaderServiceException("Can't find Class of Parser!", e);
-                }
+		} catch (Exception e) {
+		    LOGGER.error(e);
+		    throw new SourceDownloaderServiceException(
+			    "Can't find Class of Parser!", e);
+		}
 
-                Parser parser = null;
+		Parser parser = null;
 
-                try {
-                    parser = (Parser) parserClass.newInstance();
+		try {
+		    parser = (Parser) parserClass.newInstance();
 
-                } catch (Exception e) {
-                    LOGGER.error(e);
-                    throw new SourceDownloaderServiceException("class of Parser cannot be instantiated!", e);
-                }
+		} catch (Exception e) {
+		    LOGGER.error(e);
+		    throw new SourceDownloaderServiceException(
+			    "class of Parser cannot be instantiated!", e);
+		}
 
-                parserMap.put(source, parser);
-            }
-        }
-        LOGGER.info("Finish creating Map of Sources and Parsers.");
-        return parserMap;
+		parserMap.put(source, parser);
+	    }
+	}
+	LOGGER.info("Finish creating Map of Sources and Parsers.");
+	return parserMap;
     }
-//
-//    @Transactional
-//    @Override
-//    public void updateStatusList() throws SourceDownloaderServiceException {
-//        LOGGER.info("Start update WhiteList");
-//        try {
-//            ipAddressService.updateStatusList(IpAddress.IP_MAP);
-//
-//        } catch (Exception e) {
-//            LOGGER.error(e);
-//            throw new SourceDownloaderServiceException("class of Parser cannot be instantiated!", e);
-//        }
-//        LOGGER.info("Finish update WhiteList");
-//    }
+    //
+    // @Transactional
+    // @Override
+    // public void updateStatusList() throws SourceDownloaderServiceException {
+    // LOGGER.info("Start update WhiteList");
+    // try {
+    // ipAddressService.updateStatusList(IpAddress.IP_MAP);
+    //
+    // } catch (Exception e) {
+    // LOGGER.error(e);
+    // throw new
+    // SourceDownloaderServiceException("class of Parser cannot be instantiated!",
+    // e);
+    // }
+    // LOGGER.info("Finish update WhiteList");
+    // }
 
 }
