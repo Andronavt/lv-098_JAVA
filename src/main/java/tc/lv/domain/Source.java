@@ -34,6 +34,8 @@ public class Source {
     public static final String WHITE_LIST = "whitelist";
     public static final String BLACK_LIST = "blacklist";
 
+    public static final String ADMIN_WHITE_LIST = "Admin Whitelist";
+    public static final String ADMIN_BLACK_LIST = "Admin Blacklist";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "source_id", nullable = false)

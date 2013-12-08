@@ -3,6 +3,7 @@ package tc.lv.dao;
 import java.util.List;
 
 import tc.lv.domain.IpAddress;
+import tc.lv.domain.Source;
 import tc.lv.exceptions.DBException;
 
 public interface IpAddressDao {
@@ -50,6 +51,8 @@ public interface IpAddressDao {
 
     void creatIpMap();
 
-    IpAddress update(IpAddress address);
+    boolean addSource(IpAddress tempIp, Source sourceByStatus);
+
+    <T extends IpAddress> T update(IpAddress address);
 
 }

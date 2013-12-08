@@ -80,7 +80,9 @@ public class SourceDownloadController {
 		    .createParserMap(sourceList);
 
 	    // Creating Ip Map fro DB
-	    ipAddressService.createIpMap();
+	    ipAddressService.createAllMaps();
+	    
+	    // Creating Country Map fro DB
 
 	    for (String sourceName : sourceNameList) {
 		LOGGER.info("Start updating SOURCE:" + sourceName);

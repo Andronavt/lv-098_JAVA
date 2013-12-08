@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tc.lv.dao.IpAddressDao;
 import tc.lv.dao.SourceDao;
 import tc.lv.domain.IpAddress;
 import tc.lv.domain.IpV4Address;
@@ -19,52 +20,45 @@ import tc.lv.utils.GeoIpUtil;
 import tc.lv.utils.IpValidator;
 
 @Service
-public class IpAddressSaveDetailsServiceImpl implements
-	IpAddressSaveDetailsService {
+public class IpAddressSaveDetailsServiceImpl implements IpAddressSaveDetailsService {
 
-    private static final Logger LOGGER = Logger
-	    .getLogger(IpAddressSaveDetailsServiceImpl.class);
-
+    private static final Logger LOGGER = Logger.getLogger(IpAddressSaveDetailsServiceImpl.class);
+    private static final String WHITE_LIST = "White list";
     @Autowired
     private SourceDao sourceDao;
 
+    @Autowired
+    private IpAddressDao ipDao;
+
     private GeoIpUtil geoIpUtil;
 
-    private static final String ADMIN_WHITE_LIST = "Admin Whitelist";
-    private static final String ADMIN_BLACK_LIST = "Admin Blacklist";
-
-    @Transactional
     @Override
-    public IpAddress getDetails(String address, String status)
-	    throws IpAddressServiceException {
-	IpAddress tempIp = null;
-	try {
-	    geoIpUtil = new GeoIpUtil();
-	    if (IpValidator.isIpV4(address)) {
-		tempIp = new IpV4Address(address, new Date());
-	    } else {
-		tempIp = new IpV6Address(address, new Date());
-	    }
-	    geoIpUtil.addCityToIpAddress(tempIp);
-	    tempIp.getSourceSet().add(getSourceByStatus(status));
-	    return tempIp;
-	} catch (GeoIpException e) {
-	    LOGGER.error(e);
-	    throw new IpAddressServiceException("Could not save IP by Address",
-		    e);
-	} finally {
-	    geoIpUtil.dispose();
-	}
+    @Transactional
+    public IpAddress getDetails(String address, String status) throws IpAddressServiceException {
+        IpAddress tempIp = null;
+        try {
+            geoIpUtil = new GeoIpUtil();
+            if (IpValidator.isIpV4(address)) {
+                tempIp = new IpV4Address(address, new Date());
+            } else {
+                tempIp = new IpV6Address(address, new Date());
+            }
+            geoIpUtil.addCityToIpAddress(tempIp);
+            ipDao.addSource(tempIp, getSourceByStatus(status));
+            return tempIp;
+        } catch (GeoIpException e) {
+            LOGGER.error(e);
+            throw new IpAddressServiceException("Could not save IP by Address", e);
+        } finally {
+            geoIpUtil.dispose();
+        }
     }
 
-    @Transactional
     @Override
-    public Source getSourceByStatus(String status)
-	    throws IpAddressServiceException {
-	return (status.equals("whiteList") ? sourceDao
-		.findByName(ADMIN_WHITE_LIST) : sourceDao
-		.findByName(ADMIN_BLACK_LIST));
+    @Transactional
+    public Source getSourceByStatus(String status) throws IpAddressServiceException {
+        return (status.equals(WHITE_LIST) ? sourceDao.findByName(Source.ADMIN_WHITE_LIST) : sourceDao
+                .findByName(Source.ADMIN_BLACK_LIST));
     }
 
-    
 }

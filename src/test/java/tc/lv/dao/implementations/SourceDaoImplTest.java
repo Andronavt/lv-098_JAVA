@@ -1,7 +1,7 @@
 package tc.lv.dao.implementations;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -24,49 +24,71 @@ public class SourceDaoImplTest {
 	protected SourceDaoImpl sourceDaoImpl;
 
 	protected Source source;
+
 	protected Source newSource;
-	protected List<Source> listSource;
+
+	protected Source[] expected;
 
 	@Before
 	public void dataSetup() {
 		source = new Source("test", "testSource", "http://www.local.com",
 				"blacklist", 0.5);
-		newSource = new Source("test", "testNewSource", "http://www.local.com",
-				"blacklist", 0.5);
 	}
 
 	@Test
 	public void saveSource() {
-		if (source.equals(sourceDaoImpl.findByName("testSource"))) {
-			fail("SOURCE ALREADY EXIST");
-		}
 		sourceDaoImpl.save(source);
-		assertEquals(source, sourceDaoImpl.findByName("testSource"));
+		Source expected = source;
+		Source actual = sourceDaoImpl.findByName("testSource");
+		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void deleteSource() {
-		saveSource();
+		sourceDaoImpl.save(source);
 		sourceDaoImpl.delete(source);
-		assertEquals(null, sourceDaoImpl.findByName("testSource"));
+		Source actual = sourceDaoImpl.findByName("testSource");
+		assertEquals(null, actual);
 	}
 
 	@Test
 	public void updateSource() {
-		saveSource();
+		newSource = new Source("test", "testNewSource", "http://www.local.com",
+				"blacklist", 0.5);
+		sourceDaoImpl.save(source);
 		sourceDaoImpl.update(newSource);
-		assertEquals(newSource, sourceDaoImpl.findByName("testNewSource"));
+		Source expected = newSource;
+		Source actual = sourceDaoImpl.findByName("testNewSource");
+		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void findSourceByName() {
-		saveSource();
-		assertEquals(source, sourceDaoImpl.findByName("testSource"));
+		sourceDaoImpl.save(source);
+		Source expected = source;
+		Source actual = sourceDaoImpl.findByName("testSource");
+		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void findAllSource() {
-		assertEquals(5, sourceDaoImpl.findAll().size());
+		expected = new Source[] {
+				new Source("tc.lv.utils.ParserOpenBSD", "OpenBSD traplist",
+						"http://www.openbsd.org/spamd/traplist.gz",
+						"blacklist", 0.7),
+				new Source(
+						"tc.lv.utils.ParserUceprotect",
+						"Nixspam list",
+						"http://www.dnsbl.manitu.net/download/nixspam-ip.dump.gz",
+						"blacklist", 0.6),
+				new Source("tc.lv.utils.ParserChaosreignsWL",
+						"Chaosreigns Whitelist",
+						"http://www.chaosreigns.com/iprep/iprep.txt",
+						"whitelist", 0.1) };
+		List<Source> tempActual = sourceDaoImpl.findAll();
+		Source[] actuals = new Source[tempActual.size()];
+		actuals = tempActual.toArray(actuals);
+		assertArrayEquals(expected, actuals);
 	}
 
 }
