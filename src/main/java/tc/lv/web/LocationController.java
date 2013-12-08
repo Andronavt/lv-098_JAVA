@@ -3,6 +3,7 @@ package tc.lv.web;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,9 @@ import tc.lv.utils.ExceptionUtil;
 
 @Controller
 public class LocationController {
-
+    private static final Logger LOGGER = Logger
+	    .getLogger(LocationController.class);
+    
     @Autowired
     LocationService locationService;
 
@@ -135,6 +138,7 @@ public class LocationController {
 
 	    ipCount = locationService.countStatusIpByCountryName(countryName,
 		    ipTypeUI, statusUI).intValue();
+	    LOGGER.info("Country: " + countryName + " ipCount: "  + ipCount);
 	    pageCount = ipCount / countIpPerPage + 1;
 	    ipList = locationService.findStatusListByCountry((pageNumber - 1)
 		    * countIpPerPage, countIpPerPage, countryName, ipTypeUI,

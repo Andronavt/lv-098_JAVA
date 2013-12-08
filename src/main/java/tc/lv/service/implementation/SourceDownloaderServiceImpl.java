@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import tc.lv.dao.SourceDao;
-import tc.lv.domain.IpAddress;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.SourceDownloaderServiceException;
 import tc.lv.service.IpAddressService;

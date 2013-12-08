@@ -44,7 +44,7 @@ public class LocationServiceImpl implements LocationService {
     public Integer countStatusIpByCountryName(String countryName,
 	    String ipType, String status) throws LocationServiceException {
 	try {
-	    return ipAddressDao.countStatusIpByCountryName(
+	    return ipAddressDao.countStatusIpByCountryCode(
 		    IpVersionUtil.isWhiteIpAddress(status),
 		    countryDao.findCountryCodeByCountryName(countryName,
 			    IpVersionUtil.ipVersion(ipType)),
