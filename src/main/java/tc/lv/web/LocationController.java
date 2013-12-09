@@ -31,126 +31,114 @@ public class LocationController {
     @RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.GET)
     public String showStatusListByCity(Map<String, Object> map) {
 
-	map.put("pageList", paginationService.loadPages());
-	try {
-	    map.put("locationList",
-		    locationService.findCityListByStatus("allIp", "blackList"));
-	} catch (LocationServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
-	return "secure_showIpListByCity";
+        map.put("pageList", paginationService.loadPages());
+        try {
+            map.put("locationList", locationService.findCityListByStatus("blackList"));
+        } catch (LocationServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+        return "secure_showIpListByCity";
     }
 
     // showStatusListByCity
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "secure_showIpListByCity", method = RequestMethod.POST)
-    public String showStatusListByCity(
-	    @ModelAttribute("pageNumber") int pageNumber,
-	    @ModelAttribute("countIpPerPage") int countIpPerPage,
-	    @ModelAttribute("location") String cityName,
-	    @ModelAttribute("ipType") String ipTypeUI,
-	    @ModelAttribute("status") String statusUI, Map<String, Object> map) {
-	int ipCount;
-	int pageCount;
-	List<IpAddress> ipList;
-	List<PaginationSettings> pageList;
-	List<String> locationList;
-	try {
-	    pageList = paginationService.loadPages();
-	    locationList = locationService.findCityListByStatus(ipTypeUI,
-		    statusUI);
-	    if (!(locationList.contains(cityName))) {
-		map.put("incorrectMsg", "Incorrect City Name!");
-		map.put("pageList", pageList);
-		map.put("pageCount", 1);
-		map.put("locationList", locationList);
-		return "secure_table";
-	    }
-	    ipCount = locationService.countStatusIpByCityName(cityName,
-		    ipTypeUI, statusUI).intValue();
-	    pageCount = ipCount / countIpPerPage + 1;
-	    ipList = locationService.findStatusListByCity((pageNumber - 1)
-		    * countIpPerPage, countIpPerPage, cityName, ipTypeUI,
-		    statusUI);
-	    pageList = paginationService.loadPages();
+    public String showStatusListByCity(@ModelAttribute("pageNumber") int pageNumber,
+            @ModelAttribute("countIpPerPage") int countIpPerPage, @ModelAttribute("location") String cityName,
+            @ModelAttribute("ipType") String ipTypeUI, @ModelAttribute("status") String statusUI,
+            Map<String, Object> map) {
+        int ipCount;
+        int pageCount;
+        List<IpAddress> ipList;
+        List<PaginationSettings> pageList;
+        List<String> locationList;
+        try {
+            pageList = paginationService.loadPages();
+            locationList = locationService.findCityListByStatus(statusUI);
+            if (!(locationList.contains(cityName))) {
+                map.put("incorrectMsg", "Incorrect City Name!");
+                map.put("pageList", pageList);
+                map.put("pageCount", 1);
+                map.put("locationList", locationList);
+                return "secure_table";
+            }
+            ipCount = locationService.countStatusIpByCityName(cityName, ipTypeUI, statusUI).intValue();
+            pageCount = ipCount / countIpPerPage + 1;
+            ipList = locationService.findStatusListByCity((pageNumber - 1) * countIpPerPage, countIpPerPage,
+                    cityName, ipTypeUI, statusUI);
+            pageList = paginationService.loadPages();
 
-	    map.put("pageList", pageList); //
-	    map.put("pageCount", pageCount); // Count of pages
-	    map.put("ipList", ipList); // List of IP-addresses
-	    map.put("locationList", locationList); // List of cities
+            map.put("pageList", pageList); //
+            map.put("pageCount", pageCount); // Count of pages
+            map.put("ipList", ipList); // List of IP-addresses
+            map.put("locationList", locationList); // List of cities
 
-	} catch (LocationServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
-	return "secure_table";
+        } catch (LocationServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+        return "secure_table";
     }
 
     // showStatusListByCountry
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "secure_showIpListByCountry", method = RequestMethod.GET)
     public String showStatusListByCountry(Map<String, Object> map) {
-	map.put("pageList", paginationService.loadPages());
-	try {
-	    map.put("locationList", locationService.findCountryListByStatus(
-		    "allIp", "blackList"));
+        map.put("pageList", paginationService.loadPages());
+        try {
+            map.put("locationList", locationService.findCountryListByStatus("blackList"));
 
-	} catch (LocationServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
-	return "secure_showIpListByCountry";
+        } catch (LocationServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+        return "secure_showIpListByCountry";
     }
 
     // showStatusListByCountry
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "secure_showIpListByCountry", method = RequestMethod.POST)
-    public String showStatusListByCountry(
-	    @ModelAttribute("pageNumber") int pageNumber,
-	    @ModelAttribute("countIpPerPage") int countIpPerPage,
-	    @ModelAttribute("location") String countryName,
-	    @ModelAttribute("ipType") String ipTypeUI,
-	    @ModelAttribute("status") String statusUI, Map<String, Object> map) {
-	int ipCount;
-	int pageCount;
-	List<IpAddress> ipList;
-	List<PaginationSettings> pageList;
-	List<String> locationList;
-	try {
-	    pageList = paginationService.loadPages();
-	    locationList = locationService.findCountryListByStatus(ipTypeUI,
-		    statusUI);
+    public String showStatusListByCountry(@ModelAttribute("pageNumber") int pageNumber,
+            @ModelAttribute("countIpPerPage") int countIpPerPage, @ModelAttribute("location") String countryName,
+            @ModelAttribute("ipType") String ipTypeUI, @ModelAttribute("status") String statusUI,
+            Map<String, Object> map) {
+        int ipCount;
+        int pageCount;
+        List<IpAddress> ipList;
+        List<PaginationSettings> pageList;
+        List<String> locationList;
+        try {
+            pageList = paginationService.loadPages();
+            locationList = locationService.findCountryListByStatus(statusUI);
 
-	    if (!(locationList.contains(countryName))) {
-		map.put("incorrectMsg", "Incorrect Country Name!");
-		map.put("pageList", pageList);
-		map.put("pageCount", 1);
-		map.put("locationList", locationList);
-		return "secure_table";
-	    }
+            if (!(locationList.contains(countryName))) {
+                map.put("incorrectMsg", "Incorrect Country Name!");
+                map.put("pageList", pageList);
+                map.put("pageCount", 1);
+                map.put("locationList", locationList);
+                return "secure_table";
+            }
 
-	    ipCount = locationService.countStatusIpByCountryName(countryName,
-		    ipTypeUI, statusUI).intValue();
-	    pageCount = ipCount / countIpPerPage + 1;
-	    ipList = locationService.findStatusListByCountry((pageNumber - 1)
-		    * countIpPerPage, countIpPerPage, countryName, ipTypeUI,
-		    statusUI);
+            ipCount = locationService.countStatusIpByCountryName(countryName, ipTypeUI, statusUI).intValue();
+            pageCount = ipCount / countIpPerPage + 1;
+            ipList = locationService.findStatusListByCountry((pageNumber - 1) * countIpPerPage, countIpPerPage,
+                    countryName, ipTypeUI, statusUI);
 
-	    map.put("pageList", pageList);
-	    map.put("pageCount", pageCount); // Count of pages
-	    map.put("ipList", ipList); // List of IP-addresses
-	    map.put("locationList", locationList); // List of cities
+            map.put("pageList", pageList);
+            map.put("pageCount", pageCount); // Count of pages
+            map.put("ipList", ipList); // List of IP-addresses
+            map.put("locationList", locationList); // List of cities
 
-	} catch (LocationServiceException e) {
-	    map.put("errorList", ExceptionUtil.createErrorList(e));
-	    map.put("errorMsg", e.getMessage());
-	    return "result";
-	}
-	return "secure_table";
+        } catch (LocationServiceException e) {
+            map.put("errorList", ExceptionUtil.createErrorList(e));
+            map.put("errorMsg", e.getMessage());
+            return "result";
+        }
+        return "secure_table";
     }
 
 }
