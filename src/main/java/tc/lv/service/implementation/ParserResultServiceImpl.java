@@ -17,7 +17,8 @@ import tc.lv.utils.ParserResults;
 @Service
 public class ParserResultServiceImpl implements ParserResultService {
 
-    private static final Logger LOGGER = Logger.getLogger(ParserResultServiceImpl.class);
+    private static final Logger LOGGER = Logger
+	    .getLogger(ParserResultServiceImpl.class);
 
     @Autowired
     private IpAddressService ipAddressService;
@@ -27,29 +28,30 @@ public class ParserResultServiceImpl implements ParserResultService {
     @Transactional
     public void save(ParserResults result) throws ParserResultServiceException {
 
-        try {
-            LOGGER.info("Start updating Data Base");
+	try {
+	    LOGGER.info("Start updating Data Base");
 
-            LOGGER.info("Start update IpV4List");
-            ipAddressService.saveList(result.getIpV4List(), result.getSourceId(), IpV4Address.class,
-                    IpAddress.IP_MAP);
-            LOGGER.info("Finish updating IpV4List");
+	    LOGGER.info("Start update IpV4List");
+	    ipAddressService.saveList(result.getIpV4List(),
+		    result.getSourceId(), IpV4Address.class, IpAddress.IP_MAP);
+	    LOGGER.info("Finish updating IpV4List");
 
-            LOGGER.info("Start update IpV6List");
-            ipAddressService.saveList(result.getIpV6List(), result.getSourceId(), IpV6Address.class,
-                    IpAddress.IP_MAP);
-            LOGGER.info("Finish updating IpV6List");
+	    LOGGER.info("Start update IpV6List");
+	    ipAddressService.saveList(result.getIpV6List(),
+		    result.getSourceId(), IpV6Address.class, IpAddress.IP_MAP);
+	    LOGGER.info("Finish updating IpV6List");
 
-            LOGGER.info("Start update NotValidList");
-            ipAddressService.saveList(result.getNotValidList(), result.getSourceId(), NotValidIp.class,
-                    IpAddress.IP_MAP);
-            LOGGER.info("Finish updating NotValidList");
+	    LOGGER.info("Start update NotValidList");
+	    ipAddressService.saveList(result.getNotValidList(),
+		    result.getSourceId(), NotValidIp.class, IpAddress.IP_MAP);
+	    LOGGER.info("Finish updating NotValidList");
 
-            LOGGER.info("Finish updating Data Base");
-        } catch (Exception e) {
-            LOGGER.error(e);
-            throw new ParserResultServiceException("Could not save IP List to Data Base", e);
-        }
+	    LOGGER.info("Finish updating Data Base");
+	} catch (Exception e) {
+	    LOGGER.error(e);
+	    throw new ParserResultServiceException(
+		    "Could not save IP List to Data Base", e);
+	}
     }
 
 }
