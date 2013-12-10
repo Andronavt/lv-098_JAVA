@@ -61,18 +61,13 @@ public class CityDaoImplTest {
 		cityDaoImpl.creatCityMap();
 		Country country = new Country("Ukraine", "UA");
 		City city = new City("Kyiv", country);
-		boolean condition = cityDaoImpl.isCityExists(city);			
-		assertTrue("Not found",condition);
-	}
-	
-	@Test
-	public void creatCityMap(){
-		cityDaoImpl.creatCityMap();		
+		boolean condition = cityDaoImpl.isCityExists(city);
+		assertTrue("Not found", condition);
 	}
 
 	@Test
 	public void findCityNameListByStatusForWhiteList() throws DBException {
-		expectedForWhiteList = new String[] { "Kyiv", "London", "Manchester" };
+		expectedForWhiteList = new String[] { "Kyiv", "London", "Manchester","Moscov" };
 		List<String> tempActuals = cityDaoImpl.findCityNameListByStatus(true);
 		String[] actuals = new String[tempActuals.size()];
 		actuals = tempActuals.toArray(actuals);

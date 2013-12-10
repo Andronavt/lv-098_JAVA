@@ -36,12 +36,6 @@ public class IpAddressDaoImpl extends DaoAbstract implements IpAddressDao {
     }
 
     @Override
-    public Long countAll(Class<? extends IpAddress> ipType) throws DBException {
-        Query query = entityManager.createNamedQuery(createIpAddress(ipType).countAll());
-        return (Long) query.getSingleResult();
-    }
-
-    @Override
     public Long countStatusIp(boolean status, Class<? extends IpAddress> ipType) throws DBException {
         Query query = entityManager.createNamedQuery(createIpAddress(ipType).countStatusList()).setParameter(1,
                 status);

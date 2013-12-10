@@ -8,8 +8,6 @@ import tc.lv.exceptions.DBException;
 
 public interface IpAddressDao {
 
-    Long countAll(Class<? extends IpAddress> ipType) throws DBException;
-
     Long countStatusIp(boolean status, Class<? extends IpAddress> ipType) throws DBException;
 
     Long countStatusIpByCityName(boolean status, String cityName, Class<? extends IpAddress> ipType)
