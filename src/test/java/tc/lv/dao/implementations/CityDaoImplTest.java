@@ -64,11 +64,7 @@ public class CityDaoImplTest {
 		boolean condition = cityDaoImpl.isCityExists(city);			
 		assertTrue("Not found",condition);
 	}
-	
-	@Test
-	public void creatCityMap(){
-		cityDaoImpl.creatCityMap();		
-	}
+		
 
 	@Test
 	public void findCityNameListByStatusForWhiteList() throws DBException {
