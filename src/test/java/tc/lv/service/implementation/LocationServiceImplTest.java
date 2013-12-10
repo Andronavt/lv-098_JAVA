@@ -40,15 +40,15 @@ public class LocationServiceImplTest {
 
     @Test
     public void findCityListByStatus() throws LocationServiceException {
-	List<String> cityList = locationService.findCityListByStatus("AllIp",
-		"blackList");
+	List<String> cityList = locationService
+		.findCityListByStatus("blackList");
 	Assert.assertNotEquals(0, cityList.size());
     }
 
     @Test
     public void findCountryListByStatus() throws LocationServiceException {
-	List<String> countryList = locationService.findCountryListByStatus(
-		"AllIp", "blackList");
+	List<String> countryList = locationService
+		.findCountryListByStatus("blackList");
 	Assert.assertNotEquals(0, countryList.size());
     }
 

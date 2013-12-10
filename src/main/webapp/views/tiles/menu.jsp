@@ -34,7 +34,7 @@
 	<li><a><span><spring:message code="label.home"/></span></a></li>
 	<li><a><span><spring:message code="label.home"/></span></a>
 	<ul>
-	<li><a class="button" href="welcomes" title="<spring:message code="label.about"/>"><spring:message code="label.about"/></a>
+	<li><a class="button" href="welcome" title="<spring:message code="label.about"/>"><spring:message code="label.about"/></a>
         </ul>
         </li>
 		
