@@ -33,9 +33,12 @@ public class JsonServiceImplTest {
 		BLACK_LIST);
 	boolean ifExist = false;
 	for (String fileName : new File(PATH).list()) {
-	    if (fileName.equals(FILE_NAME))
+	    if (fileName.equals(FILE_NAME)) {
 		ifExist = true;
+	    }
 	}
 	Assert.assertTrue(ifExist);
+	File file = new File(PATH + FILE_NAME);
+	file.delete();
     }
 }
