@@ -17,8 +17,6 @@ import tc.lv.dao.SourceDao;
 import tc.lv.domain.City;
 import tc.lv.domain.Country;
 import tc.lv.domain.IpAddress;
-import tc.lv.domain.IpV4Address;
-import tc.lv.domain.IpV6Address;
 import tc.lv.domain.Source;
 import tc.lv.exceptions.DBException;
 import tc.lv.exceptions.GeoIpException;
@@ -26,7 +24,6 @@ import tc.lv.exceptions.IpAddressServiceException;
 import tc.lv.service.IpAddressSaveDetailsService;
 import tc.lv.service.IpAddressService;
 import tc.lv.utils.GeoIpUtil;
-import tc.lv.utils.IpValidator;
 import tc.lv.utils.IpVersionUtil;
 
 @Service

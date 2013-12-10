@@ -4,7 +4,6 @@ import static org.junit.Assert.assertArrayEquals;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,47 +24,27 @@ public class PaginationSettingsDaoImplTest {
 
 	protected PaginationSettings[] expected;
 
-	@Before
-	public void dataSetup() {
-		PaginationSettings a = new PaginationSettings();
-		expected = new PaginationSettings[4];
-		a.setId(1);
-		a.setIpsPerPage(10);
-		expected[0] = a;
-		// PaginationSettings b = new PaginationSettings();
-		a = new PaginationSettings();
-		a.setId(2);
-		a.setIpsPerPage(20);
-		expected[1] = a;
-		// PaginationSettings c = new PaginationSettings();
-		a = new PaginationSettings();
-		a.setId(3);
-		a.setIpsPerPage(30);
-		expected[2] = a;
-		// PaginationSettings d = new PaginationSettings();
-		a = new PaginationSettings();
-		a.setId(4);
-		a.setIpsPerPage(40);
-		expected[3] = a;
-		// expected = new PaginationSettings[] { a, b, c, d };
-	}
+	private static final int PAGINATION_SETTINGS_SIZE = 4;
 
 	@Test
 	public void findAllPaginationSettings() {
+
+		PaginationSettings paginationSettings = new PaginationSettings();
+		expected = new PaginationSettings[PAGINATION_SETTINGS_SIZE];
+
+		int tempCountPerPages = 10;
+		for (int i = 0, j = 1; i < PAGINATION_SETTINGS_SIZE; i++, j++) {
+			paginationSettings.setId(j);
+			paginationSettings.setIpsPerPage(tempCountPerPages);
+			expected[i] = paginationSettings;
+			paginationSettings = new PaginationSettings();
+			tempCountPerPages += 10;
+		}
+
 		List<PaginationSettings> tempActuals = paginationSettingsDao.findAll();
-		System.out.println(tempActuals);
 		PaginationSettings[] actuals = new PaginationSettings[tempActuals
 				.size()];
 		actuals = tempActuals.toArray(actuals);
-		System.out.println(actuals[0].getId() + " "+ actuals[0].getIpsPerPage());
-		System.out.println(actuals[1].getId() + " "+ actuals[1].getIpsPerPage());
-		System.out.println(actuals[2].getId() + " "+ actuals[2].getIpsPerPage());
-		System.out.println(actuals[3].getId() + " "+ actuals[3].getIpsPerPage());
-		System.out.println("-------------------------------------------------");
-		System.out.println(expected[0].getId() + " "+ expected[0].getIpsPerPage());
-		System.out.println(expected[1].getId() + " "+ expected[1].getIpsPerPage());
-		System.out.println(expected[2].getId() + " "+ expected[2].getIpsPerPage());
-		System.out.println(expected[3].getId() + " "+ expected[3].getIpsPerPage());
 		assertArrayEquals(expected, actuals);
 	}
 

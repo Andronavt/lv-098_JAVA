@@ -16,7 +16,6 @@
 		<class>tc.lv.domain.Source</class>
 		<class>tc.lv.domain.Unzipper</class>
 		<class>tc.lv.domain.User</class>
-
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
 			<property name="hibernate.connection.show_sql" value="true" />
@@ -24,8 +23,8 @@
 			<property name="hibernate.connection.driver_class" value="net.sourceforge.jtds.jdbc.Driver" />
 			<property name="hibernate.jdbc.use_scrollable_resultset"
 				value="false" />
-			<property name="hibernate.connection.username" value="bohdan" />
-			<property name="hibernate.connection.password" value="1234" />
+			<property name="hibernate.connection.username" value="andrew" />
+			<property name="hibernate.connection.password" value="1992" />
 			<property name="hibernate.connection.url"
 				value="jdbc:jtds:sqlserver://127.0.0.1;instance=SQLEXPRESS;DatabaseName=ip_addresses" />
 		</properties>
