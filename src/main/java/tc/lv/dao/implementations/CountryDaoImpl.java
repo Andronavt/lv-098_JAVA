@@ -1,6 +1,5 @@
 package tc.lv.dao.implementations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,10 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import tc.lv.dao.CountryDao;
 import tc.lv.dao.DaoAbstract;
-import tc.lv.dao.IpInterface;
 import tc.lv.domain.Country;
-import tc.lv.domain.IpAddress;
-import tc.lv.domain.IpV4Address;
 import tc.lv.exceptions.DBException;
 
 @Repository

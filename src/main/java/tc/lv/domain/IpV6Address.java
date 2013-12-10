@@ -124,10 +124,21 @@ public class IpV6Address extends IpAddress {
         return IpV6Address.COUNT_STATUS_IP_BY_CITY_NAME;
     }
 
-    @Override
-    public String countStatusIpByCountryName() {
-        return IpV6Address.COUNT_STATUS_IP_BY_COUNTRY_CODE;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see tc.lv.domain.IpAddress#countStatusIpByCountryName()
+	 * don't tuch
+	 */
+	@Override
+	public String countStatusIpByCountryName() {
+		return IpV6Address.COUNT_STATUS_IP_BY_COUNTRY_NAME;
+	}
+
+	@Override
+	public String countStatusIpByCountryCode() {
+		return IpV6Address.COUNT_STATUS_IP_BY_COUNTRY_CODE;
+	}
 
     @Override
     public String findAll() {

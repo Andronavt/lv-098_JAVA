@@ -67,7 +67,7 @@ public class CityDaoImplTest {
 
 	@Test
 	public void findCityNameListByStatusForWhiteList() throws DBException {
-		expectedForWhiteList = new String[] { "Kyiv", "London", "Manchester" };
+		expectedForWhiteList = new String[] { "Kyiv", "London", "Manchester","Moscov" };
 		List<String> tempActuals = cityDaoImpl.findCityNameListByStatus(true);
 		String[] actuals = new String[tempActuals.size()];
 		actuals = tempActuals.toArray(actuals);

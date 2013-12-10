@@ -1,6 +1,9 @@
 package tc.lv.dao.implementations;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,31 +33,115 @@ public class CountryDaoImplTest {
 
 	@Test
 	public void saveCountry() {
+
 		countryDaoImpl.save(country);
+
 		boolean condition = countryDaoImpl.isCountryExists(country);
+
 		assertTrue(condition);
 	}
 
 	@Test
 	public void updateCountry() {
+
 		countryDaoImpl.save(country);
+
 		Country newCountry = new Country("Test", "NT");
+
 		countryDaoImpl.update(newCountry);
+
 		boolean condition = countryDaoImpl.isCountryExists(newCountry);
+
 		assertTrue(condition);
 	}
 
 	@Test
 	public void isCountryExists() {
+
 		countryDaoImpl.creatCountryMap();
+
 		Country country = new Country("Ukraine", "UA");
+
 		boolean condition = countryDaoImpl.isCountryExists(country);
+
 		assertTrue(condition);
 	}
-	
+
 	@Test
-	public void findCountryCodeListByStatus() throws DBException{
-		System.out.println(countryDaoImpl.findCountryCodeListByStatus(true));
+	public void findCountryCodeListByWhiteList() throws DBException {
+
+		String[] expecteds = new String[] { "EN", "RU", "UA" };
+
+		List<String> tempActuals = countryDaoImpl
+				.findCountryCodeListByStatus(true);
+
+		String[] actuals = new String[tempActuals.size()];
+
+		actuals = tempActuals.toArray(actuals);
+
+		assertArrayEquals(expecteds, actuals);
+	}
+
+	@Test
+	public void findCountryCodeListByBlackList() throws DBException {
+
+		String[] expecteds = new String[] { "EN", "UA" };
+
+		List<String> tempActuals = countryDaoImpl
+				.findCountryCodeListByStatus(false);
+
+		String[] actuals = new String[tempActuals.size()];
+
+		actuals = tempActuals.toArray(actuals);
+
+		assertArrayEquals(expecteds, actuals);
+	}
+
+	@Test
+	public void findCountryCodeByCountryName() throws DBException {
+
+		String[] expecteds = new String[] { "UA", "EN" };
+
+		String uaElement = countryDaoImpl
+				.findCountryCodeByCountryName("Ukraine");
+
+		String enElement = countryDaoImpl
+				.findCountryCodeByCountryName("England");
+
+		String[] actuals = new String[] { uaElement, enElement };
+
+		assertArrayEquals(expecteds, actuals);
+	}
+
+	@Test
+	public void findCountryNameListByWhiteList() throws DBException {
+
+		String[] expecteds = new String[] { "England", "Russian Federation",
+				"Ukraine" };
+
+		List<String> tempActuals = countryDaoImpl
+				.findCountryNameListByStatus(true);
+
+		String[] actuals = new String[tempActuals.size()];
+
+		actuals = tempActuals.toArray(actuals);
+
+		assertArrayEquals(expecteds, actuals);
+	}
+
+	@Test
+	public void findCountryNameListByBlackList() throws DBException {
+
+		String[] expecteds = new String[] { "England", "Ukraine" };
+
+		List<String> tempActuals = countryDaoImpl
+				.findCountryNameListByStatus(false);
+
+		String[] actuals = new String[tempActuals.size()];
+
+		actuals = tempActuals.toArray(actuals);
+
+		assertArrayEquals(expecteds, actuals);
 	}
 
 }
