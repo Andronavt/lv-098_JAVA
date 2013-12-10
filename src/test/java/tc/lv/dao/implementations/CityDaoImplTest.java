@@ -61,10 +61,9 @@ public class CityDaoImplTest {
 		cityDaoImpl.creatCityMap();
 		Country country = new Country("Ukraine", "UA");
 		City city = new City("Kyiv", country);
-		boolean condition = cityDaoImpl.isCityExists(city);			
-		assertTrue("Not found",condition);
+		boolean condition = cityDaoImpl.isCityExists(city);
+		assertTrue("Not found", condition);
 	}
-		
 
 	@Test
 	public void findCityNameListByStatusForWhiteList() throws DBException {

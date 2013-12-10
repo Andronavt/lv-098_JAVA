@@ -46,8 +46,8 @@
 			<input class="input-large" id="IP" type="text" name="addIp" size="20"
 				maxlength="50"> <b><spring:message code="label.typeList"/></b> <b><select
 				id="list" name="typeList" size="1">
-					<option><spring:message code="label.whiteIpList"/></option>
-					<option><spring:message code="label.blackIpList"/></option>
+					<option value="whiteList"><spring:message code="label.whiteIpList"/></option>
+					<option value="blackList"><spring:message code="label.blackIpList"/></option>
 			</select></b>
 		</div>
 	</form>

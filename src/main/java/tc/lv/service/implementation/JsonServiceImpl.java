@@ -19,6 +19,7 @@ public class JsonServiceImpl implements JsonService {
 
     @Autowired
     IpAddressDao ipAddressDao;
+
     @Autowired
     CountryDao countryDao;
 
@@ -30,7 +31,7 @@ public class JsonServiceImpl implements JsonService {
         try {
             LOGGER.info("Start creating JSON-file for " + (status ? "White" : "Black") + "Map.");
 
-            for (String code : countryDao.findCountryCodeListByStatus(status, ipType)) {
+            for (String code : countryDao.findCountryCodeListByStatus(status)) {
                 long l = ipAddressDao.countStatusIpByCountryCode(status, code, ipType);
                 json.put(code, l);
             }

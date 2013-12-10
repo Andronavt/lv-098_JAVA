@@ -44,10 +44,9 @@ public class LocationServiceImpl implements LocationService {
     public Integer countStatusIpByCountryName(String countryName,
 	    String ipType, String status) throws LocationServiceException {
 	try {
-	    return ipAddressDao.countStatusIpByCountryName(
+	    return ipAddressDao.countStatusIpByCountryCode(
 		    IpVersionUtil.isWhiteIpAddress(status),
-		    countryDao.findCountryCodeByCountryName(countryName,
-			    IpVersionUtil.ipVersion(ipType)),
+		    countryDao.findCountryCodeByCountryName(countryName),
 		    IpVersionUtil.ipVersion(ipType)).intValue();
 	} catch (Exception e) {
 	    throw new LocationServiceException("Could not load location list.",
@@ -57,7 +56,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     @Transactional
-    public List<String> findCityListByStatus(String ipType, String status)
+    public List<String> findCityListByStatus(String status)
 	    throws LocationServiceException {
 	try {
 	    return cityDao.findCityNameListByStatus(IpVersionUtil
@@ -71,12 +70,11 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     @Transactional
-    public List<String> findCountryListByStatus(String ipType, String status)
+    public List<String> findCountryListByStatus(String status)
 	    throws LocationServiceException {
 	try {
-	    return countryDao.findCountryNameListByStatus(
-		    IpVersionUtil.isWhiteIpAddress(status),
-		    IpVersionUtil.ipVersion(ipType));
+	    return countryDao.findCountryNameListByStatus(IpVersionUtil
+		    .isWhiteIpAddress(status));
 	} catch (Exception e) {
 	    throw new LocationServiceException("Could not load location list.",
 		    e);
@@ -92,11 +90,11 @@ public class LocationServiceImpl implements LocationService {
 	    List<IpAddress> resultList = ipAddressDao.findStatusListByCity(
 		    IpVersionUtil.isWhiteIpAddress(status), from, count,
 		    cityName, IpVersionUtil.ipVersion(ipType));
-	    if (resultList != null){
-		 return resultList;
+	    if (resultList != null) {
+		return resultList;
 	    }
 	    return resultList = new ArrayList<IpAddress>();
-	       
+
 	} catch (Exception e) {
 	    throw new LocationServiceException("Could not load location list.",
 		    e);

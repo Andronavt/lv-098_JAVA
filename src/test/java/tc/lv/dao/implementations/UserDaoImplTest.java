@@ -62,7 +62,7 @@ public class UserDaoImplTest {
 		String actuals = userDao.findRoleByName("ROLE_ADMIN").getRole();
 		assertEquals(expected, actuals);
 	}
-	
+
 	@Test
 	public void findUserByRoleUser() {
 		role = new Role();
@@ -80,5 +80,4 @@ public class UserDaoImplTest {
 		User actuals = userDao.findByName("newTest");
 		assertEquals(expected, actuals);
 	}
-
 }

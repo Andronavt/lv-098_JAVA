@@ -7,7 +7,7 @@
 		<param name="file" value="Junit log/junit.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d %-5p [ %-35F : %-3L : %-20M ] - %m%n" />
+			<param name="ConversionPattern" value="%d %-5p [ %F : %L : %M ] - %m%n" />
 		</layout>
 	</appender>
 

@@ -6,7 +6,7 @@ import tc.lv.domain.IpV6Address;
 
 public class IpVersionUtil {
 
-    private static final String WHITE_LIST = "White list"; // "whiteList"
+    private static final String WHITE_LIST = "whiteList"; // "whiteList"
 
     public static boolean checkWhiteList(IpAddress ipAddress) {
         return ipAddress.getStatus();
