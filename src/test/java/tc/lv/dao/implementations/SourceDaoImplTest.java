@@ -71,6 +71,13 @@ public class SourceDaoImplTest {
 	}
 
 	@Test
+	public void findSourceById() {
+		Source expected = sourceDaoImpl.findByName("OpenBSD traplist");
+		Source actual = sourceDaoImpl.findByID(1);
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	public void findAllSource() {
 		expected = new Source[] {
 				new Source("tc.lv.utils.ParserOpenBSD", "OpenBSD traplist",
@@ -85,6 +92,7 @@ public class SourceDaoImplTest {
 						"Chaosreigns Whitelist",
 						"http://www.chaosreigns.com/iprep/iprep.txt",
 						"whitelist", 0.1) };
+
 		List<Source> tempActual = sourceDaoImpl.findAll();
 		Source[] actuals = new Source[tempActual.size()];
 		actuals = tempActual.toArray(actuals);
