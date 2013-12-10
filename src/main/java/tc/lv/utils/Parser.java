@@ -1,10 +1,8 @@
 package tc.lv.utils;
 
 import java.io.File;
-
-import tc.lv.exceptions.DownloadException;
+import java.util.List;
 
 public interface Parser {
-
-    public ParserResults parse(File file) throws DownloadException;
+	public List<String> parse(File file);
 }

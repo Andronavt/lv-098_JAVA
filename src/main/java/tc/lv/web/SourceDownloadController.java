@@ -76,8 +76,8 @@ public class SourceDownloadController {
 	    List<Source> sourceList = sourceDownloaderService.loadSourceList();
 
 	    // Creating Mapping with sources and parsers
-	    Map<Source, Parser> parserMap = sourceDownloaderService
-		    .createParserMap(sourceList);
+	   // Map<Source, Parser> parserMap = sourceDownloaderService
+		//    .createParserMap(sourceList);
 
 	    // Creating Ip Map fro DB
 	    ipAddressService.createAllMaps();
@@ -89,7 +89,7 @@ public class SourceDownloadController {
 
 		// downloading and parsering files from sources
 		ParserResults parserResult = sourceDownloaderService
-			.downloadParseAndUpdateData(sourceName, parserMap);
+			.downloadParseAndUpdateData(sourceName);
 		// saving to data base
 		parserResultService.save(parserResult);
 

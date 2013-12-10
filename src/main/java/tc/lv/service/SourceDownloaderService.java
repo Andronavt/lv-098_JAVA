@@ -12,9 +12,9 @@ public interface SourceDownloaderService {
 
     public List<Source> loadSourceList() throws SourceDownloaderServiceException;
 
-    public Map<Source, Parser> createParserMap(List<Source> sourceList) throws SourceDownloaderServiceException;
+    //public Map<Source, Parser> createParserMap(List<Source> sourceList) throws SourceDownloaderServiceException;
 
-    public ParserResults downloadParseAndUpdateData(String sourceName, Map<Source, Parser> parserMap)
+    public ParserResults downloadParseAndUpdateData(String sourceName)
             throws SourceDownloaderServiceException;
 
     // public void updateStatusList() throws SourceDownloaderServiceException;

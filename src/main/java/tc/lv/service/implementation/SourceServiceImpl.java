@@ -30,7 +30,7 @@ public class SourceServiceImpl implements SourceService {
             throws SourceServiseException {
         try {
             if (sourceDao.findByName(sourceName) == null) {
-                Source tempSource = new Source(parser, sourceName, url, listType, rank);
+                Source tempSource = new Source(sourceName, url, listType, rank);
                 sourceDao.save(tempSource);
                 return true;
             }
