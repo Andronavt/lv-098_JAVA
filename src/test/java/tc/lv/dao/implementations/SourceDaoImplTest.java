@@ -31,7 +31,7 @@ public class SourceDaoImplTest {
 
 	@Before
 	public void dataSetup() {
-		source = new Source("test", "testSource", "http://www.local.com",
+		source = new Source("testSource", "http://www.local.com",
 				"blacklist", 0.5);
 	}
 
@@ -53,7 +53,7 @@ public class SourceDaoImplTest {
 
 	@Test
 	public void updateSource() {
-		newSource = new Source("test", "testNewSource", "http://www.local.com",
+		newSource = new Source("testNewSource", "http://www.local.com",
 				"blacklist", 0.5);
 		sourceDaoImpl.save(source);
 		sourceDaoImpl.update(newSource);
@@ -80,15 +80,14 @@ public class SourceDaoImplTest {
 	@Test
 	public void findAllSource() {
 		expected = new Source[] {
-				new Source("tc.lv.utils.ParserOpenBSD", "OpenBSD traplist",
+				new Source("OpenBSD traplist",
 						"http://www.openbsd.org/spamd/traplist.gz",
 						"blacklist", 0.7),
 				new Source(
-						"tc.lv.utils.ParserUceprotect",
 						"Nixspam list",
 						"http://www.dnsbl.manitu.net/download/nixspam-ip.dump.gz",
 						"blacklist", 0.6),
-				new Source("tc.lv.utils.ParserChaosreignsWL",
+				new Source(
 						"Chaosreigns Whitelist",
 						"http://www.chaosreigns.com/iprep/iprep.txt",
 						"whitelist", 0.1) };
